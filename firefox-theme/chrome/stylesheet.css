@@ -29,11 +29,139 @@
     }
 }
 
+/* browser interface */
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    :root {
+        /* Popup panels (accordeon menu on the right, etc) */
+        --arrowpanel-background: var(--background-color) !important;
+        --arrowpanel-border-color: var(--background-color) !important;
+        --arrowpanel-color: var(--foreground-color) !important;
+        --arrowpanel-dimmed: var(--background-color) !important;
+        --panel-separator-color: var(--accent-color) !important;
+        --panel-disabled-color: var(--accent-color-2) !important;
+        --panel-description-color: var(--accent-color-2) !important;
+        /* window and toolbar background */
+        --lwt-accent-color: var(--accent-color) !important;
+        --lwt-accent-color-inactive: var(--background-color) !important;
+        --lwt-text-color: var(--foreground-color) !important;
+        --lwt-toolbar-vertical-separator: var(--accent-color) !important;
+        --toolbar-bgcolor: var(--background-color) !important;
+        --toolbar-color: var(--foreground-color) !important;
+        /* toolbar buttons */
+        --lwt-toolbarbutton-icon-fill: var(--accent-color) !important;
+        --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+        --lwt-toolbarbutton-hover-background: var(--accent-color) !important;
+        --lwt-toolbarbutton-active-background: var(--accent-color) !important;
+        /* urlbar */
+        --lwt-toolbar-field-background-color: var(--background-color) !important;
+        --lwt-toolbar-field-focus: var(--background-color) !important;
+        --lwt-toolbar-field-border-color: var(--background-color) !important;
+        --lwt-toolbar-field-highlight: var(--accent-color) !important;
+        --lwt-toolbar-field-highlight-text: var(--foreground-color) !important;
+        --lwt-toolbar-field-color: var(--foreground-color) !important;
+        --lwt-toolbar-field-focus-color: var(--foreground-color) !important;
+        --toolbar-field-focus-border-color: var(--background-color) !important;
+        --urlbar-popup-url-color: var(--accent-color) !important;
+        /* inner urlbar separator on the left */
+        --urlbar-separator-color: var(--background-color) !important;
+        /* bottom navigation bar border */
+        --chrome-content-separator-color: var(--background-color) !important;
+        /* sidebar */
+        --lwt-sidebar-background-color: var(--background-color) !important;
+        --lwt-sidebar-text-color: var(--foreground-color) !important;
+        --sidebar-background-color: var(--background-color) !important;
+        --sidebar-border-color: var(--background-color) !important;
+        /* autocomplete */
+        --autocomplete-popup-background: var(--background-color) !important;
+        --autocomplete-popup-color: var(--foreground-color) !important;
+        --autocomplete-popup-highlight-background: var(--accent-color) !important;
+        --autocomplete-popup-highlight-color: var(--foreground-color) !important;
+        /* useless tab variables */
+        --lwt-tab-text: var(--foreground-color) !important;
+        --lwt-background-tab-separator-color: var(--background-color) !important;
+        --tab-line-color: var(--background-color) !important;
+    }
+    /* hidden titlebar, toolbar, sidebar header and splitter, and some toolbar buttons */
+    #titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+        visibility: collapse !important;
+    }
+    /* it moves browser window to the top and url bar to the bottom */
+    #browser {
+        -moz-box-ordinal-group: 0 !important;
+        padding-top: 8px;
+    }
+    /* navigation bar border color */
+    #nav-bar {
+        border-top: 1px solid var(--accent-color) !important;
+    }
+    /* url bar results are shown in the bottom of the screen */
+    #urlbar[open]>.urlbarView {
+        transform: translateY(-100%) !important;
+        margin-block-start: -28px !important;
+    }
+    /* navigation bar items */
+    #nav-bar image {
+        fill: var(--accent-color) !important;
+        fill-opacity: 1 !important;
+        opacity: 1 !important;
+    }
+    toolbarbutton:hover, #PanelUI-menu-button:hover image, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
+        background-color: var(--accent-color) !important;
+        border-radius: 2px !important;
+        fill: var(--foreground-color) !important;
+    }
+    /* transfroms animatable-image into a usual image to make it react to the fill property */
+    #tracking-protection-icon-animatable-image {
+        background-image: url(chrome://browser/skin/tracking-protection.svg) !important;
+    }
+    /* url bar results */
+    .urlbarView-row {
+        background-color: var(--background-color) !important;
+        fill: var(--accent-color) !important;
+        fill-opacity: 1 !important;
+    }
+    .urlbarView-row:hover>* {
+        background-color: var(--accent-color) !important;
+    }
+    .urlbarView-row:hover img, .urlbarView-row[selected] img {
+        fill: var(--foreground-color) !important;
+    }
+    /* url bar container and url bar */
+    #urlbar-container, #urlbar {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important
+    }
+    /* url bar elements */
+    #identity-box image, #tracking-protection-icon-container image {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    /* makes sidebar responsive. If min-width is used then it does not move content when opened */
+    #sidebar {
+        border-right: 1px solid var(--accent-color) !important;
+    }
+    #sidebar-box, #sidebar {
+        position: relative !important;
+        z-index: 1 !important;
+        min-width: 200px !important;
+    }
+    #sidebar-box:hover>#sidebar, #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
+        min-width: 600px !important;
+    }
+    /* url indicator in the bottom left corner */
+    #statuspanel-label {
+        background-color: var(--background-color) !important;
+        border: none !important;
+    }
+}
+
 /* white flash on loading tabs fix and background in general */
 
 @-moz-document regexp("^(about:(?!blank)|chrome:|file:|moz-extension:).*") {
     /* if html in about:blank is not transparent then the selector in devtools breaks */
-    html, body {
+    html, body, window {
         background: var(--background-color) !important;
     }
     /* white flash on loading tabs fix */
@@ -44,8 +172,8 @@
 
 /* prompts, context menus, autocomplete popups, etc */
 
-@-moz-document regexp(".*") {
-    menupopup, [role="dialog"]>*, select, panel-list, ul[role="menu"], #PopupAutoComplete {
+@-moz-document regexp("^(about:(?!blank)|chrome:|file:|moz-extension:).*") {
+    menupopup, [role="dialog"]>*, select, panel-list, ul[role="menu"], #PopupAutoComplete, .dialogBox, .dialogFrame {
         -moz-appearance: none !important;
         padding: 5px 1px 5px 1px !important;
         background-color: var(--background-color) !important;
@@ -289,7 +417,7 @@
         --in-content-page-color: var(--foreground-color) !important;
         --in-content-page-background: var(--background-color) !important;
         --in-content-text-color: var(--foreground-color) !important;
-        --in-content-deemphasized-text: var(--accent-color-2) !important;
+        --in-content-deemphasized-text: var(--accent-color-3) !important;
         --in-content-selected-text: var(--foreground-color) !important;
         --in-content-box-background: var(--background-color) !important;
         --in-content-box-background-odd: var(--accent-color-2) !important;
@@ -378,7 +506,11 @@
     /* about:debugging cards */
     .card {
         background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color-2) !important;
+        border: 1px solid var(--accent-color) !important;
+    }
+    /* about:home options button */
+    .prefs-button {
+        visibility: collapse !important;
     }
 }
 
@@ -395,24 +527,11 @@
         --tabs-border: none;
         --tabs-height: 1rem !important;
     }
-    /* tabs' container */
-    .container>div {
-        display: flex !important;
-        flex-flow: column nowrap !important;
-        justify-content: center !important;
-        height: 100vh !important;
-        padding-bottom: 3px !important;
-    }
-    .container>div>.Tab:first-of-type {
-        box-shadow: 0 calc(var(--tabs-height) * -1) 0 0 var(--accent-color-2) !important;
-    }
-    .container>div>.Tab:last-of-type {
-        box-shadow: 0 calc(var(--tabs-height)) 0 0 var(--accent-color-2) !important;
-    }
     /* tab icon */
     .fav {
         background-color: var(--accent-color) !important;
         border-radius: 100% !important;
+        margin: 0 1px 0 0 !important;
     }
     /* icon and title do not darken when hovered */
     .Tab:hover .fav, .Tab:hover .title {
@@ -425,7 +544,7 @@
 
 @-moz-document domain("reddit.com") {
     /* header and popups */
-    header>*, ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT {
+    header>*, ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT, ._3U_7i38RDPV5eBv7m4M-9J {
         visibility: collapse !important;
     }
     header:hover>* {
@@ -437,6 +556,15 @@
     /* feed container */
     ._1OVBBWLtHoSPfGCRaPzpTf {
         min-width: 80% !important;
+    }
+}
+
+/* chatterbox adjustments  */
+
+@-moz-document domain("yandex-team.ru") {
+    /* that backgroun is black for some reason */
+    .App {
+        background-color: white !important;
     }
 }
 
