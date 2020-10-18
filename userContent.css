@@ -1,0 +1,32 @@
+@-moz-document url-prefix(about:blank), url-prefix(about:newtab) {
+	html:not(#ublock0-epicker), html:not(#ublock0-epicker) body, #newtab-customize-overlay {
+		background: #000000 !important;
+	}
+}
+
+
+
+@-moz-document url(about:newtab), url(about:home) {
+	body {
+		background-color: #000000 !important;
+		color:#D1D1D1!important;
+	}
+}
+
+@moz-document url(moz-extension://d3079aab-b8e2-44a0-94bf-c39927da1bda/sidebar/index.html) {
+	.Tab[data-active] > .lvl-wrapper > .fav * {
+    		visibility: hidden;
+}
+
+	.Tab[data-active] > .lvl-wrapper > .fav {
+    		outline: 6px dotted purple;
+   		 background-color: purple;
+} 
+}
+
+@-moz-document url(about:blank){ 
+	#root { 
+  	background-color: black !important;
+	}
+}
+

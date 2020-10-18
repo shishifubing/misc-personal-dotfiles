@@ -1,0 +1,21 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "Default High Contrast",
+    "workbench.colorCustomizations": {
+        "contrastBorder": "#800080",
+        "editor.selectionHighlightBorder": "#800080",
+        "focusBorder": "#800080",
+        "editor.lineHighlightBorder": "#800080"
+    },
+    "editor.fontSize": 30,
+    "editor.detectIndentation": false,
+    "editor.formatOnPaste": true,
+    "vim.overrideCopy": false,
+}
