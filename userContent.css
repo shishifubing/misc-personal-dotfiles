@@ -26,7 +26,7 @@
 
 @-moz-document url(about:blank){ 
 	#root { 
-  	background-color: black !important;
+  	background-color: black;
 	}
 }
 
