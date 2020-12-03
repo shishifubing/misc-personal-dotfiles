@@ -24,6 +24,11 @@
 	border-right: 1px solid #c50ed2;
 }
 
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"] > #sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar
+{
+	min-width: var(--sidebar-hover-width) !important;
+}
+
 
 #sidebar-box:hover > #sidebar
 { 

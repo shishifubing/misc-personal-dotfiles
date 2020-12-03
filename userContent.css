@@ -1,0 +1,44 @@
+@-moz-document url("about:home"),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
+    body {
+        background-color: black !important;
+    }
+    button {
+        visibility: collapse !important;
+    }
+}
+
+@moz-document url-prefix("moz-extension://e6826e0f-218b-4ecf-a5fc-45596a3ec9a9/sidebar/index.html") {
+    .Tab[data-active] {
+        border: 1px solid #c50ed2;
+        border-right: none;
+    }
+}
+
+@moz-document url("https://addons.mozilla.org") {
+    .Page-content {
+        background: black !important;
+    }
+}
+
+@-moz-document url-prefix("https://addons.mozilla.org/"){
+  html|*{ color: inherit !important; }
+  html|html,html|body{
+    background-color: rgb(46,54,69) !important;
+    color: rgb(210,210,210) !important;
+  }
+  html|div.addon,html|div.Notice{ background-color: rgba(255,255,255,0.1) !important; }
+}
+
+:root {
+    --in-content-page-background: black !important;
+    --in-content-box-background: black !important;
+    --in-content-border-color: rgba(249,249,250,0.7) !important;
+    --in-content-box-border-color: rgba(249,249,250,0.7) !important;
+    --in-content-border-active: #c50ed2 !important;
+}
+
+::-moz-selection, ::selection {
+    color: white !important;
+    background: #c50ed2 !important;
+}
+
