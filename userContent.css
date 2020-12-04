@@ -14,21 +14,6 @@
     }
 }
 
-@moz-document url("https://addons.mozilla.org") {
-    .Page-content {
-        background: black !important;
-    }
-}
-
-@-moz-document url-prefix("https://addons.mozilla.org/"){
-  html|*{ color: inherit !important; }
-  html|html,html|body{
-    background-color: rgb(46,54,69) !important;
-    color: rgb(210,210,210) !important;
-  }
-  html|div.addon,html|div.Notice{ background-color: rgba(255,255,255,0.1) !important; }
-}
-
 :root {
     --in-content-page-background: black !important;
     --in-content-box-background: black !important;
