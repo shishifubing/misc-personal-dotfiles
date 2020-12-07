@@ -1,4 +1,5 @@
 {
+    "telemetry.enableTelemetry": false,
     "window.menuBarVisibility": "toggle",
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
