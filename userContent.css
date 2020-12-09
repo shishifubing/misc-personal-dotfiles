@@ -7,12 +7,6 @@
     }
 }
 
-@moz-document url-prefix("moz-extension://e6826e0f-218b-4ecf-a5fc-45596a3ec9a9/sidebar/index.html") {
-    .Tab[data-active] {
-        border: 1px solid #c50ed2;
-        border-right: none;
-    }
-}
 
 :root {
     --in-content-page-background: black !important;
