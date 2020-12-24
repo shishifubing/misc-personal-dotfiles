@@ -11,8 +11,8 @@
 :root {
     --in-content-page-background: black !important;
     --in-content-box-background: black !important;
-    --in-content-border-color: white !important;
-    --in-content-box-border-color: white !important;
+    --in-content-border-color: #c50ed2 !important;
+    --in-content-box-border-color: #c50ed2 !important;
     --in-content-border-active: #c50ed2 !important;
 }
 
