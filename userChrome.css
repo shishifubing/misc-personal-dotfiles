@@ -1,6 +1,10 @@
 :root {
 	--sidebar-width: 32px;
-	--sidebar-hover-width: 300px;
+    --sidebar-hover-width: 300px;
+    scrollbar-face-color: #c50ed2 !important; 
+    scrollbar-color: #c50ed2 black !important;
+    scrollbar-width: thin !important; 
+    scrollbar-track-color: black !important;
 }
 
 #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button { 
@@ -121,41 +125,3 @@ tooltip {
 	transform: none !important;
 }
 
-scrollbar, scrollbar *, scrollcorner {
-	-moz-appearance: none !important;
-	--scrollbar-width: 10px;
-    --scrollbar-height: var(--scrollbar-width);
-}
-
-scrollbar, scrollcorner  {
-    background: transparent !important;
-}
-scrollbar[orient="vertical"] {
-    width: var(--scrollbar-width) !important;
-    min-width: var(--scrollbar-width) !important;
-}
-scrollbar[orient="horizontal"] {
-    height: var(--scrollbar-height) !important;
-    min-height: var(--scrollbar-height) !important;
-}
-
-scrollbar thumb {
-	background: black !important;
-}
-scrollbar thumb:hover,
-scrollbar thumb:active {
-	background: #c50ed2 !important;
-}
-
-scrollbar:inactive scrollbarbutton {
-    background-color: black !important;
-}
-scrollbar scrollbarbutton:inactive {
-    background: black !important;
-}
-scrollbar scrollbarbutton:inactive {
-    background: black !important;
-}
-scrollbar scrollbarbutton {
-    display: none !important;
-}
