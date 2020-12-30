@@ -1,0 +1,17 @@
+.Tab[data-active] {
+    border-top: 1px solid #c50ed2;
+    border-bottom: 1px solid #c50ed2;
+}
+
+.fav * {
+    border: 1px dotted #c50ed2;
+    background-color: #c50ed2;
+    border-radius: 16px;
+    fill: white;
+}
+
+.Tab:hover .fav, .Tab:hover .title{
+    opacity: 1 !important;
+    color: white;
+}
+

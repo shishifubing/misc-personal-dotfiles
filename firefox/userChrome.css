@@ -7,12 +7,29 @@
     scrollbar-track-color: black !important;
 }
 
-#TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button { 
-	visibility: collapse; 
+html {
+    border-left: 1px solid #c50ed2 !important;
+}
+
+#navigator-toolbox {
+    border-right: 1px solid #c50ed2 !important;
+}
+#browser {
+    border-bottom: 1px solid #c50ed2 !important;
+    border-right: 1px solid #c50ed2 !important;
 }
 
 #nav-bar {
-	margin-top: -22px !important;
+    margin-top: -22px !important;
+    border-right: 1px solid #c50ed2;
+}
+
+#appcontent {
+    border-right: 1px solid #c50ed2;
+}
+
+#TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button { 
+	visibility: collapse; 
 }
 
 #sidebar-box {
