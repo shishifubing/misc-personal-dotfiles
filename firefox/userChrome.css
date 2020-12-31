@@ -12,19 +12,18 @@ html {
 }
 
 #navigator-toolbox {
-    border-right: 1px solid #c50ed2 !important;
+    margin-top: 8px;
 }
 #browser {
     border-bottom: 1px solid #c50ed2 !important;
     border-right: 1px solid #c50ed2 !important;
 }
 
-#nav-bar {
-    margin-top: -22px !important;
-    border-right: 1px solid #c50ed2;
+#titlebar {
+    visibility: collapse;
 }
 
-#appcontent {
+#nav-bar, #appcontent {
     border-right: 1px solid #c50ed2;
 }
 
