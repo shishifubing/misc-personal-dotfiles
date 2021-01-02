@@ -1,6 +1,7 @@
 .Tab[data-active] {
     border-top: 1px solid #c50ed2;
     border-bottom: 1px solid #c50ed2;
+    background-color: #c50ed2;
 }
 
 .fav * {
@@ -14,4 +15,3 @@
     opacity: 1 !important;
     color: white;
 }
-
