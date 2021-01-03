@@ -15,7 +15,7 @@
         "focusBorder": "#c50ed2",
         "editor.lineHighlightBorder": "#c50ed2"
     },
-    "editor.fontSize": 30,
+    "editor.fontSize": 29,
     "editor.detectIndentation": false,
     "editor.formatOnPaste": true
 }
