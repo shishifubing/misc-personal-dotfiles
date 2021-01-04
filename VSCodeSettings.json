@@ -1,7 +1,7 @@
 {
     "telemetry.enableTelemetry": false,
     "window.menuBarVisibility": "toggle",
-    "window.titleBarStyle": "custom",
+    "window.titleBarStyle": "native",
     "window.openFilesInNewWindow": "on",
     "window.dialogStyle": "custom",
     "editor.tabSize": 4,
@@ -26,8 +26,8 @@
         "editor.lineHighlightBorder": "#9932cc",
         "editor.selectionBackground": "#9932cc",
         "editor.selectionForeground": "#ffffff",
-        "editorCursor.background": "#9932cc",
-        "editorCursor.foreground": "#9932cc",
+        "editorCursor.background": "#ffffff",
+        "editorCursor.foreground": "#ffffff",
         "terminalCursor.foreground": "#9932cc",
         "terminalCursor.background": "#ffffff",
         "terminal.selectionBackground": "#9932cc"
@@ -75,4 +75,5 @@
     "editor.cursorSmoothCaretAnimation": false,
     "editor.cursorStyle": "line-thin",
     "editor.cursorBlinking": "solid",
+    "workbench.startupEditor": "newUntitledFile",
 }
