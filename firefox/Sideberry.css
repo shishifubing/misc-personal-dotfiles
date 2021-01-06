@@ -5,7 +5,7 @@
 }
 
 .fav * {
-    border: 1px dotted #c50ed2;
+    border: 1px solid #c50ed2;
     background-color: #c50ed2;
     border-radius: 16px;
     fill: white;
