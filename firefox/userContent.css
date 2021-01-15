@@ -1,4 +1,4 @@
-@-moz-document url("about:home"), url("about:blank"), url("about:newtab"), url("about:privatebrowsing") {
+@-moz-document url("about:home"),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
     body {
         background-color: black !important;
     }
@@ -7,6 +7,13 @@
     }
 }
 
+@-moz-document url-prefix("chrome://browser/content/places/bookmarksSidebar.xhtml") {
+    html {
+        appearance: none;
+        background-color: black;
+        color: white;
+    }
+}
 
 :root {
     --in-content-page-background: black !important;
