@@ -7,14 +7,6 @@
     }
 }
 
-@-moz-document url-prefix("chrome://browser/content/places/bookmarksSidebar.xhtml") {
-    html {
-        appearance: none;
-        background-color: black;
-        color: white;
-    }
-}
-
 :root {
     --in-content-page-background: black !important;
     --in-content-box-background: black !important;
