@@ -17,5 +17,6 @@
     },
     "editor.fontSize": 30,
     "editor.detectIndentation": false,
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
+    "git.autofetch": true
 }
