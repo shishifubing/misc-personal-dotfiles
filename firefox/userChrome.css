@@ -1,0 +1,145 @@
+:root {
+	--sidebar-width: 32px;
+    --sidebar-hover-width: 300px;
+}
+
+html {
+    border-left: 1px solid #c50ed2 !important;
+}
+
+#navigator-toolbox {
+    margin-top: 8px;
+}
+#browser {
+    border-bottom: 1px solid #c50ed2 !important;
+    border-right: 1px solid #c50ed2 !important;
+}
+
+#titlebar {
+    visibility: collapse;
+}
+
+#nav-bar, #appcontent {
+    border-right: 1px solid #c50ed2;
+}
+
+#TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button { 
+	visibility: collapse; 
+}
+
+#sidebar-box {
+	position: relative;
+	z-index: 1;
+	min-width: var(--sidebar-width);
+	max-width: var(--sidebar-width);
+}
+
+#sidebar {
+	min-width: var(--sidebar-width) !important;
+	max-width: var(--sidebar-width);
+	border-right: 1px solid #c50ed2;
+}
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"] > #sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar {
+	min-width: var(--sidebar-hover-width) !important;
+}
+
+#sidebar-box:hover > #sidebar { 
+	min-width: var(--sidebar-hover-width) !important;
+}
+
+.sidebar-panel {
+  appearance: none !important;
+  background-color: black !important;
+  color: white !important;
+}
+
+menupopup {
+    -moz-appearance: none !important;
+    background-color: black !important;
+    border: 1px #c50ed2 solid !important;    
+}
+          
+menuseparator {
+    -moz-appearance: none !important;
+    border: none !important;
+    background-color: black !important;
+}
+      
+menuitem, menu {
+    -moz-appearance: none !important;
+    color: white !important;
+}
+    
+menuitem[disabled="true"], menuitem[disabled="true"] > .menu-text {
+    color: gray !important;
+}
+      
+menuitem:hover, menu:hover, menu[open="true"], menuitem[_moz-menuactive="true"]	 {
+    -moz-appearance: none !important;
+ 	background-color: #c50ed2 !important;
+ }
+      
+menugroup {      
+	background-color: transparent !important;
+}
+      
+menuitem > .menu-text, menuitem > .menu-iconic-text {
+	color: white !important;
+}
+      
+     
+menuitem[checked="true"][type="checkbox"] > .menu-iconic-left {
+	border: solid #c50ed2;
+	transform: rotate(-45deg) scale(.75);
+}
+      
+menuitem[checked="true"][type="radio"] > .menu-iconic-left {
+	border: solid #c50ed2;
+	border-radius: 100%;
+	background: black;
+	transform: scale(.5); 
+}
+     
+menucaption {
+	background-color: transparent !important;
+	color: white !important;
+}
+#ContentSelectDropdown > menupopup {
+	background-image: none !important;
+}
+menulist {
+	-moz-appearance: none !important;
+	border: 2px solid #c50ed2 !important;
+	background-color: transparent !important;
+}
+menulist:hover {
+	border: 2px solid #c50ed2 !important;
+	background-color: transparent !important;
+}
+menulist[open="true"]  {
+	border: 2px solid #c50ed2 !important;
+	background-color: #c50ed2 !important;
+}
+.menu-iconic-left {
+	-moz-appearance: none !important;
+}
+.menu-right {
+	-moz-appearance: none !important;
+	color: white !important;
+	border: solid #c50ed2;
+	transform: rotate(-45deg) scale(.55);
+}
+tooltip {
+	-moz-appearance: none !important;
+	color: white !important;
+	background-color: #000000 !important;
+	border: 1px solid #c50ed2 !important;
+}
+#bookmarks-menu-button .menu-right {
+	-moz-appearance: unset !important;
+	border-width: unset !important;
+	border: unset !important;
+	transform: none !important;
+}
+

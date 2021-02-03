@@ -8,6 +8,17 @@
 }
 
 
+@-moz-document url("https://www.reddit.com/") {
+    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER{
+        display: none !important;
+        visibility: collapse !important;   
+    }
+    ._1OVBBWLtHoSPfGCRaPzpTf._3nSp9cdBpqL13CqjdMr2L_ {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
 :root {
     --in-content-page-background: black !important;
     --in-content-box-background: black !important;
