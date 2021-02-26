@@ -1,4 +1,19 @@
-@-moz-document url("about:home"),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"){
+:root {
+    --in-content-page-background: black !important;
+    --in-content-box-background: black !important;
+    --in-content-border-color: rgba(249, 249, 250, 0.7) !important;
+    --in-content-box-border-color: rgba(249, 249, 250, 0.7) !important;
+    --in-content-border-active: #c50ed2 !important;
+    scrollbar-color: #c50ed2 #c50ed200 !important;
+    scrollbar-width: thin !important;
+}
+
+::-moz-selection, ::selection {
+    color: white !important;
+    background: #c50ed2 !important;
+}
+
+@-moz-document url("about:home"), url("about:blank"), url("about:newtab"), url("about:privatebrowsing") {
     body {
         background-color: black !important;
     }
@@ -7,28 +22,13 @@
     }
 }
 
-
 @-moz-document url("https://www.reddit.com/") {
-    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER{
+    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER {
         display: none !important;
-        visibility: collapse !important;   
+        visibility: collapse !important;
     }
     ._1OVBBWLtHoSPfGCRaPzpTf._3nSp9cdBpqL13CqjdMr2L_ {
         width: 100% !important;
         max-width: 100% !important;
     }
 }
-
-:root {
-    --in-content-page-background: black !important;
-    --in-content-box-background: black !important;
-    --in-content-border-color: rgba(249,249,250,0.7) !important;
-    --in-content-box-border-color: rgba(249,249,250,0.7) !important;
-    --in-content-border-active: #c50ed2 !important;
-}
-
-::-moz-selection, ::selection {
-    color: white !important;
-    background: #c50ed2 !important;
-}
-

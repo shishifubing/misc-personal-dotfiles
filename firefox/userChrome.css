@@ -5,15 +5,15 @@
     --background-color: #000000;
 }
 
-#navigator-toolbox {
-    margin-top: 8px;
+#nav-bar {
+    margin-top: -25px;
 }
 
-#titlebar {
-    visibility: collapse;
+#navigator-toolbox:hover>#nav-bar, #nav-bar:focus-within {
+    margin-top: 9px;
 }
 
-#TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button {
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button {
     visibility: collapse;
 }
 
