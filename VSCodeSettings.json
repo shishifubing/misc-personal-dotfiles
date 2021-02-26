@@ -1,0 +1,21 @@
+{
+    "telemetry.enableTelemetry": false,
+    "window.menuBarVisibility": "toggle",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "Default High Contrast",
+    "workbench.colorCustomizations": {
+        "contrastBorder": "#c50ed2",
+        "editor.selectionHighlightBorder": "#c50ed2",
+        "focusBorder": "#c50ed2",
+        "editor.lineHighlightBorder": "#c50ed2"
+    },
+    "editor.fontSize": 29,
+    "editor.detectIndentation": false,
+    "editor.formatOnPaste": true,
+}
