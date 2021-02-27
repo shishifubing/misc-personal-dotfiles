@@ -60,6 +60,12 @@
     }
 }
 
+@-moz-document url("about:home"), url("about:blank"), url("about:newtab"), url("about:privatebrowsing") {
+    body {
+        background-color: black !important;
+    }
+}
+
 @-moz-document url("https://www.reddit.com/") {
     ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER {
         display: none !important;

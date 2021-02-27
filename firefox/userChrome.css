@@ -1,20 +1,21 @@
 :root {
-    --sidebar-width: 32px;
+    --sidebar-width: 6px;
     --sidebar-hover-width: 300px;
     --accent-color: #c50ed2;
     --background-color: #000000;
 }
 
 #nav-bar {
-    margin-top: -25px;
+    margin-top: -24px;
+}
+
+#navigator-toolbox {
+    border-bottom: none !important;
 }
 
 #navigator-toolbox:hover>#nav-bar, #nav-bar:focus-within {
     margin-top: 9px;
-}
-
-#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button {
-    visibility: collapse;
+    border-bottom: 1px solid var(--accent-color);
 }
 
 #sidebar-box {
@@ -27,14 +28,9 @@
 #sidebar {
     min-width: var(--sidebar-width) !important;
     max-width: var(--sidebar-width);
-    border-right: 1px solid var(--accent-color);
 }
 
-#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
-    min-width: var(--sidebar-hover-width) !important;
-}
-
-#sidebar-box:hover>#sidebar {
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
     min-width: var(--sidebar-hover-width) !important;
 }
 
@@ -43,6 +39,12 @@
     background-color: var(--background-color) !important;
     color: white !important;
 }
+
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: collapse;
+}
+
+/* menu css */
 
 menupopup {
     -moz-appearance: none !important;
