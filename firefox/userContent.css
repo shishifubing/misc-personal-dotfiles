@@ -1,13 +1,12 @@
-* {
-    scrollbar-color: #c50ed2 #000000 !important;
-    scrollbar-width: thin !important;
-}
-
 :root {
     --accent-color: #c50ed2 !important;
     --bg-color: black !important;
-    --bg: black !important;
     --text-color: white !important;
+}
+
+* {
+    scrollbar-color: var(--accent-color) var(--bg-color) !important;
+    scrollbar-width: thin !important;
 }
 
 ::-moz-selection, ::selection {
@@ -16,32 +15,29 @@
 }
 
 :focus {
-    outline: none;
+    outline: none !important;
 }
-
-/*moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/sidebar/index.html*/
 
 @-moz-document url-prefix("about:"), url-prefix("chrome:") {
     :root {
         --sidebar-text-color: var(--text-color) !important;
         --category-text: var(--text-color) !important;
         --category-text-selected: var(--accent-color) !important;
-        --in-content-page-background: black !important;
-        --in-content-box-background: black !important;
+        --in-content-page-background: var(--bg-color) !important;
+        --in-content-box-background: var(--bg-color) !important;
         --in-content-border-color: rgba(249, 249, 250, 0.7) !important;
         --in-content-box-border-color: rgba(249, 249, 250, 0.7) !important;
-        --in-content-border-active: #c50ed2 !important;
+        --in-content-border-active: var(--accent-color) !important;
         --in-content-category-text-selected: var(--accent-color) !important;
         --in-content-category-text-selected-active: var(--accent-color) !important;
         --in-content-link-color: var(--accent-color) !important;
         --in-content-link-color-hover: var(--accent-color) !important;
         --border-color: var(--accent-color) !important;
         --box-background: var(--bg-color) !important;
-        --box-border-color: white !important;
+        --box-border-color: var(--text-color) !important;
         --sidebar-text-color: var(--text-color) !important;
-    }
-    body {
-        background-color: black !important;
+        --link-color-hover: var(--accent-color) !important;
+        --link-color: var(--accent-color) !important;
     }
     input[type="text"] {
         border: 1px solid var(--accent-color) !important;
@@ -69,21 +65,30 @@
     }
 }
 
-@-moz-document url-prefix("moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/sidebar/") {
+@-moz-document url-prefix("moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/") {
+    #root {
+        --bg: var(--bg-color) !important;
+        --inactive-fg: var(--text-color) !important;
+        --active-fg: var(--accent-color) !important;
+        --info-fg: var(--accent-color) !important;
+        --favicons-placeholder-bg: var(--text-color) !important;
+        --tabs-activated-bg: var(--accent-color) !important;
+        --tabs-border: 1px solid var(--accent-color) !important;
+    }
+    .container>* {
+        display: flex;
+        justify-content: space-around;
+        flex-flow: column nowrap;
+        height: 100vh !important;
+    }
     .Tab {
         outline: 1px solid var(--accent-color) !important;
-    }
-    .Tab[data-active] {
-        background-color: var(--accent-color) !important;
     }
     .fav {
         background-color: var(--accent-color) !important;
         border-radius: 100% !important;
         height: 1rem !important;
         width: 1rem !important;
-    }
-    .placeholder * {
-        fill: white !important;
     }
     .Tab:hover .fav, .Tab:hover .title {
         opacity: 1 !important;

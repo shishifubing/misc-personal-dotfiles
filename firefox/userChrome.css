@@ -1,7 +1,7 @@
 :root {
-    --accent-color: #c50ed2 !important;
-    --bg-color: black !important;
-    --text-color: white !important;
+    --accent-color: #c50ed2;
+    --bg-color: black;
+    --text-color: white;
     --sidebar-width: 6px;
     --sidebar-hover-width: 300px;
     /**/
@@ -19,19 +19,30 @@
     --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
     --urlbar-separator-color: var(--bg-color) !important;
     --tabs-border-color: var(--bg-color) !important;
-    --arrowpanel-background: black !important;
-    --arrowpanel-color: white !important;
-    --lwt-text-color: white !important;
+    --arrowpanel-background: var(--bg-color) !important;
+    --arrowpanel-color: var(--text-color) !important;
+    --lwt-text-color: var(--text-color) !important;
+    --urlbar-popup-url-color: var(--accent-color) !important
+}
+
+::-moz-selection, ::selection {
+    color: white !important;
+    background: #c50ed2 !important;
 }
 
 /* general modifications */
+
+.urlbarView-row {
+    fill: var(--accent-color) !important;
+}
 
 #titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
     visibility: collapse;
 }
 
-#navigator-toolbox {
-    margin-top: 10px;
+#nav-bar {
+    margin-top: 9px;
+    border-bottom: none !important;
 }
 
 #sidebar-box {
@@ -48,11 +59,6 @@
 
 #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
     min-width: var(--sidebar-hover-width) !important;
-}
-
-::-moz-selection, ::selection {
-    color: white !important;
-    background: #c50ed2 !important;
 }
 
 .sidebar-panel * {

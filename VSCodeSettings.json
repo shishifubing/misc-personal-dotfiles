@@ -10,7 +10,7 @@
     "workbench.activityBar.visible": true,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
-        "contrastBorder": "#c50ed2",
+        "contrastBorder": "#ffffff50",
         "editor.selectionHighlightBorder": "#c50ed2",
         "focusBorder": "#c50ed2",
         "editor.lineHighlightBorder": "#c50ed2"
