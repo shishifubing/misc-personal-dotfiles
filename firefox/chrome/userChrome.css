@@ -1,9 +1,9 @@
 :root {
-    --sidebar-width: 6px;
-    --sidebar-hover-width: 300px;
     --accent-color: #c50ed2 !important;
     --bg-color: black !important;
     --text-color: white !important;
+    --sidebar-width: 6px;
+    --sidebar-hover-width: 300px;
     /**/
     --toolbar-bgcolor: var(--bg-color) !important;
     --toolbar-color: var(--text-color) !important;
@@ -16,6 +16,7 @@
     --autocomplete-popup-highlight-background: var(--accent-color) !important;
     --autocomplete-popup-highlight-color: var(--text-color) !important;
     --toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+    --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
     --urlbar-separator-color: var(--bg-color) !important;
     --tabs-border-color: var(--bg-color) !important;
     --arrowpanel-background: black !important;
@@ -60,18 +61,20 @@
     color: white !important;
 }
 
-/* menu */
+/* context menu */
 
 menupopup {
     -moz-appearance: none !important;
     background-color: var(--bg-color) !important;
     border: 1px var(--accent-color) solid !important;
+    border-radius: 1rem !important;
+    padding: 8px !important;
 }
 
 menuseparator {
     -moz-appearance: none !important;
     border: none !important;
-    background-color: var(--bg-color) !important;
+    background-color: black !important;
 }
 
 menuitem, menu {
@@ -119,17 +122,17 @@ menucaption {
 
 menulist {
     -moz-appearance: none !important;
-    border: 2px solid var(--accent-color) !important;
+    border: 1px solid var(--accent-color) !important;
     background-color: transparent !important;
 }
 
 menulist:hover {
-    border: 2px solid var(--accent-color) !important;
+    border: 1px solid var(--accent-color) !important;
     background-color: transparent !important;
 }
 
 menulist[open="true"] {
-    border: 2px solid var(--accent-color) !important;
+    border: 1px solid var(--accent-color) !important;
     background-color: var(--accent-color) !important;
 }
 
@@ -146,8 +149,8 @@ menulist[open="true"] {
 
 tooltip {
     -moz-appearance: none !important;
-    color: white !important;
-    background-color: #000000 !important;
+    color: var(--text-color) !important;
+    background-color: var(--bg-color) !important;
     border: 1px solid var(--accent-color) !important;
 }
 
