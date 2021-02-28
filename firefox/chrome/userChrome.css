@@ -1,21 +1,36 @@
 :root {
     --sidebar-width: 6px;
     --sidebar-hover-width: 300px;
-    --accent-color: #c50ed2;
-    --background-color: #000000;
+    --accent-color: #c50ed2 !important;
+    --bg-color: black !important;
+    --text-color: white !important;
+    /**/
+    --toolbar-bgcolor: var(--bg-color) !important;
+    --toolbar-color: var(--text-color) !important;
+    --toolbar-field-focus-border-color: var(--accent-color) !important;
+    --toolbarseparator-color: var(--accent-color) !important;
+    --toolbar-field-color: var(--text-color) !important;
+    --lwt-toolbar-field-background-color: var(--bg-color) !important;
+    --lwt-toolbar-field-focus: var(--bg-color) !important;
+    --lwt-toolbarbutton-active-background: var(--bg-color) !important;
+    --autocomplete-popup-highlight-background: var(--accent-color) !important;
+    --autocomplete-popup-highlight-color: var(--text-color) !important;
+    --toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+    --urlbar-separator-color: var(--bg-color) !important;
+    --tabs-border-color: var(--bg-color) !important;
+    --arrowpanel-background: black !important;
+    --arrowpanel-color: white !important;
+    --lwt-text-color: white !important;
 }
 
-#nav-bar {
-    margin-top: -24px;
+/* general modifications */
+
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: collapse;
 }
 
 #navigator-toolbox {
-    border-bottom: none !important;
-}
-
-#navigator-toolbox:hover>#nav-bar, #nav-bar:focus-within {
-    margin-top: 9px;
-    border-bottom: 1px solid var(--accent-color);
+    margin-top: 10px;
 }
 
 #sidebar-box {
@@ -34,28 +49,29 @@
     min-width: var(--sidebar-hover-width) !important;
 }
 
-.sidebar-panel {
+::-moz-selection, ::selection {
+    color: white !important;
+    background: #c50ed2 !important;
+}
+
+.sidebar-panel * {
     appearance: none !important;
-    background-color: var(--background-color) !important;
+    background-color: var(--bg-color) !important;
     color: white !important;
 }
 
-#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
-    visibility: collapse;
-}
-
-/* menu css */
+/* menu */
 
 menupopup {
     -moz-appearance: none !important;
-    background-color: var(--background-color) !important;
+    background-color: var(--bg-color) !important;
     border: 1px var(--accent-color) solid !important;
 }
 
 menuseparator {
     -moz-appearance: none !important;
     border: none !important;
-    background-color: var(--background-color) !important;
+    background-color: var(--bg-color) !important;
 }
 
 menuitem, menu {
@@ -88,7 +104,7 @@ menuitem[checked="true"][type="checkbox"]>.menu-iconic-left {
 menuitem[checked="true"][type="radio"]>.menu-iconic-left {
     border: solid var(--accent-color);
     border-radius: 100%;
-    background: var(--background-color);
+    background: var(--bg-color);
     transform: scale(.5);
 }
 

@@ -1,0 +1,65 @@
+* {
+    scrollbar-color: #c50ed2 #000000 !important;
+    scrollbar-width: thin !important;
+}
+
+:root {
+    --accent-color: #c50ed2 !important;
+    --bg-color: black !important;
+    --text-color: white !important;
+}
+
+::-moz-selection, ::selection {
+    color: white !important;
+    background: #c50ed2 !important;
+}
+
+:focus {
+    outline: none;
+}
+
+@-moz-document url-prefix("about:"), url-prefix("chrome:") {
+    :root {
+        --sidebar-text-color: var(--text-color) !important;
+        --category-text: var(--text-color) !important;
+        --category-text-selected: var(--accent-color) !important;
+        --in-content-page-background: black !important;
+        --in-content-box-background: black !important;
+        --in-content-border-color: rgba(249, 249, 250, 0.7) !important;
+        --in-content-box-border-color: rgba(249, 249, 250, 0.7) !important;
+        --in-content-border-active: #c50ed2 !important;
+        --border-color: var(--accent-color) !important;
+        --box-background: var(--bg-color) !important;
+        --box-border-color: white !important;
+        --sidebar-text-color: var(--text-color) !important;
+    }
+    body {
+        background-color: black !important;
+    }
+    input[type="text"] {
+        border: 1px solid var(--accent-color) !important;
+    }
+    .card {
+        background-color: black !important;
+        border: 1px solid var(--accent-color) !important;
+        border-radius: 1rem !important;
+    }
+    .connect-page__breather img, .icon-label__icon {
+        filter: invert(100);
+    }
+    button {
+        color: white !important;
+        border: 1px solid var(--accent-color) !important;
+    }
+}
+
+@-moz-document url("https://www.reddit.com/") {
+    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER {
+        display: none !important;
+        visibility: collapse !important;
+    }
+    ._1OVBBWLtHoSPfGCRaPzpTf._3nSp9cdBpqL13CqjdMr2L_ {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}

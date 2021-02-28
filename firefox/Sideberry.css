@@ -2,9 +2,11 @@
     --accent-color: #c50ed2;
 }
 
+.Tab {
+    outline: 1px solid var(--accent-color);
+}
+
 .Tab[data-active] {
-    border-top: 1px solid var(--accent-color);
-    border-bottom: 1px solid var(--accent-color);
     background-color: var(--accent-color);
 }
 
