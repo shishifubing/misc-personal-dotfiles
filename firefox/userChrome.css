@@ -41,8 +41,11 @@
 }
 
 #nav-bar {
-    margin-top: 9px;
-    border-bottom: none !important;
+    margin-top: -19px !important;
+}
+
+#navigator-toolbox:hover>#nav-bar, #nav-bar:focus-within {
+    margin-top: 9px !important;
 }
 
 #sidebar-box {

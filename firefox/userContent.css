@@ -75,20 +75,12 @@
         --tabs-activated-bg: var(--accent-color) !important;
         --tabs-border: 1px solid var(--accent-color) !important;
     }
-    .container>* {
-        display: flex;
-        justify-content: space-around;
-        flex-flow: column nowrap;
-        height: 100vh !important;
-    }
     .Tab {
         outline: 1px solid var(--accent-color) !important;
     }
     .fav {
         background-color: var(--accent-color) !important;
         border-radius: 100% !important;
-        height: 1rem !important;
-        width: 1rem !important;
     }
     .Tab:hover .fav, .Tab:hover .title {
         opacity: 1 !important;
@@ -97,13 +89,19 @@
 }
 
 @-moz-document domain("reddit.com") {
-    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER {
+    ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT {
         display: none !important;
         visibility: collapse !important;
     }
-    ._1OVBBWLtHoSPfGCRaPzpTf._3nSp9cdBpqL13CqjdMr2L_ {
+    ._1vyLCp-v-tE5QvZovwrASa>* {
         width: 100% !important;
         max-width: 100% !important;
+    }
+    header>* {
+        visibility: collapse;
+    }
+    header:hover>* {
+        visibility: visible;
     }
 }
 
