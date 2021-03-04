@@ -1,13 +1,21 @@
 {
     "telemetry.enableTelemetry": false,
-    "window.menuBarVisibility": "toggle",
+    "window.menuBarVisibility": "compact",
+    "window.zoomLevel": -1,
+    "explorer.openEditors.visible": 999,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.quickSuggestionsDelay": 0,
+    "editor.quickSuggestionsDelay": 100,
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
-    "workbench.activityBar.visible": true,
+    "editor.fontSize": 25,
+    "editor.detectIndentation": false,
+    "editor.accessibilitySupport": "off",
+    "editor.suggestSelection": "first",
+    "editor.formatOnPaste": true,
+    "workbench.editorAssociations": [],
+    "workbench.editor.showTabs": false,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
         "contrastBorder": "#ffffff50",
@@ -15,7 +23,26 @@
         "focusBorder": "#c50ed2",
         "editor.lineHighlightBorder": "#c50ed2"
     },
-    "editor.fontSize": 29,
-    "editor.detectIndentation": false,
-    "editor.formatOnPaste": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "java.refactor.renameFromFileExplorer": "autoApply",
+    "mssql.connections": [
+        {
+            "server": "{{put-server-name-here}}",
+            "database": "{{put-database-name-here}}",
+            "user": "{{put-username-here}}",
+            "password": ""
+        },
+        {
+            "server": "DESKTOP-A1EL8P7",
+            "database": "Books",
+            "authenticationType": "Integrated",
+            "profileName": "Default",
+            "password": ""
+        }
+    ],
+    "python.languageServer": "Microsoft",
+    "workbench.activityBar.visible": false,
 }
