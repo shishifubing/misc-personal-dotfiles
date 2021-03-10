@@ -1,52 +1,65 @@
 :root {
+    /* custom variables */
     --accent-color: #c50ed2;
-    --bg-color: black;
+    --background-color: black;
     --text-color: white;
     --sidebar-width: 6px;
     --sidebar-hover-width: 300px;
-    /**/
-    --toolbar-bgcolor: var(--bg-color) !important;
+    /* theme variables */
+    --toolbar-bgcolor: var(--background-color) !important;
     --toolbar-color: var(--text-color) !important;
     --toolbar-field-focus-border-color: var(--accent-color) !important;
     --toolbarseparator-color: var(--accent-color) !important;
     --toolbar-field-color: var(--text-color) !important;
-    --lwt-toolbar-field-background-color: var(--bg-color) !important;
-    --lwt-toolbar-field-focus: var(--bg-color) !important;
-    --lwt-toolbarbutton-active-background: var(--bg-color) !important;
+    --lwt-toolbar-field-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-focus: var(--background-color) !important;
+    --lwt-toolbarbutton-active-background: var(--background-color) !important;
     --autocomplete-popup-highlight-background: var(--accent-color) !important;
     --autocomplete-popup-highlight-color: var(--text-color) !important;
     --toolbarbutton-icon-fill-attention: var(--accent-color) !important;
     --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
-    --urlbar-separator-color: var(--bg-color) !important;
-    --tabs-border-color: var(--bg-color) !important;
-    --arrowpanel-background: var(--bg-color) !important;
+    --urlbar-separator-color: var(--background-color) !important;
+    --tabs-border-color: var(--background-color) !important;
+    --arrowpanel-background: var(--background-color) !important;
     --arrowpanel-color: var(--text-color) !important;
     --lwt-text-color: var(--text-color) !important;
     --urlbar-popup-url-color: var(--accent-color) !important
 }
+
+/* color of the selected text */
 
 ::-moz-selection, ::selection {
     color: white !important;
     background: #c50ed2 !important;
 }
 
-/* general modifications */
+/* stuff to hide */
+
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: hidden !important;
+    display: none !important
+}
+
+/* addon icons in navigation bar are greyscaled */
+
+toolbarbutton {
+    filter: grayscale(100);
+}
+
+/* fill of svg icons in the url bar */
 
 .urlbarView-row {
     fill: var(--accent-color) !important;
 }
 
-#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
-    visibility: collapse;
-}
+/* navigation bar adjustments */
 
 #nav-bar {
-    margin-top: -19px !important;
+    margin-top: 9px !important;
+    outline: 1px solid var(--accent-color) !important;
 }
 
-#navigator-toolbox:hover>#nav-bar, #nav-bar:focus-within {
-    margin-top: 9px !important;
-}
+/* sidebar adjustments */
 
 #sidebar-box {
     position: relative;
@@ -66,16 +79,16 @@
 
 .sidebar-panel * {
     appearance: none !important;
-    background-color: var(--bg-color) !important;
+    background-color: var(--background-color) !important;
     color: white !important;
 }
 
-/* context menu */
+/* context menus adjustments */
 
 menupopup {
     -moz-appearance: none !important;
-    background-color: var(--bg-color) !important;
-    border: 1px var(--accent-color) solid !important;
+    background-color: var(--background-color) !important;
+    border: 1px solid var(--accent-color) !important;
     border-radius: 1rem !important;
     padding: 8px !important;
 }
@@ -116,7 +129,7 @@ menuitem[checked="true"][type="checkbox"]>.menu-iconic-left {
 menuitem[checked="true"][type="radio"]>.menu-iconic-left {
     border: solid var(--accent-color);
     border-radius: 100%;
-    background: var(--bg-color);
+    background: var(--background-color);
     transform: scale(.5);
 }
 
@@ -159,7 +172,7 @@ menulist[open="true"] {
 tooltip {
     -moz-appearance: none !important;
     color: var(--text-color) !important;
-    background-color: var(--bg-color) !important;
+    background-color: var(--background-color) !important;
     border: 1px solid var(--accent-color) !important;
 }
 

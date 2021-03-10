@@ -1,22 +1,31 @@
 :root {
+    /* custom variables */
     --accent-color: #c50ed2 !important;
     --bg-color: black !important;
     --text-color: white !important;
 }
+
+/* makes all scrollbars on a page look the same */
 
 * {
     scrollbar-color: var(--accent-color) var(--bg-color) !important;
     scrollbar-width: thin !important;
 }
 
+/* text selection on pages */
+
 ::-moz-selection, ::selection {
     color: white !important;
     background: #c50ed2 !important;
 }
 
+/* removes the outline what appears sometimes when an element is focused  */
+
 :focus {
     outline: none !important;
 }
+
+/* browser pages adjustments  */
 
 @-moz-document url-prefix("about:"), url-prefix("chrome:") {
     :root {
@@ -65,6 +74,8 @@
     }
 }
 
+/* sidebar sideberry adjustments  */
+
 @-moz-document url-prefix("moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/") {
     #root {
         --bg: var(--bg-color) !important;
@@ -74,6 +85,7 @@
         --favicons-placeholder-bg: var(--text-color) !important;
         --tabs-activated-bg: var(--accent-color) !important;
         --tabs-border: 1px solid var(--accent-color) !important;
+        --tabs-height: 18px !important;
     }
     .Tab {
         outline: 1px solid var(--accent-color) !important;
@@ -87,6 +99,8 @@
         color: white !important;
     }
 }
+
+/* reddit adjustments  */
 
 @-moz-document domain("reddit.com") {
     ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT {
@@ -102,11 +116,5 @@
     }
     header:hover>* {
         visibility: visible;
-    }
-}
-
-@-moz-document domain("addons.mozilla.org") {
-    .Page-content, input[type="search"] {
-        background-color: black !important;
     }
 }
