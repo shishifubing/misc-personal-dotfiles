@@ -85,7 +85,7 @@
         --favicons-placeholder-bg: var(--text-color) !important;
         --tabs-activated-bg: var(--accent-color) !important;
         --tabs-border: 1px solid var(--accent-color) !important;
-        --tabs-height: 18px !important;
+        --tabs-height: 22px !important;
     }
     .Tab {
         outline: 1px solid var(--accent-color) !important;
@@ -108,8 +108,8 @@
         visibility: collapse !important;
     }
     ._1vyLCp-v-tE5QvZovwrASa>* {
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 80% !important;
+        max-width: 80% !important;
     }
     header>* {
         visibility: collapse;
