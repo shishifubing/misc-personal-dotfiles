@@ -78,11 +78,10 @@
     color: var(--text-color) !important
 }
 
-/* navigation bar adjustments */
+/* moving down navigation bar since the tabs are collapsed */
 
 #nav-bar {
     margin-top: 9px !important;
-    outline: 1px solid var(--accent-color) !important;
 }
 
 /* sidebar in non-active state */
@@ -99,6 +98,8 @@
 #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
     min-width: var(--sidebar-hover-width) !important;
 }
+
+/* history and bookmarks sidebars' colors */
 
 .sidebar-panel * {
     appearance: none !important;
