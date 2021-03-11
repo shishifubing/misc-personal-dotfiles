@@ -84,11 +84,8 @@
         --info-fg: var(--accent-color) !important;
         --favicons-placeholder-bg: var(--text-color) !important;
         --tabs-activated-bg: var(--accent-color) !important;
-        --tabs-border: 1px solid var(--accent-color) !important;
+        --tabs-border: none;
         --tabs-height: 22px !important;
-    }
-    .Tab {
-        outline: 1px solid var(--accent-color) !important;
     }
     .fav {
         background-color: var(--accent-color) !important;
