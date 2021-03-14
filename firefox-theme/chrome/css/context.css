@@ -6,6 +6,7 @@ menupopup, panel-list, ul[role="menu"], #PopupAutoComplete {
     -moz-appearance: none !important;
     padding: 5px 1px 5px 1px !important;
     background-color: var(--background-color) !important;
+    color: var(--foreground-color) !important;
     border: 1px var(--context-border) solid !important;
     border-radius: 0px !important;
     box-shadow: none !important;
@@ -22,7 +23,7 @@ menupopup menuseparator, panel-item-separator, hr[role="separator"] {
 
 menupopup menuitem, menupopup menu, button[role="menuitem"], .autocomplete-richlistitem, select>option {
     -moz-appearance: none !important;
-    color: var(--global-front) !important;
+    color: var(--foreground-color) !important;
     padding: 7px 0px 7px 9px !important;
     border: none !important;
     font-size: 12px !important;
@@ -56,7 +57,7 @@ menugroup {
 }
 
 menupopup menuitem>.menu-text, menupopup menuitem>.menu-iconic-text {
-    color: var(--global-front) !important;
+    color: var(--foreground-color) !important;
     padding: 0px !important;
 }
 
@@ -70,7 +71,7 @@ menupopup menuitem[type="checkbox"]>.menu-iconic-text, menupopup menuitem[type="
 
 menupopup menuitem[checked="true"][type="checkbox"]>.menu-iconic-left {
     padding: 7px 0px 0px 0px !important;
-    border: solid var(--global-front);
+    border: solid var(--foreground-color);
     border-width: 0 0 2px 2px;
     transform: rotate(-45deg) scale(.75);
     margin-bottom: 4px !important;
@@ -78,10 +79,10 @@ menupopup menuitem[checked="true"][type="checkbox"]>.menu-iconic-left {
 
 menupopup menuitem[checked="true"][type="radio"]>.menu-iconic-left {
     padding: 1px !important;
-    border: solid var(--global-front);
+    border: solid var(--foreground-color);
     height: 17px !important;
     border-radius: 100%;
-    background: var(--global-front);
+    background: var(--foreground-color);
     transform: scale(.5);
 }
 
@@ -119,17 +120,17 @@ menubar>menu[open] {
 menulist, menulist[disabled="true"], select {
     -moz-appearance: none !important;
     padding: 4px 6px 4px 6px !important;
-    border: 2px solid var(--tags-textbox-border) !important;
+    border: 2px solid var(--textbox-border) !important;
     border-radius: 0px !important;
-    background: var(--tags-textbox) !important;
-    color: var(--tags-textbox-color) !important;
+    background: var(--textbox) !important;
+    color: var(--textbox-color) !important;
     height: auto !important;
     box-shadow: none !important;
 }
 
 menulist:hover, select:hover {
     /* Finish this */
-    border: 2px solid var(--tags-textbox-hover) !important;
+    border: 2px solid var(--textbox-hover) !important;
 }
 
 menulist[open="true"] {
@@ -163,7 +164,7 @@ select:-moz-focusring {
     padding: 7px !important;
     margin-right: 12px !important;
     color: white !important;
-    border: solid var(--global-front);
+    border: solid var(--foreground-color);
     border-width: 0 2px 2px 0px;
     transform: rotate(-45deg) scale(.55);
 }
@@ -182,7 +183,7 @@ select:-moz-focusring {
 tooltip {
     /* Also update the js script */
     -moz-appearance: none !important;
-    color: var(--global-front) !important;
+    color: var(--foreground-color) !important;
     background-color: var(--context-tooltip) !important;
     border: 1px solid var(--context-tooltip-border) !important;
     padding: 6px !important;

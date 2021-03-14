@@ -1,0 +1,30 @@
+#nav-bar {
+    margin-top: 7px !important;
+}
+
+/* stuff to hide */
+
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: hidden !important;
+    display: none !important
+}
+
+/* sidebar */
+
+#sidebar-box, #sidebar {
+    position: relative !important;
+    z-index: 1 !important;
+    min-width: var(--sidebar-min-width) !important;
+    max-width: var(--sidebar-min-width) !important;
+}
+
+/* sidebar in focused state */
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
+    min-width: var(--sidebar-hover-width) !important;
+}
+
+#statuspanel {
+    background-color: var(--background-color) !important;
+    color: var(--foreground-color) !important;
+}

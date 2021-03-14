@@ -1,31 +1,17 @@
-@import url(./everything.css);
+@import url(./css/browser.css);
+@import url(./css/context.css);
+@import url(./css/pages_external.css);
+@import url(./css/pages_browser.css);
+@import url(./css/addons.css);
 /**/
 
-/* stuff to hide */
+@import url(./css/colors/browser.css);
+@import url(./css/colors/pages.css);
+@import url(./css/colors/context.css);
+/**/
 
-#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
-    visibility: hidden !important;
-    display: none !important
-}
-
-/* sidebar */
-
-#sidebar-box, #sidebar {
-    position: relative;
-    z-index: 1;
-    min-width: var(--sidebar-min-width) !important;
-    max-width: var(--sidebar-min-width) !important;
-}
-
-/* sidebar in focused state */
-
-#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
-    min-width: var(--sidebar-hover-width) !important;
-}
-
-#statuspanel {
-    background-color: var(--background-color) !important;
-}
+@import url(./css/everywhere.css);
+/**/
 
 /* theme variables */
 
@@ -100,13 +86,4 @@
 /*
 #nav-bar {
     margin-top: 9px !important;
-}
-
-/* history and bookmarks sidebars' colors */
-
-/*
-.sidebar-panel * {
-    appearance: none !important;
-    background-color: var(--background-color) !important;
-    color: white !important;
 }

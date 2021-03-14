@@ -1,1 +1,12 @@
-@import url(./everything.css);
+@import url(./css/context.css);
+@import url(./css/pages_external.css);
+@import url(./css/pages_browser.css);
+@import url(./css/addons.css);
+/**/
+
+@import url(./css/colors/pages.css);
+@import url(./css/colors/context.css);
+/**/
+
+@import url(./css/everywhere.css);
+/**/

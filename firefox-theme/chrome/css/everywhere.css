@@ -1,0 +1,28 @@
+/* base colors */
+
+:root {
+    --accent-color: #c50ed2;
+    --accent-color-2: gray;
+    --background-color: black;
+    --foreground-color: white;
+}
+
+/* uniform scrollbars */
+
+* {
+    scrollbar-color: var(--accent-color) var(--background-color) !important;
+    scrollbar-width: thin !important;
+}
+
+/* uniform text selection */
+
+::selection {
+    background: var(--accent-color) !important;
+    color: var(--foreground-color) !important;
+}
+
+/* removes garbage white outline */
+
+:focus {
+    outline: none !important;
+}

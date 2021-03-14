@@ -1,0 +1,53 @@
+/* browser variables */
+
+:root {
+    --sidebar-min-width: 6px;
+    --sidebar-hover-width: 300px;
+    --mainwindow: black;
+    --tabbar-tab-hover: #2A2A2A;
+    --tabbar-button-hover: #2A2A2A;
+    --tabbar-button-hover-active: #444;
+    --navbar-background-hover: #4B4B4B;
+    --browser: black;
+    --findbar: black;
+    --autocomplete-list: #2A2A2A;
+    --urlbar: transparent;
+    --urlbar-blur: #2A2A2AC0;
+    --autocomplete-oneoffs: #333333;
+    --sidebar: black;
+    --sidebar-search: black;
+    --sidebar-box: black;
+    --statuspanel: black;
+    --statuspanel-color: lightgray;
+    --titlebar-min-max-hover-bg-color: rgba(42, 42, 42, 1);
+    --titlebar-min-max-active-bg-color: #444;
+    --titlebar-close-hover-bg-color: #E81123;
+    --titlebar-close-active-bg-color: #F06F79;
+    --arrowpanel-background: #2A2A2A !important;
+    --arrowpanel-dimmed: #3C3C3C !important;
+    --chrome-background-color: black !important;
+    --chrome-secondary-background-color: #2A2A2A !important;
+    --toolbar-bgcolor: var(--background-color) !important;
+    --bottom-background: var(--background-color) !important;
+    --titlebar: white;
+    --autocomplete-popup-background: black !important;
+    --autocomplete-popup-color: var(--foreground-color) !important;
+    --autocomplete-popup-highlight-background: var(--accent-color) !important;
+    --autocomplete-popup-highlight-color: var(--foreground-color) !important;
+    --lwt-sidebar-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-color: var(--foreground-color) !important;
+    --toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+    --toolbarbutton-hover-background: var(--accent-color) !important;
+    --toolbarbutton-active-background: var(--accent-color) !important;
+    --toolbarseparator-color: var(--accent-color) !important;
+    --lwt-accent-color: var(--accent-color) !important;
+    --lwt-text-color: var(--foreground-color) !important;
+    --lwt-toolbar-field-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-color: var(--foreground-color) !important;
+    --lwt-toolbar-field-focus: var(--background-color) !important;
+    --lwt-toolbar-field-focus-color: var(--foreground-color) !important;
+    --urlbar-separator-color: var(--accent-color) !important;
+    --toolbar-field-focus-border-color: var(--background-color) !important;
+    --toolbar-non-lwt-bgcolor: var(--background-color) !important;
+    --toolbar-non-lwt-textcolor: var(--foreground-color) !important;
+}
