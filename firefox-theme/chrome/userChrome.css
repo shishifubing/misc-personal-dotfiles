@@ -1,0 +1,112 @@
+@import url(./everything.css);
+/**/
+
+/* stuff to hide */
+
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: hidden !important;
+    display: none !important
+}
+
+/* sidebar */
+
+#sidebar-box, #sidebar {
+    position: relative;
+    z-index: 1;
+    min-width: var(--sidebar-min-width) !important;
+    max-width: var(--sidebar-min-width) !important;
+}
+
+/* sidebar in focused state */
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
+    min-width: var(--sidebar-hover-width) !important;
+}
+
+#statuspanel {
+    background-color: var(--background-color) !important;
+}
+
+/* theme variables */
+
+/*--toolbar-bgcolor: var(--background-color) !important;
+    --toolbar-color: var(--text-color) !important;
+    --toolbar-field-focus-border-color: var(--accent-color) !important;
+    --toolbarseparator-color: var(--accent-color) !important;
+    --toolbar-field-color: var(--text-color) !important;
+    --lwt-toolbar-field-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-focus: var(--background-color) !important;
+    --toolbarbutton-hover-background: var(--accent-color) !important;
+    --toolbarbutton-active-background: var(--accent-color) !important;
+    --lwt-toolbarbutton-active-background: var(--background-color) !important;
+    --lwt-toolbarbutton-hover-background: var(--accent-color) !important;
+    --autocomplete-popup-highlight-background: var(--accent-color) !important;
+    --autocomplete-popup-highlight-color: var(--text-color) !important;
+    --toolbarbutton-icon-fill-attention: var(--text-color) !important;
+    --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+    --urlbar-separator-color: var(--background-color) !important;
+    --tabs-border-color: var(--background-color) !important;
+    --arrowpanel-background: var(--background-color) !important;
+    --arrowpanel-color: var(--text-color) !important;
+    --lwt-text-color: var(--text-color) !important;
+    --urlbar-popup-url-color: var(--accent-color) !important;
+    --autocomplete-popup-background: var(--background-color) !important;
+    --autocomplete-popup-color: var(--text-color) !important;
+}
+
+/*body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* stuff to greyscale */
+
+/*
+#nav-bar .toolbarbutton-icon, #tracking-protection-icon-animatable-image {
+    filter: grayscale(100) !important;
+}
+
+/* nav-page buttons and menu buttons */
+
+/*
+#identity-box:hover, #identity-box:active, #page-action-buttons *:hover, #page-action-buttons *:active, #nav-bar toolbarbutton:hover, #nav-bar toolbarbutton:active, .panel-subview-body toolbaritem:hover, .panel-subview-body toolbaritem:active, .panel-subview-body toolbarbutton:hover, .panel-subview-body toolbarbutton:active, #tracking-protection-icon-container:hover, #identity-box:hover {
+    background-color: var(--accent-color) !important;
+    border-radius: 2px !important;
+    fill: white !important;
+    fill-opacity: 1 !important;
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* url bar results */
+
+/*
+.urlbarView-row-inner {
+    fill-opacity: 1 !important;
+    fill: var(--text-color) !important;
+    border-radius: 0.5rem !important;
+}
+
+.urlbarView-row-inner:hover {
+    background-color: var(--accent-color) !important;
+}
+
+.urlbarView-row:hover .urlbarView-url {
+    color: var(--text-color) !important
+}
+
+/* moving down navigation bar since the tabs are collapsed */
+
+/*
+#nav-bar {
+    margin-top: 9px !important;
+}
+
+/* history and bookmarks sidebars' colors */
+
+/*
+.sidebar-panel * {
+    appearance: none !important;
+    background-color: var(--background-color) !important;
+    color: white !important;
+}

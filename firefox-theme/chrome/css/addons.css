@@ -1,0 +1,25 @@
+/* sideberry adjustments  */
+
+@-moz-document url-prefix("moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/") {
+    #root {
+        --bg: var(--background-color) !important;
+        --inactive-fg: var(--foreground-color) !important;
+        --active-fg: var(--accent-color) !important;
+        --info-fg: var(--accent-color) !important;
+        --favicons-placeholder-bg: var(--foreground-color) !important;
+        --tabs-activated-bg: var(--accent-color) !important;
+        --tabs-border: none;
+        --tabs-height: 22px !important;
+    }
+    .container>:first-child {
+        border: 1px solid var(--accent-color) !important;
+    }
+    .fav {
+        background-color: var(--accent-color) !important;
+        border-radius: 100% !important;
+    }
+    .Tab:hover .fav, .Tab:hover .title {
+        opacity: 1 !important;
+        color: white !important;
+    }
+}

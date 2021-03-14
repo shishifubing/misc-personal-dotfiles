@@ -1,0 +1,43 @@
+/**/
+
+/* base */
+
+@import url(./css/base.css);
+/**/
+
+/* pop-ups, context menus, dropdowns, etc */
+
+@import url(./css/context.css);
+/**/
+
+/* tags */
+
+@import url(./css/tags.css);
+/**/
+
+/* chrome: pages */
+
+@import url(./css/pagesChrome.css);
+/**/
+
+/* about: pages */
+
+@import url(./css/pagesContent.css);
+/**/
+
+/* addons */
+
+@import url(./css/addons.css);
+/**/
+
+/* external sites */
+
+@import url(./css/external.css);
+/**/
+
+/* colors */
+
+@import url(./css/colors/tags.css);
+@import url(./css/colors/context.css);
+@import url(./css/colors/base.css);
+@import url(./css/colors/pagesContent.css);
