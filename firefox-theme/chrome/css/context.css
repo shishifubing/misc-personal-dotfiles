@@ -1,3 +1,5 @@
+/* context menu adjustments */
+
 .context-menu {
     border-radius: 1rem !important;
 }
@@ -18,7 +20,7 @@ menupopup menuseparator, panel-item-separator, hr[role="separator"] {
     padding: .5px 0px .5px 0px !important;
     margin: 4px 11px 4px 11px !important;
     height: 0px !important;
-    background-color: var(--context-separator) !important;
+    background-color: var(--accent-color) !important;
 }
 
 menupopup menuitem, menupopup menu, button[role="menuitem"], .autocomplete-richlistitem, select>option {
@@ -38,17 +40,16 @@ menupopup menuitem[disabled="true"], menupopup menuitem[disabled="true"]>.menu-t
 }
 
 menupopup menuitem:hover, menupopup menu:hover, button[role="menuitem"]:hover, .autocomplete-richlistitem:hover, menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
-    background-color: var(--context-menuitem-hover) !important;
+    background-color: var(--accent-color) !important;
 }
 
 menupopup menu[open], menupopup menuitem[selected="true"], select>option:checked {
-    background-image: var(--context-menuitem-open-image) !important;
-    background-blend-mode: multiply;
-    background-color: var(--context-menuitem-open) !important;
+    background-image: none !important;
+    background-color: var(--accent-color) !important;
 }
 
 menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, menupopup menuitem[selected] {
-    background-color: var(--context-menuitem-active) !important;
+    background-color: var(--accent-color) !important;
 }
 
 menugroup {
@@ -102,11 +103,11 @@ menubar>menu {
 }
 
 menubar>menu:hover {
-    background-color: var(--context-menubar-hover) !important;
+    background-color: var(--accent-color-2) !important;
 }
 
 menubar>menu[open] {
-    background-color: var(--context-menubar-open) !important;
+    background-color: var(--accent-color) !important;
 }
 
 #ContentSelectDropdown>menupopup {
@@ -120,22 +121,21 @@ menubar>menu[open] {
 menulist, menulist[disabled="true"], select {
     -moz-appearance: none !important;
     padding: 4px 6px 4px 6px !important;
-    border: 2px solid var(--textbox-border) !important;
+    border: 2px solid var(--accent-color-2) !important;
     border-radius: 0px !important;
-    background: var(--textbox) !important;
-    color: var(--textbox-color) !important;
+    background: var(--background-color) !important;
+    color: var(--foreground-color) !important;
     height: auto !important;
     box-shadow: none !important;
 }
 
 menulist:hover, select:hover {
-    /* Finish this */
-    border: 2px solid var(--textbox-hover) !important;
+    border: 2px solid var(--foreground-hover) !important;
 }
 
 menulist[open="true"] {
-    border: 2px solid var(--context-menulist-open-border) !important;
-    background-color: var(--context-menulist-open) !important;
+    border: 2px solid var(--accent-color) !important;
+    background-color: var(--accent-color) !important;
 }
 
 select {
@@ -181,24 +181,11 @@ select:-moz-focusring {
 }
 
 tooltip {
-    /* Also update the js script */
     -moz-appearance: none !important;
     color: var(--foreground-color) !important;
-    background-color: var(--context-tooltip) !important;
-    border: 1px solid var(--context-tooltip-border) !important;
+    background-color: var(--background-color) !important;
+    border: 1px solid var(--accent-color) !important;
     padding: 6px !important;
-}
-
-@supports(backdrop-filter: blur(1px)) {
-    ul[role="menu"] {
-        background-color: transparent !important;
-    }
-    panel-list, .context-menu {
-        background-image: url(../img/noise-512x512.png) !important;
-        background-color: var(--background-color-blur) !important;
-        backdrop-filter: blur(32px) !important;
-        box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, .32) !important;
-    }
 }
 
 .arrow.top, .arrow.bottom {

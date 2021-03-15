@@ -21,7 +21,7 @@
     color: var(--foreground-color) !important;
 }
 
-/* removes garbage white outline */
+/* removes the white outline on focused elements */
 
 :focus {
     outline: none !important;

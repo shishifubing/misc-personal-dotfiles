@@ -11,13 +11,16 @@
         --tabs-border: none;
         --tabs-height: 22px !important;
     }
+    /* border on the top and on the bottom of the tab container */
     .container>:first-child {
         border: 1px solid var(--accent-color) !important;
     }
+    /* tab icon */
     .fav {
         background-color: var(--accent-color) !important;
         border-radius: 100% !important;
     }
+    /* icon and title do not darken when hovered */
     .Tab:hover .fav, .Tab:hover .title {
         opacity: 1 !important;
         color: white !important;

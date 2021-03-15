@@ -1,12 +1,70 @@
-#nav-bar {
-    margin-top: 7px !important;
-}
-
-/* stuff to hide */
+/* hidden titlebar, toolbar, sidebar header and splitter, and some toolbar buttons */
 
 #titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
-    visibility: hidden !important;
-    display: none !important
+    visibility: collapse !important;
+}
+
+/* navigation bar compensation for collapsed tabs and titlebar */
+
+#nav-bar {
+    margin-top: 7px !important;
+    background-color: var(--background-color) !important;
+}
+
+/* navigation bar items */
+
+toolbarbutton:hover .toolbarbutton-badge-stack, toolbarbutton:active .toolbarbutton-badge-stack, #page-action-buttons image:hover, #identity-box:hover, #identity-box:active, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:active {
+    background-color: var(--accent-color) !important;
+    border-radius: 2px;
+    fill: white !important;
+    fill-opacity: 1 !important;
+}
+
+/* url bar container */
+
+#urlbar-container {
+    margin: 0 !important;
+}
+
+/* url bar */
+
+#urlbar-background {
+    background-color: var(--background-color) !important;
+    border: none !important;
+}
+
+/* url bar vertical separator on the left and on the right */
+
+#identity-box, #pageActionSeparator {
+    border-left: 1px solid var(--accent-color) !important;
+    border-right: none !important;
+    border-image: none !important;
+    visibility: visible !important;
+}
+
+/* url bar results horizontal separator */
+
+#urlbar>.urlbarView {
+    border-top: 1px solid var(--background-color) !important;
+}
+
+/* accordeon menu on the right */
+
+panelview {
+    background-color: var(--background-color) !important;
+}
+
+/* accordeon menu on the right items */
+
+panelview toolbaritem:hover, panelview toolbarbutton:hover {
+    background-color: var(--accent-color) !important;
+}
+
+/* accordeon menu on the right separators */
+
+toolbarseparator {
+    border-top: 1px solid var(--accent-color) !important;
+    border-bottom: none !important;
 }
 
 /* sidebar */
@@ -14,17 +72,19 @@
 #sidebar-box, #sidebar {
     position: relative !important;
     z-index: 1 !important;
-    min-width: var(--sidebar-min-width) !important;
-    max-width: var(--sidebar-min-width) !important;
+    min-width: 6px !important;
+    max-width: 6px !important;
 }
 
-/* sidebar in focused state */
+/* sidebar when hovered or if special sidebar is shown */
 
 #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
-    min-width: var(--sidebar-hover-width) !important;
+    min-width: 300px !important;
 }
 
-#statuspanel {
+/* url indicator in bottom left corner */
+
+#statuspanel-label {
     background-color: var(--background-color) !important;
-    color: var(--foreground-color) !important;
+    border: none !important;
 }

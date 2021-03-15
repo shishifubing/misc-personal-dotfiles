@@ -2,14 +2,9 @@
 
 @-moz-document domain("reddit.com") {
     header>*, ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT {
-        display: none !important;
         visibility: collapse !important;
     }
     header:hover>* {
-        visibility: visible;
-    }
-    ._1vyLCp-v-tE5QvZovwrASa>* {
-        width: 80% !important;
-        max-width: 80% !important;
+        visibility: visible !important;
     }
 }
