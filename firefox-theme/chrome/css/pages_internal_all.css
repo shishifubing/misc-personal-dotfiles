@@ -1,17 +1,15 @@
 /* all browser pages  */
 
-/* background of all internal browser pages */
-
-@-moz-document regexp("^(about:(?!devtools-toolbox)|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* background of all internal browser pages */
     html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
-        background: var(--background-color) !important;
+        background-color: black !important;
         color: var(--foreground-color) !important;
     }
 }
 
-/* how to display tree children (file browser, for example) */
-
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* how to display tree children (file browser, for example) */
     [dir="ltr"] {
         border-color: var(--accent-color)!important;
         background-color: var(--background-color)!important;
@@ -32,7 +30,7 @@
     }
 }
 
-@-moz-document regexp("^(about:(?!devtools-toolbox)|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     #window-modal-dialog {
         background: transparent !important;
     }
@@ -599,7 +597,7 @@
     progressmeter, progress {
         -moz-appearance: none !important;
         border: none !important;
-        background: var(--progressbar) !important;
+        background: var(--background-color) !important;
         height: 8px !important;
     }
     progressmeter>.progress-bar, progress::-moz-progress-bar {
@@ -623,7 +621,7 @@
     }
     #customization-footer {
         border-top: none !important;
-        background-color: var(--bottom-background) !important;
+        background-color: var(--background-color) !important;
     }
     .customizationmode-button {
         border-radius: 0px !important;
