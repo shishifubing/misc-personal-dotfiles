@@ -184,7 +184,7 @@ tooltip {
     -moz-appearance: none !important;
     color: var(--foreground-color) !important;
     background-color: var(--background-color) !important;
-    border: 1px solid var(--accent-color) !important;
+    border: none !important;
     padding: 6px !important;
 }
 

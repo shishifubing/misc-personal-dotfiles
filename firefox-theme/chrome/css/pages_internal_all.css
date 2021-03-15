@@ -1,8 +1,38 @@
-@-moz-document url-prefix("chrome:"), url-prefix("about:") {
-    dialog, window, wizard, .app {
+/* all browser pages  */
+
+/* background of all internal browser pages */
+
+@-moz-document regexp("^(about:(?!devtools-toolbox)|chrome:|file:|moz-extension:).*") {
+    html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
         background: var(--background-color) !important;
         color: var(--foreground-color) !important;
     }
+}
+
+/* how to display tree children (file browser, for example) */
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    [dir="ltr"] {
+        border-color: var(--accent-color)!important;
+        background-color: var(--background-color)!important;
+        color: var(--foreground-color)!important
+    }
+    /* header */
+    [dir="ltr"] h1 {
+        border-color: var(--accent-color)!important
+    }
+    /* items */
+    [dir="ltr"]>table>tbody>tr:hover {
+        outline-color: var(--accent-color)!important;
+        background-color: var(--accent-color)!important
+    }
+    /* titles of items */
+    [dir="ltr"] .dir, body[dir="ltr"] .file, body[dir="ltr"] .symlink, body[dir="ltr"] .up {
+        color: var(--foreground-color)!important
+    }
+}
+
+@-moz-document regexp("^(about:(?!devtools-toolbox)|chrome:|file:|moz-extension:).*") {
     #window-modal-dialog {
         background: transparent !important;
     }
@@ -11,33 +41,35 @@
         color: var(--foreground-color) !important;
         border: none !important;
     }
-    .wizard-button[dlgtype="back"] {
-        margin-inline-end: 5px !important;
-    }
     .header-container, .footer-container {
         border: none !important;
     }
-    .dialogBox {
-        margin-top: 0px !important;
+    .dialogOverlay[topmost="true"] {
+        background-color: var(--background-color) !important;
+    }
+    dialog {
         background: transparent !important;
+    }
+    .dialogBox {
+        background: var(--background-color) !important;
+        border: none !important;
+        border-radius: 0px !important;
+        color: var(--foreground-color) !important;
         box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5) !important;
-        animation: fadeInScale .3s;
     }
     .dialogFrame {
         background: var(--background-color) !important;
-        border: 1px solid var(--accent-color) !important;
+        border: none !important;
         border-radius: 0px !important;
         color: var(--foreground-color) !important;
     }
     .previewStack {
         background: transparent !important;
     }
+    /* cards in preferences and debugging */
     li.card, section.card {
         background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color) !important;
-    }
-    treecol {
-        border-inline-start-width: 0px !important;
+        border: 1px solid var(--accent-color-2) !important;
     }
     listheader {
         border-bottom: 0px !important;
@@ -48,25 +80,11 @@
     .menulist-label-box {
         border: none !important;
     }
-    .menulist-dropmarker {
-        padding-right: 0px !important;
-    }
-    .menulist-label-box {
-        padding-left: 0px !important;
-    }
     resizer {
         display: none !important;
     }
     * {
         outline: none !important;
-    }
-    .dialogBox {
-        background: var(--background-color) !important;
-        border: 1px solid var(--accent-color) !important;
-        border-radius: 0px !important;
-        color: var(--foreground-color) !important;
-        box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5) !important;
-        animation: fadeInScale .3s;
     }
     .groove {
         border: none !important;
@@ -75,15 +93,6 @@
         background: transparent !important;
         border-bottom: 0px !important;
         padding: 0px !important;
-    }
-    .dialogBox>caption {
-        padding: 0px !important;
-    }
-    .dialogOverlay[topmost="true"] {
-        background-color: rgba(0, 0, 0, 0.6) !important;
-    }
-    dialog {
-        background: transparent !important;
     }
     .prefpane {
         background: black !important;
@@ -105,9 +114,6 @@
     window {
         background: var(--background-color) !important;
         color: var(--foreground-color) !important;
-    }
-    :root>* {
-        font-size: 14px !important;
     }
     html.private {
         --in-content-page-background: #25003e !important;
@@ -536,47 +542,6 @@
         -moz-appearance: none !important;
         border: none !important;
     }
-    treechildren::-moz-tree-image {
-        fill: var(--foreground-color) !important;
-    }
-    treechildren::-moz-tree-twisty {
-        fill: var(--foreground-color) !important;
-    }
-    treechildren::-moz-tree-row {
-        background-color: var(--background-color) !important;
-    }
-    treechildren::-moz-tree-row(hover) {
-        background-color: var(--treechildren-row-hover) !important;
-    }
-    treechildren::-moz-tree-row(selected) {
-        background-color: var(--treechildren-row-selected) !important;
-        border: none !important;
-    }
-    treechildren::-moz-tree-cell-text {
-        color: var(--foreground-color) !important;
-    }
-    treechildren::-moz-tree-cell-text(hover) {
-        color: var(--foreground-color) !important;
-    }
-    treechildren::-moz-tree-cell-text(selected) {
-        color: var(--foreground-color) !important;
-    }
-    tree {
-        -moz-appearance: none !important;
-        border: none !important;
-    }
-    treecol {
-        -moz-appearance: none !important;
-        color: var(--foreground-color) !important;
-        background-color: var(--treecol) !important;
-        height: 22px !important;
-    }
-    treecol:hover, .treecol-image:hover {
-        background-color: var(--treecol-hover) !important;
-    }
-    treecol:active, .treecol-image:active {
-        background-color: var(--treecol-selected) !important;
-    }
     #placesView>splitter {
         border-inline-end: 1px solid var(--organizer-border-color) !important;
     }
@@ -589,44 +554,10 @@
         -moz-appearance: none !important;
         border: 1px solid rgb(100, 100, 100) !important;
     }
-    treecol[hidden="true"]+.tree-splitter {
-        border: none !important;
-        width: 0px !important;
-        max-width: 0px !important;
-    }
-    .treecol-image {
-        -moz-appearance: none !important;
-        background-color: rgb(25, 25, 25) !important;
-    }
-    treecol[sortDirection="descending"]:not([hideheader="true"])>*.treecol-sortdirection, .treecol-sortdirection[sortDirection="descending"] {
-        list-style-image: url(../img/arrowdown.png) !important;
-        width: 14px !important;
-        height: 10px !important;
-    }
-    treecol[sortDirection="ascending"]:not([hideheader="true"])>*.treecol-sortdirection, .treecol-sortdirection[sortDirection="ascending"] {
-        list-style-image: url(../img/arrowdown.png) !important;
-        transform: rotate(180deg);
-        width: 14px !important;
-        height: 10px !important;
-    }
     listheader {
         box-shadow: none !important;
         padding-bottom: 0px !important;
         border: none !important;
-    }
-    /* Removes padding effect on click */
-    treecol {
-        padding: 0px 10px !important;
-    }
-    treecol:active {
-        padding: 0px 10px !important;
-    }
-    treecols {
-        border-bottom: 0px !important;
-    }
-    treecol[hideheader="true"], treecol[hideheader="true"]>.treecol-image {
-        padding: 0px !important;
-        height: 0px !important;
     }
     .treecol-image {
         padding: 5px 10px !important;

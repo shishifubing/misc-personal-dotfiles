@@ -1,0 +1,143 @@
+/* memory page */
+
+@-moz-document url-prefix(about:memory) {
+    html {
+        background: var(--background-color) !important;
+    }
+    .legend, .opsRow, .section, .treeline, .sidebarItem {
+        color: var(--foreground-color) !important;
+        background-color: var(--background-color) !important;
+        border: 1px solid var(--accent-color-2) !important;
+    }
+}
+
+/* json */
+
+@-moz-document regexp(".*[\.json]$") {
+    html {
+        background: var(--background-color)!important;
+        color: var(--foreground-color)!important
+    }
+}
+
+/* pdf */
+
+@-moz-document regexp(".*\\.(p|P)(d|D)(f|F).*") {
+    #loadingBar .progress, .dropdownToolbarButton>select, .dropdownToolbarButton>select>option, .overlayButton, .secondaryToolbarButton, .toolbarField, body, div#viewer {
+        background-color: var(--background-color) !important
+    }
+    body {
+        background-image: none !important
+    }
+    .splitToolbarButtonSeparator, .verticalToolbarSeparator {
+        box-shadow: none !important;
+        background-color: var(--background-color) !important
+    }
+    div#toolbarViewer {
+        background-color: var(--background-color) !important
+    }
+    #numPages, #pageNumber, #scaleSelect {
+        color: var(--foreground-color) !important
+    }
+    .pdfViewer .page {
+        border-image: none !important
+    }
+    #pageNumber, #scaleSelectContainer {
+        border: 1px solid !important;
+        border-color: var(--accent-color) !important
+    }
+    #loadingBar {
+        position: relative;
+        width: 100%;
+        height: 4px;
+        background-color: var(--background-color) !important;
+        border-bottom: 1px solid!important
+    }
+    #sidebarContainer, #sidebarContent {
+        background-color: var(--background-color) !important
+    }
+    #toolbarSidebar {
+        background-color: var(--background-color) !important;
+        background-image: none !important;
+        border-color: var(--accent-color) !important
+    }
+    .doorHanger, .doorHangerRight {
+        border: 1px solid !important;
+        border-color: var(--accent-color) !important;
+        box-shadow: none !important
+    }
+    #toolbarContainer, .findbar, .secondaryToolbar {
+        background-color: var(--background-color) !important;
+        background-image: none !important
+    }
+    .dropdownToolbarButton, .overlayButton, .secondaryToolbarButton, .toolbarButton {
+        border: none !important;
+        color: var(--foreground-color) !important
+    }
+    .dropdownToolbarButton, .overlayButton, .toolbarButton:focus, .toolbarButton:hover {
+        background-color: var(--accent-color) !important;
+        background-image: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .secondaryToolbarButton:focus, .secondaryToolbarButton:hover {
+        background-color: var(--background-color) !important;
+        background-image: none !important;
+        box-shadow: none !important
+    }
+    .secondaryToolbarButton::before, .toolbarButton::before {
+        filter: invert(20%) !important
+    }
+    .secondaryToolbarButton.toggled, .splitToolbarButton.toggled>.toolbarButton.toggled, .toolbarButton.toggled {
+        background-color: var(--background-color) !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        color: var(--foreground-color) !important
+    }
+    .horizontalToolbarSeparator {
+        background-color: var(--accent-color) !important;
+        box-shadow: none !important
+    }
+}
+
+/* view source */
+
+@-moz-document url-prefix(view-source) {
+    :root {
+        background-color: var(--background-color)!important;
+        color: var(--foreground-color)!important
+    }
+    pre[id]:before, span[id]:before {
+        color: var(--foreground-color) !important
+    }
+    .highlight .end-tag, .highlight .start-tag {
+        color: purple !important
+    }
+    .highlight .comment {
+        color: green !important
+    }
+    .highlight .cdata {
+        color: #c06 !important
+    }
+    .highlight .doctype {
+        color: #4682b4 !important
+    }
+    .highlight .pi {
+        color: red !important
+    }
+    .highlight .entity {
+        color: #dea174 !important
+    }
+    .highlight .attribute-name {
+        color: green !important
+    }
+    .highlight .attribute-value {
+        color: var(--foreground-color) !important
+    }
+    .highlight .markupdeclaration {
+        color: #4682b4 !important
+    }
+    .highlight .error, .highlight .error> :-moz-any(.start-tag, .end-tag, .comment, .cdata, .doctype, .pi, .entity, .attribute-name, .attribute-value) {
+        color: #de7474 !important
+    }
+}
