@@ -1,10 +1,10 @@
 /* base colors */
 
 :root {
-    --accent-color: #c50ed2;
-    --accent-color-2: gray;
-    --background-color: black;
-    --foreground-color: white;
+    --accent-color: #c50ed2 !important;
+    --accent-color-2: gray !important;
+    --background-color: black !important;
+    --foreground-color: white !important;
 }
 
 /* uniform scrollbars */

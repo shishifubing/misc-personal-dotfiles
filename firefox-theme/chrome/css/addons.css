@@ -13,7 +13,8 @@
     }
     /* border on the top and on the bottom of the tab container */
     .container>:first-child {
-        border: 1px solid var(--accent-color) !important;
+        padding-bottom: 2px !important;
+        border-bottom: 2px solid var(--accent-color) !important;
     }
     /* tab icon */
     .fav {

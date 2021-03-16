@@ -13,9 +13,17 @@
 
 /* navigation bar items */
 
+toolbarbutton .toolbarbutton-badge-stack, #page-action-buttons *, #identity-box, #tracking-protection-icon-container {
+    background-color: var(--background-color) !important;
+    border-radius: 2px !important;
+    fill: var(--accent-color) !important;
+    fill-opacity: 1 !important;
+    opacity: 1 !important;
+}
+
 toolbarbutton:hover .toolbarbutton-badge-stack, toolbarbutton[open] .toolbarbutton-badge-stack, #page-action-buttons *:hover, #page-action-buttons *[open], #identity-box:hover, #identity-box[open], #tracking-protection-icon-container:hover, #tracking-protection-icon-container[open] {
     background-color: var(--accent-color) !important;
-    border-radius: 2px;
+    border-radius: 2px !important;
     fill: white !important;
     fill-opacity: 1 !important;
 }
@@ -31,6 +39,25 @@ toolbarbutton:hover .toolbarbutton-badge-stack, toolbarbutton[open] .toolbarbutt
 #urlbar-background {
     background-color: var(--background-color) !important;
     border: none !important;
+}
+
+/* url bar elements */
+
+#identity-box image, #tracking-protection-icon-container image {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* left and right vertical separators, horizontal url bar results separator */
+
+#tracking-protection-icon-container, #pageActionSeparator, .urlbarView * {
+    border: none !important;
+}
+
+/* makes tracking proteciton image react to changing fill color */
+
+#tracking-protection-icon-animatable-image {
+    background-image: url(chrome://browser/skin/tracking-protection.svg) !important;
 }
 
 /* url bar results */

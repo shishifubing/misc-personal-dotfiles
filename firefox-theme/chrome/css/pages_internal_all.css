@@ -3,7 +3,7 @@
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     /* background of all internal browser pages */
     html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
-        background-color: black !important;
+        background: black !important;
         color: var(--foreground-color) !important;
     }
 }
