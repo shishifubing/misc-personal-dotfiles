@@ -4,6 +4,21 @@
     visibility: collapse !important;
 }
 
+/* it moves browser window to the top */
+
+#browser {
+    -moz-box-ordinal-group: 0 !important;
+    padding-top: 8px;
+}
+
+/* url bar results are shown in the middle of the screen */
+
+#urlbar[open]>.urlbarView {
+    transform: translateY(-100%) !important;
+    margin-block-start: -28px !important;
+    background-color: var(--background-color) !important;
+}
+
 /* navigation bar compensation for collapsed tabs and titlebar */
 
 #nav-bar {
@@ -13,19 +28,15 @@
 
 /* navigation bar items */
 
-toolbarbutton .toolbarbutton-badge-stack, #page-action-buttons *, #identity-box, #tracking-protection-icon-container {
-    background-color: var(--background-color) !important;
-    border-radius: 2px !important;
-    fill: var(--accent-color) !important;
+#nav-bar image, toolbarbutton {
+    fill: var(--foreground-color) !important;
     fill-opacity: 1 !important;
     opacity: 1 !important;
 }
 
-toolbarbutton:hover .toolbarbutton-badge-stack, toolbarbutton[open] .toolbarbutton-badge-stack, #page-action-buttons *:hover, #page-action-buttons *[open], #identity-box:hover, #identity-box[open], #tracking-protection-icon-container:hover, #tracking-protection-icon-container[open] {
+#nav-bar *[open], toolbarbutton:hover, #page-action-buttons *:hover, #identity-box:hover, #tracking-protection-icon-container:hover {
     background-color: var(--accent-color) !important;
     border-radius: 2px !important;
-    fill: white !important;
-    fill-opacity: 1 !important;
 }
 
 /* url bar container */
@@ -70,6 +81,7 @@ toolbarbutton:hover .toolbarbutton-badge-stack, toolbarbutton[open] .toolbarbutt
 .urlbarView-row:hover>*, .urlbarView-row[selected]>* {
     background-color: var(--accent-color) !important;
     fill: var(--foreground-color) !important;
+    color: var(--foreground-color) !important;
 }
 
 /* bookmark button */

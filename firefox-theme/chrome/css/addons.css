@@ -11,10 +11,19 @@
         --tabs-border: none;
         --tabs-height: 22px !important;
     }
-    /* border on the top and on the bottom of the tab container */
-    .container>:first-child {
-        padding-bottom: 2px !important;
-        border-bottom: 2px solid var(--accent-color) !important;
+    /* tabs' container */
+    .container>div {
+        display: flex !important;
+        flex-flow: column nowrap !important;
+        justify-content: center !important;
+        height: 100vh !important;
+        padding-bottom: 3px !important;
+    }
+    .container>div>.Tab:first-child {
+        border-top: 2px solid var(--accent-color-2) !important;
+    }
+    .container>div>.Tab:last-child {
+        border-bottom: 2px solid var(--accent-color-2) !important;
     }
     /* tab icon */
     .fav {
