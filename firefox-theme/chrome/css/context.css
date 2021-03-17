@@ -4,6 +4,8 @@
     border-radius: 1rem !important;
 }
 
+/* context menu */
+
 menupopup, panel-list, ul[role="menu"], #PopupAutoComplete {
     -moz-appearance: none !important;
     padding: 5px 1px 5px 1px !important;
@@ -14,6 +16,8 @@ menupopup, panel-list, ul[role="menu"], #PopupAutoComplete {
     box-shadow: none !important;
 }
 
+/* context menu separator */
+
 menupopup menuseparator, panel-item-separator, hr[role="separator"] {
     -moz-appearance: none !important;
     border: none !important;
@@ -23,10 +27,12 @@ menupopup menuseparator, panel-item-separator, hr[role="separator"] {
     background-color: var(--accent-color) !important;
 }
 
+/* menu items */
+
 menupopup menuitem, menupopup menu, button[role="menuitem"], .autocomplete-richlistitem, select>option {
     -moz-appearance: none !important;
     color: var(--foreground-color) !important;
-    padding: 7px 0px 7px 9px !important;
+    padding: 0 !important;
     border: none !important;
     font-size: 12px !important;
 }
@@ -35,18 +41,26 @@ select>option {
     padding-inline: 7px 0px 7px 9px !important;
 }
 
+/* disabled items */
+
 menupopup menuitem[disabled="true"], menupopup menuitem[disabled="true"]>.menu-text {
     color: gray !important;
 }
+
+/* items on hover */
 
 menupopup menuitem:hover, menupopup menu:hover, button[role="menuitem"]:hover, .autocomplete-richlistitem:hover, menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
     background-color: var(--accent-color) !important;
 }
 
+/* opened items */
+
 menupopup menu[open], menupopup menuitem[selected="true"], select>option:checked {
     background-image: none !important;
     background-color: var(--accent-color) !important;
 }
+
+/* active items on hover */
 
 menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, menupopup menuitem[selected] {
     background-color: var(--accent-color) !important;
