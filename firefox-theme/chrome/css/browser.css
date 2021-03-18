@@ -1,3 +1,35 @@
+:root {
+    /* Popup panels */
+    --arrowpanel-background: var(--background-color) !important;
+    --arrowpanel-border-color: var(--background-color) !important;
+    --arrowpanel-color: var(--foreground-color) !important;
+    --arrowpanel-dimmed: var(--background-color) !important;
+    /* window and toolbar background */
+    --lwt-accent-color: var(--accent-color) !important;
+    --toolbar-bgcolor: var(--background-color) !important;
+    /* tabs */
+    --lwt-text-color: var(--foreground-color) !important;
+    /* toolbar area */
+    --lwt-toolbarbutton-icon-fill: var(--foreground-color) !important;
+    --lwt-toolbarbutton-hover-background: var(--accent-color) !important;
+    --lwt-toolbarbutton-active-background: var(--accent-color) !important;
+    /* urlbar */
+    --lwt-toolbar-field-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-focus: var(--background-color) !important;
+    --lwt-toolbar-field-border-color: var(--background-color) !important;
+    --toolbar-field-focus-border-color: var(--background-color) !important;
+    --lwt-toolbar-field-color: var(--foreground-color) !important;
+    --lwt-toolbar-field-focus-color: var(--foreground-color) !important;
+    --urlbar-popup-url-color: var(--accent-color) !important;
+    /* sidebar - note the sidebar-box rule for the header-area */
+    --lwt-sidebar-background-color: var(--background-color) !important;
+    --lwt-sidebar-text-color: var(--foreground-color) !important;
+    /* Line above tabs */
+    --tab-line-color: var(--background-color) !important;
+    /* the header-area of sidebar needs this to work */
+    --sidebar-background-color: var(--background-color) !important;
+}
+
 /* hidden titlebar, toolbar, sidebar header and splitter, and some toolbar buttons */
 
 #titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
@@ -16,14 +48,12 @@
 #urlbar[open]>.urlbarView {
     transform: translateY(-100%) !important;
     margin-block-start: -28px !important;
-    background-color: var(--background-color) !important;
 }
 
 /* navigation bar compensation for collapsed tabs and titlebar */
 
 #nav-bar {
     margin-top: 7px !important;
-    background-color: var(--background-color) !important;
 }
 
 /* navigation bar items */
@@ -43,13 +73,6 @@
 
 #urlbar-container {
     margin: 0 !important;
-}
-
-/* url bar */
-
-#urlbar-background {
-    background-color: var(--background-color) !important;
-    border: none !important;
 }
 
 /* url bar elements */
@@ -96,19 +119,9 @@
 
 /* bookmarks panel and accordeon menu on the right  */
 
-panel>*, panelview {
-    background-color: var(--background-color) !important;
-}
-
 #editBookmarkPanelRows * {
     background-color: var(--background-color) !important;
     color: var(--foreground-color) !important;
-}
-
-/* accordeon menu on the right items */
-
-panelview toolbaritem:hover, panelview toolbarbutton:hover {
-    background-color: var(--accent-color) !important;
 }
 
 /* accordeon menu on the right separators */
