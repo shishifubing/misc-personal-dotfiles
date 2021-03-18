@@ -8,6 +8,14 @@
     }
 }
 
+/* if html is set to any color then debugger selector breaks  */
+
+@-moz-document regexp("about:blank") {
+    html {
+        background: transparent !important;
+    }
+}
+
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     /* how to display tree children (file browser, for example) */
     [dir="ltr"] {
