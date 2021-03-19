@@ -1,6 +1,6 @@
 /* all browser pages  */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp(".*") {
     /* background of all internal browser pages */
     html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
         background: var(--background-color) !important;
@@ -8,9 +8,9 @@
     }
 }
 
-/* if html is set to any color then debugger selector breaks  */
+/* if html is set to any color then the debugger selector breaks  */
 
-@-moz-document regexp("about:blank") {
+@-moz-document regexp("^(about:blank).*") {
     html {
         background: transparent !important;
     }

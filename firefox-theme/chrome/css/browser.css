@@ -28,28 +28,6 @@ toolbarseparator {
     border-bottom: none !important;
 }
 
-/* sidebar */
-
-#sidebar-box, #sidebar {
-    position: relative !important;
-    z-index: 1 !important;
-    min-width: 6px !important;
-    max-width: 6px !important;
-}
-
-/* sidebar when hovered or if special sidebar is shown */
-
-#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
-    min-width: 300px !important;
-}
-
-/* url indicator in bottom left corner */
-
-#statuspanel-label {
-    background-color: var(--background-color) !important;
-    border: none !important;
-}
-
 /* white flash on loading tabs fix */
 
 #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {

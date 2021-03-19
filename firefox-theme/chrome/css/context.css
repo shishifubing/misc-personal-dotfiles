@@ -49,7 +49,7 @@ menupopup menuitem[disabled="true"], menupopup menuitem[disabled="true"]>.menu-t
 
 /* items on hover */
 
-menupopup menuitem:hover, menupopup menu:hover, button[role="menuitem"]:hover, .autocomplete-richlistitem:hover, menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
+menupopup menuitem:hover, menupopup menu:hover, button[role="menuitem"]:hover, .autocomplete-richlistitem:hover, .autocomplete-richlistitem[selected], menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive] {
     background-color: var(--accent-color) !important;
 }
 
@@ -62,7 +62,7 @@ menupopup menu[open], menupopup menuitem[selected="true"], select>option:checked
 
 /* active items on hover */
 
-menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, menupopup menuitem[selected] {
+menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, .autocomplete-selected, .autocomplete-item:hover, menupopup menuitem[selected] {
     background-color: var(--accent-color) !important;
 }
 

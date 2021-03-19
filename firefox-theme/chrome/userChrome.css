@@ -1,4 +1,6 @@
 /*@import url(./css/browser.css);
+*/
+
 @import url(./css/context.css);
 @import url(./css/pages_internal_all.css);
 @import url(./css/pages_internal_specific.css);
@@ -115,6 +117,10 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
     fill-opacity: 1 !important;
 }
 
+.urlbarView-row:hover>* {
+    background-color: var(--accent-color) !important;
+}
+
 /* url bar container */
 
 #urlbar-container {
@@ -126,4 +132,26 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
 #identity-box image, #tracking-protection-icon-container image {
     padding: 0 !important;
     margin: 0 !important;
+}
+
+/* sidebar */
+
+#sidebar-box, #sidebar {
+    position: relative !important;
+    z-index: 1 !important;
+    min-width: 6px !important;
+    max-width: 6px !important;
+}
+
+/* sidebar when hovered or if special sidebar is shown */
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
+    min-width: 300px !important;
+}
+
+/* url indicator in bottom left corner */
+
+#statuspanel-label {
+    background-color: var(--background-color) !important;
+    border: none !important;
 }
