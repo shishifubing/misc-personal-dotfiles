@@ -27,9 +27,3 @@ toolbarseparator {
     border-top: 1px solid var(--accent-color) !important;
     border-bottom: none !important;
 }
-
-/* white flash on loading tabs fix */
-
-#browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
-    background: var(--background-color) !important;
-}

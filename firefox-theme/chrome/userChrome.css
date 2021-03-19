@@ -123,8 +123,10 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
 
 /* url bar container */
 
-#urlbar-container {
+#urlbar-container, #urlbar {
     margin: 0 !important;
+    padding: 0 !important;
+    border: none !important
 }
 
 /* url bar elements */
@@ -154,4 +156,10 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
 #statuspanel-label {
     background-color: var(--background-color) !important;
     border: none !important;
+}
+
+/* white flash on loading tabs fix */
+
+html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
+    background: var(--background-color) !important;
 }

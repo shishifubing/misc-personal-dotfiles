@@ -1,10 +1,14 @@
 /* base colors */
 
 :root {
-    --accent-color: #c50ed2 !important;
-    --accent-color-2: gray !important;
-    --background-color: black !important;
-    --foreground-color: white !important;
+    /* deep magenta */
+    --accent-color: #cc00cc !important;
+    /* gray */
+    --accent-color-2: #808080 !important;
+    /* black */
+    --background-color: #000000 !important;
+    /* white */
+    --foreground-color: #FFFFFF !important;
 }
 
 /* uniform scrollbars */
