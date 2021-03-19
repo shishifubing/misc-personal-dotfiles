@@ -9,7 +9,7 @@
         --favicons-placeholder-bg: var(--foreground-color) !important;
         --tabs-activated-bg: var(--accent-color) !important;
         --tabs-border: none;
-        --tabs-height: 22px !important;
+        --tabs-height: 1rem !important;
     }
     /* tabs' container */
     .container>div {
@@ -19,11 +19,11 @@
         height: 100vh !important;
         padding-bottom: 3px !important;
     }
-    .container>div>.Tab:first-child {
-        border-top: 2px solid var(--accent-color-2) !important;
+    .container>div>.Tab:first-of-type {
+        box-shadow: 0 calc(var(--tabs-height) * -2) 0 0 var(--accent-color-2) !important;
     }
-    .container>div>.Tab:last-child {
-        border-bottom: 2px solid var(--accent-color-2) !important;
+    .container>div>.Tab:last-of-type {
+        box-shadow: 0 calc(var(--tabs-height) * 2) 0 0 var(--accent-color-2) !important;
     }
     /* tab icon */
     .fav {

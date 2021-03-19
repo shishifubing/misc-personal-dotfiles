@@ -1,13 +1,10 @@
 /* base colors */
 
 :root {
-    /* deep magenta */
-    --accent-color: #cc00cc !important;
-    /* gray */
-    --accent-color-2: #808080 !important;
-    /* black */
+    /* darkorchid */
+    --accent-color: #9932cc !important;
+    --accent-color-2: #9932cc90 !important;
     --background-color: #000000 !important;
-    /* white */
     --foreground-color: #FFFFFF !important;
 }
 
