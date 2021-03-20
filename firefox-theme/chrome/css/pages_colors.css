@@ -1,93 +1,170 @@
+/* in-content variables */
+
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     :root {
+        --in-content-page-color: var(--foreground-color) !important;
+        --in-content-page-background: var(--background-color) !important;
+        --in-content-text-color: var(--foreground-color) !important;
+        --in-content-deemphasized-text: var(--accent-color-2) !important;
+        --in-content-selected-text: var(--foreground-color) !important;
+        --in-content-box-background: var(--background-color) !important;
+        --in-content-box-background-odd: var(--accent-color-2) !important;
+        --in-content-box-background-hover: var(--accent-color) !important;
+        --in-content-box-background-active: var(--accent-color) !important;
+        --in-content-box-border-color: var(--accent-color) !important;
+        --in-content-box-info-background: var(--accent-color) !important;
+        --in-content-item-hover: var(--accent-color-2) !important;
+        --in-content-item-selected: var(--accent-color) !important;
+        --in-content-border-highlight: var(--accent-color) !important;
+        --in-content-border-focus: var(--accent-color) !important;
+        --in-content-border-hover: var(--accent-color-2) !important;
+        --in-content-border-active: var(--accent-color) !important;
+        --in-content-border-active-shadow: var(--accent-color) !important;
+        --in-content-border-invalid: var(--red-50);
+        --in-content-border-invalid-shadow: var(--red-50-a30);
+        --in-content-border-color: var(--accent-color) !important;
+        --in-content-category-outline-focus: 1px dotted var(--accent-color) !important;
+        --in-content-category-text-selected: var(--accent-color) !important;
+        --in-content-category-text-selected-active: var(--accent-color) !important;
+        --in-content-category-background-hover: var(--accent-color-2) !important;
+        --in-content-category-background-active: var(--accent-color-2) !important;
+        --in-content-category-background-selected-hover: var(--accent-color-2) !important;
+        --in-content-category-background-selected-active: var(--accent-color-2) !important;
+        --in-content-tab-color: var(--accent-color-2) !important;
+        --in-content-link-color: var(--accent-color) !important;
+        --in-content-link-color-hover: var(--accent-color) !important;
+        --in-content-link-color-active: var(--accent-color) !important;
+        --in-content-link-color-visited: var(--accent-color) !important;
+        --in-content-button-background: var(--accent-color-2) !important;
+        --in-content-button-background-hover: var(--accent-color) !important;
+        --in-content-button-background-active: var(--accent-color) !important;
+        --in-content-primary-button-background: var(--accent-color) !important;
+        --in-content-primary-button-background-hover: var(--accent-color) !important;
+        --in-content-primary-button-background-active: var(--accent-color) !important;
+        --in-content-table-background: var(--background-color) !important;
+        --in-content-table-border-dark-color: var(--background-color) !important;
+        --in-content-table-header-background: var(--background-color) !important;
+        --in-content-dialog-header-background: var(--background-color) !important;
+        --in-content-sidebar-width: 240px;
+        /* about:debugging */
         --bg-color: var(--background-color) !important;
         --text-color: var(--foreground-color) !important;
-        --link-color: var(--foreground-color) !important;
+        --sidebar-selected-color: var(--accent-color) !important;
+        --sidebar-text-color: var(--foreground-color) !important;
+        --border-color: var(--accent-color) !important;
+        --box-background: var(--background-color) !important;
+        --box-border-color: var(--accent-color) !important;
+        --category-background-hover: var(--accent-color-2) !important;
+        --category-text: var(--foreground-color) !important;
+        --category-text-selected: var(--accent-color) !important;
+        --link-color: var(--accent-color-2) !important;
+        --link-color-active: var(--accent-color) !important;
         --link-color-hover: var(--accent-color) !important;
-        --in-content-page-color: white !important;
-        --in-content-page-background: var(--background-color) !important;
-        --in-content-text-color: lightgray !important;
-        --in-content-selected-text: #fff;
-        --in-content-box-background: var(--background-color) !important;
-        --in-content-box-background-odd: #f3f6fa;
-        --in-content-box-background-hover: #ebebeb;
-        --in-content-box-background-active: #dadada;
-        --in-content-box-border-color: transparent !important;
-        --in-content-item-hover: #191919 !important;
-        --in-content-item-selected: #0a84ff;
-        --in-content-border-highlight: var(--uwp-accent-color) !important;
-        --in-content-border-focus: #0a84ff;
-        --in-content-border-color: #282828 !important;
-        --in-content-category-outline-focus: 1px dotted #0a84ff;
-        --in-content-category-text: var(--foreground-color) !important;
-        --in-content-category-text-active: white !important;
-        --in-content-category-text-selected: white !important;
-        --in-content-category-text-selected-active: white !important;
-        --in-content-category-background-hover: #353535 !important;
-        --in-content-category-background-active: #4C4C4C !important;
-        --in-content-category-background-selected-hover: #353535 !important;
-        --in-content-category-background-selected-active: #4C4C4C !important;
-        --in-content-tab-color: #424f5a;
-        --in-content-link-color: var(--uwp-accent-color) !important;
-        --in-content-link-color-hover: #999999 !important;
-        --in-content-link-color-active: #666666 !important;
-        --in-content-link-color-visited: #0a8dff;
-        --in-content-primary-button-background: #0a84ff;
-        --in-content-primary-button-background-hover: #0060df;
-        --in-content-primary-button-background-active: #003EAA;
-        --in-content-table-background: black !important;
-        --in-content-table-border-dark-color: #282828 !important;
-        --in-content-table-header-background: var(--uwp-accent-color) !important;
-        --card-shadow: none !important;
-        --card-shadow-hover: none !important;
-        --card-shadow-focus: none !important;
-        --grey-20: #ededf0;
-        --grey-90: #0c0c0d;
-        --grey-90-a10: rgba(12, 12, 13, 0.1);
-        --grey-90-a20: rgba(12, 12, 13, 0.2);
-        --grey-90-a30: rgba(12, 12, 13, 0.3);
-        --exception-button-container-background: black !important;
-        --pages-sidepanel: #1F1F1F;
-        --button: var(--accent-color-2);
-        --button-hover: var(--accent-color);
-        --button-hover-active: #666666;
-        --button-color: var(--foreground-color);
-        --button-disabled-text: #858585;
-        --button-accent: linear-gradient(var(--accent-color), var(--accent-color));
-        --button-accent-mod: #D0D0D0;
-        --textbox: var(--background-color);
-        --textbox-border: #666666;
-        --textbox-color: var(--foreground-color);
-        --textbox-hover: #999999;
-        --checkbox: var(--accent-color-2);
-        --checkbox-checked-hover: var(--foreground-color);
-        --checkbox-checked-active: var(--accent-color);
-        --checkbox-disabled: #666666;
-        --toggle-checked: var(--accent-color);
-        --radio-border: var(--accent-color-2);
-        --radio-border-hover: var(--foreground-color);
-        --radio-border-active: var(--accent-color);
-        --richlistitem-hover: var(--textbox-hover);
-        --richlistitem-active: var(--accent-color);
-        --richlistitem-selected: var(--accent-color);
-        --treecol: var(--background-color);
-        --treecol-hover: #282828;
-        --treecol-selected: #3C3C3C;
-        --treechildren-row-hover: #323232;
-        --treechildren-row-selected: #3C3C3C;
-        --progressbar: #333333;
-        --header-background: var(--background-color);
-        --dialog-background-blur: #101010D0;
-        --dropmarker: url(../img/arrowdown.png);
+        --warning-border: var(--accent-color-2) !important;
+        --error-background: var(--background-color) !important;
+        --error-border: var(--accent-color-2) !important;
+        --highlight-50: var(--accent-color) !important;
+        --card-separator-color: var(--accent-color-2) !important;
     }
     body {
-        --newtab-background-color: black !important;
-        --newtab-snippets-background-color: black !important;
+        --newtab-background-color: var(--background-color) !important;
+        --newtab-snippets-background-color: var(--background-color) !important;
         --newtab-textbox-focus-color: var(--accent-color) !important;
         --newtab-link-primary-color: var(--accent-color) !important;
-        --newtab-card-background-color: black !important;
+        --newtab-card-background-color: var(--background-color) !important;
         --newtab-card-shadow: none !important;
-        --newtab-search-header-background-color: black !important;
+        --newtab-search-header-background-color: var(--background-color) !important;
         --newtab-topsites-icon-shadow: none !important;
+    }
+}
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* cards (about:debugging) */
+    .card {
+        background-color: var(--background-color) !important;
+        border: 1px solid var(--accent-color) !important;
+    }
+    /* buttons (about:debugging, about:support, etc) */
+    .default-button, .primary-button {
+        border: none !important;
+        background-color: var(--accent-color-2) !important;
+        color: var(--foreground-color) !important;
+    }
+    .default-button:hover, .primary-button:hover {
+        background-color: var(--accent-color) !important;
+    }
+}
+
+/* tree children (file browser, etc) */
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* root element */
+    [dir="ltr"] {
+        border-color: var(--accent-color)!important;
+        background-color: var(--background-color)!important;
+        color: var(--foreground-color)!important
+    }
+    /* header */
+    [dir="ltr"] h1 {
+        border-color: var(--accent-color)!important
+    }
+    /* items */
+    [dir="ltr"]>table>tbody>tr:hover {
+        outline-color: var(--accent-color)!important;
+        background-color: var(--accent-color)!important
+    }
+    /* titles of items */
+    [dir="ltr"] .dir, body[dir="ltr"] .file, body[dir="ltr"] .symlink, body[dir="ltr"] .up {
+        color: var(--foreground-color)!important
+    }
+}
+
+/* checkboxes */
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    checkbox {
+        opacity: 1 !important;
+    }
+    /* active checkboxes */
+    checkbox>.checkbox-check, input[type="checkbox"] {
+        border: 2px solid var(--accent-color-2) !important;
+        box-shadow: none !important;
+        background-image: none !important;
+    }
+    .checkbox-label-box {
+        color: var(--foreground-color);
+    }
+    .checkbox-icon {
+        fill: var(--foreground-color) !important;
+    }
+    checkbox:hover>.checkbox-check, input[type="checkbox"]:hover, input[type="checkbox"]:checked:hover, checkbox[checked="true"]:hover>.checkbox-check, checkbox:active>.checkbox-check, input[type="checkbox"]:active, input[type="checkbox"]:checked:active, checkbox[checked="true"]:hover:active>.checkbox-check {
+        border-color: var(--accent-color) !important;
+    }
+    input[type="checkbox"]:checked, checkbox[checked="true"]>.checkbox-check {
+        border-color: var(--accent-color-2) !important;
+        background-color: var(--accent-color-2)!important;
+        background: var(--accent-color-2) url(../img/check.png) no-repeat !important;
+    }
+    /* disabled checkboxes */
+    checkbox[disabled="true"]>.checkbox-check {
+        border-color: var(--accent-color-3) !important;
+    }
+    checkbox[disabled="true"][checked="true"]>.checkbox-check {
+        background: var(--accent-color-3) url(../img/check.png) no-repeat !important;
+    }
+    checkbox[disabled="true"][checked="true"]:hover>.checkbox-check, checkbox[disabled="true"][checked="true"]:hover:active>.checkbox-check {
+        border-color: var(--accent-color-3) !important;
+    }
+    input[type="checkbox"].toggle-button:hover:checked {
+        border-color: var(--accent-color) !important;
+    }
+    input[type="checkbox"].toggle-button::before {
+        background: var(--background-color) !important;
+    }
+    input[type="checkbox"].toggle-button:hover::before {
+        background: var(--accent-color) !important;
+    }
+    input[type="checkbox"].toggle-button:checked::before {
+        background: var(--accent-color) !important;
     }
 }

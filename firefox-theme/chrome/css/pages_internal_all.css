@@ -17,29 +17,6 @@
     }
 }
 
-/* how to display tree children (file browser, for example) */
-
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    [dir="ltr"] {
-        border-color: var(--accent-color)!important;
-        background-color: var(--background-color)!important;
-        color: var(--foreground-color)!important
-    }
-    /* header */
-    [dir="ltr"] h1 {
-        border-color: var(--accent-color)!important
-    }
-    /* items */
-    [dir="ltr"]>table>tbody>tr:hover {
-        outline-color: var(--accent-color)!important;
-        background-color: var(--accent-color)!important
-    }
-    /* titles of items */
-    [dir="ltr"] .dir, body[dir="ltr"] .file, body[dir="ltr"] .symlink, body[dir="ltr"] .up {
-        color: var(--foreground-color)!important
-    }
-}
-
 /* uncategorized stuff */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
@@ -75,11 +52,6 @@
     }
     .previewStack {
         background: transparent !important;
-    }
-    /* cards in preferences and debugging */
-    li.card, section.card {
-        background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color-2) !important;
     }
     listheader {
         border-bottom: 0px !important;
@@ -200,12 +172,6 @@
     }
     .anonymous-div {
         line-height: inherit !important;
-    }
-    :root {
-        --in-content-sidebar-width: 250px !important;
-    }
-    :root {
-        --urlbar-popup-url-color: var(--accent-color) !important;
     }
     /* Button */
     button, .urlbarView-tip-button, .toggle-group-label {
@@ -349,89 +315,6 @@
     }
     dropmarker>.dropmarker-icon {
         list-style-image: none !important;
-    }
-    /* Check Box */
-    checkbox {
-        opacity: 1 !important;
-    }
-    checkbox>.checkbox-check, input[type="checkbox"] {
-        -moz-appearance: none !important;
-        border: 2px solid var(--checkbox) !important;
-        border-radius: 0px !important;
-        padding: 8px !important;
-        margin: 0px !important;
-        box-shadow: none !important;
-        background-color: transparent !important;
-        background-image: none !important;
-    }
-    checkbox:hover>.checkbox-check, input[type="checkbox"]:hover, input[type="checkbox"]:checked:hover, checkbox[checked="true"]:hover>.checkbox-check {
-        border-color: var(--checkbox-checked-hover) !important;
-    }
-    checkbox:active>.checkbox-check, input[type="checkbox"]:active, input[type="checkbox"]:checked:active, checkbox[checked="true"]:hover:active>.checkbox-check {
-        border-color: var(--checkbox-checked-active) !important;
-        background-color: var(--checkbox-checked-active) !important;
-    }
-    input[type="checkbox"]:checked, checkbox[checked="true"]>.checkbox-check {
-        border-color: var(--accent-color) !important;
-        background: var(--accent-color) url(../img/check.png) !important;
-    }
-    input[type="checkbox"] {
-        height: 0px !important;
-        width: 0px !important;
-        margin-right: 10px !important;
-    }
-    input[type="checkbox"]:-moz-focusring {
-        outline: none !important;
-    }
-    .checkbox-label-box {
-        color: var(--foreground-color);
-        margin-left: 10px !important;
-    }
-    .checkbox-icon {
-        fill: var(--foreground-color) !important;
-    }
-    /* Check Box Disabled */
-    checkbox[disabled="true"]>.checkbox-label-box {
-        color: var(--checkbox-disabled) !important;
-    }
-    checkbox[disabled="true"]>.checkbox-check {
-        border-color: var(--checkbox-disabled) !important;
-        background-color: transparent !important;
-        padding: 8px !important;
-    }
-    checkbox[disabled="true"][checked="true"]>.checkbox-check {
-        background-color: var(--checkbox-disabled) !important;
-    }
-    checkbox[disabled="true"][checked="true"]:hover>.checkbox-check {
-        border-color: var(--checkbox-disabled) !important;
-    }
-    checkbox[disabled="true"][checked="true"]:hover:active>.checkbox-check {
-        border-color: var(--checkbox-disabled) !important;
-        background-color: var(--checkbox-disabled) !important;
-    }
-    input[type="checkbox"].toggle-button {
-        background-image: none !important;
-        border-radius: 10px !important;
-        padding: 8px !important;
-        padding-right: 32px !important;
-    }
-    input[type="checkbox"].toggle-button:hover:checked {
-        border-color: var(--accent-color) !important;
-    }
-    input[type="checkbox"].toggle-button::before {
-        background: var(--checkbox) !important;
-        height: 10px !important;
-        width: 10x !important;
-        outline: none !important;
-        margin: 0px !important;
-        transform: translateX(-5px) translateY(-5px) !important;
-    }
-    input[type="checkbox"].toggle-button:hover::before {
-        background: var(--checkbox-checked-hover) !important;
-    }
-    input[type="checkbox"].toggle-button:checked::before {
-        background: var(--toggle-checked) !important;
-        transform: translateX(19px) translateY(-5px) !important;
     }
     /* Number Input */
     input[type="number"]::-moz-number-spin-box {
