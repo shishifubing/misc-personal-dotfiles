@@ -20,10 +20,10 @@
         padding-bottom: 3px !important;
     }
     .container>div>.Tab:first-of-type {
-        box-shadow: 0 calc(var(--tabs-height) * -2) 0 0 var(--accent-color-2) !important;
+        box-shadow: 0 calc(var(--tabs-height) * -1) 0 0 var(--accent-color-2) !important;
     }
     .container>div>.Tab:last-of-type {
-        box-shadow: 0 calc(var(--tabs-height) * 2) 0 0 var(--accent-color-2) !important;
+        box-shadow: 0 calc(var(--tabs-height)) 0 0 var(--accent-color-2) !important;
     }
     /* tab icon */
     .fav {

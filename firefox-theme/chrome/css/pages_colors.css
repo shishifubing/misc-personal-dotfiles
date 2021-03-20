@@ -48,8 +48,8 @@
         --grey-90-a30: rgba(12, 12, 13, 0.3);
         --exception-button-container-background: black !important;
         --pages-sidepanel: #1F1F1F;
-        --button: #333333;
-        --button-hover: #858585;
+        --button: var(--accent-color-2);
+        --button-hover: var(--accent-color);
         --button-hover-active: #666666;
         --button-color: var(--foreground-color);
         --button-disabled-text: #858585;

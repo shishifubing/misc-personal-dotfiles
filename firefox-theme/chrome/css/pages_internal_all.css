@@ -1,23 +1,25 @@
 /* all browser pages  */
 
+/* background of all internal browser pages */
+
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    /* background of all internal browser pages */
     html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
         background: var(--background-color) !important;
         color: var(--foreground-color) !important;
     }
 }
 
-/* if html is set to any color then the debugger selector breaks  */
+/* if this background is not transparent then the debugger selector will break */
 
-@-moz-document regexp("^(about:blank).*") {
+@-moz-document regexp("about:blank") {
     html {
         background: transparent !important;
     }
 }
 
+/* how to display tree children (file browser, for example) */
+
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    /* how to display tree children (file browser, for example) */
     [dir="ltr"] {
         border-color: var(--accent-color)!important;
         background-color: var(--background-color)!important;
@@ -37,6 +39,8 @@
         color: var(--foreground-color)!important
     }
 }
+
+/* uncategorized stuff */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     #window-modal-dialog {
@@ -337,7 +341,6 @@
         background: #404040 !important;
     }
     dropmarker {
-        /* Change this */
         -moz-appearance: none !important;
         margin-right: 0px !important;
         padding-right: 20px !important;

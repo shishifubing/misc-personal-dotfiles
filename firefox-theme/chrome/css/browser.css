@@ -1,29 +1,153 @@
-.urlbarView-row:hover>*, .urlbarView-row[selected]>* {
-    background-color: var(--accent-color) !important;
-    fill: var(--foreground-color) !important;
-    color: var(--foreground-color) !important;
+:root {
+    /* Popup panels (accordeon menu on the right, etc) */
+    --arrowpanel-background: var(--background-color) !important;
+    --arrowpanel-border-color: var(--background-color) !important;
+    --arrowpanel-color: var(--foreground-color) !important;
+    --arrowpanel-dimmed: var(--background-color) !important;
+    --panel-separator-color: var(--accent-color) !important;
+    --panel-disabled-color: var(--accent-color-2) !important;
+    --panel-description-color: var(--accent-color-2) !important;
+    /* window and toolbar background */
+    --lwt-accent-color: var(--accent-color) !important;
+    --lwt-accent-color-inactive: var(--background-color) !important;
+    --lwt-text-color: var(--foreground-color) !important;
+    --lwt-toolbar-vertical-separator: var(--accent-color) !important;
+    --toolbar-bgcolor: var(--background-color) !important;
+    --toolbar-color: var(--foreground-color) !important;
+    /* toolbar buttons */
+    --lwt-toolbarbutton-icon-fill: var(--accent-color) !important;
+    --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
+    --lwt-toolbarbutton-hover-background: var(--accent-color) !important;
+    --lwt-toolbarbutton-active-background: var(--accent-color) !important;
+    /* urlbar */
+    --lwt-toolbar-field-background-color: var(--background-color) !important;
+    --lwt-toolbar-field-focus: var(--background-color) !important;
+    --lwt-toolbar-field-border-color: var(--background-color) !important;
+    --lwt-toolbar-field-highlight: var(--accent-color) !important;
+    --lwt-toolbar-field-highlight-text: var(--foreground-color) !important;
+    --lwt-toolbar-field-color: var(--foreground-color) !important;
+    --lwt-toolbar-field-focus-color: var(--foreground-color) !important;
+    --toolbar-field-focus-border-color: var(--background-color) !important;
+    --urlbar-popup-url-color: var(--accent-color) !important;
+    /* inner urlbar separator on the left */
+    --urlbar-separator-color: var(--background-color) !important;
+    /* bottom navigation bar border */
+    --chrome-content-separator-color: var(--background-color) !important;
+    /* sidebar */
+    --lwt-sidebar-background-color: var(--background-color) !important;
+    --lwt-sidebar-text-color: var(--foreground-color) !important;
+    --sidebar-background-color: var(--background-color) !important;
+    --sidebar-border-color: var(--background-color) !important;
+    /* autocomplete */
+    --autocomplete-popup-background: var(--background-color) !important;
+    --autocomplete-popup-color: var(--foreground-color) !important;
+    --autocomplete-popup-highlight-background: var(--accent-color) !important;
+    --autocomplete-popup-highlight-color: var(--foreground-color) !important;
+    /* useless tab variables */
+    --lwt-tab-text: var(--foreground-color) !important;
+    --lwt-background-tab-separator-color: var(--background-color) !important;
+    --tab-line-color: var(--background-color) !important;
 }
 
-/* bookmark button */
+/* hidden titlebar, toolbar, sidebar header and splitter, and some toolbar buttons */
 
-#star-button[starred] {
+#titlebar, #TabsToolbar, #sidebar-header, .sidebar-splitter, #back-button, #forward-button, #reload-button, #home-button {
+    visibility: collapse !important;
+}
+
+/* it moves browser window to the top */
+
+#browser {
+    -moz-box-ordinal-group: 0 !important;
+    padding-top: 8px;
+}
+
+/* url bar results are shown in the bottom of the screen */
+
+#urlbar[open]>.urlbarView {
+    transform: translateY(-100%) !important;
+    margin-block-start: -28px !important;
+}
+
+/* removes the white line on top */
+
+html {
+    margin-top: -1px !important;
+}
+
+/* navigation bar items */
+
+#nav-bar image {
     fill: var(--accent-color) !important;
+    fill-opacity: 1 !important;
+    opacity: 1 !important;
 }
 
-#star-button-box:hover>#star-button, #star-button-box[open]>#star-button {
+toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
+    background-color: var(--accent-color) !important;
+    border-radius: 2px !important;
     fill: var(--foreground-color) !important;
+    fill-opacity: 1 !important;
+    opacity: 1 !important;
 }
 
-/* bookmarks panel and accordeon menu on the right  */
+/* makes tracking proteciton image react to changing fill color */
 
-#editBookmarkPanelRows * {
+#tracking-protection-icon-animatable-image {
+    background-image: url(chrome://browser/skin/tracking-protection.svg) !important;
+}
+
+/* url bar results */
+
+.urlbarView-row {
     background-color: var(--background-color) !important;
-    color: var(--foreground-color) !important;
+    fill: var(--accent-color) !important;
+    fill-opacity: 1 !important;
 }
 
-/* accordeon menu on the right separators */
+.urlbarView-row:hover>* {
+    background-color: var(--accent-color) !important;
+}
 
-toolbarseparator {
-    border-top: 1px solid var(--accent-color) !important;
-    border-bottom: none !important;
+/* url bar container */
+
+#urlbar-container, #urlbar {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important
+}
+
+/* url bar elements */
+
+#identity-box image, #tracking-protection-icon-container image {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* sidebar */
+
+#sidebar-box, #sidebar {
+    position: relative !important;
+    z-index: 1 !important;
+    min-width: 6px !important;
+    max-width: 6px !important;
+}
+
+/* sidebar when hovered or if special sidebar is shown */
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
+    min-width: 300px !important;
+}
+
+/* url indicator in bottom left corner */
+
+#statuspanel-label {
+    background-color: var(--background-color) !important;
+    border: none !important;
+}
+
+/* white flash on loading tabs fix */
+
+html #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
+    background: var(--background-color) !important;
 }

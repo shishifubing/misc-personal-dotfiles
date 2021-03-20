@@ -60,7 +60,7 @@ menupopup menu[open], menupopup menuitem[selected="true"], select>option:checked
     background-color: var(--accent-color) !important;
 }
 
-/* active items on hover */
+/* selected items and items on hover */
 
 menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, .autocomplete-selected, .autocomplete-item:hover, menupopup menuitem[selected] {
     background-color: var(--accent-color) !important;
