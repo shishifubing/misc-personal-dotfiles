@@ -1,28 +1,8 @@
 /* all browser pages  */
 
-/* background of all internal browser pages */
-
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html, dialog, window, wizard, .app, #ColorsDialogPane, #ConnectionsDialogPane, #FontsDialogPane, #LanguagesDialogPane, .windowDialog, prefpane, prefpane>.content-box, prefwindow {
-        background: var(--background-color) !important;
-        color: var(--foreground-color) !important;
-    }
-}
-
-/* if this background is not transparent then the debugger selector will break */
-
-@-moz-document regexp("about:blank") {
-    html {
-        background: transparent !important;
-    }
-}
-
 /* uncategorized stuff */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    #window-modal-dialog {
-        background: transparent !important;
-    }
     .wizard-header {
         background: var(--background-color) !important;
         color: var(--foreground-color) !important;
@@ -94,9 +74,6 @@
         background: var(--background-color) !important;
         color: var(--foreground-color) !important;
     }
-    html.private {
-        --in-content-page-background: #25003e !important;
-    }
     .sidebar-footer-button>.text-link {
         height: 40px !important;
         margin-inline-start: 0px !important;
@@ -149,15 +126,6 @@
     .sidebar-footer-list {
         margin-left: 0px !important;
         margin-bottom: 8px !important;
-    }
-    .category-icon {
-        height: 18px !important;
-        width: 18px !important;
-    }
-    #categories hr {
-        margin: 0px !important;
-        border: none !important;
-        height: 20px !important;
     }
     .message-bar {
         background: transparent !important;
@@ -304,9 +272,6 @@
         border: none !important;
         box-shadow: none !important;
     }
-    .downloadButton:hover>.button-box>.button-icon {
-        fill: var(--accent-color) !important;
-    }
     progressmeter, progress {
         -moz-appearance: none !important;
         border: none !important;
@@ -345,44 +310,6 @@
         border-radius: 0px !important;
         border: 1px solid var(--accent-color) !important;
         animation: fadeInScale .3s;
-    }
-    tabmodalprompt {
-        background: none !important;
-        background-color: #00000090 !important;
-        animation: fadeInOpacity .3s;
-    }
-    .buttonContainer>button {
-        padding: 4.5px !important;
-    }
-    /* Dev Tools */
-    .devtools-tab, .breadcrumbs-widget-item, .tooltip-container button {
-        border: none !important;
-        background: transparent !important;
-    }
-    .devtools-tab:hover, .breadcrumbs-widget-item:hover, .tooltip-container button:hover {
-        border: none !important;
-        background: #353535 !important;
-    }
-    .devtools-tab:hover:active, .breadcrumbs-widget-item:hover:active, .tooltip-container button:hover:active {
-        border: none !important;
-    }
-    .devtools-tab-line {
-        background: var(--accent-color) !important;
-    }
-    .devtools-button {
-        border-radius: 0px !important;
-        background: transparent !important;
-        border: none !important;
-    }
-    .devtools-button:hover {
-        background: #353535 !important;
-        border: none !important;
-    }
-    .devtools-button:hover:active {
-        border: none !important;
-    }
-    .styleinspector-propertyeditor {
-        color: black !important;
     }
     /* Permissions */
     .identity-popup-permission-remove-button:not(:-moz-focusring):hover>.button-box>.button-icon {

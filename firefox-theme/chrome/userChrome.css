@@ -1,11 +1,1 @@
-@import url(./css/browser.css);
-@import url(./css/context.css);
-@import url(./css/pages_internal_all.css);
-@import url(./css/pages_internal_specific.css);
-/**/
-
-@import url(.css/pages_colors.css);
-/**/
-
-@import url(./css/everywhere.css);
-/**/
+@import url(./stylesheet.css);
