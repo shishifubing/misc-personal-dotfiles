@@ -58,11 +58,13 @@ menupopup menuitem:hover, menupopup menu:hover, button[role="menuitem"]:hover, .
 menupopup menu[open], menupopup menuitem[selected="true"], select>option:checked {
     background-image: none !important;
     background-color: var(--accent-color) !important;
+    border-bottom: none !important;
+    border: none !important;
 }
 
 /* selected items and items on hover */
 
-menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, .autocomplete-selected, .autocomplete-item:hover, menupopup menuitem[selected] {
+menupopup menuitem:hover:active, menupopup menu:hover:active, button[role="menuitem"]:hover:active, .autocomplete-richlistitem:hover:active, .autocomplete-selected, .autocomplete-item:hover, menupopup menuitem[selected], menupopup menuitem[selected]:hover, menupopup menuitem:hover {
     background-color: var(--accent-color) !important;
 }
 

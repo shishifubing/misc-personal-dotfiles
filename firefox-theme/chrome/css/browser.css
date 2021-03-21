@@ -83,15 +83,13 @@ html {
     opacity: 1 !important;
 }
 
-toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
+toolbarbutton:hover, #PanelUI-menu-button:hover image, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
     background-color: var(--accent-color) !important;
     border-radius: 2px !important;
     fill: var(--foreground-color) !important;
-    fill-opacity: 1 !important;
-    opacity: 1 !important;
 }
 
-/* makes tracking proteciton image react to changing fill color */
+/* transfroms animatable-image into a usual image to make it react to the fill property */
 
 #tracking-protection-icon-animatable-image {
     background-image: url(chrome://browser/skin/tracking-protection.svg) !important;
@@ -109,7 +107,7 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
     background-color: var(--accent-color) !important;
 }
 
-/* url bar container */
+/* url bar container and url bar */
 
 #urlbar-container, #urlbar {
     margin: 0 !important;
@@ -124,7 +122,7 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
     margin: 0 !important;
 }
 
-/* sidebar */
+/* makes sidebar responsive */
 
 #sidebar-box, #sidebar {
     position: relative !important;
@@ -133,9 +131,7 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
     max-width: 6px !important;
 }
 
-/* sidebar when hovered or if special sidebar is shown */
-
-#sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar, #sidebar-box:hover>#sidebar {
+#sidebar-box:hover>#sidebar, #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
     min-width: 300px !important;
 }
 
@@ -148,6 +144,6 @@ toolbarbutton:hover, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #pag
 
 /* white flash on loading tabs fix */
 
-html #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
+html, #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
     background: var(--background-color) !important;
 }

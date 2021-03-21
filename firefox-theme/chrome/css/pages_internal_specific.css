@@ -1,6 +1,61 @@
+/* dev-tools */
+
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* theme variables */
+    :root {
+        --theme-body-background: var(--background-color) !important;
+        --theme-body-emphasized-background: var(--accent-color-2) !important;
+        --theme-sidebar-background: var(--background-color) !important;
+        --theme-tab-toolbar-background: var(--background-color) !important;
+        --theme-toolbar-background: var(--background-color) !important;
+        --theme-toolbar-color: var(--foreground-color) !important;
+        --theme-toolbar-selected-color: var(--foreground-color) !important;
+        --theme-toolbar-background-hover: var(--accent-color) !important;
+        --theme-toolbar-hover: var(--accent-color) !important;
+        --theme-toolbar-hover-active: var(--accent-color) !important;
+        --theme-toolbar-separator: var(--accent-color) !important;
+        --tab-line-selected-color: var(--accent-color) !important;
+        --toolbarbutton-background: var(--background-color) !important;
+        --toolbarbutton-hover-background: var(--accent-color) !important;
+        --toolbarbutton-focus-background: var(--accent-color) !important;
+        --toolbarbutton-focus-color: var(--foreground-color) !important;
+        --theme-button-background: var(--background-color) !important;
+        --theme-button-active-background: var(--accent-color) !important;
+        --theme-accordion-header-background: var(--background-color) !important;
+        --theme-accordion-header-hover: var(--accent-color) !important;
+        --theme-selection-background: var(--accent-color) !important;
+        --theme-selection-background-hover: var(--accent-color) !important;
+        --theme-selection-focus-background: var(--accent-color) !important;
+        --theme-selection-color: var(--foreground-color) !important;
+        --theme-splitter-color: var(--accent-color) !important;
+        --theme-emphasized-splitter-color: var(--accent-color) !important;
+        --theme-emphasized-splitter-color-hover: var(--accent-color) !important;
+        --theme-icon-color: var(--accent-color) !important;
+        --theme-icon-checked-color: var(--foreground-color) !important;
+        --theme-icon-dimmed-color: var(--accent-color-2) !important;
+        --theme-body-color: var(--foreground-color) !important;
+        --theme-popup-background: var(--background-color) !important;
+        --theme-popup-color: var(--foreground-color) !important;
+        --theme-popup-border-color: var(--accent-color) !important;
+        --theme-popup-dimmed: var(--background-color) !important;
+        --theme-toolbarbutton-background: var(--background-color) !important;
+        --theme-toolbarbutton-color: var(--foreground-color) !important;
+        --theme-toolbarbutton-hover-background: var(--accent-color) !important;
+        --theme-toolbarbutton-active-background: var(--accent-color) !important;
+        --theme-toolbarbutton-active-color: var(--foreground-color) !important;
+        --theme-contrast-background: var(--background-color) !important;
+        --theme-contrast-color: var(--foreground-color) !important;
+    }
+    /* buttons` text on hover */
+    button:hover::before, button:hover>img {
+        fill: var(--foreground-color) !important;
+        color: var(--foreground-color) !important;
+    }
+}
+
 /* memory page */
 
-@-moz-document url-prefix(about:memory) {
+@-moz-document regexp("about:memory") {
     html {
         background: var(--background-color) !important;
     }
@@ -102,7 +157,7 @@
 
 /* view source */
 
-@-moz-document url-prefix(view-source) {
+@-moz-document regexp("view-source") {
     :root {
         background-color: var(--background-color)!important;
         color: var(--foreground-color)!important
