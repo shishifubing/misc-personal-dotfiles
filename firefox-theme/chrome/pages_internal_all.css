@@ -138,41 +138,6 @@
     .anonymous-div {
         line-height: inherit !important;
     }
-    /* Text Box */
-    textarea, input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]), .findbar-textbox {
-        -moz-appearance: none !important;
-        padding: 5.5px 5.5px 5.5px 5.5px !important;
-        border: 2px solid var(--textbox-border) !important;
-        border-radius: 0px !important;
-        background: var(--textbox) !important;
-        color: var(--textbox-color) !important;
-        box-shadow: none !important;
-        opacity: 1 !important;
-        transition: none !important;
-        outline: none !important;
-    }
-    textarea:hover, input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]):hover, .findbar-textbox:hover {
-        border: 2px solid var(--textbox-hover) !important;
-    }
-    textarea:focus, input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]):focus, .findbar-textbox:focus {
-        padding: 5.5px 5.5px 5.5px 5.5px !important;
-        border: 2px solid var(--accent-color) !important;
-        background: var(--background-color) !important;
-        color: var(--foreground-color) !important;
-    }
-    input[disabled]:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]) {
-        background-color: var(--button) !important;
-        border-color: var(--button) !important;
-        color: var(--button-disabled-text) !important;
-    }
-    search-textbox, textbox {
-        -moz-appearance: none !important;
-        background: transparent !important;
-        border: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-        cursor: default !important;
-    }
     /* Listbox */
     listbox {
         -moz-appearance: none !important;
