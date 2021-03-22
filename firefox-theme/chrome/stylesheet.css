@@ -544,7 +544,7 @@
 
 @-moz-document domain("reddit.com") {
     /* header and popups */
-    header>*, ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER, .kEQVd8aneM1tVkcIKUyDT, ._3U_7i38RDPV5eBv7m4M-9J {
+    header>*, ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs, ._2IHh1GBfUxJVQQX0dJvAry, #COIN_PURCHASE_DROPDOWN_ID *, #POPUP_CONTAINER {
         visibility: collapse !important;
     }
     header:hover>* {
