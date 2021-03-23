@@ -5,6 +5,7 @@
         /* darkorchid */
         --accent-color: #9932cc !important;
         --accent-color-2: #67009a;
+        --border-accent-color: 1px solid var(--accent-color);
         /* gray */
         --accent-color-3: #808080;
         /* black */
@@ -91,9 +92,9 @@
         -moz-box-ordinal-group: 0 !important;
         padding-top: 8px;
     }
-    /* navigation bar border color */
-    #nav-bar {
-        border-top: 1px solid var(--accent-color) !important;
+    /* browser content */
+    #appcontent {
+        border-top: var(--border-accent-color) !important;
     }
     /* url bar results are shown in the bottom of the screen */
     #urlbar[open]>.urlbarView {
@@ -101,6 +102,9 @@
         margin-block-start: -28px !important;
     }
     /* navigation bar items */
+    #nav-bar {
+        border-top: var(--border-accent-color) !important;
+    }
     #nav-bar image {
         fill: var(--accent-color) !important;
         fill-opacity: 1 !important;
@@ -131,7 +135,7 @@
     #urlbar-container, #urlbar {
         margin: 0 !important;
         padding: 0 !important;
-        border: none !important
+        border: none !important;
     }
     /* url bar elements */
     #identity-box image, #tracking-protection-icon-container image {
@@ -139,13 +143,14 @@
         margin: 0 !important;
     }
     /* makes sidebar responsive. If min-width is used then it does not move content when opened */
-    #sidebar {
-        border-right: 1px solid var(--accent-color) !important;
-    }
     #sidebar-box, #sidebar {
         position: relative !important;
         z-index: 1 !important;
         min-width: 200px !important;
+    }
+    #sidebar {
+        border-top: var(--border-accent-color) !important;
+        border-right: var(--border-accent-color) !important;
     }
     #sidebar-box:hover>#sidebar, #sidebar-box[sidebarcommand="viewBookmarksSidebar"]>#sidebar, #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
         min-width: 600px !important;
@@ -159,11 +164,7 @@
 
 /* white flash on loading tabs fix and background in general */
 
-@-moz-document regexp("^(about:(?!blank)|chrome:|file:|moz-extension:).*") {
-    /* if html in about:blank is not transparent then the selector in devtools breaks */
-    html, body, window {
-        background: var(--background-color) !important;
-    }
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     /* white flash on loading tabs fix */
     #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
         background: var(--background-color) !important;
@@ -506,7 +507,7 @@
     /* about:debugging cards */
     .card {
         background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color) !important;
+        border: var(--border-accent-color) !important;
     }
     /* about:home options button */
     .prefs-button {
@@ -533,10 +534,9 @@
         border-radius: 100% !important;
         margin: 0 1px 0 0 !important;
     }
-    /* icon and title do not darken when hovered */
-    .Tab:hover .fav, .Tab:hover .title {
-        opacity: 1 !important;
-        color: white !important;
+    /* fixes incorrect placement of the audio icon on tabs */
+    .audio {
+        left: 13px !important;
     }
 }
 
@@ -675,40 +675,40 @@
 @-moz-document regexp("view-source.*") {
     :root {
         background-color: var(--background-color)!important;
-        color: var(--foreground-color)!important
+        color: var(--foreground-color)!important;
     }
     pre[id]:before, span[id]:before {
-        color: var(--foreground-color) !important
+        color: var(--foreground-color) !important;
     }
     .highlight .end-tag, .highlight .start-tag {
-        color: purple !important
+        color: purple !important;
     }
     .highlight .comment {
-        color: green !important
+        color: green !important;
     }
     .highlight .cdata {
-        color: #c06 !important
+        color: #c06 !important;
     }
     .highlight .doctype {
-        color: #4682b4 !important
+        color: #4682b4 !important;
     }
     .highlight .pi {
-        color: red !important
+        color: red !important;
     }
     .highlight .entity {
-        color: #dea174 !important
+        color: #dea174 !important;
     }
     .highlight .attribute-name {
-        color: green !important
+        color: green !important;
     }
     .highlight .attribute-value {
-        color: var(--foreground-color) !important
+        color: var(--foreground-color) !important;
     }
     .highlight .markupdeclaration {
-        color: #4682b4 !important
+        color: #4682b4 !important;
     }
     .highlight .error, .highlight .error> :-moz-any(.start-tag, .end-tag, .comment, .cdata, .doctype, .pi, .entity, .attribute-name, .attribute-value) {
-        color: #de7474 !important
+        color: #de7474 !important;
     }
 }
 
@@ -742,7 +742,7 @@
     button, .urlbarView-tip-button, .toggle-group-label {
         -moz-appearance: none !important;
         background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color) !important;
+        border: var(--border-accent-color) !important;
         color: var(--foreground-color) !important;
         opacity: 1 !important;
     }
