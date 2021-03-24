@@ -105,6 +105,9 @@
     #nav-bar {
         border-top: var(--border-accent-color) !important;
     }
+    #urlbar-background {
+        background: var(--background-color) !important;
+    }
     #nav-bar image {
         fill: var(--accent-color) !important;
         fill-opacity: 1 !important;
@@ -142,6 +145,10 @@
         padding: 0 !important;
         margin: 0 !important;
     }
+    /* sign that the remote server is on. The image is png, so it doesn't fit with the theme*/
+    #remote-control-icon {
+        visibility: collapse !important;
+    }
     /* makes sidebar responsive. If min-width is used then it does not move content when opened */
     #sidebar-box, #sidebar {
         position: relative !important;
@@ -162,10 +169,9 @@
     }
 }
 
-/* white flash on loading tabs fix and background in general */
+/* white flash on loading tabs fix */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-    /* white flash on loading tabs fix */
     #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
         background: var(--background-color) !important;
     }
@@ -173,7 +179,7 @@
 
 /* prompts, context menus, autocomplete popups, etc */
 
-@-moz-document regexp("^(about:(?!blank)|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     menupopup, [role="dialog"]>*, select, panel-list, ul[role="menu"], #PopupAutoComplete, .dialogBox, .dialogFrame {
         -moz-appearance: none !important;
         padding: 5px 1px 5px 1px !important;
