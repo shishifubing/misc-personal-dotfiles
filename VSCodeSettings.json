@@ -1,7 +1,10 @@
 {
     "telemetry.enableTelemetry": false,
-    "window.menuBarVisibility": "compact",
-    "window.zoomLevel": -1,
+    "window.menuBarVisibility": "toggle",
+    "window.titleBarStyle": "custom",
+    "window.openFilesInNewWindow": "on",
+    "window.dialogStyle": "custom",
+    "editor.tabSize": 4,
     "explorer.openEditors.visible": 999,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
@@ -14,15 +17,22 @@
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
     "editor.formatOnPaste": true,
-    "workbench.editorAssociations": [],
     "workbench.editor.showTabs": false,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
-        "contrastBorder": "#ffffff50",
-        "editor.selectionHighlightBorder": "#c50ed2",
-        "focusBorder": "#c50ed2",
-        "editor.lineHighlightBorder": "#c50ed2"
+        "contrastBorder": "#9932cc",
+        "editor.selectionHighlightBorder": "#9932cc",
+        "focusBorder": "#9932cc",
+        "editor.lineHighlightBorder": "#9932cc",
+        "editor.selectionBackground": "#9932cc",
+        "editor.selectionForeground": "#ffffff",
+        "editorCursor.background": "#9932cc",
+        "editorCursor.foreground": "#9932cc",
+        "terminalCursor.foreground": "#9932cc",
+        "terminalCursor.background": "#ffffff",
+        "terminal.selectionBackground": "#9932cc"
     },
+    "workbench.statusBar.visible": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
     "git.autofetch": true,
     "git.confirmSync": false,
@@ -44,5 +54,25 @@
         }
     ],
     "python.languageServer": "Microsoft",
-    "workbench.activityBar.visible": false,
+    "workbench.panel.opensMaximized": "never",
+    "zenMode.centerLayout": false,
+    "zenMode.silentNotifications": false,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "workbench.editor.decorations.badges": true,
+    "workbench.editor.labelFormat": "long",
+    "workbench.editor.limit.value": 999,
+    "explorer.incrementalNaming": "smart",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "window.zoomLevel": -1,
+    "workbench.editor.enablePreview": false,
+    "editor.cursorSmoothCaretAnimation": false,
+    "editor.cursorStyle": "line-thin",
+    "editor.cursorBlinking": "solid",
 }
