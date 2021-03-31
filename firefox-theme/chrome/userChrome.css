@@ -1,4 +1,4 @@
-/* base */
+/* /base */
 
 @-moz-document regexp(".*") {
     :root {
@@ -29,7 +29,7 @@
     }
 }
 
-/* browser interface */
+/* /browser interface */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     :root {
@@ -89,12 +89,20 @@
     /* it moves browser window to the top and url bar to the bottom */
     #browser {
         -moz-box-ordinal-group: 0 !important;
-        border-top: var(--border-accent-color) !important;
         margin-top: 10px !important;
     }
-    /* content shown by browser */
+    /* border and margin of the browser's main elements: 
+        sidebar, browser content, navigation bar        */
+    #sidebar-box, #appcontent, #nav-bar {
+        border: var(--border-accent-color) !important;
+        margin: 1rem !important;
+    }
+    #sidebar-box {
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+    }
     #appcontent {
-        border-left: var(--border-accent-color) !important;
+        margin-bottom: 0 !important;
     }
     /* gives a little purple tint to everything */
     #devtools-highlighter-renderer {
@@ -105,24 +113,23 @@
         transform: translateY(-100%) !important;
         margin-block-start: -28px !important;
     }
-    /* navigation bar items */
+    /* background of the urlbar and its results */
     #urlbar-background {
         background: var(--background-color) !important;
     }
-    #nav-bar {
-        border-top: var(--border-accent-color) !important;
-    }
-    #nav-bar image {
+    /* all images in the navigation bar */
+    #navigator-toolbox image {
         fill: var(--accent-color) !important;
         fill-opacity: 1 !important;
         opacity: 1 !important;
     }
-    toolbarbutton:hover, #PanelUI-menu-button:hover image, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
+    /* handles navigation bar items on hover  */
+    toolbarbutton:hover, toolbarbutton:hover image, #PanelUI-menu-button:hover image, #nav-bar *[open], #nav-bar *[open]:not(#urlbar) image, #page-action-buttons *:hover, #identity-box:hover, #identity-box:hover image, #tracking-protection-icon-container:hover, #tracking-protection-icon-container:hover image {
         background-color: var(--accent-color) !important;
         border-radius: 2px !important;
         fill: var(--foreground-color) !important;
     }
-    /* transfroms animatable-image into a usual image to make it react to the fill property */
+    /* transfroms an animatable-image into a usual image to make it react to the fill property */
     #tracking-protection-icon-animatable-image {
         background-image: url(chrome://browser/skin/tracking-protection.svg) !important;
     }
@@ -158,17 +165,13 @@
         background-color: var(--background-color) !important;
         border: none !important;
     }
-}
-
-/* white flash on loading tabs fix */
-
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+    /* white flash on opening tabs fix */
     #browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content]>html {
         background: var(--background-color) !important;
     }
 }
 
-/* prompts, context menus, autocomplete popups, etc */
+/* /context prompts, context menus, autocomplete popups, etc */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     menupopup, [role="dialog"]>*, select, panel-list, ul[role="menu"], #PopupAutoComplete, .dialogBox, .dialogFrame {
@@ -342,7 +345,7 @@
     }
 }
 
-/* dev-tools */
+/* /dev-tools */
 
 @-moz-document regexp("^(about:devtools|chrome://devtools).*") {
     /* theme variables */
@@ -408,7 +411,7 @@
     }
 }
 
-/* in-content */
+/* /in-content */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     :root {
@@ -512,7 +515,7 @@
     }
 }
 
-/* sideberry adjustments  */
+/* /sideberry adjustments  */
 
 @-moz-document url-prefix("moz-extension://e687cf7f-57c5-4ebe-92e7-eefea85d672a/") {
     #root {
@@ -530,7 +533,7 @@
     .fav {
         background-color: var(--accent-color) !important;
         border-radius: 100% !important;
-        margin: 0 1px 0 0 !important;
+        margin: 0 1px 0 2px !important;
     }
     /* fixes incorrect placement of the audio icon on tabs */
     .audio {
@@ -538,7 +541,7 @@
     }
 }
 
-/* reddit adjustments  */
+/* /reddit adjustments  */
 
 @-moz-document domain("reddit.com") {
     /* header and popups */
@@ -557,7 +560,7 @@
     }
 }
 
-/* chatterbox adjustments  */
+/* /chatterbox adjustments  */
 
 @-moz-document domain("yandex-team.ru") {
     /* that backgroun is black for some reason */
@@ -566,7 +569,7 @@
     }
 }
 
-/* memory page */
+/* /memory page */
 
 @-moz-document regexp("about:memory") {
     html {
@@ -579,7 +582,7 @@
     }
 }
 
-/* json */
+/* /json */
 
 @-moz-document regexp(".*[\.json]$") {
     html {
@@ -588,7 +591,7 @@
     }
 }
 
-/* pdf */
+/* /pdf */
 
 @-moz-document regexp(".*\\.(p|P)(d|D)(f|F).*") {
     #loadingBar .progress, .dropdownToolbarButton>select, .dropdownToolbarButton>select>option, .overlayButton, .secondaryToolbarButton, .toolbarField, body, div#viewer {
@@ -668,7 +671,7 @@
     }
 }
 
-/* view source */
+/* /view source */
 
 @-moz-document regexp("view-source.*") {
     :root {
@@ -710,7 +713,7 @@
     }
 }
 
-/* tree children (file browser, about:memory, etc) */
+/* /tree children (file browser, about:memory, etc) */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     /* root element */
@@ -734,7 +737,7 @@
     }
 }
 
-/* buttons */
+/* /buttons */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     button, .urlbarView-tip-button, .toggle-group-label {
@@ -769,7 +772,7 @@
     }
 }
 
-/* checkboxes */
+/* /checkboxes */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     checkbox, input[type="checkbox"] {
@@ -818,7 +821,7 @@
     }
 }
 
-/* radio buttons */
+/* /radio buttons */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     radio, input[type="radio"] {
@@ -876,7 +879,7 @@
     }
 }
 
-/* text input */
+/* /text input */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     textarea, input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]), .findbar-textbox {
