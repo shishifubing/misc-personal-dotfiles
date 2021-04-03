@@ -20,9 +20,10 @@
     "workbench.editor.showTabs": false,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
-        "contrastBorder": "#9932cc",
+        "contrastBorder": "#000000",
         "editor.selectionHighlightBorder": "#9932cc",
         "focusBorder": "#9932cc",
+        "statusBar.border": "#000000",
         "editor.lineHighlightBorder": "#9932cc",
         "editor.selectionBackground": "#9932cc",
         "editor.selectionForeground": "#ffffff",
@@ -33,47 +34,17 @@
         "terminal.selectionBackground": "#9932cc"
     },
     "workbench.statusBar.visible": true,
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
     "git.autofetch": true,
     "git.confirmSync": false,
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "java.refactor.renameFromFileExplorer": "autoApply",
-    "mssql.connections": [
-        {
-            "server": "{{put-server-name-here}}",
-            "database": "{{put-database-name-here}}",
-            "user": "{{put-username-here}}",
-            "password": ""
-        },
-        {
-            "server": "DESKTOP-A1EL8P7",
-            "database": "Books",
-            "authenticationType": "Integrated",
-            "profileName": "Default",
-            "password": ""
-        }
-    ],
-    "python.languageServer": "Microsoft",
-    "workbench.panel.opensMaximized": "never",
+    "workbench.panel.opensMaximized": "always",
     "zenMode.centerLayout": false,
     "zenMode.silentNotifications": false,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
     "workbench.editor.decorations.badges": true,
     "workbench.editor.labelFormat": "long",
     "workbench.editor.limit.value": 999,
     "explorer.incrementalNaming": "smart",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
     "window.zoomLevel": -1,
     "workbench.editor.enablePreview": false,
-    "editor.cursorSmoothCaretAnimation": false,
-    "editor.cursorStyle": "line-thin",
-    "editor.cursorBlinking": "solid",
-    "workbench.startupEditor": "newUntitledFile",
+    "editor.cursorSmoothCaretAnimation": true,
+    "workbench.startupEditor": "newUntitledFile"
 }

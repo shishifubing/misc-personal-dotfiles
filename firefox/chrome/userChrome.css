@@ -1,10 +1,10 @@
-/* /base */
+/* *base */
 
 @-moz-document regexp(".*") {
      :root {
         /* darkorchid */
         --accent-color: #9932cc !important;
-        --accent-color-2: #c50ed2;
+        --accent-color-2: #9932cc99;
         --border-accent-color: 1px solid var(--accent-color);
         /* gray */
         --accent-color-3: #808080;
@@ -23,14 +23,14 @@
         background: var(--accent-color) !important;
         color: var(--foreground-color) !important;
     }
-    /* removes the white outline on focused elements */
+    /* removes a white outline on focused elements */
      :focus {
         outline: none !important;
     }
 }
 
 
-/* /browser interface */
+/* *browser interface */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
      :root {
@@ -85,7 +85,7 @@
         --lwt-background-tab-separator-color: var(--background-color) !important;
         --tab-line-color: var(--background-color) !important;
     }
-    /* hidden titlebar, toolbar, sidebar header and splitter, and some toolbar buttons */
+    /* stuff to hide */
     #browser-bottombox,
     #titlebar,
     #TabsToolbar,
@@ -93,6 +93,7 @@
     #back-button,
     #forward-button,
     #reload-button,
+    #stop-button,
     #home-button {
         visibility: collapse !important;
     }
@@ -100,28 +101,17 @@
     #browser {
         -moz-box-ordinal-group: 0 !important;
     }
-    /* border and margin of the browser's main elements: 
-        sidebar, browser content, navigation bar        */
-    #sidebar-box,
-    #appcontent,
+    /* navigation bar has box-shadow for some reason */
     #nav-bar {
-        border: var(--border-accent-color) !important;
-        margin: 1rem !important;
+        box-shadow: none !important;
     }
-    #sidebar-box {
-        margin-right: 0 !important;
-        margin-bottom: 0 !important;
-    }
-    #appcontent {
-        margin-bottom: 0 !important;
-    }
-    /* on linux the sidebar linux is visible, it fixes it */
+    /* on linux the sidebar splitter is visible, it fixes it */
     .sidebar-splitter {
         background: none !important;
         border: none !important;
         width: 0.5px !important;
     }
-    /* gives a little purple tint to everything */
+    /* gives a little tint to everything */
     #devtools-highlighter-renderer {
         background-color: #9932cc20 !important;
     }
@@ -147,18 +137,20 @@
     /* url bar results are shown in the bottom of the screen */
     #urlbar[open] .urlbarView {
         transform: translateY(-100%) !important;
-        margin-block-start: calc(-1rem + (var(--urlbar-toolbar-height)*-1)) !important;
+        margin-block-start: calc(var(--urlbar-height)*-1) !important;
         width: 100% !important;
     }
     #urlbar[open] #urlbar-results {
-        border: var(--border-accent-color) !important;
         padding: 0 !important;
     }
     #urlbar[open] #urlbar-results>* {
         margin: 0 !important;
         padding: 0 !important;
     }
-    /* background of the urlbar and its results */
+    /* background of the url bar and its results */
+    /* if its not transparent then the background 
+        will stretch downwards since url bar results 
+        are on the bottom of the screen now */
     #urlbar-background {
         background: transparent !important;
     }
@@ -169,15 +161,9 @@
         opacity: 1 !important;
     }
     /* handles navigation bar items on hover  */
-    toolbarbutton:hover,
-    #PanelUI-menu-button:hover image,
-    #nav-bar *[open],
-    #nav-bar *[open]:not(#urlbar) image,
-    #page-action-buttons *:hover,
-    #identity-box:hover,
-    #identity-box:hover image,
-    #tracking-protection-icon-container:hover,
-    #tracking-protection-icon-container:hover image {
+    #nav-bar [open],
+     :is(toolbarbutton, #page-action-buttons *, #identity-box, #tracking-protection-icon-container):hover,
+     :is(#nav-bar [open]:not(#urlbar), toolbarbutton:hover, #PanelUI-menu-button:hover, #identity-box:hover, #tracking-protection-icon-container:hover) image {
         background-color: var(--accent-color) !important;
         border-radius: 2px !important;
         fill: var(--foreground-color) !important;
@@ -233,7 +219,7 @@
 }
 
 
-/* /context prompts, context menus, autocomplete popups, etc */
+/* *context prompts, context menus, autocomplete popups, etc */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     menupopup,
@@ -450,7 +436,7 @@
 }
 
 
-/* /dev-tools */
+/* *dev-tools */
 
 @-moz-document regexp("^(about:devtools|chrome://devtools).*") {
     /* theme variables */
@@ -517,7 +503,7 @@
 }
 
 
-/* /in-content */
+/* *in-content */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
      :root {
@@ -623,7 +609,7 @@
 }
 
 
-/* /sideberry adjustments  */
+/* *sideberry adjustments  */
 
 @-moz-document regexp("^moz-extension://(e687cf7f-57c5-4ebe-92e7-eefea85d672a|0e163cbe-0cb6-4b36-b6e0-97caf5b26dca).*") {
     #root {
@@ -650,7 +636,7 @@
 }
 
 
-/* /reddit adjustments  */
+/* *reddit adjustments  */
 
 @-moz-document domain("reddit.com") {
     /* header and popups */
@@ -674,7 +660,7 @@
 }
 
 
-/* /chatterbox adjustments  */
+/* *chatterbox adjustments  */
 
 @-moz-document domain("yandex-team.ru") {
     /* that backgroun is black for some reason */
@@ -684,7 +670,7 @@
 }
 
 
-/* /memory page */
+/* *memory page */
 
 @-moz-document regexp("about:memory") {
     html {
@@ -702,7 +688,7 @@
 }
 
 
-/* /json */
+/* *json */
 
 @-moz-document regexp(".*[\.json]$") {
     html {
@@ -712,7 +698,7 @@
 }
 
 
-/* /pdf */
+/* *pdf */
 
 @-moz-document regexp(".*\\.(p|P)(d|D)(f|F).*") {
     #loadingBar .progress,
@@ -818,7 +804,7 @@
 }
 
 
-/* /view source */
+/* *view source */
 
 @-moz-document regexp("view-source.*") {
      :root {
@@ -864,7 +850,7 @@
 }
 
 
-/* /tree children (file browser, about:memory, etc) */
+/* *tree children (file browser, about:memory, etc) */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     /* root element */
@@ -892,7 +878,7 @@
 }
 
 
-/* /buttons */
+/* *buttons */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     button,
@@ -938,7 +924,7 @@
 }
 
 
-/* /checkboxes */
+/* *checkboxes */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     checkbox,
@@ -999,7 +985,7 @@
 }
 
 
-/* /radio buttons */
+/* *radio buttons */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     radio,
@@ -1063,7 +1049,7 @@
 }
 
 
-/* /text input */
+/* *text input */
 
 @-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
     textarea,
@@ -1110,7 +1096,7 @@
 }
 
 
-/* /uncategorized stuff 
+/* *uncategorized stuff 
 
 .wizard-header {
     background: var(--background-color) !important;
