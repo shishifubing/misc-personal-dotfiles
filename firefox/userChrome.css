@@ -110,7 +110,7 @@
     .sidebar-splitter {
         background: none !important;
         border: none !important;
-        width: 0.5px !important;
+        width: 3px !important;
     }
     /* gives a little tint to everything */
     #devtools-highlighter-renderer {

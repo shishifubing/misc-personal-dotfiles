@@ -134,3 +134,8 @@ alias lo='qdbus org.kde.ksmserver /KSMServer logout 0 3 3' # log out
 alias lol='loginctl lock-session 1' # lock the session
 alias lor='reboot' # reboot
 alias los='shutdown now' # shutdown immediately
+alias sx='startx'
+
+# variables exports
+
+export LC_ALL="en_US.UTF-8" # all locales are overriden

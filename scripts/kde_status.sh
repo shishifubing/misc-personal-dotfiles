@@ -3,18 +3,18 @@
 temp_file=/tmp/kde_status
 temp_file_traffic="${temp_file}_traffic"
 echo "start" > $temp_file
-echo "0.00kB/s|0.00kB/s" > $temp_file_traffic
+echo "0kB/s 0kB/s" > $temp_file_traffic
 
 while true; do
 
-output=`sar -n DEV 1 1 | awk 'FNR == 21 {print $5"kB/s|"$6"kB/s"}'`
+output=`sar -n DEV 1 1 | awk 'FNR == 6 { printf("%.0fkB/s %.0fkB/s", $5, $6); }'`
 awk -i inplace -v output="$output" '{ print output; }' $temp_file_traffic
 
 done &
 
 while true; do
 
-date=`date +"%A %B %T:%3N %d.%m.%Y"`
+date=`date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%2N]"`
 
 memory=`free -h | awk 'FNR == 2 { print $3 "/" $2; }'` 
 
@@ -25,9 +25,8 @@ cpu_usage=`vmstat | awk 'FNR == 3 { print 100 - $15 "%"; }'`
 
 traffic=`cat $temp_file_traffic`
 
-output="$date $memory $cpu_temp $cpu_usage $traffic"
+output="$date [$memory] [$cpu_temp $cpu_usage] [$traffic]"
 
 awk -i inplace -v output="$output" '{ print output; }' $temp_file
 
 done
-
