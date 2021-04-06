@@ -3,7 +3,7 @@
 @-moz-document regexp(".*") {
      :root {
         /* darkorchid */
-        --accent-color: #9932cc !important;
+        --accent-color: #9932cd !important;
         --accent-color-2: #9932cc99;
         --border-accent-color: 1px solid var(--accent-color);
         /* gray */
@@ -17,6 +17,9 @@
     * {
         scrollbar-color: var(--accent-color) var(--background-color) !important;
         scrollbar-width: thin !important;
+    }
+    html, body {
+        scrollbar-width: none !important;
     }
     /* uniform text selection */
      ::selection {
@@ -32,9 +35,10 @@
 
 /* *browser interface */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
-     :root {
-        /* Popup panels (accordeon menu on the right, etc) */
+@-moz-document regexp("^(about:|chrome:|file:).*") {
+    /* browser variables, for some reason the setup works without them
+    :root {
+        /* Popup panels(accordeon menu on the right, etc) 
         --arrowpanel-background: var(--background-color) !important;
         --arrowpanel-border-color: var(--background-color) !important;
         --arrowpanel-color: var(--foreground-color) !important;
@@ -42,7 +46,7 @@
         --panel-separator-color: var(--accent-color) !important;
         --panel-disabled-color: var(--accent-color-2) !important;
         --panel-description-color: var(--accent-color-2) !important;
-        /* window and toolbar background */
+        /* window and toolbar background 
         --lwt-accent-color: var(--accent-color) !important;
         --lwt-accent-color-inactive: var(--background-color) !important;
         --lwt-text-color: var(--foreground-color) !important;
@@ -51,12 +55,12 @@
         --toolbar-color: var(--foreground-color) !important;
         --urlbar-height: 28px !important;
         --urlbar-toolbar-height: 30px !important;
-        /* toolbar buttons */
+        /* toolbar buttons 
         --lwt-toolbarbutton-icon-fill: var(--accent-color) !important;
         --lwt-toolbarbutton-icon-fill-attention: var(--accent-color) !important;
         --lwt-toolbarbutton-hover-background: var(--accent-color) !important;
         --lwt-toolbarbutton-active-background: var(--accent-color) !important;
-        /* urlbar */
+        /* urlbar 
         --lwt-toolbar-field-background-color: var(--background-color) !important;
         --lwt-toolbar-field-focus: var(--background-color) !important;
         --lwt-toolbar-field-border-color: var(--background-color) !important;
@@ -66,21 +70,21 @@
         --lwt-toolbar-field-focus-color: var(--foreground-color) !important;
         --toolbar-field-focus-border-color: var(--background-color) !important;
         --urlbar-popup-url-color: var(--accent-color) !important;
-        /* inner urlbar separator on the left */
+        /* inner urlbar separator on the left 
         --urlbar-separator-color: var(--background-color) !important;
-        /* bottom navigation bar border */
+        /* bottom navigation bar border 
         --chrome-content-separator-color: var(--background-color) !important;
-        /* sidebar */
+        /* sidebar 
         --lwt-sidebar-background-color: var(--background-color) !important;
         --lwt-sidebar-text-color: var(--foreground-color) !important;
         --sidebar-background-color: var(--background-color) !important;
         --sidebar-border-color: var(--accent-color) !important;
-        /* autocomplete */
+        /* autocomplete 
         --autocomplete-popup-background: var(--background-color) !important;
         --autocomplete-popup-color: var(--foreground-color) !important;
         --autocomplete-popup-highlight-background: var(--accent-color) !important;
         --autocomplete-popup-highlight-color: var(--foreground-color) !important;
-        /* useless tab variables */
+        /* useless tab variables 
         --lwt-tab-text: var(--foreground-color) !important;
         --lwt-background-tab-separator-color: var(--background-color) !important;
         --tab-line-color: var(--background-color) !important;
@@ -102,9 +106,10 @@
         -moz-box-ordinal-group: 0 !important;
         margin-top: 6px !important;
     }
-    /* navigation bar has box-shadow for some reason */
+    /* navigation bar has box-shadow and background-image for some reason */
     #nav-bar {
         box-shadow: none !important;
+        background-image: none !important;
     }
     /* on linux the sidebar splitter is visible, it fixes it */
     .sidebar-splitter {
@@ -180,7 +185,7 @@
         fill-opacity: 1 !important;
     }
     .urlbarView-row:hover>* {
-        background-color: var(--accent-color) !important;
+        background-color: var(--accent-color-2) !important;
     }
     .urlbarView-row:hover img,
     .urlbarView-row[selected] img {
@@ -222,7 +227,7 @@
 
 /* *context prompts, context menus, autocomplete popups, etc */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp(".*") {
     menupopup,
     [role="dialog"]>*,
     select,
@@ -437,76 +442,9 @@
 }
 
 
-/* *dev-tools */
-
-@-moz-document regexp("^(about:devtools|chrome://devtools).*") {
-    /* theme variables */
-     :root {
-        --theme-body-background: var(--background-color) !important;
-        --theme-body-emphasized-background: var(--accent-color-2) !important;
-        --theme-sidebar-background: var(--background-color) !important;
-        --theme-tab-toolbar-background: var(--background-color) !important;
-        --theme-toolbar-background: var(--background-color) !important;
-        --theme-toolbar-color: var(--foreground-color) !important;
-        --theme-toolbar-selected-color: var(--foreground-color) !important;
-        --theme-toolbar-background-hover: var(--accent-color) !important;
-        --theme-toolbar-hover: var(--accent-color) !important;
-        --theme-toolbar-hover-active: var(--accent-color) !important;
-        --theme-toolbar-separator: var(--accent-color) !important;
-        --tab-line-selected-color: var(--accent-color) !important;
-        --toolbarbutton-background: var(--background-color) !important;
-        --toolbarbutton-hover-background: var(--accent-color) !important;
-        --toolbarbutton-focus-background: var(--accent-color) !important;
-        --toolbarbutton-focus-color: var(--foreground-color) !important;
-        --theme-button-background: var(--background-color) !important;
-        --theme-button-active-background: var(--accent-color) !important;
-        --theme-accordion-header-background: var(--background-color) !important;
-        --theme-accordion-header-hover: var(--accent-color) !important;
-        --theme-selection-background: var(--accent-color) !important;
-        --theme-selection-background-hover: var(--accent-color) !important;
-        --theme-selection-focus-background: var(--accent-color) !important;
-        --theme-selection-color: var(--foreground-color) !important;
-        --theme-splitter-color: var(--accent-color) !important;
-        --theme-emphasized-splitter-color: var(--accent-color) !important;
-        --theme-emphasized-splitter-color-hover: var(--accent-color) !important;
-        --theme-icon-color: var(--accent-color) !important;
-        --theme-icon-checked-color: var(--foreground-color) !important;
-        --theme-icon-dimmed-color: var(--accent-color-2) !important;
-        --theme-body-color: var(--foreground-color) !important;
-        --theme-popup-background: var(--background-color) !important;
-        --theme-popup-color: var(--foreground-color) !important;
-        --theme-popup-border-color: var(--accent-color) !important;
-        --theme-popup-dimmed: var(--background-color) !important;
-        --theme-toolbarbutton-background: var(--background-color) !important;
-        --theme-toolbarbutton-color: var(--foreground-color) !important;
-        --theme-toolbarbutton-hover-background: var(--accent-color) !important;
-        --theme-toolbarbutton-active-background: var(--accent-color) !important;
-        --theme-toolbarbutton-active-color: var(--foreground-color) !important;
-        --theme-contrast-background: var(--background-color) !important;
-        --theme-contrast-color: var(--foreground-color) !important;
-    }
-    /* overrrides color from general buttons */
-    .devtools-tabbar-button {
-        color: var(--theme-icon-color) !important;
-    }
-    /* removes the blue border from text input boxes */
-    .devtools-searchbox {
-        border: none !important;
-    }
-    /* devtools page has too many buttons and their borders take too much space */
-    #toolbox-container button {
-        border: none !important;
-    }
-    /* element tree in the bottom left corner */
-    .breadcrumbs-widget-item {
-        border: none !important;
-    }
-}
-
-
 /* *in-content */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:).*") {
      :root {
         --in-content-page-color: var(--foreground-color) !important;
         --in-content-page-background: var(--background-color) !important;
@@ -578,7 +516,7 @@
         --newtab-search-header-background-color: var(--background-color) !important;
         --newtab-topsites-icon-shadow: none !important;
     }
-    /* it removes the white outline and the dotted border on focused elements */
+    /* it removes white outlines and dotted borders on focused elements */
     * {
         outline: none !important;
     }
@@ -673,7 +611,7 @@
 
 /* *memory page */
 
-@-moz-document regexp("about:memory") {
+@-moz-document regexp("^about:memory.*") {
     html {
         background: var(--background-color) !important;
     }
@@ -685,16 +623,6 @@
         color: var(--foreground-color) !important;
         background-color: var(--background-color) !important;
         border: 1px solid var(--accent-color-2) !important;
-    }
-}
-
-
-/* *json */
-
-@-moz-document regexp(".*[\.json]$") {
-    html {
-        background: var(--background-color)!important;
-        color: var(--foreground-color)!important
     }
 }
 
@@ -808,7 +736,7 @@
 /* *view source */
 
 @-moz-document regexp("view-source.*") {
-     :root {
+    :root {
         background-color: var(--background-color)!important;
         color: var(--foreground-color)!important;
     }
@@ -851,37 +779,99 @@
 }
 
 
-/* *tree children (file browser, about:memory, etc) */
+/* *tree children (devtools, file browser, about:memory, etc) */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp(".*") {
     /* root element */
     [dir="ltr"] {
         border-color: var(--accent-color)!important;
         background-color: var(--background-color)!important;
-        color: var(--foreground-color)!important
+        color: var(--foreground-color)!important;
+        --theme-body-background: var(--background-color) !important;
+        --theme-body-emphasized-background: var(--accent-color-2) !important;
+        --theme-sidebar-background: var(--background-color) !important;
+        --theme-tab-toolbar-background: var(--background-color) !important;
+        --theme-toolbar-background: var(--background-color) !important;
+        --theme-toolbar-color: var(--foreground-color) !important;
+        --theme-toolbar-selected-color: var(--foreground-color) !important;
+        --theme-toolbar-background-hover: var(--accent-color) !important;
+        --theme-toolbar-hover: var(--accent-color) !important;
+        --theme-toolbar-hover-active: var(--accent-color) !important;
+        --theme-toolbar-separator: var(--accent-color) !important;
+        --tab-line-selected-color: var(--accent-color) !important;
+        --toolbarbutton-background: var(--background-color) !important;
+        --toolbarbutton-hover-background: var(--accent-color) !important;
+        --toolbarbutton-focus-background: var(--accent-color) !important;
+        --toolbarbutton-focus-color: var(--foreground-color) !important;
+        --theme-button-background: var(--background-color) !important;
+        --theme-button-active-background: var(--accent-color) !important;
+        --theme-accordion-header-background: var(--background-color) !important;
+        --theme-accordion-header-hover: var(--accent-color) !important;
+        --theme-selection-background: var(--accent-color) !important;
+        --theme-selection-background-hover: var(--accent-color) !important;
+        --theme-selection-focus-background: var(--accent-color) !important;
+        --theme-selection-color: var(--foreground-color) !important;
+        --theme-splitter-color: var(--accent-color) !important;
+        --theme-emphasized-splitter-color: var(--accent-color) !important;
+        --theme-emphasized-splitter-color-hover: var(--accent-color) !important;
+        --theme-icon-color: var(--accent-color) !important;
+        --theme-icon-checked-color: var(--foreground-color) !important;
+        --theme-icon-dimmed-color: var(--accent-color-2) !important;
+        --theme-body-color: var(--foreground-color) !important;
+        --theme-popup-background: var(--background-color) !important;
+        --theme-popup-color: var(--foreground-color) !important;
+        --theme-popup-border-color: var(--accent-color) !important;
+        --theme-popup-dimmed: var(--background-color) !important;
+        --theme-toolbarbutton-background: var(--background-color) !important;
+        --theme-toolbarbutton-color: var(--foreground-color) !important;
+        --theme-toolbarbutton-hover-background: var(--accent-color) !important;
+        --theme-toolbarbutton-active-background: var(--accent-color) !important;
+        --theme-toolbarbutton-active-color: var(--foreground-color) !important;
+        --theme-contrast-background: var(--background-color) !important;
+        --theme-contrast-color: var(--foreground-color) !important;
+    }
+    /* overrrides color of general buttons */
+    [dir="ltr"] .devtools-tabbar-button {
+        color: var(--theme-icon-color) !important;
+    }
+    /* removes a blue border from text input boxes */
+    [dir="ltr"] .searchBox {
+        border: none !important;
+        background-color: var(--background-color) !important;
+    }
+    [dir="ltr"] .searchBox:focus {
+        border: var(--border-accent-color) !important;
+    }
+    /* the devtools page has too many buttons and their borders take too much space */
+    [dir="ltr"] button {
+        border: none !important;
+    }
+    /* element tree in the bottom left corner of the devtools */
+    [dir="ltr"] .breadcrumbs-widget-item {
+        border: none !important;
     }
     /* header */
     [dir="ltr"] h1 {
-        border-color: var(--accent-color)!important
+        border-color: var(--accent-color) !important
     }
     /* items */
     [dir="ltr"]>table>tbody>tr:hover {
-        outline-color: var(--accent-color)!important;
-        background-color: var(--accent-color)!important
+        outline-color: var(--accent-color) !important;
+        background-color: var(--accent-color) !important;
     }
     /* titles of items */
     [dir="ltr"] .dir,
-    body[dir="ltr"] .file,
-    body[dir="ltr"] .symlink,
-    body[dir="ltr"] .up {
-        color: var(--foreground-color)!important
+    [dir="ltr"] .file,
+    [dir="ltr"] .symlink,
+    [dir="ltr"] .up {
+        color: var(--foreground-color) !important;
     }
 }
 
 
 /* *buttons */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:).*") {
     button,
     .urlbarView-tip-button,
     .toggle-group-label {
@@ -927,7 +917,7 @@
 
 /* *checkboxes */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:).*") {
     checkbox,
     input[type="checkbox"] {
         -moz-appearance: none !important;
@@ -988,7 +978,7 @@
 
 /* *radio buttons */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:).*") {
     radio,
     input[type="radio"] {
         -moz-appearance: none !important;
@@ -1052,7 +1042,7 @@
 
 /* *text input */
 
-@-moz-document regexp("^(about:|chrome:|file:|moz-extension:).*") {
+@-moz-document regexp("^(about:|chrome:|file:) {
     textarea,
     input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]),
     .findbar-textbox {

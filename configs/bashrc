@@ -120,10 +120,13 @@ fi
 
 alias lsa='ls -a' # show regular and hidden files
 alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
+alias sx='startx'
+alias gitd='git add . && git commit -m update && git push origin'
+alias py='python' #python
 
 # pacman aliases
 
-alias pms='sudo pacman -S' # install a package
+alias pm='sudo pacman -S' # install a package
 alias pmsyu='sudo pacman -Syu' # install a package, update database and upgrade
 alias pmr='sudo pacman -R' # remove
 alias pmql='sudo pacman -Ql' # show a list of files installed by a package
@@ -134,8 +137,9 @@ alias lo='qdbus org.kde.ksmserver /KSMServer logout 0 3 3' # log out
 alias lol='loginctl lock-session 1' # lock the session
 alias lor='reboot' # reboot
 alias los='shutdown now' # shutdown immediately
-alias sx='startx'
 
 # variables exports
 
-export LC_ALL="en_US.UTF-8" # all locales are overriden
+export LC_ALL="en_US.UTF-8" # all locales are overwritten
+alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'
+alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'
