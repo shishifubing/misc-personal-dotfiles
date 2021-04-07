@@ -119,10 +119,10 @@ fi
 # random aliases
 
 alias lsa='ls -a' # show regular and hidden files
-alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
-alias sx='startx'
-alias gitd='git add . && git commit -m update && git push origin'
-alias py='python' #python
+alias yavpn='echo '-hfo3-!W' && sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
+alias sx='startx' # start xorg-server
+alias gitd='git add . && git commit -m update && git push origin' # default git push
+alias py='python' # python
 
 # pacman aliases
 
@@ -141,5 +141,3 @@ alias los='shutdown now' # shutdown immediately
 # variables exports
 
 export LC_ALL="en_US.UTF-8" # all locales are overwritten
-alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'
-alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'
