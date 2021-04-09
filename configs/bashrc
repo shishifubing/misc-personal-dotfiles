@@ -113,9 +113,8 @@ fi
 
 # random aliases
 
-alias ll='ls -alF'
-alias la='ls -a' # show regular and hidden files
-alias l='ls -CF' 
+alias l='ls -ahcFg' # show a vertical list of files with some info 
+alias la='ls -a' # show hidden files
 alias yavpn='echo '-hfo3-!W' && sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
 alias sx='startx' # start xorg-server
 alias gitd='git add . && git commit -m update && git push origin' # default git push
@@ -124,9 +123,9 @@ alias py='python' # python
 # pacman aliases
 
 alias pm='sudo pacman -S' # install a package
-alias pmsyu='sudo pacman -Syu' # install a package, update database and upgrade
+alias pms='sudo pacman -Syu' # system update
 alias pmr='sudo pacman -R' # remove
-alias pmql='sudo pacman -Ql' # show a list of files installed by a package
+alias pmq='sudo pacman -Ql' # show a list of files installed by a package
 
 # logout aliases
 
