@@ -1,148 +1,179 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# default stuff
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+    # ~/.bashrc: executed by bash(1) for non-login shells.
+    # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+    # for examples
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+    # If not running interactively, don't do anything
+        #case $- in
+        #    *i*) ;;
+        #      *) return;;
+        #esac
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+    # check the window size after each command and, if necessary,
+    # update the values of LINES and COLUMNS.
+        shopt -s checkwinsize
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+    # If set, the pattern "**" used in a pathname expansion context will
+    # match all files and zero or more directories and subdirectories.
+        # shopt -s globstar
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+    # make less more friendly for non-text input files, see lesspipe(1)
+        [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+    # set variable identifying the chroot you work in (used in the prompt below)
+        if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+            debian_chroot=$(cat /etc/debian_chroot)
+        fi
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+    # set a fancy prompt (non-color, unless we know we "want" color)
+        case "$TERM" in
+            xterm-color|*-256color) color_prompt=yes;;
+        esac
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+    # uncomment for a colored prompt, if the terminal has the capability; turned
+    # off by default to not distract the user: the focus in a terminal window
+    # should be on the output of commands, not on the prompt
+        force_color_prompt=yes
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+        if [ -n "$force_color_prompt" ]; then
+            if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+                # We have color support; assume it's compliant with Ecma-48
+                # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+                # a case would tend to support setf rather than setaf.)
+                color_prompt=yes
+            else
+                color_prompt=
+            fi
+        fi
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
+        if [ "$color_prompt" = yes ]; then
+            PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        else
+            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+        fi
+        unset color_prompt force_color_prompt
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
+    # If this is an xterm set the title to user@host:dir
+        case "$TERM" in
+        xterm*|rxvt*)
+            PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+            ;;
+        *)
+            ;;
+        esac
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+    # Add an "alert" alias for long running commands.  Use like so:
+    # sleep 10; alert
+        alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+    # enable programmable completion features (you don't need to enable
+    # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+    # sources /etc/bash.bashrc).
+        if ! shopt -oq posix; then
+        if [ -f /usr/share/bash-completion/bash_completion ]; then
+            . /usr/share/bash-completion/bash_completion
+        elif [ -f /etc/bash_completion ]; then
+            . /etc/bash_completion
+        fi
+        fi
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# random variables
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+    export LC_ALL="en_US.UTF-8" # all locales are overwritten
+    export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01' # colored GCC warnings and errors
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# bash history
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+    export HISTFILE=~/.bash_history # bash history
+    export HISTCONTROL="ignoreboth:erasedups" # don't put duplicate lines or lines starting with space in the bash history.
+    export HISTFILESIZE= # unlimited bash history (file size)
+    export HISTSIZE= # unlimited bash history (lines) 
+    shopt -s histappend # append to the history file, don't overwrite it
+    PROMPT_COMMAND_DEFAULT='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"' # default prompt command
+    export PROMPT_COMMAND="history -a; $PROMPT_COMMAND_DEFAULT" # flushes the command to the history file immediately (otherwise, this would happen only when the shell exits
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+# bindings
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+    bind -x '"\e[A": history_item' # up arrow
+    bind -x '"\e[B": history_item' # down arrow
 
 # random aliases
 
-alias l='ls -ahcFg' # show a vertical list of files with some info 
-alias la='ls -a' # show hidden files
-alias yavpn='echo '-hfo3-!W' && sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
-alias sx='startx' # start xorg-server
-alias gd='~/Repositories/dot-files/scripts/alias_gd.sh' # default git push
-alias py='python' # python
-alias bh='history -w /dev/stdout | tac | dmenu -l 10' # bash history
+    # show a vertical list of files with some info
+    l () { ls --color=auto -ahcFg $@; }; export -f l
+
+    # clone a repository
+    gc () { git clone $@; }; export -f gc
+
+    # default git push
+    gd () {
+        if [ ! "$1" ]; then
+            date=`date +"%Y-%m-%d"`
+        else
+            if [ ! "$2" ]; then
+            date=`date +"%Y-%m-"`"$1"
+            else
+            if [ ! "$3" ]; then
+                date=`date +"%Y-"`"$2-$1"
+            else
+                date="$3-$2-$1"
+            fi
+            fi
+        fi
+        export GIT_AUTHOR_DATE="$date 00:00:00"
+        export GIT_COMMITTER_DATE="$date 00:00:00"
+        git add . && git commit -m update && git push origin
+    }; export -f gd
+
+    # start vpn
+    yv () {
+        echo '-hfo3-!W'
+        cd=~/Repositories/ya_vpn/
+        config=~/Repositories/ya_vpn/openvpn.conf
+        sudo openvpn --cd $cd --config $config
+    }; export -f yv
+
+    # history item
+    history_item () {
+      history_item=`history -w /dev/stdout |
+        tac |
+        dmenu -l 10`
+      history -s $history_item
+      echo $history_item | ${SHELL:-"/bin/sh"}
+    }; export -f history_item
+
+    # start xorg-server
+    sx () { startx; }; export -f sx
+
+    # python
+    py () { python $@; }; export -f gc
 
 
 # pacman aliases
 
-alias pm='sudo pacman -S' # install a package
-alias pms='sudo pacman -Syu' # system update
-alias pmr='sudo pacman -R' # remove
-alias pmq='sudo pacman -Ql' # show a list of files installed by a package
+    # install a package
+    pm () { sudo pacman -S $@; }; export -f pm
+
+    # system update
+    pms () { sudo pacman -Syu $@; }; export -f pms
+
+    # remove a package
+    pmr () { sudo pacman -R $@; }; export -f pmr
+
+    # show files installed by a package
+    pmq () { sudo pacman -Ql $@; }; export -f pmq
 
 # logout aliases
 
-alias lo='qdbus org.kde.ksmserver /KSMServer logout 0 3 3' # log out
-alias lol='loginctl lock-session 1' # lock the session
-alias lor='reboot' # reboot
-alias los='shutdown now' # shutdown immediately
+    # log out
+    lo () { qdbus org.kde.ksmserver /KSMServer logout 0 3 3; }; export -f lo
 
-# variables
+    # lock the session
+    lol () { loginctl lock-session 1; }; export -f lol
 
-export LC_ALL="en_US.UTF-8" # all locales are overwritten
-export HISTFILE=~/.bash_history # bash history
-export HISTCONTROL="" # bash history will ignore and remove duplicates
+    # reboot
+    lor () { reboot; }; export -f lor
 
-# bindings
-
-bind -x '"\e[A": `history -w /dev/stdout | tac | dmenu -l 10`' # up arrow
-bind -x '"\e[B": `history -w /dev/stdout | tac | dmenu -l 10`' # down arrow
+    # shutdown immediately
+    los () { shutdown now; }; export -f los
