@@ -12,6 +12,9 @@ bashrc_config=configs/bashrc
 xinitrc_path=~/.xinitrc
 xinitrc_config=configs/xinitrc
 
+inputrc_path=~/.inputrc
+inputrc_config=configs/inputrc
+
 locale_path=/etc/locale.conf
 locale_config=configs/locale.conf
 
@@ -32,4 +35,5 @@ make_hard_link $firefox_config_content $firefox_path
 make_hard_link $vscode_config $vscode_path
 make_hard_link $bashrc_config $bashrc_path
 make_hard_link $xinitrc_config $xinitrc_path
+make_hard_link $inputrc_config $inputrc_path
 sudo make_hard_link $locale_config $locale_path

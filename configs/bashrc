@@ -117,8 +117,10 @@ alias l='ls -ahcFg' # show a vertical list of files with some info
 alias la='ls -a' # show hidden files
 alias yavpn='echo '-hfo3-!W' && sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf' # start yandex vpn
 alias sx='startx' # start xorg-server
-alias gitd='git add . && git commit -m update && git push origin' # default git push
+alias gd='~/Repositories/dot-files/scripts/alias_gd.sh' # default git push
 alias py='python' # python
+alias bh='history -w /dev/stdout | tac | dmenu -l 10' # bash history
+
 
 # pacman aliases
 
@@ -134,6 +136,13 @@ alias lol='loginctl lock-session 1' # lock the session
 alias lor='reboot' # reboot
 alias los='shutdown now' # shutdown immediately
 
-# variables exports
+# variables
 
 export LC_ALL="en_US.UTF-8" # all locales are overwritten
+export HISTFILE=~/.bash_history # bash history
+export HISTCONTROL="" # bash history will ignore and remove duplicates
+
+# bindings
+
+bind -x '"\e[A": `history -w /dev/stdout | tac | dmenu -l 10`' # up arrow
+bind -x '"\e[B": `history -w /dev/stdout | tac | dmenu -l 10`' # down arrow
