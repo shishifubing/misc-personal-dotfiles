@@ -123,13 +123,12 @@
   
   # default git push
   gd () {
-      day=$1:$(date +"%d")
-      month=$2:$(date +"%m")
-      year=$3:$(date +"%Y")
+      day=${1:-$(date +"%d")}
+      month=${2:-$(date +"%m")}
+      year=${3:-$(date +"%Y")}
       date="$year-$month-$day 00:00:00"
       export GIT_AUTHOR_DATE="$date"
       export GIT_COMMITTER_DATE="$date"
-      echo "$date"
       git add . && git commit -m update && git push origin
   }; export -f gd
 
