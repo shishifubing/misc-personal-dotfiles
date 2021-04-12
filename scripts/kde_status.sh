@@ -1,32 +1,16 @@
 #!/bin/bash
 
-# make pipes instead of regular files to not waste cpu cycles
+# make a pipe instead of a regular file to not waste cpu cycles
 
 kde_status=/tmp/kde_status
-kde_status_traffic=${kde_status}_traffic
-
-mkfifo $kde_status  # output pipe
-mkfifo $kde_status_traffic  # network traffic pipe 
-# the second pipe and the second loop are needed
-# since getting network info takes too much time
-
+mkfifo "$kde_status" || true  # output pipe
 
 while true; do
 
-  $kde_status_traffic<"$(
-    sar -n DEV 1 1 | 
-    awk 'FNR == 6 { 
-      printf("%.0fkB/s %.0fkB/s", $5, $6);
-    }' # remove decimals since they are useless
-  )"
-
-done &
-
-while true; do
-
-  date=$(
-    date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%3N]" # date
-  )
+  # moved to a separate Command Output plasmoid for efficiency
+  #date=$(
+  #  date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%3N]" # date
+  #)
   memory=$(
     free -h | # show memory in human readable form 
     awk ' 
@@ -50,7 +34,14 @@ while true; do
       }
     '
   )
-  traffic=$(<"$kde_status_traffic")
-  $kde_status<"$date [$memory] [$cpu_temp $cpu_usage] [$traffic]"
+  traffic=$(
+    sar -n DEV 1 1 | 
+    awk '
+      FNR == 6 { 
+        printf("%.0fkB/s %.0fkB/s", $5, $6);
+      }
+    '
+  )
+  echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]" > "$kde_status"
 
 done

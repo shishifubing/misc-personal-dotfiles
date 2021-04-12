@@ -94,8 +94,8 @@
 
 # bindings
 
-  bind -x '"\e[A": history_item' # up arrow
-  bind -x '"\e[B": history_item' # down arrow
+  #bind -x '"\e[A": history_item' # up arrow
+  #bind -x '"\e[B": history_item' # down arrow
 
 # random aliases
 
