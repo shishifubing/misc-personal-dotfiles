@@ -42,5 +42,8 @@
     "window.zoomLevel": -1,
     "workbench.editor.enablePreview": false,
     "editor.cursorSmoothCaretAnimation": true,
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

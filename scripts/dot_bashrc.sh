@@ -100,54 +100,109 @@
 # random aliases
 
   # send a notification    
-  send_desktop_notification () {
+  send_desktop_notification() {
+
     alert_message="${1:- }"
     alert_icon="${2:-error}"
     notify-send --urgency=low -i "$alert_icon" "$alert_message"
+
   }; export -f send_desktop_notification
 
   # show a vertical list of files with some info
-  l () { 
-    ls --color=auto -ahcFg "$@"; 
+  l() { 
+
+    ls --color=auto -ahcFg "$@"
+  
   }; export -f l
 
   # kde status
-  kde_status () { 
-    echo "$(</tmp/kde_status)" 
-  }; export -f kde_status
+  kde_resources() { 
+    
+    memory=$(
+      free -h | # show memory in human readable form 
+      awk ' 
+        FNR == 2 { 
+          ram_usage=$3; total_memory=$2; 
+        };
+        FNR == 3 {
+          swap_usage=$3;
+          print ram_usage "+" swap_usage "/" total_memory; 
+        };
+      '
+    )
+    cpu_temp=$( # outputs only the first two symbols of the file
+      cut -c1-2 /sys/class/thermal/thermal_zone0/temp
+    )°C
+    cpu_usage=$(
+      vmstat |
+      awk '
+        FNR == 3 { 
+          print 100 - $15 "%"; 
+        }
+      '
+    )
+    traffic=$(
+      sar -n DEV 1 1 | 
+      awk '
+        FNR == 6 { 
+          printf("%.0fkB/s %.0fkB/s", $5, $6);
+        }
+      '
+    )
+    echo "[$traffic] [$memory] [$cpu_temp $cpu_usage]" 
+  
+  }; export -f kde_resources
+
+  # kde date
+  kde_date() {
+
+    date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%3N]"
+
+  }; export -f kde_date
 
   # clone a repository
-  gc () { 
+  gc() { 
+
     git clone "$@";
+
   }; export -f gc
   
   # default git push
-  gd () {
-      message=${1:-update}
-      day=${2:-$(date +"%d")}
-      month=${3:-$(date +"%m")}
-      year=${4:-$(date +"%Y")}
-      date="$year-$month-$day 00:00:00"
-      export GIT_AUTHOR_DATE="$date"
-      export GIT_COMMITTER_DATE="$date"
-      git add . && git commit -m "$message" && git push origin
+  gd() {
+
+    message=${1:-update}
+    day=${2:-$(date +"%d")}
+    month=${3:-$(date +"%m")}
+    year=${4:-$(date +"%Y")}
+    date="$year-$month-$day 00:00:00"
+    export GIT_AUTHOR_DATE="$date"
+    export GIT_COMMITTER_DATE="$date"
+    git add . && git commit -m "$message" && git push origin
+
   }; export -f gd
 
   # default compile command
-  mi () { 
-      make && sudo make install 
+  mi() { 
+
+    make &&
+    sudo make install 
+
   }; export -f mi
 
   # start vpn
-  yv () {
-      echo '-hfo3-!W'
-      cd=~/Repositories/ya_vpn/
-      config=~/Repositories/ya_vpn/openvpn.conf
-      sudo openvpn --cd $cd --config $config
+  yv() {
+    
+    echo '-hfo3-!W' | xclip -sel clip
+    echo "token is in your clipboard"
+    cd=~/Repositories/ya_vpn/
+    config=~/Repositories/ya_vpn/openvpn.conf
+    sudo openvpn --cd $cd --config $config
+    
   }; export -f yv
 
   # history item
-  history_item () {
+  history_item() {
+
     history_item=$(
       history -w /dev/stdout | # shows history without numbers
       tac | # reverses output, so recent entries are on top
@@ -156,41 +211,86 @@
     history -s "$history_item"
     echo "${PS1@P}$history_item"
     echo "$history_item" | ${SHELL:-"/bin/sh"}
+
   }; export -f history_item
 
   # start xorg-server
-  sx () { startx; }; export -f sx
+  sx() { 
+    
+    startx
+    
+   }; export -f sx
 
   # python
-  py () { python "$@"; }; export -f gc
+  py() { 
+    
+    python "$@"
+  
+  }; export -f gc
 
 
 # pacman aliases
 
   # install a package
-  pm () { sudo pacman -S "$@"; }; export -f pm
+  pm() { 
+    
+    sudo pacman -S "$@"
+    
+  }; export -f pm
 
   # system update
-  pms () { sudo pacman -Syu "$@"; }; export -f pms
+  pms() { 
+    
+    sudo pacman -Syu "$@"
+    
+  }; export -f pms
   
   # remove a package
-  pmr () { sudo pacman -R "$@"; }; export -f pmr
+  pmr() { 
+    
+    sudo pacman -R "$@"
+    
+  }; export -f pmr
 
   # show files installed by a package
-  pmq () { sudo pacman -Ql "$@"; }; export -f pmq
+  pmq() { 
+    
+    sudo pacman -Ql "$@"
+    
+   }; export -f pmq
 
 # logout aliases
 
   # log out
-  lo () { # that magic command logs you out of the kde session
-    qdbus org.kde.ksmserver /KSMServer logout 0 3 3; 
+  lo() { 
+    # that magic command logs you out of the kde session
+    qdbus org.kde.ksmserver /KSMServer logout 0 3 3
+  
   }; export -f lo
   
-  # lock the session
-  lol () { loginctl lock-session 1; }; export -f lol
+  # lock session
+  lol() { 
+    
+    loginctl lock-session 1
+    
+  }; export -f lol
   
   # reboot
-  lor () { reboot; }; export -f lor
+  lor() { 
+    
+    reboot
+    
+   }; export -f lor
   
   # shutdown immediately
-  los () { shutdown now; }; export -f los
+  los() { 
+    
+    shutdown now
+    
+  }; export -f los
+
+# start xserver on login
+
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
