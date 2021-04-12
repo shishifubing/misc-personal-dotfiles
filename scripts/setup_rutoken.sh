@@ -4,7 +4,7 @@
 sudo pacman -Syu openvpn opensc pcsc-tools ccid 
 
 mkdir ~/Repositories/ya_vpn
-cd ~/Repositories/ya_vpn
+cd ~/Repositories/ya_vpn || exit
 
 # private key
 wget https://download.yandex.ru/hd/vpn/tls.key
@@ -63,8 +63,7 @@ pkcs11-providers ./librtpkcs11ecp.so
 pkcs11-id '$SERIAL'" > openvpn.conf
 
 # .bashrc alias
-
-echo "alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'" >> ~/.bashrc
+#echo "alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'" >> ~/.bashrc
 
 # it's needed for the usb token to be recognized
 systemctl enable --now pcscd

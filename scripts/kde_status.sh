@@ -17,7 +17,7 @@ while true; do
     sar -n DEV 1 1 | 
     awk 'FNR == 6 { 
       printf("%.0fkB/s %.0fkB/s", $5, $6);
-    }'
+    }' # remove decimals since they are useless
   )"
 
 done &
@@ -27,33 +27,30 @@ while true; do
   date=$(
     date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%3N]" # date
   )
-
   memory=$(
     free -h | # show memory in human readable form 
-    tac | # need to be piped into tac to not call awk multiple times
-    awk '
-      FNR == 1 {
-        swap_usage=$3;
-      };
+    awk ' 
       FNR == 2 { 
-        print $3 "+" swap_usage "/" $2; 
+        ram_usage=$3; total_memory=$2; 
+      };
+      FNR == 3 {
+        swap_usage=$3;
+        print ram_usage "+" swap_usage "/" total_memory; 
       };
     '
   )
-
-  cpu_temp=$( # only first two numbers are meaningful
+  cpu_temp=$( # outputs only the first two symbols of the file
     cut -c1-2 /sys/class/thermal/thermal_zone0/temp
-  )"°C"
-
+  )°C
   cpu_usage=$(
     vmstat |
-    awk 'FNR == 3 { 
-      print 100 - $15 "%"; 
-    }'
+    awk '
+      FNR == 3 { 
+        print 100 - $15 "%"; 
+      }
+    '
   )
-
   traffic=$(<"$kde_status_traffic")
-
   $kde_status<"$date [$memory] [$cpu_temp $cpu_usage] [$traffic]"
 
 done
