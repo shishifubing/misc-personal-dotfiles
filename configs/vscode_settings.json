@@ -43,6 +43,7 @@
     "workbench.editor.enablePreview": false,
     "editor.cursorSmoothCaretAnimation": true,
     "workbench.startupEditor": "newUntitledFile",
+    "json.maxItemsComputed": 999999,
     "[json]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     }

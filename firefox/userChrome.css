@@ -1049,7 +1049,7 @@
 
 /* *text input */
 
-@-moz-document regexp("^(about:|chrome:|file:") {
+@-moz-document regexp("^(about:|chrome:|file:)") {
   textarea,
   input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]),
   .findbar-textbox {
