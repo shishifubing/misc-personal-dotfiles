@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "json-button",
+  "version": "0.14",
+  "description": "new tab bookmarks",
+  "icons": {
+    "48": "icons/black-square48.png"
+  },
+  "background": {
+    "scripts": ["js/main.js"]
+  },
+  "browser_action": {
+    "default_icon": {
+      "48": "icons/black-square48.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "new_tab_bookmarks@example.com"
+    }
+  },
+  "permissions": ["tabs"]
+}

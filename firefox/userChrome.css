@@ -18,6 +18,7 @@
     scrollbar-color: var(--accent-color) var(--background-color) !important;
     scrollbar-width: thin !important;
   }
+  /* removes scrollbars at the root of pages since they are pretty useless */
   html,
   body {
     scrollbar-width: none !important;
@@ -108,17 +109,23 @@
   #browser {
     -moz-box-ordinal-group: 0 !important;
   }
-  /* usually you cannot make the sidebar smaller since it some min-width  */
+  /* usually you cannot make the sidebar smaller since it has min-width
+      plus it causes a little render delay when you change its size */
   #sidebar-box,
   #sidebar {
     min-width: 0 !important;
+  }
+  /* history sidebar becomes full screen on activation */
+  #sidebar-box[sidebarcommand="viewHistorySidebar"],
+  #sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar {
+    min-width: 100vw !important;
   }
   /* navigation bar has box-shadow and background-image for some reason */
   #nav-bar {
     box-shadow: none !important;
     background-image: none !important;
   }
-  /* on linux the sidebar splitter is visible for some reason */
+  /* on linux, the sidebar splitter is visible for some reason */
   .sidebar-splitter {
     opacity: 0 !important;
     width: 1px !important;

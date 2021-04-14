@@ -1,0 +1,42 @@
+:root {
+    --accent-color: #c50ed2;
+    --info-color: #ffffff50;
+}
+
+.rounded-10 {
+    border-radius: 1rem;
+}
+
+.offset-02 {
+    margin-left: 3%;
+}
+
+#bookmarks {
+    min-height: 100vh;
+}
+
+.root-folder {
+    width: 100%;
+    height: min-content;
+}
+
+.border-main {
+    border: 1px solid var(--accent-color);
+}
+
+.border-faint {
+    border: 1px solid var(--info-color);
+}
+
+.header-icon-folder {
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.header-icon-folder-turned {
+    transform: rotate(-90deg) !important;
+}
+
+a:focus {
+    outline: none;
+}
