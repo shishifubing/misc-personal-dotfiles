@@ -226,7 +226,7 @@
         sar -n DEV 1 1 | 
         awk '
           FNR == 6 { 
-            printf("%.0fkB/s %.0fkB/s", $5, $6);
+            printf("%5.0fkB/s %5.0fkB/s", $5, $6);
           }
         '
       )
@@ -237,7 +237,7 @@
     # date
     kde_date() {
 
-      date +"[%A] [%B] [%d-%m-%Y] [%H:%M:%S:%3N]"
+      date +"[%A %B %Y:%m:%d:%H:%M:%S:%3N]"
 
     }; export -f kde_date
 
@@ -246,14 +246,14 @@
       # default
       l() { 
 
-        ls --color --classify --size --human-readable "$@"
+        ls --color --classify --human-readable "$@"
       
       }; export -f l
 
       # hidden files
       la() { 
 
-        l --all "$@"
+        l --all --size "$@"
       
       }; export -f l
 

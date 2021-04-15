@@ -44,6 +44,7 @@
   "editor.cursorSmoothCaretAnimation": true,
   "workbench.startupEditor": "newUntitledFile",
   "json.maxItemsComputed": 999999,
+  "editor.maxTokenizationLineLength": 999999,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
