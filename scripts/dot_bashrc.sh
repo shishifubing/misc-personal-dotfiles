@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # default stuff 
 
@@ -18,11 +18,11 @@
 
   # make less more friendly for non-text input files, see lesspipe(1) 
 
-    [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+    [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
     
   # set variable identifying the chroot you work in (used in the prompt below)
 
-    if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    if [[ -z "${debian_chroot:-}" ]] && [[ -r /etc/debian_chroot ]]; then
         debian_chroot=$(cat /etc/debian_chroot)
     fi
 
@@ -37,8 +37,8 @@
   # should be on the output of commands, not on the prompt
     
     force_color_prompt=yes
-    if [ -n "$force_color_prompt" ]; then
-      if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    if [[ -n "$force_color_prompt" ]]; then
+      if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
         # We have color support; assume it's compliant with Ecma-48
         # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
         # a case would tend to support setf rather than setaf.)
@@ -47,7 +47,7 @@
         color_prompt=
       fi
     fi
-    if [ "$color_prompt" = yes ]; then
+    if [[ "$color_prompt" = yes ]]; then
       PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     else
       PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -91,246 +91,30 @@
     export HISTSIZE= # unlimited bash history (lines) 
     shopt -s histappend # append to the history file, don't overwrite it
     # flushes the command to the history file immediately (otherwise, this would happen only when the shell exits
-    export PROMPT_COMMAND='
-      history -a;
-      printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
-    '
+    #export PROMPT_COMMAND='
+    #  history -a;
+    #  printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
+    #'
 
 # bindings
 
   #bind -x '"\e[A": history_item' # up arrow
   #bind -x '"\e[B": history_item' # down arrow
-
-# aliases 
-
-  # random aliases
-
-    # send a notification    
-    send_desktop_notification() {
-
-      alert_message="${1:- }"
-      alert_icon="${2:-error}"
-      notify-send --urgency=low -i "$alert_icon" "$alert_message"
-
-    }; export -f send_desktop_notification
-
-    # reload bashrc
-    sb() { 
-      # shellcheck source=/dev/null 
-      # it silences shellcheck warnings about non-constant source
-      source ~/.bashrc
-    
-    }; export -f sb
-
-    # default compile command
-    mi() { 
-
-      make &&
-      sudo make install 
-
-    }; export -f mi
-
-    # start vpn
-    yv() {
-      
-      echo '-hfo3-!W' | xclip -sel clip
-      echo "token is in your clipboard"
-      cd=~/Repositories/ya_vpn/
-      config=~/Repositories/ya_vpn/openvpn.conf
-      sudo openvpn --cd $cd --config $config
-      
-    }; export -f yv
-
-    # history item
-    history_item() {
-
-      history_item=$(
-        history -w /dev/stdout | # shows history without numbers
-        tac | # reverses output, so recent entries are on top
-        dmenu -l 10 # dmenu pipe
-      )
-      history -s "$history_item"
-      echo "${PS1@P}$history_item"
-      echo "$history_item" | ${SHELL:-"/bin/sh"}
-
-    }; export -f history_item
-
-    # start xorg-server
-    sx() { 
-      
-      startx
-      
-    }; export -f sx
-
-    # python
-    py() { 
-      
-      python "$@"
-    
-    }; export -f gc
-
-  # git aliases
-
-    # clone a repository
-    gc() { 
-
-      git clone "$@";
-
-    }; export -f gc
-    
-    # default git push
-    gd() {
-
-      message=${1:-update}
-      day=${2:-$(date +"%d")}
-      month=${3:-$(date +"%m")}
-      year=${4:-$(date +"%Y")}
-      date="$year-$month-$day 00:00:00"
-      export GIT_AUTHOR_DATE="$date"
-      export GIT_COMMITTER_DATE="$date"
-      git add . &&
-      git commit -m "$message" &&
-      git push origin
-
-    }; export -f gd
-
-  # kde aliases
-
-    # resources
-    kde_resources() { 
-      
-      memory=$(
-        free -h | # show memory in human readable form 
-        awk ' 
-          FNR == 2 { 
-            ram_usage=$3; total_memory=$2; 
-          };
-          FNR == 3 {
-            swap_usage=$3;
-            print ram_usage "+" swap_usage "/" total_memory; 
-          };
-        '
-      )
-      cpu_temp=$( # outputs only the first two symbols of the file
-        cut -c1-2 /sys/class/thermal/thermal_zone0/temp
-      )°C
-      cpu_usage=$(
-        vmstat |
-        awk '
-          FNR == 3 { 
-            print 100 - $15 "%"; 
-          }
-        '
-      )
-      traffic=$(
-        sar -n DEV 1 1 | 
-        awk '
-          FNR == 6 { 
-            printf("%5.0fkB/s %5.0fkB/s", $5, $6);
-          }
-        '
-      )
-      echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]" 
-    
-    }; export -f kde_resources
-
-    # date
-    kde_date() {
-
-      date +"[%A %B %Y:%m:%d:%H:%M:%S:%3N]"
-
-    }; export -f kde_date
-
-  # ls aliases
-
-      # default
-      l() { 
-
-        ls --color --classify --human-readable "$@"
-      
-      }; export -f l
-
-      # hidden files
-      la() { 
-
-        l --all --size "$@"
-      
-      }; export -f l
-
-      # vertical
-      ll() { 
-
-        l -l --no-group "$@"
-      
-      }; export -f ll
+  setxkbmap -option caps:escape # remaps caps lock to escape
 
 
-  # pacman aliases
+# functions
 
-    # install a package
-    pm() { 
-      
-      sudo pacman -S "$@"
-      
-    }; export -f pm
+  # shellcheck source=/dev/null 
+  # it silences shellcheck warnings about non-constant source
+  source ~/Repositories/dot-files/scripts/functions.sh
 
-    # system update
-    pms() { 
-      
-      pm -yu "$@"
-      
-    }; export -f pms
-    
-    # remove a package
-    pmr() { 
-      
-      sudo pacman -R "$@"
-      
-    }; export -f pmr
+# start xserver on login
 
-    # show files installed by a package
-    pmq() { 
-      
-      sudo pacman -Ql "$@"
-      
-    }; export -f pmq
-
-  # logout aliases
-
-    # that magic command logs you out of the kde session
-    lo() { 
-
-      qdbus org.kde.ksmserver /KSMServer logout 0 3 3
-    
-    }; export -f lo
-    
-    # lock session
-    lol() { 
-      
-      loginctl lock-session 1
-      
-    }; export -f lol
-    
-    # reboot
-    lor() { 
-      
-      reboot
-      
-    }; export -f lor
-    
-    # shutdown immediately
-    los() { 
-      
-      shutdown now
-      
-    }; export -f los
-
-  # start xserver on login
-
-    if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-      echo "Start xorg-server? y/n"
-      read -r answer
-      if [ "$answer" != "n" ] && [ "$answer" != "N" ]; then
-        exec startx
-      fi
+  if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
+    echo "Start xorg-server? y/n"
+    read -r answer
+    if [[ "$answer" != "n" ]] && [[ "$answer" != "N" ]]; then
+      exec startx
     fi
+  fi

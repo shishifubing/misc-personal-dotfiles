@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # some dependencies https://dev.rutoken.ru/pages/viewpage.action?pageId=76218369
 sudo pacman -Syu openvpn opensc pcsc-tools ccid 
