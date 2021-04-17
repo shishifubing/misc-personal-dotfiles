@@ -1,0 +1,12 @@
+set number " line nubmber 
+syntax on " syntax highlighting
+syntax enable " enable syntax processing
+colorscheme theme_vim " colorscheme
+set tabstop=2 " tab = n spaces
+set softtabstop=2 " when removing expanded tabs, remove n spaces
+set shiftwidth=2 " no idea
+set autoindent " automatic indentation
+set expandtab " replaces tabs with spaces
+set cursorline " highlights a line the cursor in on. alternative - nocursorline
+set showmatch " matching parenthesis
+set showcmd " show command at the bottom
