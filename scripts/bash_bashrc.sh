@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/Repositories/dot-files/scripts/bash_functions.sh
+source ~/Repositories/dot-files/scripts/bash_preexec.sh
 # default stuff 
 
   # if not running interactively, don't do anything
@@ -86,7 +88,7 @@
   # bash history
 
     export HISTFILE=~/.bash_history # bash history
-    export HISTCONTROL="ignoreboth:erasedups" # don't put duplicate lines or lines starting with space in the bash history.
+    export HISTCONTROL= #"ignoreboth:erasedups" # don't put duplicate lines or lines starting with space in the bash history.
     export HISTFILESIZE= # unlimited bash history (file size)
     export HISTSIZE= # unlimited bash history (lines) 
     shopt -s histappend # append to the history file, don't overwrite it
@@ -95,6 +97,8 @@
     #  history -a;
     #  printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"
     #'
+    #export PROMPT_COMMAND='echo -ne "\033]0;$(get_window_title)\007"'
+    export PROMPT_COMMAND='set_window_title $(get_window_title)'
 
 # bindings
 
@@ -102,15 +106,9 @@
   #bind -x '"\e[B": history_item' # down arrow
   setxkbmap -option caps:escape # remaps caps lock to escape
 
-
-# functions
-
-  # shellcheck source=/dev/null 
-  # it silences shellcheck warnings about non-constant source
-  source ~/Repositories/dot-files/scripts/functions.sh
-
-# start xserver on login
-
+# start stuff when a shell starts
+  
+  # start xserver on login
   if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
     echo "Start xorg-server? y/n"
     read -r answer

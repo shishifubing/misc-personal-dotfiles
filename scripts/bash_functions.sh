@@ -2,6 +2,54 @@
 
 # random aliases
 
+  # executed just after a command has been read and is about to be executed
+  # the string that the user has typed is passed as the first argument.
+  preexec() { 
+
+    set_window_title "$(get_window_title)|$1"
+ 
+  }; export -f preexec
+
+  # executed just before each prompt
+  # equivalent to PROMPT_COMMAND, but more flexible and resilient.
+  #precmd() {
+  #
+  #  set_window_title "$(get_window_title)|$1" 
+  #
+  #}; export -f precmd
+
+  # st in tabbed
+  stt() {
+
+    tabbed -r 2 st -w ''
+
+  }; export -f stt
+
+  # get repository
+  get_window_title() {
+
+    directory=$(
+      pwd |
+      awk -F'[/]' '{
+        print $(NF-1) "/" $NF;
+      }'
+    )
+    command=$(
+      history -w /dev/stdout |
+      awk '
+        END { print; }
+      '
+    )
+    echo "$directory|$command"
+
+  }; export -f get_window_title
+
+  set_window_title() {
+
+    echo -ne "\033]0;$1\007"
+
+  }; export -f set_window_title
+
   # send a notification    
   send_desktop_notification() {
     
@@ -229,6 +277,14 @@
     l -l --no-group "$@"
   
   }; export -f ll
+
+  # cd
+  c() {
+
+    cd "$1" &&
+    l
+
+  }; export -f c
 
 # pacman aliases
   

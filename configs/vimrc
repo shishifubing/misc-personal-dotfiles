@@ -10,3 +10,5 @@ set expandtab " replaces tabs with spaces
 set cursorline " highlights a line the cursor in on. alternative - nocursorline
 set showmatch " matching parenthesis
 set showcmd " show command at the bottom
+set ignorecase " ignore case when searching
+let g:python3_host_prog="/usr/bin/python"
