@@ -2,43 +2,58 @@
 
 # random aliases
 
+  # generates the prompt
+  get_shell_prompt() {
+
+    username="\[\e[1;37m\]\u"
+    hostname="\[\e[1;32m\]@\h"
+    directory="\[\e[1;34m\]:\w"
+    [[ -z $(get_current_branch) ]] || git_branch="\[\e[1;35m\]:$(get_current_branch)"
+    user_sign="\[\e[1;37m\]$"
+    echo "$username$hostname$directory$git_branch$user_sign "
+
+  }; export -f get_shell_prompt
+
+
   # executed just after a command has been read and is about to be executed
   # the string that the user has typed is passed as the first argument.
+  # uses bash-preexec
   preexec() { 
 
-    set_window_title "$(get_window_title)|$1"
+    set_window_title "$(get_directory)■$1" # needed for tabbed to parse titles
  
   }; export -f preexec
 
   # executed just before each prompt
   # equivalent to PROMPT_COMMAND, but more flexible and resilient.
-  #precmd() {
-  #
-  #  set_window_title "$(get_window_title)|$1" 
-  #
-  #}; export -f precmd
+  # uses bash-preexec
+  # precmd() { l  }; export -f precmd
 
   # st in tabbed
   stt() {
 
-    tabbed -r 2 st -w ''
+    export TABBED_XID=$(tabbed -d)
+    st -w "$TABBED_XID"
 
   }; export -f stt
+
+  # get directory
+  get_directory() {
+
+    pwd |
+    awk -F'[/]' '{
+      print $(NF-1) "/" $NF;
+    }'
+
+  }; export -f get_directory
 
   # get repository
   get_window_title() {
 
-    directory=$(
-      pwd |
-      awk -F'[/]' '{
-        print $(NF-1) "/" $NF;
-      }'
-    )
+    directory=$(get_directory)
     command=$(
       history -w /dev/stdout |
-      awk '
-        END { print; }
-      '
+      awk 'END { print; }'
     )
     echo "$directory|$command"
 
@@ -179,6 +194,14 @@
 
 # git aliases
   
+  # get current branch
+
+  get_current_branch() {
+
+   git branch --show-current 2>/dev/null
+
+  }; export -f get_current_branch
+
   # clone a repository
   gc() { 
   
@@ -281,7 +304,7 @@
   # cd
   c() {
 
-    cd "$1" &&
+    cd "$1"
     l
 
   }; export -f c

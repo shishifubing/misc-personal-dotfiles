@@ -1,8 +1,8 @@
 hi clear
 
-       hi Normal       ctermfg=15  ctermbg=0
-       hi CursorLine              ctermbg=0   cterm=none
-       hi CursorLineNr ctermfg=1               cterm=none
+       hi Normal          ctermfg=15  ctermbg=0
+       hi CursorLine                  ctermbg=0   cterm=none
+       hi CursorLineNr    ctermfg=1               cterm=none
 
        hi Boolean         ctermfg=141
        hi Character       ctermfg=222
@@ -29,7 +29,7 @@ hi clear
        hi Statement       ctermfg=197               cterm=bold
        hi Tag             ctermfg=197
        hi Title           ctermfg=203
-       hi Visual                      ctermbg=0
+       hi Visual                      ctermbg=1  
 
        hi Comment         ctermfg=16
        hi LineNr          ctermfg=15   ctermbg=0
