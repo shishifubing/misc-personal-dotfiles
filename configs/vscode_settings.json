@@ -1,6 +1,7 @@
 {
   "telemetry.enableTelemetry": false,
   "window.menuBarVisibility": "toggle",
+  "workbench.activityBar.visible": false,
   "window.titleBarStyle": "native",
   "window.openFilesInNewWindow": "on",
   "window.dialogStyle": "native",

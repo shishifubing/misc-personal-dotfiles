@@ -1,14 +1,32 @@
-set number " line nubmber 
-syntax on " syntax highlighting
+set number " line nubmber
+syntax on " displays the source code in different colors to enhance its readability
 syntax enable " enable syntax processing
 colorscheme theme_vim " colorscheme
 set tabstop=2 " tab = n spaces
 set softtabstop=2 " when removing expanded tabs, remove n spaces
 set shiftwidth=2 " no idea
-set autoindent " automatic indentation
+set autoindent " allows you to indent each line the same as the previous one
 set expandtab " replaces tabs with spaces
 set cursorline " highlights a line the cursor in on. alternative - nocursorline
 set showmatch " matching parenthesis
 set showcmd " show command at the bottom
 set ignorecase " ignore case when searching
-let g:python3_host_prog="/usr/bin/python"
+set notitle " do not change window title while editing
+set ruler " display the cursor’s current position
+set statusline+=p
+
+" backup The // means that the directory information will be saved in the filename
+
+set backupdir=/tmp// " a backup file — the version of the file before your edited it
+set directory=/tmp// " a swap file, containing the unsaved changes.
+set undodir=/tmp// " an undo file, containing the undo trees of the file edited.
+
+" bindings
+" noremap instead of map since it's not recursive and in general better practice
+
+" copy and to the clipboard instead of the usual vim buffer
+" for windows * register is needed
+noremap y "+y <return>
+noremap d "+d <return>
+noremap <c-s-f> :read !run_formatter %:p|%
+
