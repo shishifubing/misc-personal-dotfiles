@@ -2,8 +2,7 @@
 
 source ~/Repositories/dot-files/scripts/shell_functions.sh
 source ~/Repositories/dot-files/scripts/shell_preexec.sh
-cd ~/Repositories
-set_window_title $(get_window_title)
+set -o vi
 
 # default stuff 
 
@@ -42,8 +41,7 @@ set_window_title $(get_window_title)
   # random variables
 
     export LC_ALL="en_US.UTF-8" # all locales are overwritten
-    export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01' # colored GCC warnings and errors
-          
+    export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01' # colored GCC warnings and errors       
   # bash history
 
     export HISTFILE=~/.bash_history # bash history
@@ -52,13 +50,13 @@ set_window_title $(get_window_title)
     export HISTSIZE= # unlimited bash history (lines) 
     shopt -s histappend # append to the history file, don't overwrite it
     # flushes the command to the history file immediately (otherwise, this would happen only when the shell exits
-    PROMPT_COMMAND='PS1=$(get_shell_prompt)' # command prompt
+    #export PROMPT_COMMAND='PS1=$(get_shell_prompt)' # command prompt
 # bindings
 
   #bind -x '"\e[A": history_item' # up arrow
   #bind -x '"\e[B": history_item' # down arrow
   setxkbmap -option caps:escape # remaps caps lock to escape
-
+  #xmodmap -e "keycode 58 = Escape"
 # start stuff when a shell starts
   
   # start xorg on login

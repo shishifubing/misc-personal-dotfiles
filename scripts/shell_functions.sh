@@ -2,32 +2,42 @@
 
 # random aliases
 
-  # generates the prompt
-  get_shell_prompt() {
+  # run formatter
+  run_formatter() {
 
-    username="\[\e[1;37m\]\u"
-    hostname="\[\e[1;32m\]@\h"
-    directory="\[\e[1;34m\]:\w"
-    [[ -z $(get_current_branch) ]] || git_branch="\[\e[1;35m\]:$(get_current_branch)"
-    user_sign="\[\e[1;37m\]$"
-    echo "$username$hostname$directory$git_branch$user_sign "
+    filepath="$1"
+    filetype="${2:-$(get_file_type $1)}"
+    case $filetype in
+      "vimrc")
+        ;&
+      "py")
+        autopep8 --aggressive --aggressive "$filepath" 
+        ;;
+      *)
+        echo "$filetype"
+        ;;
+    esac
 
-  }; export -f get_shell_prompt
-
+  }; export -f run_formatter
 
   # executed just after a command has been read and is about to be executed
   # the string that the user has typed is passed as the first argument.
   # uses bash-preexec
   preexec() { 
-
-    set_window_title "$(get_directory)■$1" # needed for tabbed to parse titles
+    
+    set_window_title "$(get_directory)■$1" # ■ is needed for tabbed to parse titles
  
   }; export -f preexec
 
   # executed just before each prompt
   # equivalent to PROMPT_COMMAND, but more flexible and resilient.
   # uses bash-preexec
-  # precmd() { l  }; export -f precmd
+  precmd() {
+    
+    export PS1=$(get_shell_prompt) # command prompt
+    set_window_title "$(get_directory)" 
+
+  }; export -f precmd
 
   # st in tabbed
   stt() {
@@ -36,34 +46,6 @@
     st -w "$TABBED_XID"
 
   }; export -f stt
-
-  # get directory
-  get_directory() {
-
-    pwd |
-    awk -F'[/]' '{
-      print $(NF-1) "/" $NF;
-    }'
-
-  }; export -f get_directory
-
-  # get repository
-  get_window_title() {
-
-    directory=$(get_directory)
-    command=$(
-      history -w /dev/stdout |
-      awk 'END { print; }'
-    )
-    echo "$directory|$command"
-
-  }; export -f get_window_title
-
-  set_window_title() {
-
-    echo -ne "\033]0;$1\007"
-
-  }; export -f set_window_title
 
   # send a notification    
   send_desktop_notification() {
@@ -95,22 +77,17 @@
   passmenu() {
 
     shopt -s nullglob globstar
-
     typeit=0
     if [[ $1 == "--type" ]]; then
       typeit=1
       shift
     fi
-
     prefix=${PASSWORD_STORE_DIR-~/.password-store}
     password_files=( "$prefix"/**/*.gpg )
     password_files=( "${password_files[@]#"$prefix"/}" )
     password_files=( "${password_files[@]%.gpg}" )
-
     password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
-
     [[ -n $password ]] || exit
-
     if [[ $typeit -eq 0 ]]; then
       pass show -c "$password" 2>/dev/null
     else
@@ -127,7 +104,6 @@
     echo "token is in your clipboard"
     cd=~/Repositories/ya_vpn/
     config=~/Repositories/ya_vpn/openvpn.conf
-
     sudo openvpn --cd $cd --config $config
     
   }; export -f yv
@@ -140,7 +116,6 @@
       tac | # reverses output, so recent entries are on top
       dmenu -l 10 # dmenu pipe
     )
-
     history -s "$history_item"
     echo "${PS1@P}$history_item"
     echo "$history_item" | ${SHELL:-"/bin/sh"}
@@ -149,24 +124,23 @@
   
   
   db() {
-    
+  
     if [[ -n "$DATABASE_KEY" ]]; then
-        choice=$(
-          echo "
-            PRAGMA key = '$DATABASE_KEY';
-            SELECT location, login FROM passwords;
-          "  |
-          sqlcipher ~/Repositories/dot-files/db.db |
-          awk 'NR > 3' |
-          dmenu -l 5
-        )
-
+      choice=$(
         echo "
           PRAGMA key = '$DATABASE_KEY';
-          SELECT password FROM passwords WHERE login==\"$choice\"
-        " |   
-        sqlcipher ~/Repositories/dot-files/db.db | 
-        xclip -sel clip
+          SELECT location, login FROM passwords;
+        "  |
+        sqlcipher ~/Repositories/dot-files/db.db |
+          awk 'NR > 3' |
+          dmenu -l 5
+      )
+      echo "
+        PRAGMA key = '$DATABASE_KEY';
+        SELECT password FROM passwords WHERE login==\"$choice\"
+      " |   
+      sqlcipher ~/Repositories/dot-files/db.db | 
+      xclip -sel clip
     fi
   
   }; export -f db
@@ -194,14 +168,6 @@
 
 # git aliases
   
-  # get current branch
-
-  get_current_branch() {
-
-   git branch --show-current 2>/dev/null
-
-  }; export -f get_current_branch
-
   # clone a repository
   gc() { 
   
@@ -217,10 +183,8 @@
     month=${3:-$(date +"%m")}
     year=${4:-$(date +"%Y")}
     date="$year-$month-$day 00:00:00"
-    
     export GIT_AUTHOR_DATE="$date"
     export GIT_COMMITTER_DATE="$date"
-    
     git add . &&
     git commit -m "$message" &&
     git push origin
@@ -244,11 +208,9 @@
         };
       '
     )
-
     cpu_temp=$( # outputs only the first two symbols of the file
       cut -c1-2 /sys/class/thermal/thermal_zone0/temp
     )°C
-
     cpu_usage=$(
       vmstat |
       awk '
@@ -257,7 +219,6 @@
         }
       '
     )
-
     traffic=$(
       sar -n DEV 1 1 | 
       awk '
@@ -266,7 +227,6 @@
         }
       '
     )
-
     echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]" 
   
   }; export -f kde_resources
@@ -304,7 +264,7 @@
   # cd
   c() {
 
-    cd "$1"
+    cd "$1" || exit
     l
 
   }; export -f c
@@ -368,3 +328,72 @@
     shutdown now
     
   }; export -f los
+
+# getters and setters
+
+  # return extension of the string provided
+  get_file_type() {
+    
+    echo "$1" |
+    awk -F'[.]' '{
+      print $NF;
+    }'
+
+  }; export -f get_file_type
+
+  # get directory
+  get_directory() {
+
+    pwd |
+    awk -F'[/]' '{
+     print $(NF-1) "/" $NF;
+    }'
+    # sed 's|/home/borinskikh/|~/|g'
+
+  }; export -f get_directory
+
+  # get default window title
+  get_window_title() {
+
+    directory=$(get_directory)
+    command=$(
+      history -w /dev/stdout |
+      awk 'END { print; }'
+    )
+    echo "$directory|$command"
+
+  }; export -f get_window_title
+
+  # sets window title based on the string provided
+  set_window_title() {
+
+    echo -ne "\033]0;$1\007"
+
+  }; export -f set_window_title
+
+  # get current git branch
+  get_current_branch() {
+
+   git branch --show-current 2>/dev/null
+
+  }; export -f get_current_branch
+
+  # generates the prompt
+  get_shell_prompt() {
+    
+    white="\[\e[1;37m\]"
+    red="\[\e[1;31m\]"
+    green="\[\e[1;34m\]"
+    violet="\[\e[1;36m\]"
+    blue="\[\e[1;34m\]"
+    magenta="\[\e[1;35m\]"
+
+    username="$white\u"
+    hostname="$violet@\h"
+    directory="$blue:\w"
+    [[ -z $(get_current_branch) ]] || git_branch="$magenta:$(get_current_branch)"
+    user_sign="$white$"
+    
+    echo "$username$hostname$directory$git_branch$user_sign "
+
+  }; export -f get_shell_prompt
