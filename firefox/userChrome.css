@@ -2,9 +2,9 @@
 
 @-moz-document regexp(".*") {
   :root {
-    /* darkorchid */
-    --accent-color: #9932cc !important;
-    --accent-color-2: #9932cc99;
+    /* darkorchid - #9932cc */
+    --accent-color: #bf3eff !important;
+    --accent-color-2: #9932cc;
     --border-accent-color: 1px solid var(--accent-color);
     /* gray */
     --accent-color-3: #808080;
