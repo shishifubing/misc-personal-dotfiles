@@ -2,39 +2,39 @@
 
 # merge in defaults and keymaps
 
-  userresources=$HOME/.Xresources
-  usermodmap=$HOME/.Xmodmap
-  sysresources=/etc/X11/xinit/.Xresources
-  sysmodmap=/etc/X11/xinit/.Xmodmap
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
 
-  if [ -f "$sysresources" ]; then
+if [ -f "$sysresources" ]; then
     xrdb -merge "$sysresources"
-  fi
+fi
 
-  if [ -f "$sysmodmap" ]; then
+if [ -f "$sysmodmap" ]; then
     xmodmap "$sysmodmap"
-  fi
+fi
 
-  if [ -f "$userresources" ]; then
+if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
-  fi
+fi
 
-  if [ -f "$usermodmap" ]; then
+if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
-  fi
+fi
 
 # start some programs
 
-  xinitrc_d=/etc/X11/xinit/xinitrc.d
-  # shellcheck source=/dev/null 
-  # it silences shellcheck warnings about non-constant source
-  if [ -d  "$xinitrc_d" ]; then
+xinitrc_d=/etc/X11/xinit/xinitrc.d
+# shellcheck source=/dev/null
+# it silences shellcheck warnings about non-constant source
+if [ -d "$xinitrc_d" ]; then
     for script in "$xinitrc_d"?*.sh; do
-      [ -x "$script" ] &&
-      . "$script"
+        [ -x "$script" ] &&
+            . "$script"
     done
     unset script
-  fi
+fi
 
-  export DESKTOP_SESSION=plasma
-  exec startplasma-x11
+export DESKTOP_SESSION=plasma
+exec startplasma-x11

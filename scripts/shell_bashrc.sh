@@ -26,11 +26,11 @@ shopt -s checkwinsize
 # sources /etc/bash.bashrc).
 
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 # variables
@@ -57,17 +57,15 @@ shopt -s histappend  # append to the history file, don't overwrite it
 
 #bind -x '"\e[A": history_item' # up arrow
 #bind -x '"\e[B": history_item' # down arrow
-#setxkbmap -option caps:escape # remaps caps lock to escape
-# not needed since in KDE you directly remap the key
-#xmodmap -e "keycode 58 = Escape"
+#setxkbmap -option caps:escape # remaps caps lock to escape. Only in terminal
 
 # start stuff
 
 # start xorg on login
 if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
-  echo "Start xorg-server?"
-  read -r answer
-  if [[ "$answer" != "n" ]] && [[ "$answer" != "N" ]]; then
-    exec startx
-  fi
+    echo "Start xorg-server?"
+    read -r answer
+    if [[ "$answer" != "n" ]] && [[ "$answer" != "N" ]]; then
+        exec startx
+    fi
 fi
