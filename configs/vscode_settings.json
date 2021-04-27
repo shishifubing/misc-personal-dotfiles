@@ -1,5 +1,6 @@
 {
     "telemetry.enableTelemetry": false,
+    "keyboard.dispatch": "keyCode", // it's needed for the key remap to work
 
     // window
     "window.menuBarVisibility": "toggle",
@@ -106,6 +107,10 @@
     "vim.hlsearch": true,
     "vim.handleKeys": {
         "<C-w>": false,
-        "<C-s>": false
+        "<C-s>": false,
+        "<C-n>": false
+    },
+    "files.associations": {
+        "*.json": "jsonc"
     }
 }

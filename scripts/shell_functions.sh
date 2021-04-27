@@ -32,6 +32,22 @@ stt() {
 }
 export -f stt
 
+# merge in defaults and keymaps
+source_keymaps() {
+
+    userresources=~/.Xresources
+    usermodmap=~/dot-files/configs/Xmodmap
+    sysresources=/etc/X11/xinit/.Xresources
+    sysmodmap=/etc/X11/xinit/.Xmodmap
+
+    [[ -f "$sysresources" ]] && xrdb -merge "$sysresources"
+    [[ -f "$sysmodmap" ]] && xmodmap "$sysmodmap"
+    [[ -f "$userresources" ]] && xrdb -merge "$userresources"
+    [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
+
+}
+export -f source_keymaps
+
 # send a notification
 send_desktop_notification() {
 

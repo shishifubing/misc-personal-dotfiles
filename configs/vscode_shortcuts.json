@@ -1,12 +1,7 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
-  {
-    "key": "ctrl+k shift+f",
-    "command": "workbench.action.closeFolder",
-    "when": "emptyWorkspaceSupport"
-  },
-  {
-    "key": "ctrl+k f",
-    "command": "workbench.files.action.focusFilesExplorer"
-  }
+    {
+        "key": "ctrl+k f",
+        "command": "workbench.files.action.focusFilesExplorer"
+    }
 ]

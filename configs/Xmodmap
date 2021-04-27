@@ -1,0 +1,5 @@
+!  capslock escape swap
+clear lock
+keycode 66 = Escape Escape Escape
+keycode 9 = Caps_Lock Caps_Lock Caps_Lock
+add lock = Caps_Lock Caps_Lock Caps_Lock

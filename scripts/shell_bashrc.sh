@@ -2,6 +2,7 @@
 
 source ~/dot-files/scripts/shell_functions.sh
 source ~/dot-files/scripts/shell_preexec.sh
+source_keymaps
 set -o vi
 
 # if not running interactively, don't do anything
