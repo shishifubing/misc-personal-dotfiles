@@ -5,9 +5,9 @@
     // window
     "window.menuBarVisibility": "toggle",
     "window.titleBarStyle": "native",
-    "window.openFilesInNewWindow": "on",
+    "window.openFilesInNewWindow": "off",
     "window.dialogStyle": "native",
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     //
 
     // editor
@@ -24,7 +24,7 @@
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "always",
-    "editor.fontSize": 25,
+    "editor.fontSize": 22,
     "editor.detectIndentation": false,
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
@@ -55,8 +55,8 @@
         "editorCursor.foreground": "#bf3eff",
         "editorCursor.background": "#ffffff",
         "editorIndentGuide.activeBackground": "#bf3eff",
-        "editorIndentGuide.background": "#54ffff",
-        "editorBracketMatch.border": "#ffffff",
+        "editorIndentGuide.background": "#ffff54",
+        "editorBracketMatch.border": "#bf3eff",
         "editorBracketMatch.background": "#000000"
     },
     //
@@ -105,10 +105,13 @@
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
-    "vim.hlsearch": true
-    //"vim.handleKeys": {
-    //    "<C-w>": false,
-    //    "<C-s>": false,
-    //    "<C-n>": false
-    //}
+    "vim.hlsearch": false, // highlight previous search
+    "vim.autoindent": true,
+    "vim.searchHighlightColor": "#bf3eff",
+    "vim.handleKeys": {
+        "<C-w>": false,
+        //    "<C-s>": false,
+        "<C-n>": false,
+        "<C-j>": false
+    }
 }

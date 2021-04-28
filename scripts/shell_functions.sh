@@ -446,11 +446,12 @@ get_shell_prompt() {
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
-    del_left="$(get_color 32)● "
-    del_right="$(get_color 32)●$(get_color 37) "
+    time="$(get_color 37)$(kde_date) "
+    del_left="$(get_color 32)╭───╮"
+    del_line="$(get_color 32)\n│   │\n"
+    del_right="$(get_color 32)╰───╯$(get_color 37)"
 
-    echo "${del_left}${environment}${username}${hostname}${directory}${git_branch}${del_right}"
-
+    echo "${del_left}${environment}${username}${hostname}${directory}${git_branch}${time}${del_line}${del_right}"
 }
 export -f get_shell_prompt
 

@@ -38,7 +38,7 @@ fi
 # random variables
 
 export PS1="$(get_shell_prompt)" # shell prompt
-export PROMPT_COMMAND='export PS1=${PS1/●*● /$(get_shell_prompt)}'
+export PROMPT_COMMAND='export PS1=$(get_shell_prompt)'
 export LC_ALL="en_US.UTF-8" # all locales are overwritten
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 # colored GCC warnings and errors
