@@ -6,6 +6,7 @@
 preexec() {
 
     set_window_title "$(get_directory)■$1"
+    echo
     # ■ is needed for tabbed to parse titles
 
 }
@@ -442,16 +443,21 @@ get_shell_prompt() {
 
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
-    hostname="$(get_color 36)[\H] "
+    hostname="$(get_color 37)[\H] "
+    shell="$(get_color 36)[\s_\v] [tty_\l] [\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
-    time="$(get_color 37)$(kde_date) "
-    del_left="$(get_color 32)╭───╮"
-    del_line="$(get_color 32)\n│   │\n"
-    del_right="$(get_color 32)╰───╯$(get_color 37)"
+    #time="$(get_color 36)\D{%s} "
+    delimiter_1="$(get_color 32)╭───╮ "
+    delimiter_2="$(get_color 32)│   │ "
+    delimiter_3="$(get_color 32)╰───╯ "
 
-    echo "${del_left}${environment}${username}${hostname}${directory}${git_branch}${time}${del_line}${del_right}"
+    line_1="\n${delimiter_1}${username}${hostname}${shell}${environment}\n"
+    line_2="${delimiter_2}${directory}${git_branch}\n"
+    line_3="${delimiter_3}${user_sign}"
+    echo "${line_1}${line_2}${line_3}"
+
 }
 export -f get_shell_prompt
 
