@@ -6,7 +6,6 @@
 preexec() {
 
     set_window_title "$(get_directory)■$1"
-    echo
     # ■ is needed for tabbed to parse titles
 
 }
@@ -135,17 +134,17 @@ db() {
     if [[ -n "$DATABASE_KEY" ]]; then
         choice=$(
             echo "
-          PRAGMA key = '$DATABASE_KEY';
-          SELECT location, login FROM passwords;
-        " |
+                PRAGMA key = '$DATABASE_KEY';
+                SELECT location, login FROM passwords;
+            " |
                 sqlcipher ~/Repositories/dot-files/db.db |
                 awk 'NR > 3' |
                 dmenu -l 5
         )
         echo "
-        PRAGMA key = '$DATABASE_KEY';
-        SELECT password FROM passwords WHERE login==\"$choice\"
-      " |
+            PRAGMA key = '$DATABASE_KEY';
+            SELECT password FROM passwords WHERE login==\"$choice\"
+        " |
             sqlcipher ~/Repositories/dot-files/db.db |
             xclip -sel clip
     fi
@@ -169,16 +168,21 @@ v() {
 }
 export -f v
 
+# unzip tar.gz and tar.xz
 tr() {
 
-    if [[ "$1" == xz ]]; then
-        tar -xf "$2"
+    file_type=$(get_file_type "$1")
+    if [[ ${file_type} == xz ]]; then
+        tar -xf "$1"
+    elif [[ ${file_type} == gz ]]; then
+        tar -xvzf "$1"
     else
-        tar -xvzf "$@"
+        tar -xvzf "$1"
     fi
 
 }
 export -f tr
+
 # python aliases
 
 # python
@@ -198,6 +202,14 @@ pips() {
 
 }
 export -f pips
+
+# pip install
+pipi() {
+
+    pip install "$@"
+
+}
+export -f pipi
 
 # git aliases
 
@@ -431,9 +443,11 @@ export -f get_current_branch
 # return color code
 get_color() {
 
-    color_number="${1:-37}"
-    color_type="${2:-1}"
-    echo "\[\e[${color_type};${color_number}m\]"
+    foreground_color="${1:-37}" # 30 - 37
+    text_format="${2:-1}"       # 0 - normal, 1 - bold
+    background_color="${3:-30}" # 30 - 37
+
+    echo "\[\e[${text_format};${background_color};${foreground_color}m\]"
 
 }
 export -f get_color
@@ -444,14 +458,13 @@ get_shell_prompt() {
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 37)[\H] "
-    shell="$(get_color 36)[\s_\v] [tty_\l] [\j] "
+    shell="$(get_color 36)[\s_\v] [#\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
-    #time="$(get_color 36)\D{%s} "
-    delimiter_1="$(get_color 32)╭───╮ "
-    delimiter_2="$(get_color 32)│   │ "
-    delimiter_3="$(get_color 32)╰───╯ "
+    delimiter_1="$(get_color 30 1)■$(get_color 31 0)■$(get_color 31 1)■$(get_color 32 0)■$(get_color 32 1)■ "
+    delimiter_2="$(get_color 33 0)■$(get_color 33 1)■$(get_color 34 0)■$(get_color 34 1)■$(get_color 35 0)■ "
+    delimiter_3="$(get_color 35 1)■$(get_color 36 0)■$(get_color 36 1)■$(get_color 37 0)■$(get_color 37 1)■ "
 
     line_1="\n${delimiter_1}${username}${hostname}${shell}${environment}\n"
     line_2="${delimiter_2}${directory}${git_branch}\n"
