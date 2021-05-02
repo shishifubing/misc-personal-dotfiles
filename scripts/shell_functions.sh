@@ -3,23 +3,23 @@
 # executed just after a command has been read and is about to be executed
 # the string that the user has typed is passed as the first argument.
 # uses bash-preexec
-preexec() {
-
-    set_window_title "$(get_directory)■$1"
-    # ■ is needed for tabbed to parse titles
-
-}
-export -f preexec
-
-# executed just before each prompt
-# equivalent to PROMPT_COMMAND, but more flexible and resilient.
-# uses bash-preexec
-precmd() {
-
-    set_window_title "$(get_directory)"
-
-}
-export -f precmd
+#preexec() {
+#
+#    set_window_title "$(get_directory)■$1"
+#    # ■ is needed for tabbed to parse titles
+#
+#}
+#export -f preexec
+#
+## executed just before each prompt
+## equivalent to PROMPT_COMMAND, but more flexible and resilient.
+## uses bash-preexec
+#precmd() {
+#
+#    set_window_title "$(get_directory)"
+#
+#}
+#export -f precmd
 
 # st in tabbed
 stt() {
@@ -229,11 +229,12 @@ gd() {
     month=${3:-$(date +"%m")}
     year=${4:-$(date +"%Y")}
     date="$year-$month-$day 00:00:00"
+
     export GIT_AUTHOR_DATE="$date"
     export GIT_COMMITTER_DATE="$date"
-    git add . &&
-        git commit -m "$message" &&
-        git push origin
+    git add .
+    git commit -m "$message"
+    git push origin
 
 }
 export -f gd
@@ -274,6 +275,7 @@ kde_resources() {
         }
       '
     )
+
     echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]"
 
 }
@@ -367,7 +369,7 @@ export -f pmq
 
 # logout aliases
 
-# logs out of the kde session
+# log out of the kde session
 lo() {
 
     qdbus org.kde.ksmserver /KSMServer logout 0 3 3
@@ -440,39 +442,83 @@ get_current_branch() {
 }
 export -f get_current_branch
 
-# return color code
+# get color code
 get_color() {
 
-    foreground_color="${1:-37}" # 30 - 37
-    text_format="${2:-1}"       # 0 - normal, 1 - bold
-    background_color="${3:-30}" # 30 - 37
-
-    echo "\[\e[${text_format};${background_color};${foreground_color}m\]"
+    # first argument - color type
+    # 0 - normal, 1 - bold,
+    # 4 - underlined, 5 - blinking, 7 - reverse video
+    # second argument - terminal color number
+    foreground_color="${2:-1};${1:-37}"  # color numbers: 30 - 37
+    background_color="${4:-1};${3:-40};" # color numbers: 40 - 47
+    echo "\e[${background_color}${foreground_color}m"
 
 }
 export -f get_color
 
+# get terminal colors
+get_terminal_colors() {
+
+    start=${1:-"30"}
+    end=${2:-"37"}
+    color_type_start=${3}
+    color_type_end=${4}
+
+    for ((color_number = start; color_number <= end; color_number++)); do
+        for color_type in 0 1; do
+            [[ "${color_number}" != "${end}" || \
+            "${color_type}" != "${color_type_end}" ]] &&
+                [[ "${color_number}" != "${start}" || \
+                "${color_type}" != "${color_type_start}" ]] &&
+                echo -n -e "$(get_color ${color_number} ${color_type})██"
+
+        done
+    done
+
+}
+
+export -f get_terminal_colors
+
+# return colored
+get_color_end() {
+
+    echo "\e[0m"
+
+}
+
+export -f get_color_end
 # generate the prompt
 get_shell_prompt() {
 
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 37)[\H] "
-    shell="$(get_color 36)[\s_\v] [#\l:\j] "
+    shell="$(get_color 36)[\s_\v] [\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
-    delimiter_1="$(get_color 30 1)■$(get_color 31 0)■$(get_color 31 1)■$(get_color 32 0)■$(get_color 32 1)■ "
-    delimiter_2="$(get_color 33 0)■$(get_color 33 1)■$(get_color 34 0)■$(get_color 34 1)■$(get_color 35 0)■ "
-    delimiter_3="$(get_color 35 1)■$(get_color 36 0)■$(get_color 36 1)■$(get_color 37 0)■$(get_color 37 1)■ "
+    colors_1="$(get_terminal_colors 30 32 0 -) "
+    colors_2="$(get_terminal_colors 33 35 - 1) "
+    colors_3="$(get_terminal_colors 35 37 0 -) "
 
-    line_1="\n${delimiter_1}${username}${hostname}${shell}${environment}\n"
-    line_2="${delimiter_2}${directory}${git_branch}\n"
-    line_3="${delimiter_3}${user_sign}"
+    line_1="${colors_1}${username}${hostname}${shell}${environment}\n"
+    line_2="${colors_2}${directory}${git_branch}\n"
+    line_3="${colors_3}${user_sign}"
     echo "${line_1}${line_2}${line_3}"
 
 }
 export -f get_shell_prompt
+
+# shell command separator
+get_shell_separator() {
+
+    line_length=${2:-"$(stty size | awk '{ print $2 }')"}
+    delimiter=${1:-"─"}
+    eval printf -- "${delimiter}%.s" "{1..${line_length}}"
+    # eval is needed since brace expansion precedes parameter expansion
+    # double - since printf needs options
+}
+export -f get_shell_separator
 
 # get name of the process by PID
 get_name_of_the_process() {

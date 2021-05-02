@@ -70,3 +70,6 @@ if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
         exec startx
     fi
 fi
+
+# generate separator lines before and after the output
+trap 'echo -e "$(get_color 30)$(get_shell_separator)$(get_color_end)"' DEBUG
