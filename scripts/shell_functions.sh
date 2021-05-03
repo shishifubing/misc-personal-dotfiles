@@ -429,7 +429,7 @@ export -f get_directory
 # set window title
 set_window_title() {
 
-    echo -ne "\033]0;$1\007"
+    echo -ne "\033]0;${1}\007"
 
 }
 export -f set_window_title
@@ -445,13 +445,14 @@ export -f get_current_branch
 # get color code
 get_color() {
 
-    # first argument - color type
-    # 0 - normal, 1 - bold,
-    # 4 - underlined, 5 - blinking, 7 - reverse video
-    # second argument - terminal color number
-    foreground_color="${2:-1};${1:-37}"  # color numbers: 30 - 37
-    background_color="${4:-1};${3:-40};" # color numbers: 40 - 47
-    echo "\e[${background_color}${foreground_color}m"
+    # text format, does not affect background
+    #   0 - normal, 1 - bold,
+    #   4 - underlined, 5 - blinking, 7 - reverse video
+    # terminal color numbers
+    #   foreground: 30 - 37
+    #   background: 40 - 47
+
+    echo "\e[${2:-1};${1:-37};${3:-40}m"
 
 }
 export -f get_color
@@ -459,20 +460,25 @@ export -f get_color
 # get terminal colors
 get_terminal_colors() {
 
-    start=${1:-"30"}
-    end=${2:-"37"}
-    color_type_start=${3}
-    color_type_end=${4}
+    start=${1:-"0"}
+    end=${2:-"7"}
+    type_start=${3:-"-"} # print at the beginnning
+    type_end=${4:-"-"}   # print at the end
 
-    for ((color_number = start; color_number <= end; color_number++)); do
-        for color_type in 0 1; do
-            [[ "${color_number}" != "${end}" || \
-            "${color_type}" != "${color_type_end}" ]] &&
-                [[ "${color_number}" != "${start}" || \
-                "${color_type}" != "${color_type_start}" ]] &&
-                echo -n -e "$(get_color ${color_number} ${color_type})██"
-
-        done
+    output() {
+        number="${1:-0}"
+        type="${2:-0}"
+        color=$(get_color "$((number + 30))" "${type}" "$((number + 40))")
+        echo "${color}██$(get_color_end)"
+    }
+    for ((color = start; color <= end; color++)); do
+        if [[ "${color}" == "${start}" && ${type_start} != "-" ]]; then
+            echo -n "$(output "${color}" "${type_start}")"
+        elif [[ "${color}" == "${end}" && ${type_end} != "-" ]]; then
+            echo -n "$(output "${color}" "${type_end}")"
+        else
+            echo -n "$(output "${color}" "0")$(output "${color}" "1")"
+        fi
     done
 
 }
@@ -487,25 +493,24 @@ get_color_end() {
 }
 
 export -f get_color_end
+
 # generate the prompt
 get_shell_prompt() {
 
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 37)[\H] "
-    shell="$(get_color 36)[\s_\v] [\l:\j] "
+    shell="$(get_color 36)[\s_\V] [\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
-    colors_1="$(get_terminal_colors 30 32 0 -) "
-    colors_2="$(get_terminal_colors 33 35 - 1) "
-    colors_3="$(get_terminal_colors 35 37 0 -) "
+    colors_1="$(get_terminal_colors 0 2 1 -) "
+    colors_2="$(get_terminal_colors 3 5 - 0) "
+    colors_3="$(get_terminal_colors 5 7 1 -) "
 
-    line_1="${colors_1}${username}${hostname}${shell}${environment}\n"
-    line_2="${colors_2}${directory}${git_branch}\n"
-    line_3="${colors_3}${user_sign}"
-    echo "${line_1}${line_2}${line_3}"
-
+    echo "${colors_1}${username}${hostname}${shell}${environment}"
+    echo "${colors_2}${directory}${git_branch}"
+    echo "${colors_3}${user_sign}"
 }
 export -f get_shell_prompt
 
@@ -516,7 +521,7 @@ get_shell_separator() {
     delimiter=${1:-"─"}
     eval printf -- "${delimiter}%.s" "{1..${line_length}}"
     # eval is needed since brace expansion precedes parameter expansion
-    # double - since printf needs options
+    # double '-' since printf needs options
 }
 export -f get_shell_separator
 
