@@ -1,47 +1,48 @@
 #!/usr/bin/env bash
 
-# bash-preexec is too complex for no good reason
-# simple replacement for it
-trap_debug() {
+# executed before all commands
+execute_after() {
 
-    case "${trap_debug_state}" in
-    "end")
-        echo -e "$(get_color 30)$(get_shell_separator ─)$(get_color_end)"
-        set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
-
-        trap_debug_state="start"
-        ;;
-    *)
-        echo -e "$(get_color 30)$(get_shell_separator ─)$(get_color_end)"
-        set_window_title "$(get_directory)"
-
-        trap_debug_state="end"
-        ;;
-    esac
+    set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
+    PS1="$(get_shell_prompt_PS1)" && export PS1
+    unset TRAP_DEBUG_START_TIME
 
 }
-export -f trap_debug
+export -f execute_after
 
-# executed just after a command has been read and is about to be executed
-# the string that the user has typed is passed as the first argument.
-# uses bash-preexec
-#preexec() {
-#
-#    set_window_title "$(get_directory)■$1"
-#    # ■ is needed for tabbed to parse titles
-#
-#}
-#export -f preexec
-#
-## executed just before each prompt
-## equivalent to PROMPT_COMMAND, but more flexible and resilient.
-## uses bash-preexec
-#precmd() {
-#
-#    set_window_title "$(get_directory)"
-#
-#}
-#export -f precmd
+# executed before all commands
+execute_before() {
+
+    echo -e "$(get_shell_prompt_PS0)"
+    TRAP_DEBUG_START_TIME="$(date +"%s.%N")" && export TRAP_DEBUG_START_TIME
+
+}
+export -f execute_before
+
+# xorg on login
+start_xorg_server() {
+
+    echo "Start xorg-server?"
+    read -r answer
+    [[ "$answer" != "n" && "$answer" != "N" ]] &&
+        exec startx
+
+}
+export -f start_xorg_server
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+enable_programmable_completion_features() {
+
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+
+}
+export -f enable_programmable_completion_features
 
 # st in tabbed
 stt() {
@@ -193,16 +194,18 @@ export -f v
 # unzip tar.gz and tar.xz
 tr() {
 
-    file_type=$(get_file_type "$1")
-    if [[ ${file_type} == xz ]]; then
+    case "$(get_file_type "${1}")" in
+    "xz")
         tar -xf "$1"
-    elif [[ ${file_type} == gz ]]; then
+        ;;
+
+    *)
         tar -xvzf "$1"
-    else
-        tar -xvzf "$1"
-    fi
+        ;;
+    esac
 
 }
+
 export -f tr
 
 # python aliases
@@ -474,13 +477,13 @@ get_color() {
     #   foreground: 30 - 37
     #   background: 40 - 47
 
-    echo "\e[${2:-1};${1:-37};${3:-40}m"
+    echo "\[\e[${2:-1};${1:-37};${3:-40}m"
 
 }
 export -f get_color
 
 # get terminal colors
-get_terminal_colors() {
+get_colors() {
 
     start=${1:-"0"}
     end=${2:-"7"}
@@ -505,39 +508,61 @@ get_terminal_colors() {
 
 }
 
-export -f get_terminal_colors
+export -f get_colors
 
-# return colored
+# return end of color modification
 get_color_end() {
 
-    echo "\e[0m"
+    echo "\e[0m\]"
 
 }
 
 export -f get_color_end
 
-# generate the prompt
-get_shell_prompt() {
+# generate the PS0 prompt
+get_shell_prompt_PS0() {
 
+    message="Start: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
+    separator="\e[1;30m$(get_shell_separator_line ─)\e[1;37m"
+    set_window_title "$(get_directory)"
+
+    echo "${separator}"
+    echo "${message}"
+
+}
+export -f get_shell_prompt_PS0
+
+# generate the PS1 prompt
+get_shell_prompt_PS1() {
+
+    time_elapsed="$(bc <<<"$(date +"%s.%N") - ${TRAP_DEBUG_START_TIME}")"
+    time_elapsed="$(get_color 37)Time elapsed: $(printf "%.3f" "${time_elapsed}") seconds"
+    time_end="End: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")"
+    time_end="$(get_color 37)${time_end}"
+    separator="$(get_color 30)$(get_shell_separator_line ─)$(get_color 37)"
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 37)[\H] "
     shell="$(get_color 36)[\s_\V] [\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
-    user_sign="$(get_color 37)\$ "
-    colors_1="$(get_terminal_colors 0 2 1 -) "
-    colors_2="$(get_terminal_colors 3 5 - 0) "
-    colors_3="$(get_terminal_colors 5 7 1 -) "
+    user_sign="$(get_color 37)$ "
+    colors_1="$(get_colors 0 2 1 -) "
+    colors_2="$(get_colors 3 5 - 0) "
+    colors_3="$(get_colors 5 7 1 -) "
 
-    echo "${colors_1}${username}${hostname}${shell}${environment}"
-    echo "${colors_2}${directory}${git_branch}"
-    echo "${colors_3}${user_sign}"
+    echo
+    echo "${time_end}$(get_color_end)"
+    echo "${separator}$(get_color_end)"
+    echo "${colors_1}${username}${hostname}${shell}${environment}$(get_color_end)"
+    echo "${colors_2}${directory}${git_branch}$(get_color_end)"
+    echo "${colors_3}${time_elapsed}$(get_color_end)"
+    echo "${user_sign}$(get_color_end)$(get_color 37)"
 }
-export -f get_shell_prompt
+export -f get_shell_prompt_PS1
 
 # shell command separator
-get_shell_separator() {
+get_shell_separator_line() {
 
     line_length=${2:-"$(stty size | awk '{ print $2 }')"}
     delimiter=${1:-"─"}
@@ -545,7 +570,7 @@ get_shell_separator() {
     # eval is needed since brace expansion precedes parameter expansion
     # double '-' since printf needs options
 }
-export -f get_shell_separator
+export -f get_shell_separator_line
 
 # get name of the process by PID
 get_name_of_the_process() {
