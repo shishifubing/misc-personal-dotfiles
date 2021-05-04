@@ -54,6 +54,8 @@ shopt -s cmdhist
 export LC_ALL="en_US.UTF-8"
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# path
+export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
 # }}}
 
 # less
