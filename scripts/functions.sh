@@ -13,9 +13,9 @@ export_local_functions() {
 # executed before all commands
 execute_after() {
 
-    TRAP_DEBUG_TIME_END="$(date +"%s.%N")" && export TRAP_DEBUG_TIME_END
+    export TRAP_DEBUG_TIME_END="$(date +"%s.%N")"
     set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
-    PS1="$(get_shell_prompt_PS1)" && export PS1
+    export PS1="$(get_shell_prompt_PS1)"
     unset TRAP_DEBUG_TIME_START
     unset TRAP_DEBUG_TIME_END
 
@@ -24,7 +24,7 @@ execute_after() {
 # executed before all commands
 execute_before() {
 
-    TRAP_DEBUG_TIME_START="$(date +"%s.%N")" && export TRAP_DEBUG_TIME_START
+    export TRAP_DEBUG_TIME_START="$(date +"%s.%N")"
     echo -e "$(get_shell_prompt_PS0)"
 
 }
@@ -249,33 +249,30 @@ kde_resources() {
     memory=$(
         free -h | # show memory in human readable form
             awk '
-        FNR == 2 {
-          ram_usage=$3; total_memory=$2;
-        };
-        FNR == 3 {
-          swap_usage=$3;
-          print ram_usage "+" swap_usage "/" total_memory;
-        };
-      '
+                FNR == 2 {
+                    ram_usage=$3; total_memory=$2;
+                };
+                FNR == 3 {
+                    swap_usage=$3;
+                    print ram_usage "+" swap_usage "/" total_memory;
+                };
+            '
     )
     cpu_temp=$(# outputs only the first two symbols of the file
         cut -c1-2 /sys/class/thermal/thermal_zone0/temp
     )°C
     cpu_usage=$(
         vmstat |
-            awk '
-        FNR == 3 {
-          print 100 - $15 "%";
-        }
-      '
+            awk 'FNR == 3 {
+                    print 100 - $15 "%";
+                }'
     )
     traffic=$(
         sar -n DEV 1 1 |
-            awk '
-        FNR == 6 {
-          printf("%.0fkB/s %.0fkB/s", $5, $6);
-        }
-      '
+            awk 'FNR == 6 {
+                    printf("%.0fkB/s %.0fkB/s", $5, $6);
+                }
+            '
     )
 
     echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]"
@@ -322,6 +319,7 @@ ll() {
 
 # cd
 c() {
+
     directory="${1:-/home/borinskikh}"
     cd "$directory" || true
     l
@@ -388,6 +386,47 @@ los() {
 
 }
 
+# setup hard links
+setup_hard_links() {
+
+    cd ~/dot-files/ || exit
+    #vscode_path=~/.config/Code/User/settings.json # path on windows
+    vscode_path=~/.config/Code\ -\ OSS/User/settings.json
+    firefox_path=~/.mozilla/firefox/zq1ebncv.default-release/chrome
+
+    _ln() { rm "$2" 2>/dev/null && ln "$1" "$2"; }
+    _mkdir() { rm -r "$1" 2>/dev/null && mkdir "$1"; }
+    _cp() { cp -r "$1" "$2" 2>/dev/null; }
+
+    _ln configs/vscode_settings.json "$vscode_path"
+    _ln scripts/bashrc.sh ~/.bashrc
+    _ln scripts/xinitrc.sh ~/.xinitrc
+    _mkdir "$firefox_path"
+    _cp firefox/img "$firefox_path"
+    _ln firefox/userChrome.css "$firefox_path"
+    _ln firefox/userContent.css "$firefox_path"
+
+}
+
+# setup repositories
+setup_repositories() {
+
+    mkdir ~/Repositories
+    cd ~/Repositories || exit
+    repositories=(
+        https://git.suckless.org/dmenu
+        https://github.com/borinskikh/dot-files
+        https://github.com/borinskikh/book-creator
+        https://github.com/borinskikh/new-tab-bookmarks
+        https://github.com/borinskikh/notes
+    )
+
+    for repository in "${repositories[@]}"; do
+        git clone "${repository}"
+    done
+
+}
+
 # getters and setters
 
 # return extension of the string provided
@@ -438,6 +477,15 @@ get_color() {
     echo "\[\e[${2:-1};${1:-37};${3:-40}m"
 
 }
+get_color-() { echo "\e[${2:-1};${1:-37};${3:-40}m"; }
+
+# return end of color modification
+get_color_end() {
+
+    echo "\e[0m\]"
+
+}
+get_color_end-() { echo "\e[0m"; }
 
 # get terminal colors
 get_colors() {
@@ -465,18 +513,11 @@ get_colors() {
 
 }
 
-# return end of color modification
-get_color_end() {
-
-    echo "\e[0m\]"
-
-}
-
 # generate the PS0 prompt
 get_shell_prompt_PS0() {
 
     message="Start: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
-    separator="\e[1;30m$(get_shell_separator_line ─)\e[1;37m"
+    separator="$(get_color- 30)$(get_shell_separator_line ─)$(get_color- 37)"
     set_window_title "$(get_directory)"
 
     echo "${separator}"

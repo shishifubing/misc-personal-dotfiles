@@ -82,7 +82,7 @@
         "--aggressive"
     ],
     "python.autoComplete.addBrackets": true,
-    "shellcheck.exclude": ["SC1091", "SC1090"],
+    "shellcheck.exclude": ["SC1091", "SC1090", "SC2155", "SC2120"],
     //
 
     // prettier settings

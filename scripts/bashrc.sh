@@ -3,14 +3,12 @@
 # if not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# stuff
+# source stuff
 # {{{
 
 # source functions
-[[ -f ~/dot-files/scripts/shell_functions.sh ]] &&
-    . ~/dot-files/scripts/shell_functions.sh
-# make less more friendly for non-text input files, see lesspipe(1)
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+[[ -f ~/dot-files/scripts/functions.sh ]] &&
+    . ~/dot-files/scripts/functions.sh
 # enable programmable completion features
 # you don't need to enable this,
 # if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -56,6 +54,23 @@ shopt -s cmdhist
 export LC_ALL="en_US.UTF-8"
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# }}}
+
+# less
+# https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+# {{{
+
+# set options for less
+# --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
+# --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
+export LESS='-F -i -J -M -R -W -x4 -X -z-4'
+export LESS_TERMCAP_mb=$(echo -e "$(get_color- 31)")       # begin bold
+export LESS_TERMCAP_md=$(echo -e "$(get_color- 34)")       # begin blink
+export LESS_TERMCAP_me=$(echo -e "$(get_color_end-)")      # reset bold/blink
+export LESS_TERMCAP_so=$(echo -e "$(get_color- 01 44 37)") # begin reverse video
+export LESS_TERMCAP_se=$(echo -e "$(get_color_end-)")      # reset reverse video
+export LESS_TERMCAP_us=$(echo -e "$(get_color- 04 01 32)") # begin underline
+export LESS_TERMCAP_ue=$(echo -e "$(get_color_end-)")      # reset underline
 
 # }}}
 
@@ -73,6 +88,7 @@ export HISTCONTROL=
 export HISTFILESIZE=
 # unlimited bash history (lines)
 export HISTSIZE=
+
 # }}}
 
 # start stuff
@@ -87,5 +103,7 @@ export HISTSIZE=
 trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && execute_before' DEBUG
 # PROMPT_COMMAND is executed after every command
 export PROMPT_COMMAND='execute_after'
+# message
+echo ".bashrc is sourced"
 
 # }}}
