@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
+# bash-preexec is too complex for no good reason
+# simple replacement for it
+trap_debug() {
+
+    case "${trap_debug_state}" in
+    "end")
+        echo -e "$(get_color 30)$(get_shell_separator ─)$(get_color_end)"
+        set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
+
+        trap_debug_state="start"
+        ;;
+    *)
+        echo -e "$(get_color 30)$(get_shell_separator ─)$(get_color_end)"
+        set_window_title "$(get_directory)"
+
+        trap_debug_state="end"
+        ;;
+    esac
+
+}
+export -f trap_debug
+
 # executed just after a command has been read and is about to be executed
 # the string that the user has typed is passed as the first argument.
 # uses bash-preexec

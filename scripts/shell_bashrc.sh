@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 source ~/dot-files/scripts/shell_functions.sh
-source ~/dot-files/scripts/shell_preexec.sh
 set -o vi
 
 # if not running interactively, don't do anything
@@ -63,13 +62,12 @@ shopt -s histappend  # append to the history file, don't overwrite it
 # start stuff
 
 # start xorg on login
-if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
+if [[ -z "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]; then
     echo "Start xorg-server?"
     read -r answer
-    if [[ "$answer" != "n" ]] && [[ "$answer" != "N" ]]; then
+    [[ "$answer" != "n" && "$answer" != "N" ]] &&
         exec startx
-    fi
 fi
 
 # generate separator lines before and after the output
-trap 'echo -e "$(get_color 30)$(get_shell_separator)$(get_color_end)"' DEBUG
+trap 'trap_debug' DEBUG
