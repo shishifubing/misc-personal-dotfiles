@@ -1,23 +1,33 @@
 #!/usr/bin/env bash
 
+# export all local functions
+export_local_functions() {
+
+    mapfile -t "functions" <<<"$(declare -F)"
+    for function in "${functions[@]}"; do
+        export -f "$(echo "${function}" | awk '{print $3;}')"
+    done
+
+}
+
 # executed before all commands
 execute_after() {
 
+    TRAP_DEBUG_TIME_END="$(date +"%s.%N")" && export TRAP_DEBUG_TIME_END
     set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
     PS1="$(get_shell_prompt_PS1)" && export PS1
-    unset TRAP_DEBUG_START_TIME
+    unset TRAP_DEBUG_TIME_START
+    unset TRAP_DEBUG_TIME_END
 
 }
-export -f execute_after
 
 # executed before all commands
 execute_before() {
 
+    TRAP_DEBUG_TIME_START="$(date +"%s.%N")" && export TRAP_DEBUG_TIME_START
     echo -e "$(get_shell_prompt_PS0)"
-    TRAP_DEBUG_START_TIME="$(date +"%s.%N")" && export TRAP_DEBUG_START_TIME
 
 }
-export -f execute_before
 
 # xorg on login
 start_xorg_server() {
@@ -28,21 +38,6 @@ start_xorg_server() {
         exec startx
 
 }
-export -f start_xorg_server
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-enable_programmable_completion_features() {
-
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-
-}
-export -f enable_programmable_completion_features
 
 # st in tabbed
 stt() {
@@ -52,24 +47,6 @@ stt() {
     tabbed -r 2 st -w ''
 
 }
-export -f stt
-
-# merge in defaults and keymaps
-source_keymaps() {
-
-    userresources=~/.Xresources
-    usermodmap=~/dot-files/configs/Xmodmap
-    sysresources=/etc/X11/xinit/.Xresources
-    sysmodmap=/etc/X11/xinit/.Xmodmap
-
-    [[ -f "$sysresources" ]] && xrdb -merge "$sysresources"
-    [[ -f "$sysmodmap" ]] && xmodmap "$sysmodmap"
-    [[ -f "$userresources" ]] && xrdb -merge "$userresources"
-    [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
-    [[ -z "$1" ]] || xmodmap "$1"
-
-}
-export -f source_keymaps
 
 # send a notification
 send_desktop_notification() {
@@ -79,7 +56,6 @@ send_desktop_notification() {
     notify-send --urgency=low -i "$alert_icon" "$alert_message"
 
 }
-export -f send_desktop_notification
 
 # source bashrc
 sb() {
@@ -87,7 +63,6 @@ sb() {
     source ~/.bashrc
 
 }
-export -f sb
 
 # default compile command
 mi() {
@@ -95,7 +70,6 @@ mi() {
     make && sudo make install
 
 }
-export -f mi
 
 # password manager script
 passmenu() {
@@ -123,7 +97,6 @@ passmenu() {
     fi
 
 }
-export -f passmenu
 
 # start vpn
 yv() {
@@ -135,7 +108,6 @@ yv() {
     sudo openvpn --cd $directory --config $config_file
 
 }
-export -f yv
 
 # history item
 history_item() {
@@ -150,7 +122,6 @@ history_item() {
     echo "$history_item" | ${SHELL:-"/bin/sh"}
 
 }
-export -f history_item
 
 db() {
 
@@ -173,7 +144,22 @@ db() {
     fi
 
 }
-export -f db
+
+# source keymaps
+source_keymaps() {
+
+    userresources=~/.Xresources
+    usermodmap=~/dot-files/configs/Xmodmap
+    sysresources=/etc/X11/xinit/.Xresources
+    sysmodmap=/etc/X11/xinit/.Xmodmap
+
+    [[ -f "${sysresources}" ]] && xrdb -merge "${sysresources}"
+    [[ -f "${sysmodmap}" ]] && xmodmap "${sysmodmap}"
+    [[ -f "${userresources}" ]] && xrdb -merge "${userresources}"
+    [[ -f "${usermodmap}" ]] && xmodmap "${usermodmap}"
+    [[ -z "${1}" ]] || xmodmap "${1}"
+
+}
 
 # start xorg-server
 sx() {
@@ -181,7 +167,6 @@ sx() {
     startx
 
 }
-export -f sx
 
 # vim
 v() {
@@ -189,7 +174,6 @@ v() {
     vim "$@"
 
 }
-export -f v
 
 # unzip tar.gz and tar.xz
 tr() {
@@ -206,8 +190,6 @@ tr() {
 
 }
 
-export -f tr
-
 # python aliases
 
 # python
@@ -216,7 +198,6 @@ py() {
     python "$@"
 
 }
-export -f py
 
 # python virtual environment
 pips() {
@@ -226,7 +207,6 @@ pips() {
     unset ENVIRONMENT
 
 }
-export -f pips
 
 # pip install
 pipi() {
@@ -234,7 +214,6 @@ pipi() {
     pip install "$@"
 
 }
-export -f pipi
 
 # git aliases
 
@@ -244,7 +223,6 @@ gc() {
     git clone "$@"
 
 }
-export -f gc
 
 # default git push
 gd() {
@@ -262,7 +240,6 @@ gd() {
     git push origin
 
 }
-export -f gd
 
 # kde aliases
 
@@ -304,7 +281,6 @@ kde_resources() {
     echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]"
 
 }
-export -f kde_resources
 
 # date
 kde_date() {
@@ -312,7 +288,6 @@ kde_date() {
     date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S:%3N]"
 
 }
-export -f kde_date
 
 # code-oss
 co() {
@@ -321,7 +296,6 @@ co() {
     code-oss --reuse-window --no-sandbox --unity-launch "$workspace_file" "$1"
 
 }
-export -f co
 
 # ls aliases
 
@@ -331,7 +305,6 @@ l() {
     ls --color --human-readable "$@"
 
 }
-export -f l
 
 # hidden files
 la() {
@@ -339,7 +312,6 @@ la() {
     l --all --size "$@"
 
 }
-export -f l
 
 # vertical
 ll() {
@@ -347,7 +319,6 @@ ll() {
     l -l --no-group "$@"
 
 }
-export -f ll
 
 # cd
 c() {
@@ -356,7 +327,6 @@ c() {
     l
 
 }
-export -f c
 
 # pacman aliases
 
@@ -366,7 +336,6 @@ pm() {
     sudo pacman -S "$@"
 
 }
-export -f pm
 
 # system update
 pms() {
@@ -374,7 +343,6 @@ pms() {
     pm -yu "$@"
 
 }
-export -f pms
 
 # remove a package
 pmr() {
@@ -382,7 +350,6 @@ pmr() {
     sudo pacman -R "$@"
 
 }
-export -f pmr
 
 # show files installed by a package
 pmq() {
@@ -390,7 +357,6 @@ pmq() {
     sudo pacman -Ql "$@"
 
 }
-export -f pmq
 
 # logout aliases
 
@@ -400,7 +366,6 @@ lo() {
     qdbus org.kde.ksmserver /KSMServer logout 0 3 3
 
 }
-export -f lo
 
 # lock session
 lol() {
@@ -408,7 +373,6 @@ lol() {
     loginctl lock-session 1
 
 }
-export -f lol
 
 # reboot
 lor() {
@@ -416,7 +380,6 @@ lor() {
     reboot
 
 }
-export -f lor
 
 # shutdown immediately
 los() {
@@ -424,7 +387,6 @@ los() {
     shutdown now
 
 }
-export -f los
 
 # getters and setters
 
@@ -437,7 +399,6 @@ get_file_type() {
         }'
 
 }
-export -f get_file_type
 
 # get directory
 get_directory() {
@@ -449,7 +410,6 @@ get_directory() {
     # sed 's|/home/borinskikh/|~/|g'
 
 }
-export -f get_directory
 
 # set window title
 set_window_title() {
@@ -457,7 +417,6 @@ set_window_title() {
     echo -ne "\033]0;${1}\007"
 
 }
-export -f set_window_title
 
 # get current git branch
 get_current_branch() {
@@ -465,7 +424,6 @@ get_current_branch() {
     git branch --show-current 2>/dev/null
 
 }
-export -f get_current_branch
 
 # get color code
 get_color() {
@@ -480,7 +438,6 @@ get_color() {
     echo "\[\e[${2:-1};${1:-37};${3:-40}m"
 
 }
-export -f get_color
 
 # get terminal colors
 get_colors() {
@@ -508,16 +465,12 @@ get_colors() {
 
 }
 
-export -f get_colors
-
 # return end of color modification
 get_color_end() {
 
     echo "\e[0m\]"
 
 }
-
-export -f get_color_end
 
 # generate the PS0 prompt
 get_shell_prompt_PS0() {
@@ -530,13 +483,13 @@ get_shell_prompt_PS0() {
     echo "${message}"
 
 }
-export -f get_shell_prompt_PS0
 
 # generate the PS1 prompt
 get_shell_prompt_PS1() {
 
-    time_elapsed="$(bc <<<"$(date +"%s.%N") - ${TRAP_DEBUG_START_TIME}")"
-    time_elapsed="$(get_color 37)Time elapsed: $(printf "%.3f" "${time_elapsed}") seconds"
+    time_elapsed="$(bc <<<"${TRAP_DEBUG_TIME_END}-${TRAP_DEBUG_TIME_START}")"
+    time_elapsed="$(printf "%.3f" "${time_elapsed}")"
+    time_elapsed="$(get_color 32)Time elapsed: ${time_elapsed} seconds"
     time_end="End: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")"
     time_end="$(get_color 37)${time_end}"
     separator="$(get_color 30)$(get_shell_separator_line ─)$(get_color 37)"
@@ -557,9 +510,8 @@ get_shell_prompt_PS1() {
     echo "${colors_1}${username}${hostname}${shell}${environment}$(get_color_end)"
     echo "${colors_2}${directory}${git_branch}$(get_color_end)"
     echo "${colors_3}${time_elapsed}$(get_color_end)"
-    echo "${user_sign}$(get_color_end)$(get_color 37)"
+    get_color 37
 }
-export -f get_shell_prompt_PS1
 
 # shell command separator
 get_shell_separator_line() {
@@ -570,7 +522,6 @@ get_shell_separator_line() {
     # eval is needed since brace expansion precedes parameter expansion
     # double '-' since printf needs options
 }
-export -f get_shell_separator_line
 
 # get name of the process by PID
 get_name_of_the_process() {
@@ -578,4 +529,5 @@ get_name_of_the_process() {
     ps -p "$1" -o comm=
 
 }
-export -f get_name_of_the_process
+
+export_local_functions
