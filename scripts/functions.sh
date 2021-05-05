@@ -51,9 +51,9 @@ stt() {
 # send a notification
 send_desktop_notification() {
 
-    alert_message="${1:- }"
-    alert_icon="${2:-error}"
-    notify-send --urgency=low -i "$alert_icon" "$alert_message"
+    alert_message="${1:-" "}"
+    alert_icon="${2:-"error"}"
+    notify-send --urgency=low -i "${alert_icon}" "${alert_message}"
 
 }
 
@@ -105,7 +105,31 @@ yv() {
     echo "token is in your clipboard"
     directory=~/Repositories/ya_vpn/
     config_file=~/Repositories/ya_vpn/openvpn.conf
-    sudo openvpn --cd $directory --config $config_file
+    sudo openvpn --cd "${directory}" --config "${config_file}"
+
+}
+
+# dmenu_path
+dmenu_path() {
+
+    cachedir="${XDG_CACHE_HOME:-"${HOME}/.cache"}"
+    cache="${cachedir}/dmenu_run"
+
+    [ ! -e "${cachedir}" ] && mkdir -p "${cachedir}"
+
+    IFS=:
+    if stest -dqr -n "${cache}" "${PATH}"; then
+        stest -flx "${PATH}" | sort -u | tee "${cache}"
+    else
+        cat "${cache}"
+    fi
+
+}
+
+# dmenu run
+dmenu_run() {
+
+    dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"}
 
 }
 
@@ -117,9 +141,9 @@ history_item() {
             tac |                # reverses output, so recent entries are on top
             dmenu -l 10          # dmenu pipe
     )
-    history -s "$history_item"
-    echo "${PS1@P}$history_item"
-    echo "$history_item" | ${SHELL:-"/bin/sh"}
+    history -s "${history_item}"
+    echo "${PS1@P}${history_item}"
+    echo "${history_item}" | ${SHELL:-"/bin/sh"}
 
 }
 
@@ -180,11 +204,11 @@ tr() {
 
     case "$(get_file_type "${1}")" in
     "xz")
-        tar -xf "$1"
+        tar -xf "${1}"
         ;;
 
     *)
-        tar -xvzf "$1"
+        tar -xvzf "${1}"
         ;;
     esac
 
@@ -227,16 +251,16 @@ gc() {
 # default git push
 gd() {
 
-    message=${1:-update}
-    day=${2:-$(date +"%d")}
-    month=${3:-$(date +"%m")}
-    year=${4:-$(date +"%Y")}
-    date="$year-$month-$day 00:00:00"
+    message=${1:-"update"}
+    day=${2:-"$(date +"%d")"}
+    month=${3:-"$(date +"%m")"}
+    year=${4:-"$(date +"%Y")"}
+    date="${year}-${month}-${day} 00:00:00"
 
-    export GIT_AUTHOR_DATE="$date"
-    export GIT_COMMITTER_DATE="$date"
+    export GIT_AUTHOR_DATE="${date}"
+    export GIT_COMMITTER_DATE="${date}"
     git add .
-    git commit -m "$message"
+    git commit -m "${message}"
     git push origin
 
 }
@@ -275,7 +299,7 @@ kde_resources() {
             '
     )
 
-    echo "[$memory] [$cpu_temp $cpu_usage] [$traffic]"
+    echo "[${memory}] [${cpu_temp} ${cpu_usage}] [${traffic}]"
 
 }
 
@@ -290,7 +314,7 @@ kde_date() {
 co() {
 
     workspace_file=~/dot-files/configs/vscode_workspace.code-workspace
-    code-oss --reuse-window --no-sandbox --unity-launch "$workspace_file" "$1"
+    code-oss --reuse-window --no-sandbox --unity-launch "${workspace_file}" "$1"
 
 }
 
@@ -320,8 +344,8 @@ ll() {
 # cd
 c() {
 
-    directory="${1:-/home/borinskikh}"
-    cd "$directory" || true
+    directory="${1:-"${HOME}"}"
+    cd "${directory}" || true
     l
 
 }
@@ -394,17 +418,17 @@ setup_hard_links() {
     vscode_path=~/.config/Code\ -\ OSS/User/settings.json
     firefox_path=~/.mozilla/firefox/zq1ebncv.default-release/chrome
 
-    _ln() { rm "$2" 2>/dev/null && ln "$1" "$2"; }
-    _mkdir() { rm -r "$1" 2>/dev/null && mkdir "$1"; }
-    _cp() { cp -r "$1" "$2" 2>/dev/null; }
+    _ln() { rm "${2}" 2>/dev/null && ln "${1}" "${2}"; }
+    _mkdir() { rm -r "${1}" 2>/dev/null && mkdir "${1}"; }
+    _cp() { cp -r "${1}" "${2}" 2>/dev/null; }
 
-    _ln configs/vscode_settings.json "$vscode_path"
-    _ln scripts/bashrc.sh ~/.bashrc
-    _ln scripts/xinitrc.sh ~/.xinitrc
-    _mkdir "$firefox_path"
-    _cp firefox/img "$firefox_path"
-    _ln firefox/userChrome.css "$firefox_path"
-    _ln firefox/userContent.css "$firefox_path"
+    _ln "configs/vscode_settings.json" "${vscode_path}"
+    _ln "scripts/bashrc.sh" ~/.bashrc
+    _ln "scripts/xinitrc.sh" ~/.xinitrc
+    _mkdir "${firefox_path}"
+    _cp "firefox/img" "${firefox_path}"
+    _ln "firefox/userChrome.css" "${firefox_path}"
+    _ln "firefox/userContent.css" "${firefox_path}"
 
 }
 
@@ -432,7 +456,7 @@ setup_repositories() {
 # return extension of the string provided
 get_file_type() {
 
-    echo "$1" |
+    echo "${1}" |
         awk -F'[.]' '{
             print $NF;
         }'
@@ -474,10 +498,10 @@ get_color() {
     #   foreground: 30 - 37
     #   background: 40 - 47
 
-    echo "\[\e[${2:-1};${1:-37};${3:-40}m"
+    echo "\[\e[${2:-"1"};${1:-"37"};${3:-"40"}m"
 
 }
-get_color-() { echo "\e[${2:-1};${1:-37};${3:-40}m"; }
+get_color-() { echo "\e[${2:-"1"};${1:-"37"};${3:-"40"}m"; }
 
 # return end of color modification
 get_color_end() {
@@ -496,8 +520,8 @@ get_colors() {
     type_end=${4:-"-"}   # print at the end
 
     output() {
-        number="${1:-0}"
-        type="${2:-0}"
+        number="${1:-"0"}"
+        type="${2:-"0"}"
         color=$(get_color "$((number + 30))" "${type}" "$((number + 40))")
         echo "${color}██$(get_color_end)"
     }
@@ -540,7 +564,7 @@ get_shell_prompt_PS1() {
     shell="$(get_color 36)[\s_\V] [\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
-    user_sign="$(get_color 37)$ "
+    user_sign="$(get_color 37)\$ "
     colors_1="$(get_colors 0 2 1 -) "
     colors_2="$(get_colors 3 5 - 0) "
     colors_3="$(get_colors 5 7 1 -) "
@@ -567,7 +591,7 @@ get_shell_separator_line() {
 # get name of the process by PID
 get_name_of_the_process() {
 
-    ps -p "$1" -o comm=
+    ps -p "${1}" -o comm=
 
 }
 

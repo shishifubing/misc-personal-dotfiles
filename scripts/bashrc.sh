@@ -10,8 +10,8 @@
 [[ -f ~/dot-files/scripts/functions.sh ]] &&
     . ~/dot-files/scripts/functions.sh
 # enable programmable completion features
-# you don't need to enable this,
-# if it's already enabled in /etc/bash.bashrc and /etc/profile
+# you don't need to enable this if it's
+# already enabled in /etc/bash.bashrc and /etc/profile
 [[ -f /usr/share/bash-completion/bash_completion ]] &&
     . /usr/share/bash-completion/bash_completion
 [[ -f /etc/bash_completion ]] &&
@@ -30,18 +30,18 @@ set -o vi
 shopt -s checkwinsize
 # minor errors in the spelling of a directory in a cd command will be corrected
 shopt -s cdspell
-# Bash will attempt spelling correction on directory names during word completion
+# attempt spelling correction on directory names during word completion
 shopt -s dirspell
-# Bash will include filenames beginning with a ‘.’ in the results of filename expansion
+# include filenames beginning with a ‘.’ in the results of filename expansion
 shopt -s dotglob
-# Bash will send SIGHUP to all jobs when an interactive login shell exits
+# send SIGHUP to all jobs when an interactive login shell exits
 shopt -s huponexit
-# Bash will matche filenames in a case-insensitive fashion when performing filename expansion.
+# match filenames in a case-insensitive fashion when performing filename expansion.
 shopt -s nocaseglob
 # flushes the command to the history file immediately
 # otherwise, this would happen only when the shell exits
 shopt -s histappend
-# Bash will attempt to save all lines of a multiple-line
+# attempt to save all lines of a multiple-line
 # command in the same history entry.
 shopt -s cmdhist
 
