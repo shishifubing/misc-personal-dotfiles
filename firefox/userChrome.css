@@ -3,19 +3,19 @@
 @-moz-document regexp(".*") {
     :root {
         /* darkorchid - #9932cc */
-        --accent-color: #bf3eff !important;
-        --accent-color-2: #9932cc;
-        --border-accent-color: 1px solid var(--accent-color);
+        --__accent-color: #bf3eff !important;
+        --__accent-color-2: #9932cc;
+        --__border-accent-color: 1px solid var(--__accent-color);
         /* gray */
-        --accent-color-3: #808080;
+        --__accent-color-3: #808080;
         /* black */
-        --background-color: #000000;
+        --__background-color: #000000;
         /* white */
-        --foreground-color: #ffffff;
+        --__foreground-color: #ffffff;
     }
     /* uniform scrollbars */
     * {
-        scrollbar-color: var(--accent-color) var(--background-color) !important;
+        scrollbar-color: var(--__accent-color) var(--__background-color) !important;
         scrollbar-width: thin !important;
     }
     /* removes scrollbars at the root of pages since they are pretty useless */
@@ -25,8 +25,8 @@
     }
     /* uniform text selection */
     ::selection {
-        background: var(--accent-color) !important;
-        color: var(--foreground-color) !important;
+        background: var(--__accent-color) !important;
+        color: var(--__foreground-color) !important;
     }
     /* removes a white outline on focused elements */
     :focus {
@@ -40,87 +40,93 @@
     /* browser variables, you don't really need them */
     :root {
         /* Popup panels(accordeon menu on the right, etc) */
-        --arrowpanel-background: var(--background-color) !important;
-        --arrowpanel-border-color: var(--background-color) !important;
-        --arrowpanel-color: var(--foreground-color) !important;
-        --arrowpanel-dimmed: var(--background-color) !important;
-        --panel-separator-color: var(--accent-color) !important;
-        --panel-disabled-color: var(--accent-color-2) !important;
-        --panel-description-color: var(--accent-color-2) !important;
+        --arrowpanel-background: var(--__background-color) !important;
+        --arrowpanel-border-color: var(--__background-color) !important;
+        --arrowpanel-color: var(--__foreground-color) !important;
+        --arrowpanel-dimmed: var(--__background-color) !important;
+        --panel-separator-color: var(--__accent-color) !important;
+        --panel-disabled-color: var(--__accent-color-2) !important;
+        --panel-description-color: var(--__accent-color-2) !important;
         /* window and toolbar background */
-        --lwt-accent-color: var(--accent-color) !important;
-        --lwt-accent-color-inactive: var(--background-color) !important;
-        --lwt-text-color: var(--foreground-color) !important;
-        --lwt-toolbar-vertical-separator: var(
-            --accent-color
+        --lwt-accent-color: var(--__accent-color) !important;
+        --lwt-accent-color-inactive: var(
+            --__background-color
         ) !important;
-        --toolbar-bgcolor: var(--background-color) !important;
-        --toolbar-color: var(--foreground-color) !important;
+        --lwt-text-color: var(--__foreground-color) !important;
+        --lwt-toolbar-vertical-separator: var(
+            --__accent-color
+        ) !important;
+        --toolbar-bgcolor: var(--__background-color) !important;
+        --toolbar-color: var(--__foreground-color) !important;
         --urlbar-height: 28px !important;
         --urlbar-toolbar-height: 30px !important;
         /* toolbar buttons */
-        --lwt-toolbarbutton-icon-fill: var(--accent-color) !important;
+        --lwt-toolbarbutton-icon-fill: var(--__accent-color) !important;
         --lwt-toolbarbutton-icon-fill-attention: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --lwt-toolbarbutton-hover-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --lwt-toolbarbutton-active-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         /* urlbar */
         --urlbar-height: 30px !important;
         --urlbar-toolbar-height: 30px !important;
         --lwt-toolbar-field-background-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --lwt-toolbar-field-focus: var(--background-color) !important;
+        --lwt-toolbar-field-focus: var(--__background-color) !important;
         --lwt-toolbar-field-border-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --lwt-toolbar-field-highlight: var(--accent-color) !important;
+        --lwt-toolbar-field-highlight: var(--__accent-color) !important;
         --lwt-toolbar-field-highlight-text: var(
-            --foreground-color
+            --__foreground-color
         ) !important;
-        --lwt-toolbar-field-color: var(--foreground-color) !important;
+        --lwt-toolbar-field-color: var(--__foreground-color) !important;
         --lwt-toolbar-field-focus-color: var(
-            --foreground-color
+            --__foreground-color
         ) !important;
         --toolbar-field-focus-border-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --urlbar-popup-url-color: var(--accent-color) !important;
+        --urlbar-popup-url-color: var(--__accent-color) !important;
         /* inner urlbar separator on the left */
-        --urlbar-separator-color: var(--background-color) !important;
+        --urlbar-separator-color: var(--__background-color) !important;
         /* bottom navigation bar border */
         --chrome-content-separator-color: var(
-            --background-color
+            --__background-color
         ) !important;
         /* sidebar */
         --lwt-sidebar-background-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --lwt-sidebar-text-color: var(--foreground-color) !important;
-        --sidebar-background-color: var(--background-color) !important;
-        --sidebar-border-color: var(--accent-color) !important;
+        --lwt-sidebar-text-color: var(--__foreground-color) !important;
+        --sidebar-background-color: var(
+            --__background-color
+        ) !important;
+        --sidebar-border-color: var(--__accent-color) !important;
         /* autocomplete */
         --autocomplete-popup-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --autocomplete-popup-color: var(--foreground-color) !important;
+        --autocomplete-popup-color: var(
+            --__foreground-color
+        ) !important;
         --autocomplete-popup-highlight-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --autocomplete-popup-highlight-color: var(
-            --foreground-color
+            --__foreground-color
         ) !important;
         /* useless tab variables */
-        --lwt-tab-text: var(--foreground-color) !important;
+        --lwt-tab-text: var(--__foreground-color) !important;
         --lwt-background-tab-separator-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --tab-line-color: var(--background-color) !important;
+        --tab-line-color: var(--__background-color) !important;
     }
 
     /* stuff to hide */
@@ -203,7 +209,7 @@
     }
     /* all images in the navigation bar */
     #navigator-toolbox image {
-        fill: var(--accent-color) !important;
+        fill: var(--__accent-color) !important;
         fill-opacity: 1 !important;
         opacity: 1 !important;
     }
@@ -214,9 +220,9 @@
     :is(#nav-bar
             [open]:not(#urlbar), toolbarbutton:hover, #PanelUI-menu-button:hover, #identity-box:hover, #tracking-protection-icon-container:hover)
         image {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
         border-radius: 2px !important;
-        fill: var(--foreground-color) !important;
+        fill: var(--__foreground-color) !important;
     }
     /* transfroms an animatable-image into a usual image to make it react to the fill property */
     #tracking-protection-icon-animatable-image {
@@ -224,16 +230,16 @@
     }
     /* url bar results */
     .urlbarView-row {
-        background-color: var(--background-color) !important;
-        fill: var(--accent-color) !important;
+        background-color: var(--__background-color) !important;
+        fill: var(--__accent-color) !important;
         fill-opacity: 1 !important;
     }
     .urlbarView-row:hover > * {
-        background-color: var(--accent-color-2) !important;
+        background-color: var(--__accent-color-2) !important;
     }
     .urlbarView-row:hover img,
     .urlbarView-row[selected] img {
-        fill: var(--foreground-color) !important;
+        fill: var(--__foreground-color) !important;
     }
     /* url bar container and url bar */
     #urlbar-container,
@@ -254,7 +260,7 @@
     }
     /* url indicator in the bottom left corner */
     #statuspanel-label {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         border: none !important;
     }
     /* white flash on opening tabs fix */
@@ -264,7 +270,7 @@
     #tabbrowser-tabpanels,
     browser[type="content-primary"],
     browser[type="content"] > html {
-        background: var(--background-color) !important;
+        background: var(--__background-color) !important;
     }
 }
 
@@ -281,8 +287,8 @@
     .dialogFrame {
         -moz-appearance: none !important;
         padding: 0 !important;
-        background-color: var(--background-color) !important;
-        color: var(--foreground-color) !important;
+        background-color: var(--__background-color) !important;
+        color: var(--__foreground-color) !important;
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
@@ -296,7 +302,7 @@
         padding: 0.5px 0px 0.5px 0px !important;
         margin: 4px 11px 4px 11px !important;
         height: 0px !important;
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     /* menu items */
     menupopup menuitem,
@@ -305,7 +311,7 @@
     .autocomplete-richlistitem,
     select > option {
         -moz-appearance: none !important;
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
         padding: 0 !important;
         border: none !important;
         font-size: 12px !important;
@@ -326,14 +332,14 @@
     .autocomplete-richlistitem[selected],
     menupopup menuitem[_moz-menuactive],
     menupopup menu[_moz-menuactive] {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     /* opened items */
     menupopup menu[open],
     menupopup menuitem[selected="true"],
     select > option:checked {
         background-image: none !important;
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
         border-bottom: none !important;
         border: none !important;
     }
@@ -347,7 +353,7 @@
     menupopup menuitem[selected],
     menupopup menuitem[selected]:hover,
     menupopup menuitem:hover {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     menugroup {
         padding: 0px !important;
@@ -355,7 +361,7 @@
     }
     menupopup menuitem > .menu-text,
     menupopup menuitem > .menu-iconic-text {
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
         padding: 0px !important;
     }
     menupopup menuitem[type="checkbox"],
@@ -370,7 +376,7 @@
         menuitem[checked="true"][type="checkbox"]
         > .menu-iconic-left {
         padding: 7px 0px 0px 0px !important;
-        border: solid var(--foreground-color);
+        border: solid var(--__foreground-color);
         border-width: 0 0 2px 2px;
         transform: rotate(-45deg) scale(0.75);
         margin-bottom: 4px !important;
@@ -379,10 +385,10 @@
         menuitem[checked="true"][type="radio"]
         > .menu-iconic-left {
         padding: 1px !important;
-        border: solid var(--foreground-color);
+        border: solid var(--__foreground-color);
         height: 17px !important;
         border-radius: 100%;
-        background: var(--foreground-color);
+        background: var(--__foreground-color);
         transform: scale(0.5);
     }
     menupopup menucaption {
@@ -399,10 +405,10 @@
         border: none !important;
     }
     menubar > menu:hover {
-        background-color: var(--accent-color-2) !important;
+        background-color: var(--__accent-color-2) !important;
     }
     menubar > menu[open] {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     #ContentSelectDropdown > menupopup {
         background-image: none !important;
@@ -415,10 +421,10 @@
     select {
         -moz-appearance: none !important;
         padding: 4px 6px 4px 6px !important;
-        border: 2px solid var(--accent-color-2) !important;
+        border: 2px solid var(--__accent-color-2) !important;
         border-radius: 0px !important;
-        background: var(--background-color) !important;
-        color: var(--foreground-color) !important;
+        background: var(--__background-color) !important;
+        color: var(--__foreground-color) !important;
         height: auto !important;
         box-shadow: none !important;
     }
@@ -427,8 +433,8 @@
         border: 2px solid var(--foreground-hover) !important;
     }
     menulist[open="true"] {
-        border: 2px solid var(--accent-color) !important;
-        background-color: var(--accent-color) !important;
+        border: 2px solid var(--__accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     select {
         line-height: normal !important;
@@ -455,7 +461,7 @@
         padding: 7px !important;
         margin-right: 12px !important;
         color: white !important;
-        border: solid var(--foreground-color);
+        border: solid var(--__foreground-color);
         border-width: 0 2px 2px 0px;
         transform: rotate(-45deg) scale(0.55);
     }
@@ -471,8 +477,8 @@
     }
     tooltip {
         -moz-appearance: none !important;
-        color: var(--foreground-color) !important;
-        background-color: var(--background-color) !important;
+        color: var(--__foreground-color) !important;
+        background-color: var(--__background-color) !important;
         border: none !important;
         padding: 6px !important;
     }
@@ -492,126 +498,134 @@
 
 @-moz-document regexp("^(about:|chrome:|file:).*") {
     :root {
-        --in-content-page-color: var(--foreground-color) !important;
+        --in-content-page-color: var(--__foreground-color) !important;
         --in-content-page-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --in-content-text-color: var(--foreground-color) !important;
+        --in-content-text-color: var(--__foreground-color) !important;
         --in-content-deemphasized-text: var(
-            --accent-color-3
+            --__accent-color-3
         ) !important;
-        --in-content-selected-text: var(--foreground-color) !important;
-        --in-content-box-background: var(--background-color) !important;
+        --in-content-selected-text: var(
+            --__foreground-color
+        ) !important;
+        --in-content-box-background: var(
+            --__background-color
+        ) !important;
         --in-content-box-background-odd: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
         --in-content-box-background-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-box-background-active: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --in-content-box-border-color: var(--accent-color) !important;
+        --in-content-box-border-color: var(--__accent-color) !important;
         --in-content-box-info-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --in-content-item-hover: var(--accent-color-2) !important;
-        --in-content-item-selected: var(--accent-color) !important;
-        --in-content-border-color: var(--accent-color-2) !important;
-        --in-content-border-highlight: var(--accent-color) !important;
-        --in-content-border-focus: var(--accent-color) !important;
-        --in-content-border-hover: var(--accent-color-2) !important;
-        --in-content-border-active: var(--accent-color) !important;
+        --in-content-item-hover: var(--__accent-color-2) !important;
+        --in-content-item-selected: var(--__accent-color) !important;
+        --in-content-border-color: var(--__accent-color-2) !important;
+        --in-content-border-highlight: var(--__accent-color) !important;
+        --in-content-border-focus: var(--__accent-color) !important;
+        --in-content-border-hover: var(--__accent-color-2) !important;
+        --in-content-border-active: var(--__accent-color) !important;
         --in-content-border-active-shadow: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-category-outline-focus: 1px dotted
-            var(--accent-color) !important;
+            var(--__accent-color) !important;
         --in-content-category-text-selected: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-category-text-selected-active: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-category-background-hover: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
         --in-content-category-background-active: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
         --in-content-category-background-selected-hover: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
         --in-content-category-background-selected-active: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
-        --in-content-tab-color: var(--accent-color-2) !important;
-        --in-content-link-color: var(--accent-color) !important;
-        --in-content-link-color-hover: var(--accent-color) !important;
-        --in-content-link-color-active: var(--accent-color) !important;
-        --in-content-link-color-visited: var(--accent-color) !important;
+        --in-content-tab-color: var(--__accent-color-2) !important;
+        --in-content-link-color: var(--__accent-color) !important;
+        --in-content-link-color-hover: var(--__accent-color) !important;
+        --in-content-link-color-active: var(
+            --__accent-color
+        ) !important;
+        --in-content-link-color-visited: var(
+            --__accent-color
+        ) !important;
         --in-content-button-background: var(
-            --background-color
+            --__background-color
         ) !important;
         --in-content-button-background-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-button-background-active: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-primary-button-background: var(
-            --background-color
+            --__background-color
         ) !important;
         --in-content-primary-button-background-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-primary-button-background-active: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --in-content-table-background: var(
-            --background-color
+            --__background-color
         ) !important;
         --in-content-table-border-dark-color: var(
-            --background-color
+            --__background-color
         ) !important;
         --in-content-table-header-background: var(
-            --background-color
+            --__background-color
         ) !important;
         --in-content-dialog-header-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --bg-color: var(--background-color) !important;
-        --text-color: var(--foreground-color) !important;
-        --sidebar-selected-color: var(--accent-color) !important;
-        --sidebar-text-color: var(--foreground-color) !important;
-        --border-color: var(--accent-color) !important;
-        --box-background: var(--background-color) !important;
-        --box-border-color: var(--accent-color) !important;
-        --category-background-hover: var(--accent-color-2) !important;
-        --category-text: var(--foreground-color) !important;
-        --category-text-selected: var(--accent-color) !important;
-        --link-color: var(--accent-color-2) !important;
-        --link-color-active: var(--accent-color) !important;
-        --link-color-hover: var(--accent-color) !important;
-        --warning-border: var(--accent-color-2) !important;
-        --error-background: var(--background-color) !important;
-        --error-border: var(--accent-color-2) !important;
-        --highlight-50: var(--accent-color) !important;
-        --card-separator-color: var(--accent-color-2) !important;
+        --bg-color: var(--__background-color) !important;
+        --text-color: var(--__foreground-color) !important;
+        --sidebar-selected-color: var(--__accent-color) !important;
+        --sidebar-text-color: var(--__foreground-color) !important;
+        --border-color: var(--__accent-color) !important;
+        --box-background: var(--__background-color) !important;
+        --box-border-color: var(--__accent-color) !important;
+        --category-background-hover: var(--__accent-color-2) !important;
+        --category-text: var(--__foreground-color) !important;
+        --category-text-selected: var(--__accent-color) !important;
+        --link-color: var(--__accent-color-2) !important;
+        --link-color-active: var(--__accent-color) !important;
+        --link-color-hover: var(--__accent-color) !important;
+        --warning-border: var(--__accent-color-2) !important;
+        --error-background: var(--__background-color) !important;
+        --error-border: var(--__accent-color-2) !important;
+        --highlight-50: var(--__accent-color) !important;
+        --card-separator-color: var(--__accent-color-2) !important;
     }
     body {
-        --newtab-background-color: var(--background-color) !important;
+        --newtab-background-color: var(--__background-color) !important;
         --newtab-snippets-background-color: var(
-            --background-color
+            --__background-color
         ) !important;
-        --newtab-textbox-focus-color: var(--accent-color) !important;
-        --newtab-link-primary-color: var(--accent-color) !important;
+        --newtab-textbox-focus-color: var(--__accent-color) !important;
+        --newtab-link-primary-color: var(--__accent-color) !important;
         --newtab-card-background-color: var(
-            --background-color
+            --__background-color
         ) !important;
         --newtab-card-shadow: none !important;
         --newtab-search-header-background-color: var(
-            --background-color
+            --__background-color
         ) !important;
         --newtab-topsites-icon-shadow: none !important;
     }
@@ -625,20 +639,20 @@
     }
     /* about:preferences table header text */
     treecol {
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     /* about:preferences selected privacy type */
     .selected {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     /* about:preferences privacy types */
     .content-blocking-category {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     /* about:debugging cards */
     .card {
-        background-color: var(--background-color) !important;
-        border: var(--border-accent-color) !important;
+        background-color: var(--__background-color) !important;
+        border: var(--__border-accent-color) !important;
     }
     /* about:home options button */
     .prefs-button {
@@ -651,19 +665,19 @@
 @-moz-document regexp("^moz-extension://(e687cf7f-57c5-4ebe-92e7-eefea85d672a|0e163cbe-0cb6-4b36-b6e0-97caf5b26dca).*")
 {
     #root {
-        --bg: var(--background-color) !important;
-        --inactive-fg: var(--foreground-color) !important;
-        --active-fg: var(--accent-color) !important;
-        --info-fg: var(--accent-color) !important;
-        --favicons-placeholder-bg: var(--foreground-color) !important;
-        --tabs-activated-bg: var(--accent-color) !important;
-        --tabs-bg-hover: var(--accent-color-2) !important;
+        --bg: var(--__background-color) !important;
+        --inactive-fg: var(--__foreground-color) !important;
+        --active-fg: var(--__accent-color) !important;
+        --info-fg: var(--__accent-color) !important;
+        --favicons-placeholder-bg: var(--__foreground-color) !important;
+        --tabs-activated-bg: var(--__accent-color) !important;
+        --tabs-bg-hover: var(--__accent-color-2) !important;
         --tabs-border: none;
         --tabs-height: 1rem !important;
     }
     /* tab icon */
     .fav {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
         border-radius: 100% !important;
         margin: 0 1px 0 2px !important;
     }
@@ -710,16 +724,16 @@
 
 @-moz-document regexp("^about:memory.*") {
     html {
-        background: var(--background-color) !important;
+        background: var(--__background-color) !important;
     }
     .legend,
     .opsRow,
     .section,
     .treeline,
     .sidebarItem {
-        color: var(--foreground-color) !important;
-        background-color: var(--background-color) !important;
-        border: 1px solid var(--accent-color-2) !important;
+        color: var(--__foreground-color) !important;
+        background-color: var(--__background-color) !important;
+        border: 1px solid var(--__accent-color-2) !important;
     }
 }
 
@@ -734,7 +748,7 @@
     .toolbarField,
     body,
     div#viewer {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     body {
         background-image: none !important;
@@ -742,15 +756,15 @@
     .splitToolbarButtonSeparator,
     .verticalToolbarSeparator {
         box-shadow: none !important;
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     div#toolbarViewer {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     #numPages,
     #pageNumber,
     #scaleSelect {
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     .pdfViewer .page {
         border-image: none !important;
@@ -758,34 +772,34 @@
     #pageNumber,
     #scaleSelectContainer {
         border: 1px solid !important;
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     #loadingBar {
         position: relative;
         width: 100%;
         height: 4px;
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         border-bottom: 1px solid !important;
     }
     #sidebarContainer,
     #sidebarContent {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     #toolbarSidebar {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         background-image: none !important;
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     .doorHanger,
     .doorHangerRight {
         border: 1px solid !important;
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
         box-shadow: none !important;
     }
     #toolbarContainer,
     .findbar,
     .secondaryToolbar {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         background-image: none !important;
     }
     .dropdownToolbarButton,
@@ -793,20 +807,20 @@
     .secondaryToolbarButton,
     .toolbarButton {
         border: none !important;
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     .dropdownToolbarButton,
     .overlayButton,
     .toolbarButton:focus,
     .toolbarButton:hover {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
         background-image: none !important;
         border: none !important;
         box-shadow: none !important;
     }
     .secondaryToolbarButton:focus,
     .secondaryToolbarButton:hover {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         background-image: none !important;
         box-shadow: none !important;
     }
@@ -817,13 +831,13 @@
     .secondaryToolbarButton.toggled,
     .splitToolbarButton.toggled > .toolbarButton.toggled,
     .toolbarButton.toggled {
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         background-image: none !important;
         box-shadow: none !important;
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     .horizontalToolbarSeparator {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
         box-shadow: none !important;
     }
 }
@@ -832,12 +846,12 @@
 
 @-moz-document regexp("view-source.*") {
     :root {
-        background-color: var(--background-color) !important;
-        color: var(--foreground-color) !important;
+        background-color: var(--__background-color) !important;
+        color: var(--__foreground-color) !important;
     }
     pre[id]:before,
     span[id]:before {
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     .highlight .end-tag,
     .highlight .start-tag {
@@ -862,7 +876,7 @@
         color: green !important;
     }
     .highlight .attribute-value {
-        color: var(--foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     .highlight .markupdeclaration {
         color: #4682b4 !important;
@@ -877,122 +891,137 @@
 
 /* *tree children (devtools, file browser, about:memory, etc) */
 
-@-moz-document regexp(".*") {
+@-moz-document regexp("*") {
     /* root element */
-    [dir="ltr"] {
-        border-color: var(--accent-color) !important;
-        background-color: var(--background-color) !important;
-        color: var(--foreground-color) !important;
-        --theme-body-background: var(--background-color) !important;
+    :root {
+        --theme-body-background: var(--__background-color) !important;
         --theme-body-emphasized-background: var(
-            --accent-color-2
+            --__accent-color-2
         ) !important;
-        --theme-sidebar-background: var(--background-color) !important;
+        --theme-sidebar-background: var(
+            --__background-color
+        ) !important;
         --theme-tab-toolbar-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --theme-toolbar-background: var(--background-color) !important;
-        --theme-toolbar-color: var(--foreground-color) !important;
+        --theme-toolbar-background: var(
+            --__background-color
+        ) !important;
+        --theme-toolbar-color: var(--__foreground-color) !important;
         --theme-toolbar-selected-color: var(
-            --foreground-color
+            --__foreground-color
         ) !important;
         --theme-toolbar-background-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --theme-toolbar-hover: var(--accent-color) !important;
-        --theme-toolbar-hover-active: var(--accent-color) !important;
-        --theme-toolbar-separator: var(--accent-color) !important;
-        --tab-line-selected-color: var(--accent-color) !important;
-        --toolbarbutton-background: var(--background-color) !important;
+        --theme-toolbar-hover: var(--__accent-color) !important;
+        --theme-toolbar-hover-active: var(--__accent-color) !important;
+        --theme-toolbar-separator: var(--__accent-color) !important;
+        --tab-line-selected-color: var(--__accent-color) !important;
+        --toolbarbutton-background: var(
+            --__background-color
+        ) !important;
         --toolbarbutton-hover-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --toolbarbutton-focus-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --toolbarbutton-focus-color: var(--foreground-color) !important;
-        --theme-button-background: var(--background-color) !important;
+        --toolbarbutton-focus-color: var(
+            --__foreground-color
+        ) !important;
+        --theme-button-background: var(--__background-color) !important;
         --theme-button-active-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --theme-accordion-header-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --theme-accordion-header-hover: var(--accent-color) !important;
-        --theme-selection-background: var(--accent-color) !important;
+        --theme-accordion-header-hover: var(
+            --__accent-color
+        ) !important;
+        --theme-selection-background: var(--__accent-color) !important;
         --theme-selection-background-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --theme-selection-focus-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --theme-selection-color: var(--foreground-color) !important;
-        --theme-splitter-color: var(--accent-color) !important;
+        --theme-selection-color: var(--__foreground-color) !important;
+        --theme-splitter-color: var(--__accent-color) !important;
         --theme-emphasized-splitter-color: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --theme-emphasized-splitter-color-hover: var(
-            --accent-color
+            --__accent-color
         ) !important;
-        --theme-icon-color: var(--accent-color) !important;
-        --theme-icon-checked-color: var(--foreground-color) !important;
-        --theme-icon-dimmed-color: var(--accent-color-2) !important;
-        --theme-body-color: var(--foreground-color) !important;
-        --theme-popup-background: var(--background-color) !important;
-        --theme-popup-color: var(--foreground-color) !important;
-        --theme-popup-border-color: var(--accent-color) !important;
-        --theme-popup-dimmed: var(--background-color) !important;
+        --theme-icon-color: var(--__accent-color) !important;
+        --theme-icon-checked-color: var(
+            --__foreground-color
+        ) !important;
+        --theme-icon-dimmed-color: var(--__accent-color-2) !important;
+        --theme-body-color: var(--__foreground-color) !important;
+        --theme-popup-background: var(--__background-color) !important;
+        --theme-popup-color: var(--__foreground-color) !important;
+        --theme-popup-border-color: var(--__accent-color) !important;
+        --theme-popup-dimmed: var(--__background-color) !important;
         --theme-toolbarbutton-background: var(
-            --background-color
+            --__background-color
         ) !important;
-        --theme-toolbarbutton-color: var(--foreground-color) !important;
+        --theme-toolbarbutton-color: var(
+            --__foreground-color
+        ) !important;
         --theme-toolbarbutton-hover-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --theme-toolbarbutton-active-background: var(
-            --accent-color
+            --__accent-color
         ) !important;
         --theme-toolbarbutton-active-color: var(
-            --foreground-color
+            --__foreground-color
         ) !important;
-        --theme-contrast-background: var(--background-color) !important;
-        --theme-contrast-color: var(--foreground-color) !important;
+        --theme-contrast-background: var(
+            --__background-color
+        ) !important;
+        --theme-contrast-color: var(--__foreground-color) !important;
     }
+}
+@-moz-document regexp("^(about:|chrome:|file:).*") {
     /* overrrides color of general buttons */
-    [dir="ltr"] .devtools-tabbar-button {
+    .devtools-tabbar-button {
         color: var(--theme-icon-color) !important;
     }
     /* removes a blue border from text input boxes */
-    [dir="ltr"] .searchBox {
+    .searchBox {
         border: none !important;
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
-    [dir="ltr"] .searchBox:focus {
-        border: var(--border-accent-color) !important;
+    .searchBox:focus {
+        border: var(--__border-accent-color) !important;
     }
     /* the devtools page has too many buttons and their borders take too much space */
-    [dir="ltr"] button {
+    button {
         border: none !important;
     }
     /* element tree in the bottom left corner of the devtools */
-    [dir="ltr"] .breadcrumbs-widget-item {
+    .breadcrumbs-widget-item {
         border: none !important;
     }
     /* header */
-    [dir="ltr"] h1 {
-        border-color: var(--accent-color) !important;
+    h1 {
+        border-color: var(--__accent-color) !important;
     }
     /* items */
-    [dir="ltr"] > table > tbody > tr:hover {
-        outline-color: var(--accent-color) !important;
-        background-color: var(--accent-color) !important;
+    table > tbody > tr:hover {
+        outline-color: var(--__accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     /* titles of items */
-    [dir="ltr"] .dir,
-    [dir="ltr"] .file,
-    [dir="ltr"] .symlink,
-    [dir="ltr"] .up {
-        color: var(--foreground-color) !important;
+    .dir,
+    .file,
+    .symlink,
+    .up {
+        color: var(--__foreground-color) !important;
     }
 }
 
@@ -1003,9 +1032,9 @@
     .urlbarView-tip-button,
     .toggle-group-label {
         -moz-appearance: none !important;
-        background-color: var(--background-color) !important;
-        border: var(--border-accent-color) !important;
-        color: var(--foreground-color) !important;
+        background-color: var(--__background-color) !important;
+        border: var(--__border-accent-color) !important;
+        color: var(--__foreground-color) !important;
         opacity: 1 !important;
     }
     button:hover,
@@ -1014,29 +1043,29 @@
     .toggle-group-label:hover,
     button:hover:active,
     .urlbarView-tip-button:hover:active {
-        background-color: var(--accent-color) !important;
+        background-color: var(--__accent-color) !important;
     }
     /* mainly for the devtools */
     button:hover,
     button:hover::before,
     button:hover > img {
-        fill: var(--foreground-color) !important;
-        color: var(--foreground-color) !important;
+        fill: var(--__foreground-color) !important;
+        color: var(--__foreground-color) !important;
     }
     button[disabled="true"]:hover,
     button[disabled="true"]:hover:active {
-        background-color: var(--accent-color-3) !important;
-        border-color: var(--accent-color-3) !important;
+        background-color: var(--__accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
     }
     .expander-down {
         list-style-image: none !important;
         background: url(./img/arrowdown.png) center center no-repeat !important;
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
     }
     .expander-up {
         list-style-image: none !important;
         background: url(./img/arrowdown.png) center center no-repeat !important;
-        background-color: var(--background-color) !important;
+        background-color: var(--__background-color) !important;
         transform: rotate(180deg);
     }
 }
@@ -1056,7 +1085,7 @@
     /* active checkboxes */
     checkbox > .checkbox-check,
     input[type="checkbox"] {
-        border: 2px solid var(--accent-color-2) !important;
+        border: 2px solid var(--__accent-color-2) !important;
         box-shadow: none !important;
         background-image: none !important;
     }
@@ -1068,39 +1097,39 @@
     input[type="checkbox"]:active,
     input[type="checkbox"]:checked:active,
     checkbox[checked="true"]:hover:active > .checkbox-check {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     input[type="checkbox"]:checked,
     checkbox[checked="true"] > .checkbox-check {
-        border-color: var(--accent-color-2) !important;
-        background-color: var(--accent-color-2) !important;
-        background: var(--accent-color-2) url(./img/check.png) center
+        border-color: var(--__accent-color-2) !important;
+        background-color: var(--__accent-color-2) !important;
+        background: var(--__accent-color-2) url(./img/check.png) center
             center no-repeat !important;
     }
     /* disabled checkboxes */
     checkbox[disabled="true"] > .checkbox-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
     }
     checkbox[disabled="true"][checked="true"] > .checkbox-check {
-        background: var(--accent-color-3) url(./img/check.png) center
+        background: var(--__accent-color-3) url(./img/check.png) center
             center no-repeat !important;
     }
     checkbox[disabled="true"][checked="true"]:hover > .checkbox-check,
     checkbox[disabled="true"][checked="true"]:hover:active
         > .checkbox-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
     }
     input[type="checkbox"].toggle-button:hover:checked {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     input[type="checkbox"].toggle-button::before {
-        background: var(--background-color) !important;
+        background: var(--__background-color) !important;
     }
     input[type="checkbox"].toggle-button:hover::before {
-        background: var(--accent-color) !important;
+        background: var(--__accent-color) !important;
     }
     input[type="checkbox"].toggle-button:checked::before {
-        background: var(--accent-color) !important;
+        background: var(--__accent-color) !important;
     }
 }
 
@@ -1120,49 +1149,49 @@
     /* active radio buttons */
     input[type="radio"]:hover,
     input[type="radio"]:hover:active {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     input[type="radio"]:checked {
-        border-color: var(--accent-color-2) !important;
+        border-color: var(--__accent-color-2) !important;
     }
     input[type="radio"]:checked:hover,
     input[type="radio"]:checked:hover:active {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     radio > .radio-check {
-        border: 2px solid var(--accent-color-2) !important;
-        fill: var(--accent-color) !important;
+        border: 2px solid var(--__accent-color-2) !important;
+        fill: var(--__accent-color) !important;
     }
     radio:hover > .radio-check,
     radio:hover:active > .radio-check {
-        border-color: var(--accent-color) !important;
+        border-color: var(--__accent-color) !important;
     }
     radio[selected="true"] > .radio-check {
-        border: 2px solid var(--accent-color-2) !important;
+        border: 2px solid var(--__accent-color-2) !important;
         background: url(./img/radio.png) center center no-repeat !important;
     }
     radio[selected="true"]:hover > .radio-check,
     radio[selected="true"]:hover:active > .radio-check {
-        border: 2px solid var(--accent-color) !important;
+        border: 2px solid var(--__accent-color) !important;
         background: url(./img/radio-hover.png) center center no-repeat !important;
     }
     /* disabled radio buttons */
     radio[disabled="true"] > .radio-check {
-        border-color: var(--accent-color-3) !important;
-        fill: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
+        fill: var(--__accent-color-3) !important;
     }
     radio[disabled="true"]:hover > .radio-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
     }
     radio[disabled="true"]:active > .radio-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
     }
     radio[disabled="true"][selected="true"] > .radio-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
         background: url(./img/radio.png) center center no-repeat !important;
     }
     radio[disabled="true"][selected="true"]:hover > .radio-check {
-        border-color: var(--accent-color-3) !important;
+        border-color: var(--__accent-color-3) !important;
         background: url(./img/radio.png) center center no-repeat !important;
     }
 }
@@ -1175,10 +1204,10 @@
     .findbar-textbox {
         -moz-appearance: none !important;
         padding: 5.5px 5.5px 5.5px 5.5px !important;
-        border: 2px solid var(--accent-color-2) !important;
+        border: 2px solid var(--__accent-color-2) !important;
         border-radius: 0 !important;
-        background: var(--background-color) !important;
-        color: var(--foreground-color) !important;
+        background: var(--__background-color) !important;
+        color: var(--__foreground-color) !important;
         box-shadow: none !important;
         opacity: 1 !important;
         transition: none !important;
@@ -1187,20 +1216,20 @@
     textarea:hover,
     input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]):hover,
     .findbar-textbox:hover {
-        border: 2px solid var(--accent-color) !important;
+        border: 2px solid var(--__accent-color) !important;
     }
     textarea:focus,
     input:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]):focus,
     .findbar-textbox:focus {
         padding: 5.5px 5.5px 5.5px 5.5px !important;
-        border: 2px solid var(--accent-color) !important;
-        background: var(--background-color) !important;
-        color: var(--foreground-color) !important;
+        border: 2px solid var(--__accent-color) !important;
+        background: var(--__background-color) !important;
+        color: var(--__foreground-color) !important;
     }
     input[disabled]:not(#urlbar-input):not(.searchbar-textbox):not(.fake-editable):not([type="radio"]):not([type="checkbox"]) {
-        background-color: var(--background-color) !important;
-        border-color: var(--accent-color-3) !important;
-        color: var(--accent-color-3) !important;
+        background-color: var(--__background-color) !important;
+        border-color: var(--__accent-color-3) !important;
+        color: var(--__accent-color-3) !important;
     }
     search-textbox,
     textbox {
@@ -1216,8 +1245,8 @@
 /* *uncategorized stuff
 
 .wizard-header {
-    background: var(--background-color) !important;
-    color: var(--foreground-color) !important;
+    background: var(--__background-color) !important;
+    color: var(--__foreground-color) !important;
     border: none !important;
 }
 
@@ -1226,7 +1255,7 @@
 }
 
 .dialogOverlay[topmost="true"] {
-    background-color: var(--background-color) !important;
+    background-color: var(--__background-color) !important;
 }
 
 .previewStack {
@@ -1290,7 +1319,7 @@ separator.groove:not([orient="vertical"]) {
 
 listbox {
     -moz-appearance: none !important;
-    background: var(--background-color) !important;
+    background: var(--__background-color) !important;
     border: 1px #333333 solid !important;
 }
 
@@ -1372,7 +1401,7 @@ richlistbox {
 
 richlistitem {
     background-color: transparent !important;
-    color: var(--foreground-color) !important;
+    color: var(--__foreground-color) !important;
     border-radius: 0px !important;
 }
 
@@ -1399,12 +1428,12 @@ richlistbox:-moz-focusring {
 progressmeter, progress {
     -moz-appearance: none !important;
     border: none !important;
-    background: var(--background-color) !important;
+    background: var(--__background-color) !important;
     height: 8px !important;
 }
 
 progressmeter>.progress-bar, progress::-moz-progress-bar {
-    background-color: var(--accent-color) !important;
+    background-color: var(--__accent-color) !important;
     margin: 0px !important;
 }
 
@@ -1425,12 +1454,12 @@ progressmeter>.progress-remainder {
 /* Customization Page
 
 #customization-content-container {
-    background-color: var(--background-color) !important;
+    background-color: var(--__background-color) !important;
 }
 
 #customization-footer {
     border-top: none !important;
-    background-color: var(--background-color) !important;
+    background-color: var(--__background-color) !important;
 }
 
 .customizationmode-button {
@@ -1441,7 +1470,7 @@ progressmeter>.progress-remainder {
     color: white !important;
     background-color: black !important;
     border-radius: 0px !important;
-    border: 1px solid var(--accent-color) !important;
+    border: 1px solid var(--__accent-color) !important;
     animation: fadeInScale .3s;
 }
 
@@ -1468,11 +1497,11 @@ progressmeter>.progress-remainder {
 }
 
 .external {
-    color: var(--accent-color) !important;
+    color: var(--__accent-color) !important;
 }
 
 .external::after {
-    fill: var(--accent-color) !important;
+    fill: var(--__accent-color) !important;
 }
 
 */
