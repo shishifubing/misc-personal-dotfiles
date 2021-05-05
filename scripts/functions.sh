@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-# export all local functions
-export_local_functions() {
+# export all declared functions
+export_declared_functions() {
 
-    mapfile -t "functions" <<<"$(declare -F)"
-    for function in "${functions[@]}"; do
-        export -f "$(echo "${function}" | awk '{print $3;}')"
-    done
+    mapfile -t "__functions" <<<"$(get_declared_functions)"
+    export -f "${__functions[@]}"
 
 }
 
@@ -14,8 +12,8 @@ export_local_functions() {
 execute_after() {
 
     export TRAP_DEBUG_TIME_END="$(date +"%s.%N")"
-    set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
     export PS1="$(get_shell_prompt_PS1)"
+    #set_window_title "$(get_directory)■$(history -w /dev/stdout | tail -n 1)"
     unset TRAP_DEBUG_TIME_START
     unset TRAP_DEBUG_TIME_END
 
@@ -109,8 +107,8 @@ yv() {
 
 }
 
-# dmenu_path
-dmenu_path() {
+# default dmenu_path
+dmenu_path_default() {
 
     cachedir="${XDG_CACHE_HOME:-"${HOME}/.cache"}"
     cache="${cachedir}/dmenu_run"
@@ -123,6 +121,21 @@ dmenu_path() {
     else
         cat "${cache}"
     fi
+
+}
+
+# dmenu_path, used by dmenu (dmenu_run)
+dmenu_path() {
+
+    # functtions will be shown first
+    get_declared_functions
+    #
+    # other stuff is sorted by atime
+    # by default, dmenu_path sorts executables alphabetically
+    echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | # List directories in $PATH
+        xargs ls -lu --time-style=+%s |                  # Add atime epoch
+        awk '/^(-|l)/ { print $6, $7 }' |                # Only print timestamp and name
+        sort -rn | cut -d' ' -f 2
 
 }
 
@@ -200,7 +213,7 @@ v() {
 }
 
 # unzip tar.gz and tar.xz
-tr() {
+unzip_tr() {
 
     case "$(get_file_type "${1}")" in
     "xz")
@@ -313,8 +326,9 @@ kde_date() {
 # code-oss
 co() {
 
-    workspace_file=~/dot-files/configs/vscode_workspace.code-workspace
-    code-oss --reuse-window --no-sandbox --unity-launch "${workspace_file}" "$1"
+    source_keymaps
+    workspace_file="${HOME}/dot-files/configs/vscode_workspace.code-workspace"
+    code-oss --reuse-window --no-sandbox --unity-launch "${workspace_file}" "${1}"
 
 }
 
@@ -418,8 +432,14 @@ setup_hard_links() {
     vscode_path=~/.config/Code\ -\ OSS/User/settings.json
     firefox_path=~/.mozilla/firefox/zq1ebncv.default-release/chrome
 
-    _ln() { rm "${2}" 2>/dev/null && ln "${1}" "${2}"; }
-    _mkdir() { rm -r "${1}" 2>/dev/null && mkdir "${1}"; }
+    _ln() {
+        rm "${2}" 2>/dev/null
+        ln "${1}" "${2}"
+    }
+    _mkdir() {
+        rm -r "${1}" 2>/dev/null
+        mkdir "${1}"
+    }
     _cp() { cp -r "${1}" "${2}" 2>/dev/null; }
 
     _ln "configs/vscode_settings.json" "${vscode_path}"
@@ -427,8 +447,8 @@ setup_hard_links() {
     _ln "scripts/xinitrc.sh" ~/.xinitrc
     _mkdir "${firefox_path}"
     _cp "firefox/img" "${firefox_path}"
-    _ln "firefox/userChrome.css" "${firefox_path}"
-    _ln "firefox/userContent.css" "${firefox_path}"
+    _ln "firefox/userChrome.css" "${firefox_path}/userChrome.css"
+    _ln "firefox/userContent.css" "${firefox_path}/userContent.css"
 
 }
 
@@ -452,6 +472,13 @@ setup_repositories() {
 }
 
 # getters and setters
+
+# get list of functions
+get_declared_functions() {
+
+    declare -F | awk '{print $3}'
+
+}
 
 # return extension of the string provided
 get_file_type() {
@@ -541,10 +568,10 @@ get_colors() {
 get_shell_prompt_PS0() {
 
     message="Start: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
-    separator="$(get_color- 30)$(get_shell_separator_line ─)$(get_color- 37)"
+    separator_middle="$(get_color- 30)└$(get_shell_separator_line 2)┘$(get_color- 37)"
     set_window_title "$(get_directory)"
 
-    echo "${separator}"
+    echo "${separator_middle}"
     echo "${message}"
 
 }
@@ -557,14 +584,15 @@ get_shell_prompt_PS1() {
     time_elapsed="$(get_color 32)Time elapsed: ${time_elapsed} seconds"
     time_end="End: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")"
     time_end="$(get_color 37)${time_end}"
-    separator="$(get_color 30)$(get_shell_separator_line ─)$(get_color 37)"
+    separator_top="$(get_color 30)┌$(get_shell_separator_line 2)┐$(get_color 37)"
+    separator="$(get_color 30)$(get_shell_separator_line)$(get_color 37)"
     [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 37)[\H] "
     shell="$(get_color 36)[\s_\V] [\l:\j] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
-    user_sign="$(get_color 37)\$ "
+    #user_sign="$(get_color 37)\$ "
     colors_1="$(get_colors 0 2 1 -) "
     colors_2="$(get_colors 3 5 - 0) "
     colors_3="$(get_colors 5 7 1 -) "
@@ -575,14 +603,16 @@ get_shell_prompt_PS1() {
     echo "${colors_1}${username}${hostname}${shell}${environment}$(get_color_end)"
     echo "${colors_2}${directory}${git_branch}$(get_color_end)"
     echo "${colors_3}${time_elapsed}$(get_color_end)"
-    get_color 37
+    echo "${separator_top}"
+    echo "$(get_color 37) "
 }
 
 # shell command separator
 get_shell_separator_line() {
 
-    line_length=${2:-"$(stty size | awk '{ print $2 }')"}
-    delimiter=${1:-"─"}
+    line_length=$(stty size | awk '{ print $2 }')
+    line_length=$((${3:-"${line_length}"} - ${1:-"0"}))
+    delimiter=${2:-"─"}
     eval printf -- "${delimiter}%.s" "{1..${line_length}}"
     # eval is needed since brace expansion precedes parameter expansion
     # double '-' since printf needs options
@@ -595,4 +625,10 @@ get_name_of_the_process() {
 
 }
 
-export_local_functions
+#########################
+#########################
+
+export_declared_functions
+
+#########################
+#########################

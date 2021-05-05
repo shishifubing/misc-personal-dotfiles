@@ -6,16 +6,16 @@
 # source stuff
 # {{{
 
-# source functions
-[[ -f ~/dot-files/scripts/functions.sh ]] &&
-    . ~/dot-files/scripts/functions.sh
+# functions
+__functions_sh="${HOME}/dot-files/scripts/functions.sh"
+[[ -f "${__functions_sh}" ]] && . "${__functions_sh}"
+#
 # enable programmable completion features
 # you don't need to enable this if it's
 # already enabled in /etc/bash.bashrc and /etc/profile
-[[ -f /usr/share/bash-completion/bash_completion ]] &&
-    . /usr/share/bash-completion/bash_completion
-[[ -f /etc/bash_completion ]] &&
-    . /etc/bash_completion
+__bash_completion=("/usr/share/bash-completion/bash_completion" "/etc/bash_completion")
+[[ -f "${__bash_completion[0]}" ]] && . "${__bash_completion[0]}"
+[[ -f "${__bash_completion[1]}" ]] && . "${__bash_completion[1]}"
 
 # }}}
 
@@ -25,22 +25,30 @@
 
 # vim mode for the terminal
 set -o vi
+#
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+#
 # minor errors in the spelling of a directory in a cd command will be corrected
 shopt -s cdspell
+#
 # attempt spelling correction on directory names during word completion
 shopt -s dirspell
+#
 # include filenames beginning with a ‘.’ in the results of filename expansion
 shopt -s dotglob
+#
 # send SIGHUP to all jobs when an interactive login shell exits
 shopt -s huponexit
+#
 # match filenames in a case-insensitive fashion when performing filename expansion.
 shopt -s nocaseglob
+#
 # flushes the command to the history file immediately
 # otherwise, this would happen only when the shell exits
 shopt -s histappend
+#
 # attempt to save all lines of a multiple-line
 # command in the same history entry.
 shopt -s cmdhist
@@ -52,10 +60,13 @@ shopt -s cmdhist
 
 # all locales are overwritten
 export LC_ALL="en_US.UTF-8"
+#
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-# path
+#
+# path edit for ruby gems to work
 export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
+
 # }}}
 
 # less
@@ -80,15 +91,18 @@ export LESS_TERMCAP_ue=$(echo -e "$(get_color_end-)")      # reset underline
 # {{{
 
 # history file location
-export HISTFILE=~/.bash_history
+export HISTFILE="${HOME}/.bash_history"
+#
 # what commands to put in history
 # "ignoreboth:erasedups" -
 #   don't put duplicate lines or lines
 #   starting with space in the bash history.
 export HISTCONTROL=
+#
 # unlimited bash history (file size)
 export HISTFILESIZE=
-# unlimited bash history (lines)
+#
+# unlimited bash history (number of lines)
 export HISTSIZE=
 
 # }}}
@@ -98,13 +112,16 @@ export HISTSIZE=
 
 # start xorg on login
 [[ -z "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]] && start_xorg_server
+#
 # trap DEBUG is executed before each command
 # (even if they are written on the same line)
 # (including PROMPT_COMMAND)
 # because of the condition it is executed only one time
 trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && execute_before' DEBUG
+#
 # PROMPT_COMMAND is executed after every command
 export PROMPT_COMMAND='execute_after'
+#
 # message
 echo ".bashrc is sourced"
 
