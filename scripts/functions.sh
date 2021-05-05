@@ -3,8 +3,8 @@
 # export all declared functions
 export_declared_functions() {
 
-    mapfile -t "__functions" <<<"$(get_declared_functions)"
-    export -f "${__functions[@]}"
+    mapfile -t "functions" <<<"$(get_declared_functions)"
+    export -f "${functions[@]}"
 
 }
 
@@ -32,8 +32,7 @@ start_xorg_server() {
 
     echo "Start xorg-server?"
     read -r answer
-    [[ "$answer" != "n" && "$answer" != "N" ]] &&
-        exec startx
+    [[ "$answer" != "n" && "$answer" != "N" ]] && exec startx
 
 }
 
@@ -58,7 +57,7 @@ send_desktop_notification() {
 # source bashrc
 sb() {
 
-    source ~/.bashrc
+    source "${HOME}/.bashrc"
 
 }
 
@@ -132,10 +131,10 @@ dmenu_path() {
     #
     # other stuff is sorted by atime
     # by default, dmenu_path sorts executables alphabetically
-    echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | # List directories in $PATH
-        xargs ls -lu --time-style=+%s |                  # Add atime epoch
-        awk '/^(-|l)/ { print $6, $7 }' |                # Only print timestamp and name
-        sort -rn | cut -d' ' -f 2
+    echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | # list directories in $PATH
+        xargs ls -lu --time-style=+%s |                  # add atime epoch
+        awk '/^(-|l)/ { print $(6), $(7) }' |            # only print timestamp and name
+        sort -rn | cut -d' ' -f 2                        # sort by time and remove it
 
 }
 
@@ -162,10 +161,10 @@ history_item() {
 
 db() {
 
-    if [[ -n "$DATABASE_KEY" ]]; then
+    if [[ -n "${DATABASE_KEY}" ]]; then
         choice=$(
             echo "
-                PRAGMA key = '$DATABASE_KEY';
+                PRAGMA key = '${DATABASE_KEY}';
                 SELECT location, login FROM passwords;
             " |
                 sqlcipher ~/Repositories/dot-files/db.db |
@@ -173,10 +172,10 @@ db() {
                 dmenu -l 5
         )
         echo "
-            PRAGMA key = '$DATABASE_KEY';
-            SELECT password FROM passwords WHERE login==\"$choice\"
+            PRAGMA key = '${DATABASE_KEY}';
+            SELECT password FROM passwords WHERE login==\"${choice}\"
         " |
-            sqlcipher ~/Repositories/dot-files/db.db |
+            sqlcipher "${HOME}/Repositories/dot-files/db.db" |
             xclip -sel clip
     fi
 
@@ -185,10 +184,10 @@ db() {
 # source keymaps
 source_keymaps() {
 
-    userresources=~/.Xresources
-    usermodmap=~/dot-files/configs/Xmodmap
-    sysresources=/etc/X11/xinit/.Xresources
-    sysmodmap=/etc/X11/xinit/.Xmodmap
+    userresources="${HOME}/.Xresources"
+    usermodmap="${HOME}/dot-files/configs/Xmodmap"
+    sysresources="/etc/X11/xinit/.Xresources"
+    sysmodmap="/etc/X11/xinit/.Xmodmap"
 
     [[ -f "${sysresources}" ]] && xrdb -merge "${sysresources}"
     [[ -f "${sysmodmap}" ]] && xmodmap "${sysmodmap}"
@@ -287,29 +286,23 @@ kde_resources() {
         free -h | # show memory in human readable form
             awk '
                 FNR == 2 {
-                    ram_usage=$3; total_memory=$2;
+                    ram_usage=$(3); total_memory=$(2);
                 };
                 FNR == 3 {
-                    swap_usage=$3;
+                    swap_usage=$(3);
                     print ram_usage "+" swap_usage "/" total_memory;
                 };
             '
     )
-    cpu_temp=$(# outputs only the first two symbols of the file
-        cut -c1-2 /sys/class/thermal/thermal_zone0/temp
-    )°C
+    # outputs only the first two symbols of the file
+    cpu_temp="$(cut -c1-2 /sys/class/thermal/thermal_zone0/temp)°C"
     cpu_usage=$(
         vmstat |
-            awk 'FNR == 3 {
-                    print 100 - $15 "%";
-                }'
+            awk 'FNR == 3 {print 100 - $(15) "%";}'
     )
     traffic=$(
         sar -n DEV 1 1 |
-            awk 'FNR == 6 {
-                    printf("%.0fkB/s %.0fkB/s", $5, $6);
-                }
-            '
+            awk 'FNR == 6 {printf("%.0fkB/s %.0fkB/s", $(5), $(6));}'
     )
 
     echo "[${memory}] [${cpu_temp} ${cpu_usage}] [${traffic}]"
@@ -427,10 +420,19 @@ los() {
 # setup hard links
 setup_hard_links() {
 
-    cd ~/dot-files/ || exit
-    #vscode_path=~/.config/Code/User/settings.json # path on windows
-    vscode_path=~/.config/Code\ -\ OSS/User/settings.json
-    firefox_path=~/.mozilla/firefox/zq1ebncv.default-release/chrome
+    path="${HOME}/dot-files"
+    scripts="${path}/scripts"
+    configs="${path}/configs"
+    firefox="${path}/firefox"
+    #vscode_path=${HOME}/.config/Code/User/settings.json # path on windows
+    vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
+    vscode_config="${configs}/vscode_settings.json"
+    bashrc="${scripts}/bashrc.sh"
+    xinitrc="${scripts}/xinitrc.sh"
+    firefox_path="${HOME}/.mozilla/firefox/zq1ebncv.default-release/chrome"
+    firefox_userChrome="${firefox}/userChrome.css"
+    firefox_userContent="${firefox}/userContent.css"
+    firefox_img="${firefox}/img"
 
     _ln() {
         rm "${2}" 2>/dev/null
@@ -442,27 +444,26 @@ setup_hard_links() {
     }
     _cp() { cp -r "${1}" "${2}" 2>/dev/null; }
 
-    _ln "configs/vscode_settings.json" "${vscode_path}"
-    _ln "scripts/bashrc.sh" ~/.bashrc
-    _ln "scripts/xinitrc.sh" ~/.xinitrc
+    _ln "${vscode_config}" "${vscode_path}"
+    _ln "${bashrc}" "${HOME}/.bashrc"
+    _ln "${xinitrc}" "${HOME}/.xinitrc"
     _mkdir "${firefox_path}"
-    _cp "firefox/img" "${firefox_path}"
-    _ln "firefox/userChrome.css" "${firefox_path}/userChrome.css"
-    _ln "firefox/userContent.css" "${firefox_path}/userContent.css"
+    _cp "${firefox_img}" "${firefox_path}"
+    _ln "${firefox_userChrome}" "${firefox_path}/userChrome.css"
+    _ln "${firefox_userContent}" "${firefox_path}/userContent.css"
 
 }
 
 # setup repositories
 setup_repositories() {
 
-    mkdir ~/Repositories
-    cd ~/Repositories || exit
+    mkdir "${HOME}/Repositories" 2>/dev/null
+    cd "${HOME}/Repositories" || exit
     repositories=(
-        https://git.suckless.org/dmenu
-        https://github.com/borinskikh/dot-files
-        https://github.com/borinskikh/book-creator
-        https://github.com/borinskikh/new-tab-bookmarks
-        https://github.com/borinskikh/notes
+        "https://git.suckless.org/dmenu"
+        "https://github.com/borinskikh/dot-files"
+        "https://github.com/borinskikh/book-creator"
+        "https://github.com/borinskikh/notes"
     )
 
     for repository in "${repositories[@]}"; do
@@ -476,7 +477,7 @@ setup_repositories() {
 # get list of functions
 get_declared_functions() {
 
-    declare -F | awk '{print $3}'
+    declare -F | awk '{print $(3)}'
 
 }
 
@@ -485,7 +486,7 @@ get_file_type() {
 
     echo "${1}" |
         awk -F'[.]' '{
-            print $NF;
+            print $(NF);
         }'
 
 }
@@ -495,9 +496,8 @@ get_directory() {
 
     pwd |
         awk -F'[/]' '{
-            print $(NF-1) "/" $NF;
+            print $(NF-1) "/" $(NF);
         }'
-    # sed 's|/home/borinskikh/|~/|g'
 
 }
 
@@ -524,19 +524,18 @@ get_color() {
     # terminal color numbers
     #   foreground: 30 - 37
     #   background: 40 - 47
-
-    echo "\[\e[${2:-"1"};${1:-"37"};${3:-"40"}m"
+    bracket="\[" && [[ "${1}" == "-" ]] && unset bracket && shift
+    echo "${bracket}\e[${2:-"1"};${1:-"37"};${3:-"40"}m"
 
 }
-get_color-() { echo "\e[${2:-"1"};${1:-"37"};${3:-"40"}m"; }
 
 # return end of color modification
 get_color_end() {
 
-    echo "\e[0m\]"
+    bracket="\]" && [[ "${1}" != "-" ]] && unset bracket
+    echo "\e[0m${bracket}"
 
 }
-get_color_end-() { echo "\e[0m"; }
 
 # get terminal colors
 get_colors() {
@@ -568,7 +567,7 @@ get_colors() {
 get_shell_prompt_PS0() {
 
     message="Start: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
-    separator_middle="$(get_color- 30)└$(get_shell_separator_line 2)┘$(get_color- 37)"
+    separator_middle="$(get_color - 30)└$(get_shell_separator_line 2)┘$(get_color - 37)"
     set_window_title "$(get_directory)"
 
     echo "${separator_middle}"
@@ -603,14 +602,14 @@ get_shell_prompt_PS1() {
     echo "${colors_1}${username}${hostname}${shell}${environment}$(get_color_end)"
     echo "${colors_2}${directory}${git_branch}$(get_color_end)"
     echo "${colors_3}${time_elapsed}$(get_color_end)"
-    echo "${separator_top}"
+    echo "${separator_top}$(get_color_end)"
     echo "$(get_color 37) "
 }
 
 # shell command separator
 get_shell_separator_line() {
 
-    line_length=$(stty size | awk '{ print $2 }')
+    line_length=$(stty size | awk '{ print $(2) }')
     line_length=$((${3:-"${line_length}"} - ${1:-"0"}))
     delimiter=${2:-"─"}
     eval printf -- "${delimiter}%.s" "{1..${line_length}}"
