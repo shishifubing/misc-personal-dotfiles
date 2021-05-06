@@ -96,6 +96,9 @@
     "prettier.useTabs": false,
     "prettier.enable": true,
     "prettier.printWidth": 72,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -112,12 +115,27 @@
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
-    "vim.hlsearch": false, // highlight previous search
+    "vim.hlsearch": true, // highlight previous search
     "vim.autoindent": true,
     "vim.searchHighlightColor": "#bf3eff",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<C-s-k>"],
+            "commands": [":set hls!<CR>"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [">"],
+            "commands": ["editor.action.indentLines"]
+        },
+        {
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
+        }
+    ],
     "vim.handleKeys": {
         "<C-w>": false,
-        //    "<C-s>": false,
         "<C-n>": false,
         "<C-j>": false
     }
