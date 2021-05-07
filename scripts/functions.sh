@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # executed before all commands and before the prompt
-# preexec.sh does the same but it is a bit overkill
+# preexec.sh does the same but it is overkill
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 
-execute_before() {
+preexec() {
 
     export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
@@ -13,7 +13,7 @@ execute_before() {
 
 }
 
-execute_after() {
+precmd() {
 
     export TRAP_DEBUG_TIME_END=$(date +"%s.%N")
     export PS1=$(get_shell_prompt_PS1)
@@ -25,6 +25,44 @@ execute_after() {
 
 # random stuff
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
+
+# convert time
+convert_time() {
+
+    local input="${1/.*/}"
+    local fraction="${1/*./}"
+    local seconds=0
+    local minutes=0
+    local hours=0
+    local days=0
+
+    if ((input > 59)); then
+        ((seconds = input % 60))
+        ((input = input / 60))
+        if ((input > 59)); then
+            ((minutes = input % 60))
+            ((input = input / 60))
+            if ((input > 23)); then
+                ((hours = input % 24))
+                ((days = input / 24))
+            else
+                ((hours = input))
+            fi
+        else
+            ((minutes = input))
+        fi
+    else
+        ((seconds = input))
+    fi
+
+    [[ "${days}" != "0" ]] && local days_output="${days} days "
+    [[ "${hours}" != "0" ]] && local hours_output="${hours} hours "
+    [[ "${minutes}" != "0" ]] && local minutes_output="${minutes} minutes "
+    local seconds_output="${seconds}.${fraction} seconds"
+
+    echo "${days_output}${hours_output}${minutes_output}${seconds_output}"
+
+}
 
 # st in tabbed
 stt() {
@@ -343,7 +381,7 @@ ll() {
 # cd
 c() {
 
-    cd "${1:-"${HOME}"}" || true
+    cd "${1:-${HOME}}" || true
     l
 
 }
@@ -436,7 +474,7 @@ source_keymaps() {
 }
 
 # source file
-source_file_if_exists() {
+source_files_if_exist() {
 
     for file in "${@}"; do
         [[ -f "${file}" ]] && . "${file}"
@@ -454,7 +492,7 @@ sb() {
 # setup hard links
 setup_hard_links() {
 
-    local path="${1:-"${HOME}"}/dot-files"
+    local path="${1:-${HOME}}/dot-files"
     local scripts="${path}/scripts"
     local configs="${path}/configs"
     local firefox="${path}/firefox"
@@ -462,7 +500,7 @@ setup_hard_links() {
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
     local xinitrc="${scripts}/xinitrc.sh"
-    local firefox_path="${HOME}/.mozilla/firefox/${2:-"zq1ebncv.default-release"}/chrome"
+    local firefox_path="${HOME}/.mozilla/firefox/${2:-zq1ebncv.default-release}/chrome"
     local firefox_userChrome="${firefox}/userChrome.css"
     local firefox_userContent="${firefox}/userContent.css"
     local firefox_img="${firefox}/img"
@@ -490,8 +528,8 @@ setup_hard_links() {
 # setup repositories
 setup_repositories() {
 
-    mkdir "${HOME}/${1:-"Repositories"}" 2>/dev/null
-    cd "${HOME}/${1-"Repositories"}" || exit
+    mkdir "${HOME}/${1:-Repositories}" 2>/dev/null
+    cd "${HOME}/${1-Repositories}" || exit
     local repositories=(
         "https://git.suckless.org/dmenu"
         "https://github.com/borinskikh/dot-files"
@@ -553,8 +591,8 @@ get_color() {
     #   5 - blinking, 7 - reverse video
     # terminal color numbers
     #   foreground: 30 - 37; background: 40 - 47
-    [[ "${1}" == "-" ]] && local bracket="\\e" && shift
-    echo "${bracket:-"\\[\\e"}[${2:-"1"};${1:-"37"};${3:-"40"}m"
+    [[ "${1}" == "-" ]] && local bracket="\e" && shift
+    echo "${bracket:-\[\e}[${2:-1};${1:-37};${3:-40}m"
 
 }
 
@@ -562,7 +600,7 @@ get_color() {
 get_color_end() {
 
     [[ "${1}" == "-" ]] && local bracket="m"
-    echo "\e[0${bracket:-"\\]m"}"
+    echo "\e[0${bracket:-\]m}"
 
 }
 
@@ -621,9 +659,9 @@ get_shell_prompt_PS1() {
     local separ_line_bot=$(get_shell_separator_line 0 ▼)
     local branch=$(get_current_branch)
     local time_elapsed=$(bc <<<"${TRAP_DEBUG_TIME_END}-${TRAP_DEBUG_TIME_START}")
-    local time_elapsed=$(printf "%.3f" "${time_elapsed}")
+    local time_elapsed=$(convert_time "$(printf "%.6f" "${time_elapsed}")")
 
-    local time_elapsed="${gc_32}Time elapsed: ${time_elapsed} seconds"
+    local time_elapsed="${gc_32}[${time_elapsed}]"
     local time_end="${gc_37}End: ${date}"
     local separator_top="${gc_30}${separ_line_top}${gc_37}"
     local separator_bot="${gc_30}${separ_line_bot}${gc_37}"
@@ -652,7 +690,7 @@ get_shell_prompt_PS1() {
 get_shell_separator_line() {
 
     local line_length=$(stty size | awk '{ print $(2) }')
-    local line_length=$((${3:-"${line_length}"} - ${1:-"0"}))
+    local line_length=$((${3:-${line_length}} - ${1:-"0"}))
     local separator=${2:-"─"}
     eval printf -- "${separator}%.s" "{1..${line_length}}"
     # eval is needed since brace expansion precedes parameter expansion

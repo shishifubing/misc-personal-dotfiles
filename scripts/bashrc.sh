@@ -3,7 +3,7 @@
 # if not running interactively, don't do anything
 # check whether this shell has just executed a prompt
 # and is waiting for user input or not
-[[ $- != *i* ]] && return
+[[ "${-}" != *i* ]] && return
 
 # source stuff
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
@@ -14,8 +14,8 @@
 # enable programmable completion features
 # you don't need to enable this if it's
 # already enabled in /etc/bash.bashrc and /etc/profile
-source_file_if_exists "/usr/share/bash-completion/bash_completion"
-source_file_if_exists "/etc/bash_completion"
+source_files_if_exist "/usr/share/bash-completion/bash_completion"
+source_files_if_exist "/etc/bash_completion"
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
@@ -76,14 +76,14 @@ export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
 # set options for less
 # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
 # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
-export LESS='-F -i -J -M -R -W -x4 -X -z-4'
+export LESS="-F -i -J -M -R -W -x4 -X -z-4"
 export LESS_TERMCAP_mb=$(echo -e "$(get_color - 31)")       # begin bold
 export LESS_TERMCAP_md=$(echo -e "$(get_color - 34)")       # begin blink
-export LESS_TERMCAP_me=$(echo -e "$(get_color_end)")        # reset bold/blink
+export LESS_TERMCAP_me=$(echo -e "$(get_color_end -)")      # reset bold/blink
 export LESS_TERMCAP_so=$(echo -e "$(get_color - 01 44 37)") # begin reverse video
-export LESS_TERMCAP_se=$(echo -e "$(get_color_end)")        # reset reverse video
+export LESS_TERMCAP_se=$(echo -e "$(get_color_end -)")      # reset reverse video
 export LESS_TERMCAP_us=$(echo -e "$(get_color - 04 01 32)") # begin underline
-export LESS_TERMCAP_ue=$(echo -e "$(get_color_end)")        # reset underline
+export LESS_TERMCAP_ue=$(echo -e "$(get_color_end -)")      # reset underline
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
@@ -117,12 +117,14 @@ export HISTSIZE=
 # (even if they are written on the same line)
 # (including PROMPT_COMMAND)
 # because of the condition it is executed only one time
-trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && execute_before' DEBUG
+trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && preexec' DEBUG
 #
-# PROMPT_COMMAND is executed after every command
-export PROMPT_COMMAND='execute_after'
+# PROMPT_COMMAND is executed before each prompt
+export PROMPT_COMMAND='precmd'
 #
 # message
 echo ".bashrc is sourced"
+echo
+echo "$(</proc/version)"
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
