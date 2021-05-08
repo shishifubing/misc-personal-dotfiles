@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
-xinitrc_d=/etc/X11/xinit/xinitrc.d
-[[ -d "${xinitrc_d}" ]] &&
-    for script in "${xinitrc_d}"?*.sh; do
-        [ -x "${script}" ] &&
-            . "${script}"
-    done
-sudo source_keymaps
-
+source_scripts_in_directory "/etc/X11/xinit/xinitrc.d"
+source_keymaps
 export DESKTOP_SESSION=plasma
 exec startplasma-x11

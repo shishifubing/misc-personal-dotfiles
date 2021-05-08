@@ -23,18 +23,122 @@ precmd() {
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
+# bashrc
+# {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
+
+# enable programmable completion features
+# you don't need to enable this if it's
+# already enabled in /etc/bash.bashrc and/or /etc/profile
+enable_programmable_completion_features() {
+
+    source_scripts "/usr/share/bash-completion/bash_completion" "/etc/bash_completion"
+
+}
+
+# shell options
+# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+set_shell_options() {
+
+    # vim mode for the terminal
+    set -o vi
+    # check the window size after each command and, if necessary,
+    # update the values of LINES and COLUMNS.
+    shopt -s checkwinsize
+    # minor errors in the spelling of a directory in a cd command will be corrected
+    shopt -s cdspell
+    # attempt spelling correction on directory names during word completion
+    shopt -s dirspell
+    # include filenames beginning with a ‘.’ in the results of filename expansion
+    shopt -s dotglob
+    # send SIGHUP to all jobs when an interactive login shell exits
+    shopt -s huponexit
+    # match filenames in a case-insensitive fashion when performing filename expansion.
+    shopt -s nocaseglob
+    # flushes the command to the history file immediately
+    # otherwise, this would happen only when the shell exits
+    shopt -s histappend
+    # attempt to save all lines of a multiple-line
+    # command in the same history entry.
+    shopt -s cmdhist
+
+}
+
+# less variables
+# https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+export_variables_less() {
+
+    # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
+    # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
+    export LESS="-F -i -J -M -R -W -x4 -X -z-4"
+    export LESS_TERMCAP_mb=$(echo -e "$(get_color - 31)")       # begin bold
+    export LESS_TERMCAP_md=$(echo -e "$(get_color - 34)")       # begin blink
+    export LESS_TERMCAP_me=$(echo -e "$(get_color_end -)")      # reset bold/blink
+    export LESS_TERMCAP_so=$(echo -e "$(get_color - 01 44 37)") # begin reverse video
+    export LESS_TERMCAP_se=$(echo -e "$(get_color_end -)")      # reset reverse video
+    export LESS_TERMCAP_us=$(echo -e "$(get_color - 04 01 32)") # begin underline
+    export LESS_TERMCAP_ue=$(echo -e "$(get_color_end -)")      # reset underline
+
+}
+
+# history variables
+export_variables_bash_history() {
+
+    # history file location
+    export HISTFILE="${HOME}/.bash_history"
+    # what commands to put in history
+    # "ignoreboth:erasedups" -
+    #   don't put duplicate lines or lines
+    #   starting with space in the bash history.
+    export HISTCONTROL=
+    # unlimited bash history (file size)
+    export HISTFILESIZE=
+    # unlimited bash history (number of lines)
+    export HISTSIZE=
+
+}
+
+# other variables
+export_variables_others() {
+
+    # all locales are overwritten
+    export LC_ALL="en_US.UTF-8"
+    # colored GCC warnings and errors
+    export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+    # path edit for ruby gems to work
+    export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
+
+}
+
+# shell startup
+bashrc_start_stuff() {
+
+    # start xorg on login
+    [[ -z "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]] && start_xorg_server
+    # trap DEBUG is executed before each command
+    # even if they are written on the same line
+    # including PROMPT_COMMAND
+    # because of the condition it is executed only one time
+    trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && preexec' DEBUG
+    # PROMPT_COMMAND is executed before each prompt
+    export PROMPT_COMMAND='precmd'
+    # message
+    echo ".bashrc is sourced"
+    echo
+    echo "$(</proc/version)"
+
+}
+
+# }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
 # random stuff
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 
 # convert time
 convert_time() {
 
-    local input="${1/.*/}"
-    local fraction="${1/*./}"
-    local seconds=0
-    local minutes=0
-    local hours=0
-    local days=0
+    local input=${1/.*/}
+    local fraction=${1/*./}
+    local seconds minutes hours days
 
     if ((input > 59)); then
         ((seconds = input % 60))
@@ -55,12 +159,12 @@ convert_time() {
         ((seconds = input))
     fi
 
-    [[ "${days}" != "0" ]] && local days_output="${days} days "
-    [[ "${hours}" != "0" ]] && local hours_output="${hours} hours "
-    [[ "${minutes}" != "0" ]] && local minutes_output="${minutes} minutes "
-    local seconds_output="${seconds}.${fraction} seconds"
+    [[ -z "${days}" ]] || days="${days} days "
+    [[ -z "${hours}" ]] || hours="${hours} hours "
+    [[ -z "${minutes}" ]] || minutes="${minutes} minutes "
+    seconds="${seconds}.${fraction} seconds"
 
-    echo "${days_output}${hours_output}${minutes_output}${seconds_output}"
+    echo "${days}${hours}${minutes}${seconds}"
 
 }
 
@@ -102,7 +206,7 @@ passmenu() {
     local password_files=("${prefix}"/**/*.gpg)
     password_files=("${password_files[@]#"${prefix}"/}")
     password_files=("${password_files[@]%.gpg}")
-    local password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
+    local password=$(printf '%s\n' "${password_files[@]}" | dmenu "${@}")
     [[ -n "${password}" ]] || exit
     if [[ "${typeit}" -eq 0 ]]; then
         pass show -c "${password}" 2>/dev/null
@@ -237,9 +341,8 @@ dmenu_path_default() {
 # dmenu_path, used by dmenu (dmenu_run)
 dmenu_path() {
 
-    # functtions will be shown first
+    # functions will be shown first
     get_declared_functions
-    #
     # other stuff is sorted by atime
     # by default, dmenu_path sorts executables alphabetically
     echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | # list directories in $PATH
@@ -324,9 +427,7 @@ kde_resources() {
     local memory=$(
         free -h | # show memory in human readable form
             awk '
-                FNR == 2 {
-                    ram_usage=$(3); total_memory=$(2);
-                };
+                FNR == 2 { ram_usage=$(3); total_memory=$(2); };
                 FNR == 3 {
                     swap_usage=$(3);
                     print ram_usage "+" swap_usage "/" total_memory;
@@ -469,23 +570,33 @@ source_keymaps() {
     [[ -f "${sysmodmap}" ]] && xmodmap "${sysmodmap}"
     [[ -f "${userresources}" ]] && xrdb -merge "${userresources}"
     [[ -f "${usermodmap}" ]] && xmodmap "${usermodmap}"
-    [[ -z "${1}" ]] || xmodmap "${1}"
+
+    # capslock-escape swap
+    # https://wiki.archlinux.org/index.php/xmodmap
+    xmodmap -e "clear lock"
+    xmodmap -e "keycode 66 = Escape Escape Escape"
+    xmodmap -e "keycode 9 = Caps_Lock Caps_Lock Caps_Lock"
+    xmodmap -e "add lock = Caps_Lock Caps_Lock Caps_Lock"
 
 }
 
 # source file
-source_files_if_exist() {
+source_scripts() {
 
-    for file in "${@}"; do
-        [[ -f "${file}" ]] && . "${file}"
-    done
+    for file in "${@}"; do [[ -f "${file}" && -x "${file}" ]] && . "${file}"; done
+
+}
+# sourcescripts in a directory
+source_scripts_in_directory() {
+
+    [[ -d "${1}" ]] && source_files_if_exist "${1}"?*.sh
 
 }
 
 # source bashrc
 sb() {
 
-    source "${HOME}/.bashrc"
+    . "${HOME}/.bashrc"
 
 }
 
@@ -496,6 +607,7 @@ setup_hard_links() {
     local scripts="${path}/scripts"
     local configs="${path}/configs"
     local firefox="${path}/firefox"
+
     local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
@@ -668,7 +780,7 @@ get_shell_prompt_PS1() {
     [[ -z "$ENVIRONMENT" ]] || local environment="${gc_31}[$ENVIRONMENT] "
     local username="${gc_33}[\u] "
     local hostname="${gc_37}[\H] "
-    local shell="${gc_36}[\s_\V] [\l:\j] "
+    local shell="${gc_36}[\s_\V \l:\j] "
     local directory="${gc_34}[\w] "
     [[ -z "${branch}" ]] || local git_branch="${gc_35}[${branch}] "
     #local user_sign="${gc_37}\$ "
