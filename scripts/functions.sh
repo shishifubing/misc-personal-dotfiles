@@ -109,6 +109,14 @@ export_variables_others() {
 
 }
 
+# declared functions
+export_declared_functions() {
+
+    mapfile -t "functions" <<<"$(get_declared_functions)"
+    export -f "${functions[@]}"
+
+}
+
 # shell startup
 bashrc_start_stuff() {
 
@@ -303,10 +311,6 @@ sx() {
 # xorg on login
 start_xorg_server() {
 
-    # use Firejail by default for all applications for which it has profiles
-    # you need to run it only once but if you install something new
-    # then you need to run it again
-    sudo firecfg | /dev/null
     # xorg
     echo -e "$(get_shell_separator_line)"
     echo "Start xorg-server?"
@@ -503,6 +507,13 @@ pm() {
 pms() {
 
     pm -yu "${@}"
+    # use Firejail by default for all applications for which it has profiles
+    # you need to run it only once but if you install something new
+    # then you need to run it again
+    echo
+    echo "updating Firejail configuration"
+    echo
+    sudo firecfg
 
 }
 
@@ -555,8 +566,15 @@ los() {
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
-# setup
+# setup, update, source
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
+
+# update grub
+update_grub() {
+
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+}
 
 # source keymaps
 source_keymaps() {
@@ -597,6 +615,41 @@ source_scripts_in_directory() {
 sb() {
 
     . "${HOME}/.bashrc"
+
+}
+
+# add windows 10 uefi entry to grub
+setup_grub_add_windows_10_uefi() {
+
+    # exec tail -n +4 $0
+    # this line needs to be in the file, without it
+    # commands will not be recognized
+    update_grub
+    echo "input where the EFI partition is mounted"
+    read -r partition
+    local fs_uuid=$(sudo grub-probe --target=fs_uuid "${partition}/EFI/Microsoft/Boot/bootmgfw.efi")
+    entry="
+    # Windows 10 EFI entry"'
+    if [ "${grub_platform}" == "efi" ]; then'"
+        menuentry \"Microsoft Windows 10 UEFI\" {
+            insmod part_gpt
+            insmod fat
+            insmod search_fs_uuid
+            insmod chain
+            search --fs-uuid --set=root ${fs_uuid}
+            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+    fi"
+    echo "${entry}"
+    echo
+    echo "is that okay?"
+    read -r answer
+    if [[ "${answer}" != "n" && "${answer}" != "N" ]]; then
+        echo "${entry}" | sudo tee -a "/etc/grub.d/40_custom"
+        update_grub
+    else
+        setup_grub_add_windows_10_uefi
+    fi
 
 }
 
@@ -745,7 +798,7 @@ get_colors() {
 # generate the PS0 prompt
 get_shell_prompt_PS0() {
 
-    local message="Start: $(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
+    local message="$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")\n"
     local separator_middle="$(get_color - 30)$(get_shell_separator_line 0 ▲)$(get_color - 37)"
     set_window_title "$(get_directory)"
 
@@ -766,23 +819,19 @@ get_shell_prompt_PS1() {
     local gc_36=$(get_color 36)
     local gc_37=$(get_color 37)
     local gc_end=$(get_color_end)
-    local date=$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")
-    local separ_line_top=$(get_shell_separator_line 0 ▲)
-    local separ_line_bot=$(get_shell_separator_line 0 ▼)
-    local branch=$(get_current_branch)
     local time_elapsed=$(bc <<<"${TRAP_DEBUG_TIME_END}-${TRAP_DEBUG_TIME_START}")
     local time_elapsed=$(convert_time "$(printf "%.6f" "${time_elapsed}")")
 
     local time_elapsed="${gc_32}[${time_elapsed}]"
-    local time_end="${gc_37}End: ${date}"
-    local separator_top="${gc_30}${separ_line_top}${gc_37}"
-    local separator_bot="${gc_30}${separ_line_bot}${gc_37}"
-    [[ -z "$ENVIRONMENT" ]] || local environment="${gc_31}[$ENVIRONMENT] "
+    local time_end="${gc_37}$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S]")"
+    local separator_top="${gc_30}$(get_shell_separator_line 0 ▲)${gc_37}"
+    local separator_bot="${gc_30}$(get_shell_separator_line 0 ▼)${gc_37}"
+    [[ -z "${ENVIRONMENT}" ]] || local environment="${gc_31}[${ENVIRONMENT}] "
     local username="${gc_33}[\u] "
     local hostname="${gc_37}[\H] "
     local shell="${gc_36}[\s_\V \l:\j] "
     local directory="${gc_34}[\w] "
-    [[ -z "${branch}" ]] || local git_branch="${gc_35}[${branch}] "
+    [[ -z "$(get_current_branch)" ]] || local git_branch="${gc_35}[$(get_current_branch)] "
     #local user_sign="${gc_37}\$ "
     local colors_1="$(get_colors 0 2 1 -) "
     local colors_2="$(get_colors 3 5 - 0) "
@@ -815,19 +864,5 @@ get_name_of_the_process() {
     ps -p "${1}" -o comm=
 
 }
-
-# }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-
-# export all declared functions
-# {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
-
-export_declared_functions() {
-
-    mapfile -t "functions" <<<"$(get_declared_functions)"
-    export -f "${functions[@]}"
-
-}
-
-#export_declared_functions
 
 # }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
