@@ -1,10 +1,13 @@
 {
     "folders": [
         {
+            "path": "../../dot-files"
+        },
+        {
             "path": "../../Repositories"
         },
         {
-            "path": "../../dot-files"
+            "path": "../../Downloads"
         }
     ],
     "settings": {}

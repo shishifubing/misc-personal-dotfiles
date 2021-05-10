@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# source file
+source_scripts() {
+
+    for file in "${@}"; do [[ -f "${file}" ]] && . "${file}"; done
+
+}
+# sourcescripts in a directory
+source_scripts_in_directory() {
+
+    [[ -d "${1}" ]] && source_scripts "${1}"/?*.sh
+
+}
+
+# source bashrc
+sb() {
+
+    . "${HOME}/.bashrc"
+
+}
+
+# enable programmable completion features
+# you don't need to enable this if it's
+# already enabled in /etc/bash.bashrc and/or /etc/profile
+source_programmable_completion_features() {
+
+    source_scripts "/usr/share/bash-completion/bash_completion" "/etc/bash_completion"
+
+}
+
+# update grub
+source_grub() {
+
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+}
+
+# fzf
+source_fzf_scripts() {
+
+    source_scripts "/usr/share/fzf/key-bindings.bash" "/usr/share/fzf/completion.bash"
+
+}
+
+# source keymaps
+source_keymaps() {
+
+    local userresources="${HOME}/.Xresources"
+    local usermodmap="${HOME}/dot-files/configs/Xmodmap"
+    local sysresources="/etc/X11/xinit/.Xresources"
+    local sysmodmap="/etc/X11/xinit/.Xmodmap"
+
+    [[ -f "${sysresources}" ]] && xrdb -merge "${sysresources}"
+    [[ -f "${sysmodmap}" ]] && xmodmap "${sysmodmap}"
+    [[ -f "${userresources}" ]] && xrdb -merge "${userresources}"
+    [[ -f "${usermodmap}" ]] && xmodmap "${usermodmap}"
+
+    # capslock-escape swap
+    # https://wiki.archlinux.org/index.php/xmodmap
+    xmodmap -e "clear lock"
+    xmodmap -e "keycode 66 = Escape Escape Escape"
+    xmodmap -e "keycode 9 = Caps_Lock Caps_Lock Caps_Lock"
+    xmodmap -e "add lock = Caps_Lock Caps_Lock Caps_Lock"
+
+}
