@@ -1,23 +1,19 @@
 #!/usr/bin/env bash
 
 # some dependencies https://dev.rutoken.ru/pages/viewpage.action?pageId=76218369
-sudo pacman -Syu openvpn opensc pcsc-tools ccid 
+sudo pacman -Syu openvpn opensc pcsc-tools ccid
 
 mkdir ~/Repositories/ya_vpn
 cd ~/Repositories/ya_vpn || exit
 
 # private key
 wget https://download.yandex.ru/hd/vpn/tls.key
-
 # chain of certificates
 wget https://download.yandex.ru/hd/vpn/allCAs.pem
-
 # rutoken library
 wget https://download.rutoken.ru/Rutoken/PKCS11Lib/Current/Linux/x64/librtpkcs11ecp.so
-
 # Serialized id
 SERIAL="$(openvpn --show-pkcs11-ids ./librtpkcs11ecp.so | grep "Serialized id" | awk '{print $NF}')"
-
 # configuration file for openVPN
 echo "dev tun
 proto udp
@@ -60,7 +56,7 @@ verb 4
 
 pkcs11-providers ./librtpkcs11ecp.so
 
-pkcs11-id '$SERIAL'" > openvpn.conf
+pkcs11-id '${SERIAL}'" >openvpn.conf
 
 # .bashrc alias
 #echo "alias yavpn='sudo openvpn --cd ~/Repositories/ya_vpn/ --config ~/Repositories/ya_vpn/openvpn.conf'" >> ~/.bashrc
@@ -68,9 +64,6 @@ pkcs11-id '$SERIAL'" > openvpn.conf
 # it's needed for the usb token to be recognized
 systemctl enable --now pcscd
 
-# end
-
 echo "END"
-
 # bash restart
 exec bash

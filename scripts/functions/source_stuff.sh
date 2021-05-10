@@ -14,9 +14,15 @@ source_scripts_in_directory() {
 }
 
 # source bashrc
+source_bashrc() {
+
+    source_scripts "${HOME}/.bashrc"
+
+}
+
 sb() {
 
-    . "${HOME}/.bashrc"
+    source_bashrc
 
 }
 
@@ -26,6 +32,13 @@ sb() {
 source_programmable_completion_features() {
 
     source_scripts "/usr/share/bash-completion/bash_completion" "/etc/bash_completion"
+
+}
+
+# source functions
+source_functions() {
+
+    source_scripts_in_directory "${HOME}/dot-files/scripts/functions"
 
 }
 

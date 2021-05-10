@@ -8,7 +8,7 @@ setup_grub_add_windows_10_uefi() {
     # exec tail -n +4 $0
     # this line needs to be in the file, without it
     # commands will not be recognized
-    update_grub
+    source_grub
     echo "input where the EFI partition is mounted"
     read -r partition
     local fs_uuid=$(sudo grub-probe --target=fs_uuid "${partition}/EFI/Microsoft/Boot/bootmgfw.efi")
@@ -30,7 +30,7 @@ setup_grub_add_windows_10_uefi() {
     read -r answer
     if [[ "${answer}" != "n" && "${answer}" != "N" ]]; then
         echo "${entry}" | sudo tee -a "/etc/grub.d/40_custom"
-        update_grub
+        source_grub
     else
         setup_grub_add_windows_10_uefi
     fi

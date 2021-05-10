@@ -3,7 +3,7 @@
 # kde aliases
 
 # resources
-kde_resources() {
+get_resources_kde() {
 
     local memory=$(
         free -h | # show memory in human readable form
@@ -28,8 +28,23 @@ kde_resources() {
 }
 
 # date
-kde_date() {
+get_date_kde() {
 
     date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S:%3N]"
+
+}
+
+# start kde
+start_kde() {
+
+    export DESKTOP_SESSION="plasma"
+    exec startplasma-x11
+
+}
+
+# source
+source_kde() {
+
+    exec plasmashell --replace &
 
 }

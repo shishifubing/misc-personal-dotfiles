@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-# if not running interactively, don't do anything
-[[ "${-}" != *"i"* ]] && return
-
+[[ "${-}" == *"i"* ]] || return
 . "${HOME}/dot-files/scripts/functions/source_stuff.sh" || return
 
-source_scripts_in_directory "${HOME}/dot-files/scripts/functions"
+source_functions
 source_programmable_completion_features
 source_fzf_scripts
 

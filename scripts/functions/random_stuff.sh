@@ -42,11 +42,14 @@ yv() {
 co() {
 
     local workspace="${HOME}/dot-files/configs/vscode_workspace.code-workspace"
-    local temp="/tmp/vscode_temp_file"
-    local input=("${workspace}" "${@}" "${temp}")
+    local temporary_file="/tmp/vscode_temporary_file"
+    [[ -f "${temporary_file}" ]] || touch "${temporary_file}"
+    local files=("${workspace}" "${temporary}" "${@}")
 
     source_keymaps
-    code-oss --reuse-window "${input[@]}"
+    for file in "${files[@]}"; do
+        code-oss --reuse-window "${file}" &
+    done
 
 }
 
@@ -57,7 +60,7 @@ history_item() {
     local history_item=$(history -w /dev/stdout | tac | dmenu -l 10)
     history -s "${history_item}"
     echo "${PS1@P}${history_item}"
-    echo "${history_item}" | ${SHELL:-"/bin/sh"}
+    ${SHELL:-"/bin/sh"} <<<"${history_item}"
 
 }
 

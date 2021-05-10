@@ -14,14 +14,20 @@ export_variables_less() {
 
     # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
     # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
+    local reset=$(echo -e "$(get_color_end -)")
+    local bold=$(echo -e "$(get_color - 31)")
+    local blink=$(echo -e "$(get_color - 34)")
+    local underline=$(echo -e "$(get_color - 04 01 32)")
+    local reverse_video=$(echo -e "$(get_color - 01 44 37)")
+
     export LESS="-F -i -J -M -R -W -x4 -X -z-4"
-    export LESS_TERMCAP_mb=$(echo -e "$(get_color - 31)")       # begin bold
-    export LESS_TERMCAP_md=$(echo -e "$(get_color - 34)")       # begin blink
-    export LESS_TERMCAP_me=$(echo -e "$(get_color_end -)")      # reset bold/blink
-    export LESS_TERMCAP_so=$(echo -e "$(get_color - 01 44 37)") # begin reverse video
-    export LESS_TERMCAP_se=$(echo -e "$(get_color_end -)")      # reset reverse video
-    export LESS_TERMCAP_us=$(echo -e "$(get_color - 04 01 32)") # begin underline
-    export LESS_TERMCAP_ue=$(echo -e "$(get_color_end -)")      # reset underline
+    export LESS_TERMCAP_mb=${bold}          # begin bold
+    export LESS_TERMCAP_md=${blink}         # begin blink
+    export LESS_TERMCAP_me=${reset}         # reset bold/blink
+    export LESS_TERMCAP_so=${reverse_video} # begin reverse video
+    export LESS_TERMCAP_se=${reset}         # reset reverse video
+    export LESS_TERMCAP_us=${underline}     # begin underline
+    export LESS_TERMCAP_ue=${reset}         # reset underline
 
 }
 

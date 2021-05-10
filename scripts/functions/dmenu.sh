@@ -23,7 +23,8 @@ dmenu_path_default() {
 dmenu_path() {
 
     # functions will be shown first
-    get_declared_functions
+    # only those that do not start with "_"
+    get_declared_functions | awk '$(1) !~ /^_/ { print $(1) }'
     # other stuff is sorted by atime
     # by default, dmenu_path sorts executables alphabetically
     echo "${PATH}" | tr ':' '\n' | uniq | sed 's#$#/#' | # list directories in $PATH
@@ -36,6 +37,7 @@ dmenu_path() {
 # dmenu run
 dmenu_run() {
 
+    source_bashrc
     dmenu_path | dmenu "${@}" | ${SHELL:-"/bin/sh"}
 
 }
