@@ -20,10 +20,10 @@ get_resources_kde() {
     local cpu_usage=$(vmstat | awk 'FNR == 3 { print 100 - $(15) "%" }')
     local traffic=$(
         sar -n DEV 1 1 |
-            awk 'FNR == 6 { printf("%.0fkB/s %.0fkB/s", $(5), $(6)) }'
+            awk 'FNR == 6 { printf("%.0fkB/s+%.0fkB/s", $(5), $(6)) }'
     )
 
-    echo "[${memory}] [${cpu_temp} ${cpu_usage}] [${traffic}]"
+    echo "[${memory}] [${cpu_temp}] [${cpu_usage}] [${traffic}]"
 
 }
 
