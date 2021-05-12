@@ -14,11 +14,11 @@ export_variables_less() {
 
     # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
     # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
-    local reset=$(echo -e "$(get_color_end -)")
-    local bold=$(echo -e "$(get_color - 31)")
-    local blink=$(echo -e "$(get_color - 34)")
-    local underline=$(echo -e "$(get_color - 04 01 32)")
-    local reverse_video=$(echo -e "$(get_color - 01 44 37)")
+    local reset=$(echo -e "${GC_END}")
+    local bold=$(echo -e "${GC_31}")
+    local blink=$(echo -e "${GC_34}")
+    local underline=$(echo -e "$(get_color 04 01 32)")
+    local reverse_video=$(echo -e "$(get_color 01 44 37)")
 
     export LESS="-F -i -J -M -R -W -x4 -X -z-4"
     export LESS_TERMCAP_mb=${bold}          # begin bold
@@ -48,9 +48,27 @@ export_variables_bash_history() {
 
 }
 
+# colors
+export_variables_colors() {
+
+    for ((count = 0; count < 8; count++)); do
+        eval 'export GC_3${count}=$(get_color "01" "3${count}")'
+        eval 'export GC_3${count}_=$(get_color "-" "01" "3${count}" "01")'
+    done
+    export GC_END=$(get_color_end)
+    export GC_END_=$(get_color_end -)
+
+    GC_1_5_=$(get_terminal_colors 1 5)
+    GC_6_10_=$(get_terminal_colors 6 10)
+    GC_11_15_=$(get_terminal_colors 11 15)
+    export GC_1_5_ GC_6_10_ GC_11_15_
+}
+
 # other variables
 export_variables_others() {
 
+    # when multiple lines
+    export PS2="${GC_32_}▶   ${GC_37_}"
     # all locales are overwritten
     export LC_ALL="en_US.UTF-8"
     # colored GCC warnings and errors

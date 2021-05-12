@@ -6,12 +6,12 @@
 get_preexec_message() {
 
     local message=$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S:${TRAP_DEBUG_TIME_START/*./}]")
-    local separator=$(get_shell_separator_line 0 ▽)
+    local separator=$(get_shell_separator_line ▽)
 
-    echo "$(get_color 32)}"
-    echo "$(get_color 30)${separator}$(get_color_end)"
-    echo "$(get_color 33)${message}$(get_color_end)"
-    get_color 37
+    echo "${GC_32}}"
+    echo "${GC_30}${separator}${GC_END}"
+    echo "${GC_33}${message}${GC_END}"
+    echo "${GC_37}"
 
 }
 
@@ -19,54 +19,40 @@ get_preexec_message() {
 get_precmd_message() {
 
     local message=$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S:${TRAP_DEBUG_TIME_END/*./}]")
-    local separator=$(get_shell_separator_line 0 △)
+    local separator=$(get_shell_separator_line △)
 
     echo
-    echo "$(get_color 33)${message}$(get_color_end)"
-    echo "$(get_color 30)${separator}$(get_color_end)"
+    echo "${GC_33}${message}${GC_END}"
+    echo "${GC_30}${separator}${GC_END}"
 
 }
 
 # generate the PS1 prompt
 get_shell_prompt_PS1() {
 
-    local gc_30=$(get_color - 30)
-    local gc_31=$(get_color - 31)
-    local gc_32=$(get_color - 32)
-    local gc_33=$(get_color - 33)
-    local gc_34=$(get_color - 34)
-    local gc_35=$(get_color - 35)
-    local gc_36=$(get_color - 36)
-    local gc_37=$(get_color - 37)
-    local gc_end=$(get_color_end -)
-    local gc_1_5=$(get_terminal_colors 1 5)
-    local gc_6_10=$(get_terminal_colors 6 10)
-    local gc_11_15=$(get_terminal_colors 11 15)
-    local time_difference=$(bc <<<"${TRAP_DEBUG_TIME_END}-${TRAP_DEBUG_TIME_START}")
-    local time_readable=$(convert_time "$(printf "%.6f" "${time_difference}")")
+    local time_elapsed=$(bc <<<"${TRAP_DEBUG_TIME_END}-${TRAP_DEBUG_TIME_START}")
+    local time_elapsed=$(convert_time "$(printf "%.6f" "${time_elapsed}")")
+    local git_branch=$(get_current_branch)
 
-    local time_elapsed="${gc_33}[${time_readable}] "
-    [[ -z "${ENVIRONMENT}" ]] || local environment="${gc_31}[${ENVIRONMENT}] "
-    local user="${gc_37}[\u] [\H] "
-    local shell="${gc_36}[\s_\V] [\l:\j] "
-    local directory="${gc_34}[\w] "
-    [[ -z "$(get_current_branch)" ]] || local git_branch="${gc_35}[$(get_current_branch)] "
-    local user_sign="${gc_32}[\$]${gc_37} => ${gc_32}{"
+    local time_elapsed="${GC_33_}[${time_elapsed}]${GC_END_} "
+    [[ -z "${ENVIRONMENT}" ]] || local environment="${GC_31_}[${ENVIRONMENT}]${GC_END_} "
+    local user="${GC_37_}[\u] [\H] ${GC_END_}"
+    local shell="${GC_36_}[\s_\V] [\l:\j] ${GC_END_}"
+    local directory="${GC_34_}[\w] ${GC_END_}"
+    [[ -z "${git_branch}" ]] || local git_branch="${GC_35_}[${git_branch}] ${GC_END_}"
+    local user_sign="${GC_32_}[\$] {${GC_END_}"
 
-    echo "${gc_1_5} ${user}${shell}${environment}${gc_end}"
-    echo "${gc_6_10} ${directory}${git_branch}${gc_end}"
-    echo "${gc_11_15} ${time_elapsed}${gc_end}"
-    echo "${user_sign}${gc_end}"
-    echo "    ${gc_37}"
+    echo "${GC_1_5_} ${user}${shell}${environment}"
+    echo "${GC_6_10_} ${directory}${git_branch}"
+    echo "${GC_11_15_} ${time_elapsed}"
+    echo "${user_sign}"
+    echo "    ${GC_37_}"
 }
 
 # shell command separator
 get_shell_separator_line() {
 
-    local line_length=$(get_terminal_width)
-    local line_length=$((${3:-${line_length}} - ${1:-"0"}))
-    local separator=${2:-"─"}
-    eval printf -- "${separator}%.s" "{1..${line_length}}"
-    # eval is needed since brace expansion precedes parameter expansion
-    # double '-' since printf needs options
+    local line_length=$((${3:-"$(get_terminal_width)"} - ${2:-"0"}))
+    local separator=${1:-"─"}
+    for ((count = 0; count < line_length; count++)); do echo -n "${separator}"; done
 }

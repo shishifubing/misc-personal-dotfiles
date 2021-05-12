@@ -10,6 +10,7 @@
 
     export_variables_less
     export_variables_bash_history
+    export_variables_colors
     export_variables_others
     export_declared_functions
 

@@ -19,10 +19,8 @@ start_preexec_precmd() {
 preexec() {
     export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
-    [[ -z "${__is_first_launch}" ]] && {
-        echo -e "$(get_color 32){\n$(get_color 37)    start"
-        __is_first_launch=0
-    }
+    [[ -z "${__is_first_launch}" ]] &&
+        echo -e "${GC_32}{\n${GC_37}    start" && __is_first_launch=0
     echo -e "$(get_preexec_message)"
 
 }

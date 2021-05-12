@@ -10,20 +10,21 @@ get_color() {
     #   5 - blinking, 7 - reverse video
     # terminal color numbers
     #   foreground: 30 - 37; background: 40 - 47
-    case "${1}" in
-    "-") shift && echo "\[\e[${2:-1};${1:-37};${3:-40}m" ;;
-    *) echo "\e[${2:-1};${1:-37};${3:-40}m" ;;
-    esac
-
+    local output
+    [[ "${1}" == "-" ]] && shift && output+="\["
+    local input=("${@}") amount="${#}"
+    output+="\e[${1}"
+    for ((argument = 1; argument < amount; argument++)); do
+        output+=";${input[${argument}]}"
+    done
+    echo "${output}m"
 }
 
 # reset color modifications
 get_color_end() {
 
-    case "${1}" in
-    "-") echo "\e[0m\]" ;;
-    *) echo "\e[0m" ;;
-    esac
+    [[ "${1}" == "-" ]] && local bracket="\]"
+    echo "\e[0m${bracket}"
 
 }
 
@@ -39,9 +40,9 @@ get_terminal_colors() {
 
     # generate the string
     for ((block_range[0]; block_range[0] <= block_range[1]; block_range[0]++)); do
-        blocks+="$(get_color 5 48 "${block_range[0]}")${block_width}"
+        blocks+="$(get_color 48 5 "${block_range[0]}")${block_width}"
     done
 
-    echo "${blocks}$(get_color_end)"
+    echo "${blocks}${GC_END}"
 
 }
