@@ -52,16 +52,15 @@ export_variables_bash_history() {
 export_variables_colors() {
 
     for ((count = 0; count < 8; count++)); do
-        eval 'export GC_3${count}=$(get_color "01" "3${count}")'
-        eval 'export GC_3${count}_=$(get_color "-" "01" "3${count}" "01")'
+        eval 'export GC_3${count}=$(get_color 01 3${count})'
+        eval 'export GC_3${count}_=$(get_color -b 01 3${count} 01)'
     done
-    export GC_END=$(get_color_end)
-    export GC_END_=$(get_color_end -)
 
-    GC_1_5_=$(get_terminal_colors 1 5)
-    GC_6_10_=$(get_terminal_colors 6 10)
-    GC_11_15_=$(get_terminal_colors 11 15)
-    export GC_1_5_ GC_6_10_ GC_11_15_
+    export GC_END=$(get_color_end) GC_END_=$(get_color_end -b)
+
+    export GC_1_5=$(get_colors 1 5) GC_1_5_=$(get_colors -b 1 5)
+    export GC_6_10=$(get_colors 6 10) GC_6_10_=$(get_colors -b 6 10)
+    export GC_11_15=$(get_colors 11 15) GC_11_15_=$(get_colors -b 11 15)
 }
 
 # other variables

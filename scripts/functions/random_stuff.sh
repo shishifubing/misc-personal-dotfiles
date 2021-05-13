@@ -44,7 +44,7 @@ co() {
     local workspace="${HOME}/dot-files/configs/vscode_workspace.code-workspace"
     local temporary_file="/tmp/vscode_temporary_file"
     [[ -f "${temporary_file}" ]] || touch "${temporary_file}"
-    local files=("${workspace}" "${temporary}" "${@}")
+    local files=("${workspace}" "${temporary_file}" "${@}")
 
     source_keymaps
     for file in "${files[@]}"; do

@@ -19,8 +19,12 @@ start_preexec_precmd() {
 preexec() {
     export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
-    [[ -z "${__is_first_launch}" ]] &&
-        echo -e "${GC_32}{\n${GC_37}    start" && __is_first_launch=0
+    [[ "${__is_not_first_launch}" ]] || {
+        export TRAP_DEBUG_TIME_END=${TRAP_DEBUG_TIME_START}
+        local prompt=$(get_shell_prompt_PS1) && prompt=${prompt//"\["/}
+        echo -e "${prompt//"\]"/}start"
+        __is_not_first_launch=true
+    }
     echo -e "$(get_preexec_message)"
 
 }
