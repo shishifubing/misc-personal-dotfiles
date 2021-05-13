@@ -7,3 +7,9 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/supertab"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/supertab
 	url = https://github.com/ervandew/supertab.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim
+	url = https://github.com/fholgado/minibufexpl.vim.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-buffergator"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-buffergator
+	url = https://github.com/jeetsukumaran/vim-buffergator.git
