@@ -6,7 +6,7 @@
 get_resources_kde() {
 
     local memory=$(
-        free -h | # show memory in human readable form
+        free -h |
             awk '
                 FNR == 2 { ram_usage=$(3); total_memory=$(2); };
                 FNR == 3 {
@@ -15,15 +15,14 @@ get_resources_kde() {
                 };
             '
     )
-    # outputs only the first two symbols of the file
-    local cpu_temp="$(cut -c1-2 /sys/class/thermal/thermal_zone0/temp)°C"
+    local cpu_temp=$(cut -c1-2 /sys/class/thermal/thermal_zone0/temp)
     local cpu_usage=$(vmstat | awk 'FNR == 3 { print 100 - $(15) "%" }')
     local traffic=$(
         sar -n DEV 1 1 |
             awk 'FNR == 6 { printf("%.0fkB/s+%.0fkB/s", $(5), $(6)) }'
     )
 
-    echo "[${memory}] [${cpu_temp}] [${cpu_usage}] [${traffic}]"
+    echo "[${memory}] [${cpu_temp}°C] [${cpu_usage}] [${traffic}]"
 
 }
 

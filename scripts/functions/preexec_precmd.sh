@@ -20,7 +20,7 @@ preexec() {
     export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
     [[ "${__is_not_first_launch}" ]] || {
-        export TRAP_DEBUG_TIME_END=${TRAP_DEBUG_TIME_START}
+        export TRAP_DEBUG_TIME_END=$(date +"%s.%N")
         local prompt=$(get_shell_prompt_PS1) && prompt=${prompt//"\["/}
         echo -e "${prompt//"\]"/}start"
         __is_not_first_launch=true

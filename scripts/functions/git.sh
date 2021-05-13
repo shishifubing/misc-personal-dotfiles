@@ -18,8 +18,8 @@ gd() {
     local year=${4:-"$(date +"%Y")"}
     local date="${year}-${month}-${day} 00:00:00"
 
-    export GIT_AUTHOR_DATE="${date}"
-    export GIT_COMMITTER_DATE="${date}"
+    export GIT_AUTHOR_DATE=${date}
+    export GIT_COMMITTER_DATE=${date}
     git add .
     git commit -m "${message}"
     git push origin

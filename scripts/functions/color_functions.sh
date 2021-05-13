@@ -13,8 +13,8 @@ get_color() {
     [[ "${1}" == "-b" ]] && local with_brackets=true && shift
     local input=("${@}") length="${#}" output="\[\e[${1}"
 
-    for ((argument = 1; argument < length; argument++)); do
-        output+=";${input[${argument}]}"
+    for ((count = 1; count < length; count++)); do
+        output+=";${input[${count}]}"
     done
     output+="m"
     [[ "${with_brackets}" ]] || output=$(remove_brackets "${output}")
@@ -57,6 +57,9 @@ get_colors() {
 # but other times they might be  displayed
 remove_brackets() {
 
-    local output="${1//"\["/}" && echo "${output//"\]"/}"
+    local output="${1//"\["/}"
+    output="${output//"\]"/}"
+
+    echo "${output}"
 
 }

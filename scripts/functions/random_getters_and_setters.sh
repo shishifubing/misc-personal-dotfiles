@@ -40,7 +40,9 @@ get_terminal_width() {
 # get distribution info
 get_distribution_info() {
 
-    echo "$(</proc/version)"
+    local output=$(</proc/version)
+
+    echo "${output}"
 
 }
 
@@ -54,7 +56,7 @@ get_declared_functions() {
 # return extension of the string provided
 get_file_type() {
 
-    echo "${1}" | awk -F'[.]' '{ print $(NF) }'
+    awk -F'[.]' '{ print $(NF) }' <<<"${1}"
 
 }
 
@@ -68,7 +70,9 @@ get_directory() {
 # set window title
 set_window_title() {
 
-    echo -ne "\033]0;${1}\007"
+    local output="\033]0;${1}\007"
+
+    echo -ne "${output}"
 
 }
 

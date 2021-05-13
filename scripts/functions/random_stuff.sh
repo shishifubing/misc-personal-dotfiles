@@ -7,7 +7,7 @@ stt() {
 
     #[[ -z $TABBED_XID ]] || export TABBED_XID=$(tabbed -d)
     #st -w "$TABBED_XID"
-    tabbed -r 2 st -w ''
+    tabbed -r 2 st -w ""
 
 }
 

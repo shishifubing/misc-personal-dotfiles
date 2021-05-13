@@ -1,0 +1,36 @@
+(require 'package)
+
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+;;(use-package dired-sidebar
+;;    :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+;;    :ensure t
+;;    :commands (dired-sidebar-toggle-sidebar)
+;;    :init
+;;    (add-hook 'dired-sidebar-mode-hook
+;;              (lambda ()
+;;                (unless (file-remote-p default-directory)
+;;                  (auto-revert-mode))))
+;;    :config
+;;    (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+;;    (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+;;       (setq dired-sidebar-subtree-line-prefix "__")
+;;    (setq dired-sidebar-theme 'vscode)
+;;    (setq dired-sidebar-use-term-integration t)
+;;    (setq dired-sidebar-use-custom-font t)
+;;)
+;;
+
+(require 'neotree)
+(neotree-toggle)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
+(left-fringe 0)
+(right-fringe 0)

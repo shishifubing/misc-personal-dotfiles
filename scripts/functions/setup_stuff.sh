@@ -40,7 +40,7 @@ setup_grub_add_windows_10_uefi() {
 # setup hard links
 setup_hard_links() {
 
-    local path="${1:-${HOME}}/dot-files"
+    local path="${HOME}/dot-files"
     local scripts="${path}/scripts"
     local configs="${path}/configs"
     local firefox="${path}/firefox"
@@ -48,8 +48,9 @@ setup_hard_links() {
     local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
+    local emacs="${scripts}/emacs"
     local xinitrc="${scripts}/xinitrc.sh"
-    local firefox_path="${HOME}/.mozilla/firefox/${2:-zq1ebncv.default-release}/chrome"
+    local firefox_path="${HOME}/.mozilla/firefox/zq1ebncv.default-release/chrome"
     local firefox_userChrome="${firefox}/userChrome.css"
     local firefox_userContent="${firefox}/userContent.css"
     local firefox_img="${firefox}/img"
@@ -58,16 +59,14 @@ setup_hard_links() {
         rm "${2}" 2>/dev/null
         ln "${1}" "${2}"
     }
-    _mkdir() {
-        rm -r "${1}" 2>/dev/null
-        mkdir "${1}"
-    }
     _cp() { cp -r "${1}" "${2}" 2>/dev/null; }
 
     _ln "${vscode_config}" "${vscode_path}"
     _ln "${bashrc}" "${HOME}/.bashrc"
     _ln "${xinitrc}" "${HOME}/.xinitrc"
-    _mkdir "${firefox_path}"
+    _ln "${emacs}" "${HOME}/.emacs"
+
+    mkdir -p "${firefox_path}"
     _cp "${firefox_img}" "${firefox_path}"
     _ln "${firefox_userChrome}" "${firefox_path}/userChrome.css"
     _ln "${firefox_userContent}" "${firefox_path}/userContent.css"
