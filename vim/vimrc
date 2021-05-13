@@ -1,6 +1,10 @@
+" packages
+" [[[
 filetype plugin indent on " not really sure if needed for packpath
 set packpath=${HOME}/dot-files/vim " path to plugins
 :helptags ALL
+" ]]]
+
 " indent and spaces
 " [[[
 
@@ -76,9 +80,24 @@ autocmd BufNewFile,BufRead *.json set formatprg=python\ -m\ json.tool
 
 " ]]]
 
+" NERDTree
+" [[[
+
+let NERDTreeMinimalUI=1 " removes press help message from the top
+" start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+" if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+
+" ]]]
+
 " commands
 " [[[
 
 command Sh !shellcheck %
 
 " ]]]
+

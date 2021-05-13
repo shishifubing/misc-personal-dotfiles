@@ -50,6 +50,8 @@ setup_hard_links() {
     local bashrc="${scripts}/bashrc.sh"
     local emacs="${scripts}/emacs"
     local xinitrc="${scripts}/xinitrc.sh"
+    local vimrc="${path}/vim/vimrc"
+
     local firefox_path="${HOME}/.mozilla/firefox/zq1ebncv.default-release/chrome"
     local firefox_userChrome="${firefox}/userChrome.css"
     local firefox_userContent="${firefox}/userContent.css"
@@ -65,6 +67,7 @@ setup_hard_links() {
     _ln "${bashrc}" "${HOME}/.bashrc"
     _ln "${xinitrc}" "${HOME}/.xinitrc"
     _ln "${emacs}" "${HOME}/.emacs"
+    _ln "${vimrc}" "${HOME}/.vimrc"
 
     mkdir -p "${firefox_path}"
     _cp "${firefox_img}" "${firefox_path}"
