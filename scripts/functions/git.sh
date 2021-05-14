@@ -25,3 +25,10 @@ gd() {
     git push origin
 
 }
+
+# git
+git_get_diff() {
+
+    git format-patch --stdout HEAD^ >"${1}.diff"
+
+}

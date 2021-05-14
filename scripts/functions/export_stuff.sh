@@ -74,6 +74,11 @@ export_variables_others() {
     export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
     # path edit for ruby gems to work
     export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
+    # path edit for local binaries
+    export PATH="${PATH}:${HOME}/.local/bin"
     # fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
+    # silences npm funding messages
+    export OPEN_SOURCE_CONTRIBUTOR=true
+
 }

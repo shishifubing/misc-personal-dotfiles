@@ -5,6 +5,7 @@
     source_functions
     source_programmable_completion_features
     source_fzf_scripts
+    source_keymaps_on_start
 
     set_shell_options
 

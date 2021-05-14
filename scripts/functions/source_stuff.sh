@@ -77,3 +77,10 @@ source_keymaps() {
     xmodmap -e "add lock = Caps_Lock Caps_Lock Caps_Lock"
 
 }
+
+# source keymaps on startup
+source_keymaps_on_start() {
+
+    [[ "${ARE_KEYMAPS_SOURCED}" ]] || source_keymaps 2>/dev/null && export ARE_KEYMAPS_SOURCED="yes"
+
+}

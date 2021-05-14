@@ -16,7 +16,7 @@ vim_delete_module() {
 
     local module="${HOME}/dot-files/vim/pack/modules/start/${1}"
 
-    git submodule deinit "${module}"
-    git rm "${module}"
+    git submodule deinit -f "${module}"
+    git rm -f "${module}"
 
 }
