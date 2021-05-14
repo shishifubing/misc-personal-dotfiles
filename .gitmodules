@@ -1,15 +1,27 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/nerdtree"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-pathogen"]
-	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/supertab"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/supertab
 	url = https://github.com/ervandew/supertab.git
-[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim"]
-	path = /home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim
-	url = https://github.com/fholgado/minibufexpl.vim.git
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-buffergator"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-buffergator
 	url = https://github.com/jeetsukumaran/vim-buffergator.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim
+	url = https://github.com/fholgado/minibufexpl.vim.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vwm.vim"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vwm.vim
+	url = https://github.com/paroxayte/vwm.vim.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/taglist"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/taglist
+	url = https://github.com/yegappan/taglist.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-polyglot"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/auto-pairs"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/tagbar"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/tagbar
+	url = https://github.com/preservim/tagbar.git

@@ -1,16 +1,17 @@
-" packages
+" package management
 " [[[
-filetype plugin indent on " not really sure if needed for packpath
+
 set packpath=${HOME}/dot-files/vim " path to plugins
-:helptags ALL
+helptags ALL " generate helptags
+
 " ]]]
 
 " indent and spaces
 " [[[
 
-set tabstop=2 " tab = n spaces
-set softtabstop=2 " when removing expanded tabs, remove n spaces
-set shiftwidth=2 " no idea
+set tabstop=4 " tab = n spaces
+set softtabstop=4 " when removing expanded tabs, remove n spaces
+set shiftwidth=4 " no idea
 set textwidth=72 " pep8 standard
 set autoindent " allows you to indent each line the same as the previous one
 set expandtab " replaces tabs with spaces
@@ -31,14 +32,27 @@ set number " line nubmber
 syntax on " displays the source code in different colors to enhance its readability
 syntax enable " enable syntax processing
 colorscheme theme_vim " colorscheme
+let g:colors_name='theme_vim' " colorscheme
 set cursorline " highlights a line the cursor in on. alternative - nocursorline
 set showmatch " matching parenthesis
 set showcmd " show command at the bottom
 set ignorecase " ignore case when searching
 set notitle " do not change window title while editing
 set ruler " display the cursor’s current position
-set statusline+=p " theoretically adds full filename to the statusline, does not work
-set sidescroll=1 " defolt horizontal scroll is half a screen, not very convenient
+set sidescroll=1 " default horizontal scroll is half a screen, not very convenient
+
+" status line
+" [[[ 
+
+set statusline=                 " reset status line
+set statusline+=%r              " readonly flag
+set statusline+=\ \[%n]         " buffer number
+set statusline+=\ \[%F]         " path to the file
+set statusline+=\ \%y           " filetype of the current file
+set statusline+=\ \[%l+%c/%L]   " current column + line / amount of lines
+set statusline+=\ \[%b]         " ASCII of the symbol under the cursor
+
+" ]]]
 
 " backup. The // means that the directory information will be saved in the filename
 " [[[
@@ -69,7 +83,7 @@ vnoremap < <gv
 
 " ]]]
 
-" autoactions
+" formatting
 " [[[
 
 " use the gq command to format the selection. gg g q G to format the entire file
@@ -81,16 +95,43 @@ autocmd BufNewFile,BufRead *.json set formatprg=python\ -m\ json.tool
 " ]]]
 
 " NERDTree
+" https://github.com/preservim/nerdtree
 " [[[
 
-let NERDTreeMinimalUI=1 " removes press help message from the top
-" start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
+let NERDTreeMinimalUI=1 " remove press help message from the top
+
 " if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 " open the existing NERDTree on each new tab.
 autocmd BufWinEnter * silent NERDTreeMirror
+
+" ]]]
+
+" layout
+" https://github.com/paroxayte/vwm.vim
+" [[[ 
+
+let g:buffergator_viewport_split_policy="b" " buffregator variable: do no split, use current window
+let s:custom_layout = {
+      \  'name': 'custom_layout',
+      \  'left':
+      \  {
+      \    'v_sz': 33,
+      \    'top':
+      \    {
+      \      'h_sz': 10,
+      \      'init': ['BuffergatorOpen']
+      \    },
+      \    'init': ['NERDTree','TlistOpen']
+      \  }
+      \} 
+if !exists('g:vwm#layouts')
+  let g:vwm#layouts = [s:custom_layout]
+endif
+
+autocmd VimEnter * VwmOpen custom_layout 
+autocmd VimEnter * wincmd p
 
 " ]]]
 
