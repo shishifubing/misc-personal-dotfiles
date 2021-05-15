@@ -25,3 +25,6 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/tagbar"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/tagbar
 	url = https://github.com/preservim/tagbar.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-autoformat"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-autoformat
+	url = https://github.com/chiel92/vim-autoformat.git

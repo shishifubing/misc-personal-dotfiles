@@ -32,7 +32,7 @@ hi Repeat           ctermfg=197                     cterm=bold
 hi Statement        ctermfg=197                     cterm=bold
 hi Tag              ctermfg=197
 hi Title            ctermfg=203
-hi Visual           ctermfg=15                      ctermbg=4 
+hi Visual           ctermfg=15                      ctermbg=4
 
 hi Comment          ctermfg=15
 hi LineNr           ctermfg=15      ctermbg=0

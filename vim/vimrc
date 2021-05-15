@@ -1,8 +1,24 @@
-" package management
+" general stuff
+
+
+set packpath=${HOME}/dot-files/vim "path to plugins
+set notitle " do not change window title while editing
+set number " line nubmber
+set cursorline " highlights a line the cursor in on. alternative - nocursorline
+set sidescroll=1 " changes horizontal scroll to 1 column
+set mouse=a " enable mouse presses: switching focus, resizing, etc
+
+" ]]]
+
+" color
 " [[[
 
-set packpath=${HOME}/dot-files/vim " path to plugins
-helptags ALL " generate helptags
+if !exists("g:syntax_on")
+    syntax enable " enable syntax highlighting. If block is needed to not override
+endif
+colorscheme theme_vim " colorscheme
+let g:colors_name='theme_vim' " colorscheme
+set showmatch " matching parenthesis
 
 " ]]]
 
@@ -28,27 +44,16 @@ set hlsearch " highlight all matches
 
 " ]]]
 
-set number " line nubmber
-syntax on " displays the source code in different colors to enhance its readability
-syntax enable " enable syntax processing
-colorscheme theme_vim " colorscheme
-let g:colors_name='theme_vim' " colorscheme
-set cursorline " highlights a line the cursor in on. alternative - nocursorline
-set showmatch " matching parenthesis
-set showcmd " show command at the bottom
-set ignorecase " ignore case when searching
-set notitle " do not change window title while editing
-set ruler " display the cursor’s current position
-set sidescroll=1 " default horizontal scroll is half a screen, not very convenient
+" status and command lines
+" [[[
 
-" status line
-" [[[ 
+set showcmd " show command line
+set laststatus=2 " command line is always enabled
 
 set statusline=                 " reset status line
-set statusline+=%r              " readonly flag
+set statusline+=%R%H%W%Y        " flags: readonly, help, preview, filetype
 set statusline+=\ \[%n]         " buffer number
 set statusline+=\ \[%F]         " path to the file
-set statusline+=\ \%y           " filetype of the current file
 set statusline+=\ \[%l+%c/%L]   " current column + line / amount of lines
 set statusline+=\ \[%b]         " ASCII of the symbol under the cursor
 
@@ -72,25 +77,30 @@ set undofile " turn on undo files. It's needed to undo changes past writing into
 " for windows the * register is needed
 noremap y "+y
 noremap d "+d
-noremap p p=`] " correctly indent pasted text
-" mm - set mark m. gg - move the cursor to the beginning of the file
-" gq - format paragraph. G - end of the file. `m - move to the mark m
-noremap <c-s> :w <return> mmggVGgq`m :w <return>
+" correctly indent pasted text
+noremap p p=`]
 " changes indentation of the selected block
-" you could use . (dot) to repeat the last indent
+" you can use . (dot) to repeat the last indent
 vnoremap > >gv
 vnoremap < <gv
 
 " ]]]
 
 " formatting
+" https://github.com/chiel92/vim-autoformat
 " [[[
 
-" use the gq command to format the selection. gg g q G to format the entire file
-autocmd BufNewFile,BufRead *.py set formatprg=autopep8\ --aggressive\ --aggressive\ --indent-size=2\ %
-"another approarch, works like garbage: autocmd FileType py setlocal equalprg=autopep8\ --aggressive\ --indent-size=2\ %
-autocmd BufNewFile,BufRead *.sh,*.bashrc set formatprg=shfmt\ -i\ 2\ %
-autocmd BufNewFile,BufRead *.json set formatprg=python\ -m\ json.tool
+" mm - set mark m. gg - move the cursor to the beginning of the file
+" gq - format paragraph. G - end of the file. `m - move to the mark m
+"noremap <c-s> :w <return> mmggVGgq`m :w <return>
+nnoremap <C-s> :w<CR>
+
+
+augroup formatting
+
+    autocmd BufWrite * :Autoformat
+
+augroup END
 
 " ]]]
 
@@ -99,46 +109,125 @@ autocmd BufNewFile,BufRead *.json set formatprg=python\ -m\ json.tool
 " [[[
 
 let NERDTreeMinimalUI=1 " remove press help message from the top
+let NERDTreeWinPos="left" " position
+let NERDTreeWinSize=25
+let NERDTreeDirArrowExpandable="" " arrow folded
+let NERDTreeDirArrowCollapsible="" " arrow expandedd
 
-" if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" open the existing NERDTree on each new tab.
-autocmd BufWinEnter * silent NERDTreeMirror
+augroup nerdtree
+
+    "autocmd VimEnter * NERDTree
+    " if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+                \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+    " open the existing NERDTree on each new tab.
+    autocmd BufWinEnter * silent NERDTreeMirror
+
+augroup END
+" ]]]
+
+" tagbar
+" https://github.com/preservim/tagbar
+" [[[
+
+let g:tagbar_autoshowtag = 1 " Make panel vertical and place on the right
+let g:tagbar_position = 'botright vertical' " Mapping to open and close the panel
+let g:tagbar_autoclose=0 " do not autoclose when jumping to tags
+let g:tagbar_autofocus=0 " do not autofocus tagbar window
 
 " ]]]
 
+" buffer
+" https://github.com/jeetsukumaran/vim-buffergator
+" [[[
+
+let g:miniBufExplVSplit=0   " if value, then it is width, if 0 - split horizontally
+let g:miniBufExplBRSplit=0   " Put new window on the top
+let g:miniBufExplorerAutoStart=0 " autostart
+let g:miniBufExplBuffersNeeded=1 " start as soon as normal buffer is available
+let g:miniBufExplSplitToEdge=1 " force splitting at edge of the screen
+
+noremap <c-PageUp> :bprev <cr>
+noremap <c-PageDown> :bnext <cr>
+
+" resize buffergator according to the number of buffers
+"augroup buffergator
+
+"    autocmd BufAdd,BufDelete,BufWrite,BufHidden * execute('2res' . len(split(execute('ls'), "[\n\r]")))
+
+"augroup END
+" ]]]
+
+
 " layout
 " https://github.com/paroxayte/vwm.vim
-" [[[ 
+" [[[
 
-let g:buffergator_viewport_split_policy="b" " buffregator variable: do no split, use current window
-let s:custom_layout = {
-      \  'name': 'custom_layout',
-      \  'left':
-      \  {
-      \    'v_sz': 33,
-      \    'top':
-      \    {
-      \      'h_sz': 10,
-      \      'init': ['BuffergatorOpen']
-      \    },
-      \    'init': ['NERDTree','TlistOpen']
-      \  }
-      \} 
-if !exists('g:vwm#layouts')
-  let g:vwm#layouts = [s:custom_layout]
-endif
+"let g:vwm#eager_render=1 " redraw after layout opening. may increase the smoothness of layout population
+"if !exists('g:vwm#layouts')
+"    let g:vwm#layouts = [{
+"                \  'name': 'custom_layout',
+"                \  'left': {
+"                    \    'v_sz': 25,
+"                    \    'init': ['NERDTree'],
+"                    \    'top': {
+"                        \      'h_sz': 0,
+"                        \      'init': ["MBEOpen"],
+"                        \    }
+"                        \  },
+"                        \  'right': {
+"                            \    'v_sz': 25,
+"                            \    'init': ['TagbarOpen','wincmd p']
+"                            \  }
+"                            \}]
+"endif
+"command Layout execute('VwmOpen custom_layout')
 
-autocmd VimEnter * VwmOpen custom_layout 
-autocmd VimEnter * wincmd p
+"augroup layout
+
+"    autocmd VimEnter * VwmOpen custom_layout
+
+"augroup END
+
+" ]]]
+
+" ctrlsg - search
+" https://github.com/dyng/ctrlsf.vim
+" [[[
+
+" Use the ack tool as the backend
+let g:ctrlsf_backend = 'ack' " Auto close the results panel when opening a file
+let g:ctrlsf_auto_close = { "normal":0, "compact":0 } " Immediately switch focus to the search window
+let g:ctrlsf_auto_focus = { "at":"start" } " Don't open the preview window automatically
+let g:ctrlsf_auto_preview = 0 " Use the smart case sensitivity search scheme
+let g:ctrlsf_case_sensitive = 'smart' " Normal mode, not compact mode
+let g:ctrlsf_default_view = 'normal' " Use absoulte search by default
+let g:ctrlsf_regex_pattern = 0 " Position of the search window
+let g:ctrlsf_position = 'right' " Width or height of search window
+let g:ctrlsf_winsize = '46' " Search from the current working directory
+let g:ctrlsf_default_root = 'cwd'
+
+"It is also strongly recommended that you set up some mappings that enable you to search quickly:
+
+" (Ctrl+F) Open search prompt (Normal Mode)
+nmap <C-F>f <Plug>CtrlSFPrompt " (Ctrl-F + f) Open search prompt with selection (Visual Mode)
+xmap <C-F>f <Plug>CtrlSFVwordPath " (Ctrl-F + F) Perform search with selection (Visual Mode)
+xmap <C-F>F <Plug>CtrlSFVwordExec " (Ctrl-F + n) Open search prompt with current word (Normal Mode)
+nmap <C-F>n <Plug>CtrlSFCwordPath " (Ctrl-F + o )Open CtrlSF window (Normal Mode)
+nnoremap <C-F>o :CtrlSFOpen<CR> " (Ctrl-F + t) Toggle CtrlSF window (Normal Mode)
+nnoremap <C-F>t :CtrlSFToggle<CR> " (Ctrl-F + t) Toggle CtrlSF window (Insert Mode)
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 " ]]]
 
 " commands
 " [[[
 
+" shellcheck
 command Sh !shellcheck %
+" source stuff
+command Svim :w | source ${HOME}/.vimrc
+command Stags helptags ALL
 
 " ]]]
 
