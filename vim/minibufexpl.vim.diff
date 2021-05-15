@@ -1,0 +1,17 @@
+From 893dbbfabf9e9c9d24815e04de6e7ac9747dc34e Mon Sep 17 00:00:00 2001
+From: borinskikh <causelesscause@gmail.com>
+Date: Sun, 16 May 2021 00:00:00 +0300
+Subject: [PATCH] fixed minibufexpl.vim splitting a little bit
+
+---
+   plugin/minibufexpl.vim | 792 ++++++++++++++++++++---------------------
+1 file changed, 396 insertions(+), 396 deletions(-)
+
+   @@ -987,7 +987,7 @@ function! <SID>CreateWindow(bufName, vSplit, brSplit, forceEdge, isPluginWindow,
+         if a:vSplit == 0
+         silent exec 'noautocmd '.l:spCmd.' '.a:bufName
+         else
+         -      silent exec 'noautocmd vert '.l:spCmd.' '.a:bufName
+         +      silent exec 'noautocmd '.l:spCmd.' '.a:bufName
+         endif
+         endif

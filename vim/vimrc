@@ -1,5 +1,4 @@
-" general stuff
-
+" set: general stuff {{{
 
 set packpath=${HOME}/dot-files/vim "path to plugins
 set notitle " do not change window title while editing
@@ -8,10 +7,9 @@ set cursorline " highlights a line the cursor in on. alternative - nocursorline
 set sidescroll=1 " changes horizontal scroll to 1 column
 set mouse=a " enable mouse presses: switching focus, resizing, etc
 
-" ]]]
+" }}}
 
-" color
-" [[[
+" set: color {{{
 
 if !exists("g:syntax_on")
     syntax enable " enable syntax highlighting. If block is needed to not override
@@ -20,10 +18,9 @@ colorscheme theme_vim " colorscheme
 let g:colors_name='theme_vim' " colorscheme
 set showmatch " matching parenthesis
 
-" ]]]
+" }}}
 
-" indent and spaces
-" [[[
+" set: indentation and spaces {{{
 
 set tabstop=4 " tab = n spaces
 set softtabstop=4 " when removing expanded tabs, remove n spaces
@@ -31,21 +28,20 @@ set shiftwidth=4 " no idea
 set textwidth=72 " pep8 standard
 set autoindent " allows you to indent each line the same as the previous one
 set expandtab " replaces tabs with spaces
-set nowrap " do not wrap lines
+set wrap " do not wrap lines
+set foldmethod=syntax " fold stuff
 
-" ]]]
+" }}}
 
-" search
-" [[[
+" set: search {{{
 
 set ignorecase " ignore case when searching
 set incsearch " search as characters are entered
 set hlsearch " highlight all matches
 
-" ]]]
+" }}}
 
-" status and command lines
-" [[[
+" set: status and command lines {{{
 
 set showcmd " show command line
 set laststatus=2 " command line is always enabled
@@ -57,21 +53,21 @@ set statusline+=\ \[%F]         " path to the file
 set statusline+=\ \[%l+%c/%L]   " current column + line / amount of lines
 set statusline+=\ \[%b]         " ASCII of the symbol under the cursor
 
-" ]]]
+" }}}
 
-" backup. The // means that the directory information will be saved in the filename
-" [[[
+" set: backup {{{
+" The // means that the directory information will be saved in the filename
 
 set backupdir=/tmp// " a backup file — the version of the file before your edited it
 set directory=/tmp// " a swap file, containing the unsaved changes.
 set undodir=/tmp// " an undo file, containing the undo trees of the file edited
 set undofile " turn on undo files. It's needed to undo changes past writing into the file
 
-" ]]]
+"  }}}
 
-" bindings
+
+" remap: bindings {{{
 " noremap instead of map since it's not recursive and in general better practice
-" [[[
 
 " copy and to the clipboard instead of the usual vim buffer
 " for windows the * register is needed
@@ -84,17 +80,51 @@ noremap p p=`]
 vnoremap > >gv
 vnoremap < <gv
 
-" ]]]
+" }}}
 
-" formatting
+" commands {{{
+
+" minibufferxpl has static size, it fixes it
+function Resize_minibufferxpl_window()
+
+    execute("1res" . len(split(execute("ls"), "[\n\r]")))
+
+endfunction
+
+" layout
+function Start_layout()
+
+    NERDTree
+    MBEOpenAll!
+    MBEToggleMRUAll
+    call Resize_minibufferxpl_window()
+    TagbarOpen
+    vertical resize 25
+    wincmd h
+
+    augroup resize_minibufferxpl
+        autocmd BufAdd,BufDelete,BufHidden * call Resize_minibufferxpl_window()
+    augroup END
+
+endfunction
+
+" open layout
+command SL call Start_layout()
+" shellcheck
+command Sh !shellcheck %
+" source stuff
+command Svim write | source ${HOME}/.vimrc
+command Stags helptags ALL
+
+" }}}
+
+" formatting {{{
 " https://github.com/chiel92/vim-autoformat
-" [[[
 
 " mm - set mark m. gg - move the cursor to the beginning of the file
 " gq - format paragraph. G - end of the file. `m - move to the mark m
 "noremap <c-s> :w <return> mmggVGgq`m :w <return>
 nnoremap <C-s> :w<CR>
-
 
 augroup formatting
 
@@ -102,98 +132,66 @@ augroup formatting
 
 augroup END
 
-" ]]]
+" }}}
 
-" NERDTree
+" NERDTree {{{
 " https://github.com/preservim/nerdtree
-" [[[
 
 let NERDTreeMinimalUI=1 " remove press help message from the top
 let NERDTreeWinPos="left" " position
-let NERDTreeWinSize=25
+let NERDTreeWinSize=25 " width
 let NERDTreeDirArrowExpandable="" " arrow folded
-let NERDTreeDirArrowCollapsible="" " arrow expandedd
+let NERDTreeDirArrowCollapsible="" " arrow expanded
 
-augroup nerdtree
+" }}}
 
-    "autocmd VimEnter * NERDTree
-    " if another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-                \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-    " open the existing NERDTree on each new tab.
-    autocmd BufWinEnter * silent NERDTreeMirror
+" buffer management {{{
+" https://github.com/fholgado/minibufexpl.vim
 
-augroup END
-" ]]]
 
-" tagbar
-" https://github.com/preservim/tagbar
-" [[[
+let g:miniBufExplVSplit = 25   " if value, then it is width, if 0 - split horizontally
+let g:miniBufExplBRSplit = 0   " Put new window on the top
+let g:miniBufExplorerAutoStart = 0 " do not autostart
+let g:miniBufExplBuffersNeeded = 0 " do not wait for normal buffer
+let g:miniBufExplSplitToEdge = 0 " force splitting at edge of the screen
+let g:miniBufExplCycleArround = 1 " cycle when you reach the end
+let g:did_minibufexplorer_syntax_inits = 1 " custom colors
 
-let g:tagbar_autoshowtag = 1 " Make panel vertical and place on the right
-let g:tagbar_position = 'botright vertical' " Mapping to open and close the panel
-let g:tagbar_autoclose=0 " do not autoclose when jumping to tags
-let g:tagbar_autofocus=0 " do not autofocus tagbar window
 
-" ]]]
-
-" buffer
-" https://github.com/jeetsukumaran/vim-buffergator
-" [[[
-
-let g:miniBufExplVSplit=0   " if value, then it is width, if 0 - split horizontally
-let g:miniBufExplBRSplit=0   " Put new window on the top
-let g:miniBufExplorerAutoStart=0 " autostart
-let g:miniBufExplBuffersNeeded=1 " start as soon as normal buffer is available
-let g:miniBufExplSplitToEdge=1 " force splitting at edge of the screen
+" buffers that have NOT CHANGED and are NOT VISIBLE
+hi MBENormal                ctermfg=15   ctermbg=0
+" buffers that have CHANGED and are NOT VISIBLE
+hi MBEChanged               ctermfg=15   ctermbg=0
+" buffers that have NOT CHANGED and are VISIBLE
+hi MBEVisibleNormal         ctermfg=15   ctermbg=0
+" buffers that have CHANGED and are VISIBLE
+hi MBEVisibleChanged        ctermfg=15   ctermbg=0
+" buffers that have NOT CHANGED and are VISIBLE and is the active buffer
+hi MBEVisibleActiveNormal   ctermfg=4   ctermbg=0
+" buffers that have CHANGED and are VISIBLE and is the active buffer
+hi MBEVisibleActiveChanged  ctermfg=4   ctermbg=0
 
 noremap <c-PageUp> :bprev <cr>
 noremap <c-PageDown> :bnext <cr>
 
-" resize buffergator according to the number of buffers
-"augroup buffergator
+" }}}
 
-"    autocmd BufAdd,BufDelete,BufWrite,BufHidden * execute('2res' . len(split(execute('ls'), "[\n\r]")))
+" tagbar {{{
+" https://github.com/preservim/tagbar
 
-"augroup END
-" ]]]
+let g:tagbar_autoshowtag = 1 " Make panel vertical and place on the right
+let g:tagbar_position = 'botright vertical' " Mapping to open and close the panel
+let g:tagbar_autoclose = 0 " do not autoclose when jumping to tags
+let g:tagbar_autofocus = 1 " do not autofocus tagbar window
+let g:tagbar_width=25 " width
+let g:tagbar_compact = 1 " don't show the help on the top or the blank lines
+let g:tagbar_indent = 0 " level of indentation
+let g:tagbar_show_tag_count = 1 " show tags next to group names
 
+" }}}
 
-" layout
-" https://github.com/paroxayte/vwm.vim
-" [[[
-
-"let g:vwm#eager_render=1 " redraw after layout opening. may increase the smoothness of layout population
-"if !exists('g:vwm#layouts')
-"    let g:vwm#layouts = [{
-"                \  'name': 'custom_layout',
-"                \  'left': {
-"                    \    'v_sz': 25,
-"                    \    'init': ['NERDTree'],
-"                    \    'top': {
-"                        \      'h_sz': 0,
-"                        \      'init': ["MBEOpen"],
-"                        \    }
-"                        \  },
-"                        \  'right': {
-"                            \    'v_sz': 25,
-"                            \    'init': ['TagbarOpen','wincmd p']
-"                            \  }
-"                            \}]
-"endif
-"command Layout execute('VwmOpen custom_layout')
-
-"augroup layout
-
-"    autocmd VimEnter * VwmOpen custom_layout
-
-"augroup END
-
-" ]]]
-
-" ctrlsg - search
+" ctrlsg - search {{{
 " https://github.com/dyng/ctrlsf.vim
-" [[[
 
 " Use the ack tool as the backend
 let g:ctrlsf_backend = 'ack' " Auto close the results panel when opening a file
@@ -218,16 +216,4 @@ nnoremap <C-F>o :CtrlSFOpen<CR> " (Ctrl-F + t) Toggle CtrlSF window (Normal Mode
 nnoremap <C-F>t :CtrlSFToggle<CR> " (Ctrl-F + t) Toggle CtrlSF window (Insert Mode)
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
-" ]]]
-
-" commands
-" [[[
-
-" shellcheck
-command Sh !shellcheck %
-" source stuff
-command Svim :w | source ${HOME}/.vimrc
-command Stags helptags ALL
-
-" ]]]
-
+" }}}

@@ -1,8 +1,10 @@
 hi clear
+
 if exists("syntax_on")
     syntax reset
 endif
 
+" general colors {{{
 hi Normal           ctermfg=15      ctermbg=0
 hi CursorLine                       ctermbg=0       cterm=none
 hi CursorLineNr     ctermfg=4                       cterm=none
@@ -35,14 +37,16 @@ hi Title            ctermfg=203
 hi Visual           ctermfg=15                      ctermbg=4
 
 hi Comment          ctermfg=15
+hi Folded           ctermfg=7       ctermbg=0
 hi LineNr           ctermfg=15      ctermbg=0
 hi NonText          ctermfg=239
 hi SpecialKey       ctermfg=239
 
-hi StatusLine       ctermfg=0      ctermbg=15
-hi StatusLineNC     ctermfg=0      ctermbg=15
-hi VertSplit        ctermfg=0      ctermbg=4
+hi StatusLine       ctermfg=0       ctermbg=15
+hi StatusLineNC     ctermfg=0       ctermbg=0
+hi VertSplit        ctermfg=0       ctermbg=4
 
+" }}}
 
 " Must be at the end, because of ctermbg=234 bug.
 " https://groups.google.com/forum/#!msg/vim_dev/afPqwAFNdrU/nqh6tOM87QUJ

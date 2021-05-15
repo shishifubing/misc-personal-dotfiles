@@ -19,3 +19,12 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-autoformat"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-autoformat
 	url = https://github.com/chiel92/vim-autoformat.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vwm.vim"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vwm.vim
+	url = https://github.com/paroxayte/vwm.vim.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/minibufexpl.vim
+	url = https://github.com/fholgado/minibufexpl.vim.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-airline"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git

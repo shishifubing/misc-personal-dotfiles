@@ -2,6 +2,13 @@
 
 # random stuff
 
+# grep
+g() {
+
+    grep --color=auto "${@}"
+
+}
+
 # st in tabbed
 stt() {
 

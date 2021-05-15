@@ -29,6 +29,6 @@ gd() {
 # git
 git_get_diff() {
 
-    git format-patch --stdout HEAD^ >"${1}.diff"
+    git format-patch --stdout HEAD^
 
 }
