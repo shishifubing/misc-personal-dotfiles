@@ -6,16 +6,17 @@ set number " line nubmber
 set cursorline " highlights a line the cursor in on. alternative - nocursorline
 set sidescroll=1 " changes horizontal scroll to 1 column
 set mouse=a " enable mouse presses: switching focus, resizing, etc
+let mapleader = "," " <LEADER>
 
 " }}}
 
 " set: color {{{
 
 if !exists("g:syntax_on")
-    syntax enable " enable syntax highlighting. If block is needed to not override
+    syntax enable " enable syntax highlighting
 endif
 colorscheme theme_vim " colorscheme
-let g:colors_name='theme_vim' " colorscheme
+let g:colors_name = 'theme_vim' " colorscheme
 set showmatch " matching parenthesis
 
 " }}}
@@ -47,8 +48,8 @@ set showcmd " show command line
 set laststatus=2 " command line is always enabled
 
 set statusline=                 " reset status line
-set statusline+=%R%H%W%Y        " flags: readonly, help, preview, filetype
-set statusline+=\ \[%n]         " buffer number
+set statusline+=[%n]            " buffer number
+set statusline+=\ \%R%H%W%Y     " flags: readonly, help, preview, filetype
 set statusline+=\ \[%F]         " path to the file
 set statusline+=\ \[%l+%c/%L]   " current column + line / amount of lines
 set statusline+=\ \[%b]         " ASCII of the symbol under the cursor
@@ -66,7 +67,7 @@ set undofile " turn on undo files. It's needed to undo changes past writing into
 "  }}}
 
 
-" remap: bindings {{{
+" remap: general bindings {{{
 " noremap instead of map since it's not recursive and in general better practice
 
 " copy and to the clipboard instead of the usual vim buffer
@@ -79,10 +80,19 @@ noremap p p=`]
 " you can use . (dot) to repeat the last indent
 vnoremap > >gv
 vnoremap < <gv
+" move between windows
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-H> <C-W>h
+noremap <C-L> <C-W>l
+" save file
+noremap <C-S> :w<CR>
+" move between buffers. <C-U> clears command line
+nnoremap <LEADER>b :<C-U>execute v:count ? 'buffer' . v:count : 'bnext'<CR>
 
 " }}}
 
-" commands {{{
+" commands, functions, augroups {{{
 
 " minibufferxpl has static size, it fixes it
 function Resize_minibufferxpl_window()
@@ -102,46 +112,46 @@ function Start_layout()
     vertical resize 25
     wincmd h
 
-    augroup resize_minibufferxpl
-        autocmd BufAdd,BufDelete,BufHidden * call Resize_minibufferxpl_window()
+    augroup _resize_minibufferxpl
+        autocmd!
+        autocmd! BufAdd,BufDelete,BufHidden * call Resize_minibufferxpl_window()
     augroup END
 
 endfunction
 
 " open layout
-command SL call Start_layout()
+nnoremap <LEADER>L :call Start_layout()<CR>
 " shellcheck
 command Sh !shellcheck %
 " source stuff
-command Svim write | source ${HOME}/.vimrc
+command Svimrc source ${MYVIMRC} | redraw
 command Stags helptags ALL
+
+augroup _formatting
+
+    autocmd!
+    autocmd! BufWritePost * Autoformat
+    autocmd! BufWritePost theme_vim.vim,${MYVIMRC},${HOME}/dot-files/vim/vimrc Svimrc
+
+augroup END
+
 
 " }}}
 
 " formatting {{{
 " https://github.com/chiel92/vim-autoformat
 
-" mm - set mark m. gg - move the cursor to the beginning of the file
-" gq - format paragraph. G - end of the file. `m - move to the mark m
-"noremap <c-s> :w <return> mmggVGgq`m :w <return>
-nnoremap <C-s> :w<CR>
-
-augroup formatting
-
-    autocmd BufWrite * :Autoformat
-
-augroup END
 
 " }}}
 
 " NERDTree {{{
 " https://github.com/preservim/nerdtree
 
-let NERDTreeMinimalUI=1 " remove press help message from the top
-let NERDTreeWinPos="left" " position
-let NERDTreeWinSize=25 " width
-let NERDTreeDirArrowExpandable="" " arrow folded
-let NERDTreeDirArrowCollapsible="" " arrow expanded
+let NERDTreeMinimalUI = 1 " remove press help message from the top
+let NERDTreeWinPos = "left" " position
+let NERDTreeWinSize = 25 " width
+let NERDTreeDirArrowExpandable = "" " arrow folded
+let NERDTreeDirArrowCollapsible = "" " arrow expanded
 
 " }}}
 
@@ -158,22 +168,6 @@ let g:miniBufExplCycleArround = 1 " cycle when you reach the end
 let g:did_minibufexplorer_syntax_inits = 1 " custom colors
 
 
-" buffers that have NOT CHANGED and are NOT VISIBLE
-hi MBENormal                ctermfg=15   ctermbg=0
-" buffers that have CHANGED and are NOT VISIBLE
-hi MBEChanged               ctermfg=15   ctermbg=0
-" buffers that have NOT CHANGED and are VISIBLE
-hi MBEVisibleNormal         ctermfg=15   ctermbg=0
-" buffers that have CHANGED and are VISIBLE
-hi MBEVisibleChanged        ctermfg=15   ctermbg=0
-" buffers that have NOT CHANGED and are VISIBLE and is the active buffer
-hi MBEVisibleActiveNormal   ctermfg=4   ctermbg=0
-" buffers that have CHANGED and are VISIBLE and is the active buffer
-hi MBEVisibleActiveChanged  ctermfg=4   ctermbg=0
-
-noremap <c-PageUp> :bprev <cr>
-noremap <c-PageDown> :bnext <cr>
-
 " }}}
 
 " tagbar {{{
@@ -187,6 +181,13 @@ let g:tagbar_width=25 " width
 let g:tagbar_compact = 1 " don't show the help on the top or the blank lines
 let g:tagbar_indent = 0 " level of indentation
 let g:tagbar_show_tag_count = 1 " show tags next to group names
+
+" }}}
+
+" supertab {{{
+" https://github.com/ervandew/supertab
+
+
 
 " }}}
 
@@ -205,15 +206,19 @@ let g:ctrlsf_position = 'right' " Width or height of search window
 let g:ctrlsf_winsize = '46' " Search from the current working directory
 let g:ctrlsf_default_root = 'cwd'
 
-"It is also strongly recommended that you set up some mappings that enable you to search quickly:
-
 " (Ctrl+F) Open search prompt (Normal Mode)
-nmap <C-F>f <Plug>CtrlSFPrompt " (Ctrl-F + f) Open search prompt with selection (Visual Mode)
-xmap <C-F>f <Plug>CtrlSFVwordPath " (Ctrl-F + F) Perform search with selection (Visual Mode)
-xmap <C-F>F <Plug>CtrlSFVwordExec " (Ctrl-F + n) Open search prompt with current word (Normal Mode)
-nmap <C-F>n <Plug>CtrlSFCwordPath " (Ctrl-F + o )Open CtrlSF window (Normal Mode)
-nnoremap <C-F>o :CtrlSFOpen<CR> " (Ctrl-F + t) Toggle CtrlSF window (Normal Mode)
-nnoremap <C-F>t :CtrlSFToggle<CR> " (Ctrl-F + t) Toggle CtrlSF window (Insert Mode)
+nmap <C-F>f <Plug>CtrlSFPrompt
+" (Ctrl-F + f) Open search prompt with selection (Visual Mode)
+xmap <C-F>f <Plug>CtrlSFVwordPath
+" (Ctrl-F + F) Perform search with selection (Visual Mode)
+xmap <C-F>F <Plug>CtrlSFVwordExec
+" (Ctrl-F + n) Open search prompt with current word (Normal Mode)
+nmap <C-F>n <Plug>CtrlSFCwordPath
+" (Ctrl-F + o )Open CtrlSF window (Normal Mode)
+nnoremap <C-F>o :CtrlSFOpen<CR>
+" (Ctrl-F + t) Toggle CtrlSF window (Normal Mode)
+nnoremap <C-F>t :CtrlSFToggle<CR>
+" (Ctrl-F + t) Toggle CtrlSF window (Insert Mode)
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 " }}}

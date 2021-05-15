@@ -3,7 +3,9 @@
 # source file
 source_scripts() {
 
-    for file in "${@}"; do [[ -f "${file}" ]] && . "${file}"; done
+    for file in "${@}"; do
+        [[ -f "${file}" ]] && . "${file}"
+    done
 
 }
 # sourcescripts in a directory
@@ -31,8 +33,12 @@ sb() {
 # already enabled in /etc/bash.bashrc and/or /etc/profile
 source_programmable_completion_features() {
 
-    source_scripts "/usr/share/bash-completion/bash_completion" "/etc/bash_completion"
+    local scripts=(
+        "/usr/share/bash-completion/bash_completion"
+        "/etc/bash_completion"
+    )
 
+    source_scripts "${scripts[@]}"
 }
 
 # source functions
@@ -52,7 +58,12 @@ source_grub() {
 # fzf
 source_fzf_scripts() {
 
-    source_scripts "/usr/share/fzf/key-bindings.bash" "/usr/share/fzf/completion.bash"
+    local scripts=(
+        "/usr/share/fzf/key-bindings.bash"
+        "/usr/share/fzf/completion.bash"
+    )
+
+    source_scripts "${scripts[@]}"
 
 }
 
@@ -81,6 +92,9 @@ source_keymaps() {
 # source keymaps on startup
 source_keymaps_on_start() {
 
-    [[ "${ARE_KEYMAPS_SOURCED}" ]] || source_keymaps 2>/dev/null && export ARE_KEYMAPS_SOURCED="yes"
+    local filename="/tmp/__keymaps__are__sourced__"
+
+    [[ -f "${filename}" ]] ||
+        source_keymaps 2>/dev/null && touch "${filename}"
 
 }

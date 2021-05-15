@@ -95,8 +95,12 @@ db() {
 # vim
 v() {
 
-    vim "${@}"
+    local default=(
+        "${HOME}/dot-files/vim/vimrc"
+        "${HOME}/dot-files/vim/theme_vim"
+    )
 
+    vim "${@:-${default[@]}}"
 }
 
 # unzip tar.gz and tar.xz

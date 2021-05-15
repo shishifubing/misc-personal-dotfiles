@@ -6,10 +6,11 @@
 # enable it
 start_preexec_precmd() {
 
+    unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
     # trap DEBUG is executed before each command
     # even if they are written on the same line
     # including PROMPT_COMMAND
-    trap '[[ -z "${TRAP_DEBUG_TIME_START}" ]] && preexec' DEBUG
+    trap 'preexec' DEBUG
     # PROMPT_COMMAND is executed before each prompt
     export PROMPT_COMMAND='precmd'
 
@@ -17,16 +18,21 @@ start_preexec_precmd() {
 
 # before all commands
 preexec() {
-    export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
-    #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
-    [[ "${__is_not_first_launch}" ]] || {
-        export TRAP_DEBUG_TIME_END=$(date +"%s.%N")
-        local prompt=$(get_shell_prompt_PS1) && prompt=${prompt//"\["/}
-        echo -e "${prompt//"\]"/}start"
-        __is_not_first_launch=true
-    }
-    echo -e "$(get_preexec_message)"
+    [[ "${TRAP_DEBUG_TIME_START}" ]] || {
 
+        export TRAP_DEBUG_TIME_START=$(date +"%s.%N")
+        #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
+
+        [[ "${__is_not_first_launch__}" ]] || {
+            export TRAP_DEBUG_TIME_END=$(date +"%s.%N")
+            local prompt=$(get_shell_prompt_PS1) && prompt=${prompt//"\["/}
+            echo -e "${prompt//"\]"/}start"
+            __is_not_first_launch__=true
+        }
+
+        echo -e "$(get_preexec_message)"
+
+    }
 }
 
 # before the prompt

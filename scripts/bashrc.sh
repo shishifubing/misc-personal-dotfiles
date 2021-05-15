@@ -17,7 +17,7 @@
 
     start_preexec_precmd
     start_xorg_server
-    [[ "${__is_not_first_launch}" ]] || preexec
+    preexec
     get_distribution_info
 
 }
