@@ -40,3 +40,12 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/indentline"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/indentline
 	url = https://github.com/yggdroot/indentline.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-surround"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/nerdcommenter"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-fugitive"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
