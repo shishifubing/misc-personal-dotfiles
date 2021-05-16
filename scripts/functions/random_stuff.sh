@@ -93,14 +93,25 @@ db() {
 }
 
 # vim
+_v() {
+
+    local default=(
+        "${HOME}/dot-files/vim/vimrc"
+        "${HOME}/dot-files/vim/theme_vim.vim"
+    )
+
+    vim "${@:-${default[@]}}"
+}
+
+# neovim
 v() {
 
     local default=(
         "${HOME}/dot-files/vim/vimrc"
-        "${HOME}/dot-files/vim/theme_vim"
+        "${HOME}/dot-files/vim/theme_vim.vim"
     )
 
-    vim "${@:-${default[@]}}"
+    nvim "${@:-${default[@]}}"
 }
 
 # unzip tar.gz and tar.xz

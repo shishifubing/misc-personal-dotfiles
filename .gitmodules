@@ -28,3 +28,9 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-airline"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-shellcheck"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-shellcheck
+	url = https://github.com/itspriddle/vim-shellcheck.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/ale"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/ale
+	url = https://github.com/dense-analysis/ale.git

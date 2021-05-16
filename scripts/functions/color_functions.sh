@@ -10,8 +10,13 @@ get_color() {
     #   5 - blinking, 7 - reverse video
     # terminal color numbers
     #   foreground: 30 - 37; background: 40 - 47
-    [[ "${1}" == "-b" ]] && local with_brackets=true && shift
-    local input=("${@}") length="${#}" output="\[\e[${1}"
+    [[ "${1}" == "-b" ]] && {
+        local with_brackets=true
+        shift
+    }
+    local input=("${@}")
+    local length="${#}"
+    local output="\[\e[${1}"
 
     for ((count = 1; count < length; count++)); do
         output+=";${input[${count}]}"
@@ -36,11 +41,15 @@ get_color_end() {
 # get terminal colors
 get_colors() {
 
-    [[ "${1}" == "-b" ]] && local with_brackets=true && shift
+    [[ "${1}" == "-b" ]] && {
+        local with_brackets=true
+        shift
+    }
     # the range of colors to print
     local block_range=("${1:-0}" "${2:-15}")
     # color block width in spaces
-    local output block_width=$(printf "%${3:-2}s")
+    local output
+    local block_width=$(printf "%${3:-2}s")
 
     # generate the string
     for ((block_range[0]; block_range[0] <= block_range[1]; block_range[0]++)); do

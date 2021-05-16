@@ -26,6 +26,13 @@ gd() {
 
 }
 
+# get current git branch
+get_current_branch() {
+
+    git branch --show-current 2>/dev/null
+
+}
+
 # git
 git_get_diff() {
 

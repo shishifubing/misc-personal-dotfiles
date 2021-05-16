@@ -4,96 +4,110 @@ if exists("syntax_on")
     syntax reset
 endif
 
+" let g:accent_color = #bf3eff
+" let g:accent_color_2 = #9932cc
+" let g:accent_color_3 = #808080
+" let g:background_color = #000000
+" let g:foreground_color =  #ffffff
+
 " general colors {{{
 
 " general text
-hi Normal                   ctermfg=15     ctermbg=0
+hi Normal                   guifg=#ffffff    guibg=#000000
 " visual selecton
-hi Visual                   ctermfg=15     ctermbg=4
+hi Visual                   guifg=#000000    guibg=#ffffff
 " the line the cursor is on
-hi CursorLine                              ctermbg=0      cterm=none
+hi CursorLine                                guibg=#000000
 " line number
-hi LineNr                   ctermfg=15     ctermbg=0
+hi LineNr                   guifg=#ffffff    guibg=#000000
 " line number of the line the cursor is on
-hi CursorLineNr             ctermfg=12                    cterm=none
+hi CursorLineNr             guifg=#ffffff    guibg=#9932cc
 
-" booleans
-hi Boolean                  ctermfg=141
-" characters
-hi Character                ctermfg=222
-" numbers
-hi Number                   ctermfg=141
-" strings
-hi String                   ctermfg=222
-" ifs
-hi Conditional              ctermfg=197                   cterm=bold
-" constants
-hi Constant                 ctermfg=141                   cterm=bold
 
-hi DiffDelete               ctermfg=125     ctermbg=0
-
-hi Directory                ctermfg=154                   cterm=bold
-hi Error                    ctermfg=222     ctermbg=0
-hi Exception                ctermfg=154                   cterm=bold
-hi Float                    ctermfg=141
-hi Function                 ctermfg=154
-hi Identifier               ctermfg=208
-
-hi Keyword                  ctermfg=197                   cterm=bold
-hi Operator                 ctermfg=197
-hi PreCondit                ctermfg=154                   cterm=bold
-hi PreProc                  ctermfg=154
-hi Repeat                   ctermfg=197                   cterm=bold
-
-hi Statement                ctermfg=197                   cterm=bold
-hi Tag                      ctermfg=197
-hi Title                    ctermfg=203
-
-hi Comment                  ctermfg=15     ctermbg=1
+hi Comment                  guifg=#BBBBBB    guibg=#000000
 " folded lines
-hi Folded                   ctermfg=7      ctermbg=0
-hi NonText                  ctermfg=239
-hi SpecialKey               ctermfg=239
+hi Folded                   guifg=#808080    guibg=#000000
+" tilde on non-existing lines
+hi NonText                  guifg=#000000    guibg=#000000
+" errors
+hi Error                    guifg=#ffffff    guibg=#ff0000
+
+" }}}
+
+" windows {{{
 
 " status line of the focused window
-hi StatusLine               ctermfg=0      ctermbg=15
+hi StatusLine               guifg=#000000    guibg=#ffffff
 " status line of non-focused windows
-hi StatusLineNC             ctermfg=0      ctermbg=0
+hi StatusLineNC             guifg=#000000    guibg=#000000
 " vertical window separators
-hi VertSplit                ctermfg=0      ctermbg=12
+hi VertSplit                guifg=#000000    guibg=#000000
 
 " }}}
 
 " popups {{{
 
 " general
-hi Pmenu                    ctermfg=15     ctermbg=0
+hi Pmenu                    guifg=#ffffff    guibg=#000000
 " selection
-hi PmenuSel                 ctermfg=15     ctermbg=12
+hi PmenuSel                 guifg=#ffffff    guibg=#bf3eff
 " scrollbar
-hi PmenuSbar                ctermfg=15     ctermbg=0
+hi PmenuSbar                guifg=#ffffff    guibg=#000000
 " thumb of scrollbar
-hi PmenuThumb               ctermfg=15     ctermbg=12
+hi PmenuThumb               guifg=#ffffff    guibg=#bf3eff
 
 " }}}
 
-" MiniBufExplorer {{{{
+" MiniBufExplorer {{{
 
 " buffers that have NOT CHANGED and are NOT VISIBLE
-hi MBENormal                ctermfg=15     ctermbg=0
+hi MBENormal                guifg=#ffffff    guibg=#000000
 " buffers that have CHANGED and are NOT VISIBLE
-hi MBEChanged               ctermfg=15     ctermbg=0
+hi MBEChanged               guifg=#ffffff    guibg=#000000
 " buffers that have NOT CHANGED and are VISIBLE
-hi MBEVisibleNormal         ctermfg=15     ctermbg=0
+hi MBEVisibleNormal         guifg=#ffffff    guibg=#000000
 " buffers that have CHANGED and are VISIBLE
-hi MBEVisibleChanged        ctermfg=15     ctermbg=0
-" buffers that have NOT CHANGED and are VISIBLE and is the active buffer
-hi MBEVisibleActiveNormal   ctermfg=4      ctermbg=0
-" buffers that have CHANGED and are VISIBLE and is the active buffer
-hi MBEVisibleActiveChanged  ctermfg=4      ctermbg=0
+hi MBEVisibleChanged        guifg=#ffffff    guibg=#000000
+" active buffer that was NOT CHANGED and is VISIBLE
+hi MBEVisibleActiveNormal   guifg=#bf3eff    guibg=#000000
+" active buffer that was CHANGED and is VISIBLE
+hi MBEVisibleActiveChanged  guifg=#bf3eff    guibg=#000000
 
-" }}}}
+" }}}
 
-" Must be at the end, because of ctermbg=234 bug.
-" https://groups.google.com/forum/#!msg/vim_dev/afPqwAFNdrU/nqh6tOM87QUJ
-set background=dark
+" ale {{{
+
+" line without errors
+hi SignColor                   guifg=#000000    guibg=#000000
+hi ALESignColumnWithErrors guifg=#000000    guibg=#000000
+hi ALESignColumnWithoutErrors guifg=#000000    guibg=#000000
+
+
+" items with `'type': 'E'`
+hi ALEError guifg=none guibg=none
+hi ALEErrorSign guifg=#ff0000 guibg=#000000
+" items with `'type': 'E'` and `'sub_type': 'style'`
+hi ALEStyleError guifg=none guibg=none 
+hi ALEStyleErrorSign guifg=#ff0000 guibg=#000000
+" items with `'type': 'W'`
+hi ALEWarning guifg=none guibg=none
+hi ALEWarningSign guifg=#ffff00 guibg=#000000
+" items with `'type': 'W'` and `'sub_type': 'style'`
+hi ALEStyleWarning guifg=none guibg=none 
+hi ALEStyleWarningSign guifg=#ffff00 guibg=#000000
+" items with `'type': 'I'`
+hi ALEInfo    guifg=none guibg=none
+hi ALEInfoSign          guifg=#DDDDDD guibg=#000000
+
+" when g:ale_set_signs is set to `0`, the following highlights for entire
+" lines will be set.
+
+"" all items with `'type': 'E'`
+"hi ALEErrorLine guifg=#ffffff guibg=#ff0000
+"" all items with `'type': 'W'`
+"hi ALEWarningLine guifg=#ffffff guibg=#ff0000
+"" all items with `'type': 'I'`
+"hi ALEInfoLine guifg=#ffffff guibg=#ff0000
+
+" }}}
+

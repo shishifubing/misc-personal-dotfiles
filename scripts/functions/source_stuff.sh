@@ -94,7 +94,6 @@ source_keymaps_on_start() {
 
     local filename="/tmp/__keymaps__are__sourced__"
 
-    [[ -f "${filename}" ]] ||
-        source_keymaps 2>/dev/null && touch "${filename}"
+    [[ -f "${filename}" ]] || source_keymaps 2>/dev/null && touch "${filename}"
 
 }

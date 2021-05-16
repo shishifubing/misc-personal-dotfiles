@@ -76,13 +76,6 @@ set_window_title() {
 
 }
 
-# get current git branch
-get_current_branch() {
-
-    git branch --show-current 2>/dev/null
-
-}
-
 # get name of the process by PID
 get_name_of_the_process() {
 

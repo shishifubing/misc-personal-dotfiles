@@ -10,6 +10,9 @@ vim_install_module() {
         git submodule add --force "${module}" "${location}"
     done
 
+    # generate new help tags
+    vim -u NONE -c "helptags ALL" -c q
+
 }
 
 vim_delete_module() {

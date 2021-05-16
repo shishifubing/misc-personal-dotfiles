@@ -66,6 +66,8 @@ export_variables_colors() {
 # other variables
 export_variables_others() {
 
+    # location of dot-files
+    export DOT_FILES="${HOME}/dot-files"
     # when multiple lines
     export PS2="${GC_32_}▶   ${GC_37_}"
     # all locales are overwritten

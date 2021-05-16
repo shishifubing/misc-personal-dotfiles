@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-[[ "${-}" == *"i"* ]] && . "${HOME}/dot-files/scripts/functions/source_stuff.sh" && {
+[[ "${-}" == *"i"* ]] && 
+    . "${HOME}/dot-files/scripts/functions/source_stuff.sh" && {
 
     source_functions
     source_programmable_completion_features

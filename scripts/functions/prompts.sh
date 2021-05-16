@@ -9,7 +9,7 @@ get_preexec_message() {
 
     #output+="${GC_32}] ${GC_END}"
     #output+="${GC_30}$(get_shell_separator_line ☰)${GC_END}\n"
-    output+="${GC_32}] ${GC_END}${GC_33}${message}${GC_END}${GC_37} [\n"
+    output+="${GC_32}] ${GC_END}${GC_33}${message}${GC_END}${GC_32} [${GC_37}\n"
 
     echo "${output}"
 
@@ -21,7 +21,7 @@ get_precmd_message() {
     local output message=$(date +"[%A] [%B] [%Y-%m-%d] [%H:%M:%S:${TRAP_DEBUG_TIME_END/*./}]")
 
     #output+="\n"
-    output+="\n] ${GC_33}${message}${GC_END}\n"
+    output+="\n${GC_32}] ${GC_33}${message}${GC_END}\n"
     output+="${GC_30}$(get_shell_separator_line ☰)${GC_END}"
 
     echo "${output}"

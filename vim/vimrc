@@ -1,68 +1,107 @@
 " set: general stuff {{{
 
-set packpath=${HOME}/dot-files/vim "path to plugins
-set notitle " do not change window title while editing
-set number " line nubmber
-set cursorline " highlights a line the cursor in on. alternative - nocursorline
-set sidescroll=1 " changes horizontal scroll to 1 column
-set mouse=a " enable mouse presses: switching focus, resizing, etc
-let mapleader = "," " <LEADER>
+" path to plugins
+set packpath=${HOME}/dot-files/vim
+" do not change window title while editing
+set notitle
+" line nubmber
+set nonumber
+" do not highlight the line the cursor in on
+set nocursorline
+" changes horizontal scroll to 1 column
+set sidescroll=1
+" enable mouse presses: switching focus, resizing, etc
+set mouse=a
+" <LEADER>
+let mapleader = " "
 
 " }}}
 
 " set: color {{{
 
+" true color in terminal
+set termguicolors
+" dark background
+set background=dark
+" enable syntax highlighting
+" condition is needed to not overide custom colors for plugins
 if !exists("g:syntax_on")
-    syntax enable " enable syntax highlighting
+    syntax enable
 endif
-colorscheme theme_vim " colorscheme
-let g:colors_name = 'theme_vim' " colorscheme
-set showmatch " matching parenthesis
+" colorscheme
+colorscheme theme_vim
+" colorscheme
+let g:colors_name = 'theme_vim'
+" matching parenthesis
+set showmatch
 
 " }}}
 
 " set: indentation and spaces {{{
 
-set tabstop=4 " tab = n spaces
-set softtabstop=4 " when removing expanded tabs, remove n spaces
-set shiftwidth=4 " no idea
-set textwidth=72 " pep8 standard
-set autoindent " allows you to indent each line the same as the previous one
-set expandtab " replaces tabs with spaces
-set wrap " do not wrap lines
-set foldmethod=syntax " fold stuff
+" tab = n spaces
+set tabstop=4
+" when removing expanded tabs, remove n spaces
+set softtabstop=4
+" no idea
+set shiftwidth=4
+" pep8 standard
+set textwidth=72
+" allows you to indent each line the same as the previous one
+set autoindent
+" replaces tabs with spaces
+set expandtab
+" do not wrap lines
+set wrap
+" fold stuff
+set foldmethod=syntax
 
 " }}}
 
 " set: search {{{
 
-set ignorecase " ignore case when searching
-set incsearch " search as characters are entered
-set hlsearch " highlight all matches
+" ignore case when searching
+set ignorecase
+" search as characters are entered
+set incsearch
+" highlight all matches
+set hlsearch
 
 " }}}
 
 " set: status and command lines {{{
 
-set showcmd " show command line
-set laststatus=2 " command line is always enabled
+" show command line
+set showcmd
+" always show status line on all windows
+set laststatus=2
 
-set statusline=                 " reset status line
-set statusline+=[%n]            " buffer number
-set statusline+=\ \%R%H%W%Y     " flags: readonly, help, preview, filetype
-set statusline+=\ \[%F]         " path to the file
-set statusline+=\ \[%l+%c/%L]   " current column + line / amount of lines
-set statusline+=\ \[%b]         " ASCII of the symbol under the cursor
+" reset status line
+set statusline=
+" buffer number
+set statusline+=%#PmenuSel#\ \%n\ \%#Normal#
+" flags: readonly, help, preview, filetype
+set statusline+=\ \%R%H%W%Y
+" path to the file
+set statusline+=\ \[%F]
+" current column + line / amount of lines
+set statusline+=\ \[%l+%c/%L]
+" ASCII of the symbol under the cursor
+set statusline+=\ \[%b]
 
 " }}}
 
 " set: backup {{{
 " The // means that the directory information will be saved in the filename
 
-set backupdir=/tmp// " a backup file — the version of the file before your edited it
-set directory=/tmp// " a swap file, containing the unsaved changes.
-set undodir=/tmp// " an undo file, containing the undo trees of the file edited
-set undofile " turn on undo files. It's needed to undo changes past writing into the file
+" a backup file — the version of the file before your edited it
+set backupdir=/tmp//
+" a swap file, containing the unsaved changes
+set directory=/tmp//
+" an undo file, containing the undo trees of the file edited
+set undodir=/tmp//
+" turn on undo files. It's needed to undo changes past writing into the file
+set undofile
 
 "  }}}
 
@@ -76,6 +115,8 @@ noremap y "+y
 noremap d "+d
 " correctly indent pasted text
 noremap p p=`]
+" paste on next line
+nnoremap P :pu<CR>
 " changes indentation of the selected block
 " you can use . (dot) to repeat the last indent
 vnoremap > >gv
@@ -87,24 +128,110 @@ noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
 " save file
 noremap <C-S> :w<CR>
+" close current window
+nnoremap <LEADER>q :bdelete!<CR>:vertical resize 25<CR>:wincmd p<CR>
 " move between buffers. <C-U> clears command line
-nnoremap <LEADER>b :<C-U>execute v:count ? 'buffer' . v:count : 'bnext'<CR>
-
+nnoremap <LEADER>b :<C-U>execute v:count ? 'buffer!' . v:count : 'bnext!'<CR>
+" open layout
+nnoremap <LEADER>l :call Toggle_layout()<CR>
 " }}}
 
 " commands, functions, augroups {{{
 
-" minibufferxpl has static size, it fixes it
-function Resize_minibufferxpl_window()
+" shellcheck
+command Sh call Check_shellcheck()
+" source stuff
+command Svimrc source ${MYVIMRC} | redraw | echom 'vimrc was sourced'
+command Stags helptags ALL
 
-    execute("1res" . len(split(execute("ls"), "[\n\r]")))
+function! Check_shellcheck()
+
+    let l:command = '0read !shellcheck ' . expand('%:p')
+    new | silent execute l:command
+
+endfunction
+
+function! RedirMessages(msgcmd, destcmd)
+    "
+    " Captures the output generated by executing a:msgcmd, then places this
+    " output in the current buffer.
+    "
+    " If the a:destcmd parameter is not empty, a:destcmd is executed
+    " before the output is put into the buffer. This can be used to open a
+    " new window, new tab, etc., before :put'ing the output into the
+    " destination buffer.
+    " Commands for common cases are defined immediately after the
+    " function; see below.
+    "
+    " Redirect messages to a variable.
+    "
+    redir => message
+
+    " Execute the specified Ex command, capturing any messages
+    " that it generates into the message variable.
+    "
+    silent execute a:msgcmd
+
+    " Turn off redirection.
+    "
+    redir END
+
+    " If a destination-generating command was specified, execute it to
+    " open the destination. (This is usually something like :tabnew or
+    " :new, but can be any Ex command.)
+    "
+    " If no command is provided, output will be placed in the current
+    " buffer.
+    "
+    if strlen(a:destcmd) " destcmd is not an empty string
+        silent execute a:destcmd
+    endif
+
+    " Place the messages in the destination buffer.
+    "
+    silent put=message
+
+    " Create commands to make RedirMessages() easier to use interactively.
+    " Here are some examples of their use:
+    "
+    "   :BufMessage registers
+    "   :WinMessage ls
+    "   :TabMessage echo "Key mappings for Control+A:" | map <C-A>
+    "
+    "command! -nargs=+ -complete=command BufMessage call RedirMessages(<q-args>, ''       )
+    "command! -nargs=+ -complete=command WinMessage call RedirMessages(<q-args>, 'new'    )
+    "command! -nargs=+ -complete=command TabMessage call RedirMessages(<q-args>, 'tabnew' )
+
+endfunction
+
+
+" end redir_messages.vim
+
+" minibufferxpl has static size, it fixes it
+function! Resize_minibufferxpl_window()
+
+    let l:buffer_count = len(split(execute("ls"), "[\n\r]"))
+    execute('1res'. l:buffer_count)
 
 endfunction
 
 " layout
-function Start_layout()
 
-    NERDTree
+function! Toggle_layout()
+
+    if exists('g:_layout_is_open')
+        call Close_layout()
+        unlet g:_layout_is_open
+    else
+        call Start_layout()
+        let g:_layout_is_open = 1
+    endif
+
+endfunction
+
+function! Start_layout()
+
+    NERDTree ${HOME}
     MBEOpenAll!
     MBEToggleMRUAll
     call Resize_minibufferxpl_window()
@@ -119,22 +246,32 @@ function Start_layout()
 
 endfunction
 
-" open layout
-nnoremap <LEADER>L :call Start_layout()<CR>
-" shellcheck
-command Sh !shellcheck %
-" source stuff
-command Svimrc source ${MYVIMRC} | redraw
-command Stags helptags ALL
+function! Close_layout()
+
+    NERDTreeClose
+    MBEToggleMRUAll
+    MBEClose
+    TagbarClose
+    resize
+
+    augroup _resize_minibufferxpl
+        autocmd!
+    augroup END
+
+endfunction
+
 
 augroup _formatting
 
     autocmd!
     autocmd! BufWritePost * Autoformat
-    autocmd! BufWritePost theme_vim.vim,${MYVIMRC},${HOME}/dot-files/vim/vimrc Svimrc
+    autocmd! BufWritePost ${MYVIMRC},${DOT_FILES}/vim/vimrc Svimrc
+    autocmd! BufWritePost ${DOT_FILES}/vim/theme_vim.vim Svimrc
+
+    autocmd! VimEnter * ALEEnable
+
 
 augroup END
-
 
 " }}}
 
@@ -147,11 +284,16 @@ augroup END
 " NERDTree {{{
 " https://github.com/preservim/nerdtree
 
-let NERDTreeMinimalUI = 1 " remove press help message from the top
-let NERDTreeWinPos = "left" " position
-let NERDTreeWinSize = 25 " width
-let NERDTreeDirArrowExpandable = "" " arrow folded
-let NERDTreeDirArrowCollapsible = "" " arrow expanded
+" remove press help message from the top
+let NERDTreeMinimalUI = 1
+" position
+let NERDTreeWinPos = "left"
+" width
+let NERDTreeWinSize = 25
+" arrow folded
+let NERDTreeDirArrowExpandable = ""
+" arrow unfolded
+let NERDTreeDirArrowCollapsible = ""
 
 " }}}
 
@@ -159,13 +301,20 @@ let NERDTreeDirArrowCollapsible = "" " arrow expanded
 " https://github.com/fholgado/minibufexpl.vim
 
 
-let g:miniBufExplVSplit = 25   " if value, then it is width, if 0 - split horizontally
-let g:miniBufExplBRSplit = 0   " Put new window on the top
-let g:miniBufExplorerAutoStart = 0 " do not autostart
-let g:miniBufExplBuffersNeeded = 0 " do not wait for normal buffer
-let g:miniBufExplSplitToEdge = 0 " force splitting at edge of the screen
-let g:miniBufExplCycleArround = 1 " cycle when you reach the end
-let g:did_minibufexplorer_syntax_inits = 1 " custom colors
+" if value, then it is width, if 0 - split horizontally
+let g:miniBufExplVSplit = 25
+" Put new window on the top
+let g:miniBufExplBRSplit = 0
+" do not autostart
+let g:miniBufExplorerAutoStart = 0
+" do not wait for normal buffer
+let g:miniBufExplBuffersNeeded = 0
+" force splitting at edge of the screen
+let g:miniBufExplSplitToEdge = 0
+" cycle when you reach the end
+let g:miniBufExplCycleArround = 1
+" custom colors
+let g:did_minibufexplorer_syntax_inits = 1
 
 
 " }}}
@@ -173,14 +322,22 @@ let g:did_minibufexplorer_syntax_inits = 1 " custom colors
 " tagbar {{{
 " https://github.com/preservim/tagbar
 
-let g:tagbar_autoshowtag = 1 " Make panel vertical and place on the right
-let g:tagbar_position = 'botright vertical' " Mapping to open and close the panel
-let g:tagbar_autoclose = 0 " do not autoclose when jumping to tags
-let g:tagbar_autofocus = 1 " do not autofocus tagbar window
-let g:tagbar_width=25 " width
-let g:tagbar_compact = 1 " don't show the help on the top or the blank lines
-let g:tagbar_indent = 0 " level of indentation
-let g:tagbar_show_tag_count = 1 " show tags next to group names
+" Make panel vertical and place on the right
+let g:tagbar_autoshowtag = 1
+" Mapping to open and close the panel
+let g:tagbar_position = 'botright vertical'
+" do not autoclose when jumping to tags
+let g:tagbar_autoclose = 0
+" do not autofocus tagbar window
+let g:tagbar_autofocus = 1
+" width
+let g:tagbar_width = 25
+" don't show the help on the top or the blank lines
+let g:tagbar_compact = 1
+" level of indentation
+let g:tagbar_indent = 0
+" show tags next to group names
+let g:tagbar_show_tag_count = 1
 
 " }}}
 
@@ -191,19 +348,73 @@ let g:tagbar_show_tag_count = 1 " show tags next to group names
 
 " }}}
 
+" ALE - linting {{{
+" https://github.com/dense-analysis/ale
+
+" when to run linters
+" when you modify a buffer
+let g:ale_lint_on_text_changed = 'always'
+" on leaving insert mode
+let g:ale_lint_on_insert_leave = 1
+" when you open a new or modified buffer
+let g:ale_lint_on_enter = 1
+" when you save a buffer
+let g:ale_lint_on_save = 1
+" when the filetype changes for a buffer
+let g:ale_lint_on_filetype_changed = 1
+
+" show errors
+" by updating loclist (On by default)
+let g:ale_set_loclist = 1
+" by updating quickfix (Off by default)
+let g:ale_set_quickfix = 0
+" by setting error highlights
+let g:ale_set_highlights = 1
+" by creating signs in the sign column
+let g:ale_set_signs = 1
+" by echoing messages based on your cursor
+let g:ale_echo_cursor = 1
+" by inline text based on your cursor
+let g:ale_virtualtext_cursor = 0
+" by displaying the preview based on your cursor
+let g:ale_cursor_detail = 0
+" use floating window
+let g:ale_floating_preview = 1
+" by showing balloons for your mouse cursor
+let g:ale_set_balloons = 1
+" always show sign column
+let g:ale_sign_column_always = 1
+" change colors
+let g:ale_change_sign_column_color = 1
+" do not highlight line numbers
+let g:ale_sign_highlight_linenrs = 0
+" completion
+let g:ale_completion_enabled = 1
+
+" }}}
+
 " ctrlsg - search {{{
 " https://github.com/dyng/ctrlsf.vim
 
 " Use the ack tool as the backend
-let g:ctrlsf_backend = 'ack' " Auto close the results panel when opening a file
-let g:ctrlsf_auto_close = { "normal":0, "compact":0 } " Immediately switch focus to the search window
-let g:ctrlsf_auto_focus = { "at":"start" } " Don't open the preview window automatically
-let g:ctrlsf_auto_preview = 0 " Use the smart case sensitivity search scheme
-let g:ctrlsf_case_sensitive = 'smart' " Normal mode, not compact mode
-let g:ctrlsf_default_view = 'normal' " Use absoulte search by default
-let g:ctrlsf_regex_pattern = 0 " Position of the search window
-let g:ctrlsf_position = 'right' " Width or height of search window
-let g:ctrlsf_winsize = '46' " Search from the current working directory
+let g:ctrlsf_backend = 'ack'
+" Auto close the results panel when opening a file
+let g:ctrlsf_auto_close = { "normal":0, "compact":0 }
+" Immediately switch focus to the search window
+let g:ctrlsf_auto_focus = { "at":"start" }
+" Don't open the preview window automatically
+let g:ctrlsf_auto_preview = 0
+" Use the smart case sensitivity search scheme
+let g:ctrlsf_case_sensitive = 'smart'
+" Normal mode, not compact mode
+let g:ctrlsf_default_view = 'normal'
+" Use absoulte search by default
+let g:ctrlsf_regex_pattern = 0
+" Position of the search window
+let g:ctrlsf_position = 'right'
+" Width or height of search window
+let g:ctrlsf_winsize = '46'
+" Search from the current working directory
 let g:ctrlsf_default_root = 'cwd'
 
 " (Ctrl+F) Open search prompt (Normal Mode)
