@@ -34,3 +34,9 @@
 [submodule "/home/borinskikh/dot-files/vim/pack/modules/start/ale"]
 	path = /home/borinskikh/dot-files/vim/pack/modules/start/ale
 	url = https://github.com/dense-analysis/ale.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/vim-indent-guides"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "/home/borinskikh/dot-files/vim/pack/modules/start/indentline"]
+	path = /home/borinskikh/dot-files/vim/pack/modules/start/indentline
+	url = https://github.com/yggdroot/indentline.git
