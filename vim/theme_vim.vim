@@ -84,20 +84,20 @@ hi ALESignColumnWithoutErrors    guifg=#000000    guibg=#000000
 
 
 " items with `'type': 'E'`
-hi ALEError                      guifg=none       guibg=none
+hi ALEError                      guifg=none       guibg=none       gui=underline
 hi ALEErrorSign                  guifg=#ff0000    guibg=#000000
 " items with `'type': 'E'` and `'sub_type': 'style'`
-hi ALEStyleError                 guifg=none       guibg=none
+hi ALEStyleError                 guifg=none       guibg=none       gui=underline
 hi ALEStyleErrorSign             guifg=#ff0000    guibg=#000000
 " items with `'type': 'W'`
-hi ALEWarning                    guifg=none       guibg=none
-hi ALEWarningSign                guifg=#ffff00    guibg=#000000
+hi ALEWarning                    guifg=none       guibg=none       gui=underline
+hi ALEWarningSign                guifg=#ff0000    guibg=#000000
 " items with `'type': 'W'` and `'sub_type': 'style'`
-hi ALEStyleWarning               guifg=none       guibg=none
-hi ALEStyleWarningSign           guifg=#ffff00    guibg=#000000
+hi ALEStyleWarning               guifg=none       guibg=none       gui=underline
+hi ALEStyleWarningSign           guifg=#ff0000    guibg=#000000
 " items with `'type': 'I'`
-hi ALEInfo                       guifg=none       guibg=none
-hi ALEInfoSign                   guifg=#DDDDDD    guibg=#000000
+hi ALEInfo                       guifg=none       guibg=none       gui=underline
+hi ALEInfoSign                   guifg=#ff0000    guibg=#000000
 
 " when g:ale_set_signs is set to `0`, the following highlights for entire
 " lines will be set.set
