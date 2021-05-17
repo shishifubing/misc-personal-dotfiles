@@ -18,7 +18,6 @@
 
     start_preexec_precmd
     start_xorg_server
-    preexec
     get_distribution_info
 
 }

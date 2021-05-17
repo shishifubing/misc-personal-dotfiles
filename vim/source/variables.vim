@@ -1,31 +1,31 @@
-" set: general stuff {{{
+" general stuff {{{
 
 " path to plugins
 set packpath=${HOME}/dot-files/vim
-" do not change window title while editing
-set notitle
-" do not show line numbers
-set nonumber
-" do not highlight the line the cursor in on
-set nocursorline
+"" do not change window title while editing
+"set notitle
 " changes horizontal scroll to 1 column
 set sidescroll=1
 " enable mouse presses: switching focus, resizing, etc
 set mouse=a
-" <LEADER>
-let mapleader = " "
 " enable loading the plugin files for specific file types
 filetype plugin on
 
 
 " }}}
 
-" set: color {{{
+" colors {{{
 
-" true color in terminal
+" true colors in terminal
 set termguicolors
 " dark background
 set background=dark
+" do not highlight the line the cursor in on
+set nocursorline
+" do not show line numbers
+set nonumber
+" cursor shape
+set guicursor=n-v-c-i:block-Cursor
 " enable syntax highlighting
 " condition is needed to not overide custom colors for plugins
 if !exists("g:syntax_on")
@@ -33,14 +33,13 @@ if !exists("g:syntax_on")
 endif
 " colorscheme
 colorscheme theme_vim
-" colorscheme
 let g:colors_name = 'theme_vim'
 " matching parenthesis
 set showmatch
 
 " }}}
 
-" set: indentation and spaces {{{
+" indentation and spaces {{{
 
 " tab = n spaces
 set tabstop=4
@@ -61,7 +60,7 @@ set foldmethod=syntax
 
 " }}}
 
-" set: search {{{
+" search {{{
 
 " ignore case when searching
 set ignorecase
@@ -72,7 +71,7 @@ set hlsearch
 
 " }}}
 
-" set: status and command lines {{{
+" status and command lines {{{
 
 " show command line
 set showcmd
@@ -94,8 +93,8 @@ set statusline+=\ \[%b]
 
 " }}}
 
-" set: backup {{{
-" The // means that the directory information will be saved in the filename
+" backup {{{
+" // means that the directory information will be saved in the filename
 
 " a backup file — the version of the file before your edited it
 set backupdir=/tmp//
@@ -103,8 +102,8 @@ set backupdir=/tmp//
 set directory=/tmp//
 " an undo file, containing the undo trees of the file edited
 set undodir=/tmp//
-" turn on undo files. It's needed to undo changes past writing into the file
+" turn on undo files. it's needed to undo changes past writing into the file
 set undofile
 
-"  }}}
+" }}}
 

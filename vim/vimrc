@@ -1,9 +1,5 @@
-source ${DOT_FILES}/vim/source/commands.vim 
-source ${DOT_FILES}/vim/source/map.vim 
-source ${DOT_FILES}/vim/source/variables.vim 
-source ${DOT_FILES}/vim/source/plugins.vim 
-
-
-
+for file in split(glob('~/dot-files/vim/source/*'), '\n')
+    execute 'source ' . file
+endfor
 
 

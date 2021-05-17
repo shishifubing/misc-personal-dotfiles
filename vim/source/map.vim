@@ -1,5 +1,7 @@
 " noremap instead of map since it's not recursive and in general better practice
 
+" <LEADER>. space
+let mapleader = " "
 " copy and to the clipboard instead of the usual vim buffer
 " for windows the * register is needed
 nnoremap y "+y

@@ -3,8 +3,10 @@
 # plugin manager
 vim_install_module() {
 
+    local type="start"
+    [[ "${1}" == "opt" ]] && type=${1} && shift
     for module in "${@}"; do
-        local location="${HOME}/dot-files/vim/pack/modules/start/${module//*"/"/}"
+        local location="${HOME}/dot-files/vim/pack/modules/${type}/${module//*"/"/}"
         local module="https://github.com/${module}.git"
 
         git submodule add --force "${module}" "${location}"
@@ -17,7 +19,9 @@ vim_install_module() {
 
 vim_delete_module() {
 
-    local module="${HOME}/dot-files/vim/pack/modules/start/${1}"
+    local type="start"
+    [[ "${1}" == "opt" ]] && type=${1} && shift
+    local module="${HOME}/dot-files/vim/pack/modules/${type}/${1}"
 
     git submodule deinit -f "${module}"
     git rm -f "${module}"

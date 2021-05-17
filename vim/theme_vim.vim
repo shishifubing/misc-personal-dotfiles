@@ -78,9 +78,9 @@ hi MBEVisibleActiveChanged       guifg=#bf3eff    guibg=#000000
 " ale {{{
 
 " line without errors
-hi SignColor                     guifg=#000000    guibg=#000000
-hi ALESignColumnWithErrors       guifg=#000000    guibg=#000000
-hi ALESignColumnWithoutErrors    guifg=#000000    guibg=#000000
+hi SignColor                     guifg=#ffffff    guibg=#000000
+hi ALESignColumnWithErrors       guifg=#ffffff    guibg=#000000
+hi ALESignColumnWithoutErrors    guifg=#ffffff    guibg=#000000
 
 
 " items with `'type': 'E'`
@@ -98,15 +98,5 @@ hi ALEStyleWarningSign           guifg=#ff0000    guibg=#000000
 " items with `'type': 'I'`
 hi ALEInfo                       guifg=none       guibg=none       gui=underline
 hi ALEInfoSign                   guifg=#ff0000    guibg=#000000
-
-" when g:ale_set_signs is set to `0`, the following highlights for entire
-" lines will be set.set
-
-"" all items with `'type': 'E'`
-"hi ALEErrorLine guifg=#ffffff guibg=#ff0000
-"" all items with `'type': 'W'`
-"hi ALEWarningLine guifg=#ffffff guibg=#ff0000
-"" all items with `'type': 'I'`
-"hi ALEInfoLine guifg=#ffffff guibg=#ff0000
 
 " }}}
