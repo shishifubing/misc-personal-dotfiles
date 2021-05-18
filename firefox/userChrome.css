@@ -217,7 +217,7 @@ b
     }
     /* all images in the navigation bar */
     #navigator-toolbox image {
-        fill: var(--__accent-color) !important;
+        fill: var(--__foreground-color) !important;
         fill-opacity: 1 !important;
         opacity: 1 !important;
     }

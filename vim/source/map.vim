@@ -16,10 +16,10 @@ nnoremap P :pu<CR>
 vnoremap > >gv
 vnoremap < <gv
 " move between windows
-noremap <C-J> <C-W>j
-noremap <C-K> <C-W>k
-noremap <C-H> <C-W>h
-noremap <C-L> <C-W>l
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
 " save file
 noremap <C-S> :w<CR>
 " close current window

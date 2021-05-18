@@ -48,7 +48,7 @@ get_shell_prompt_PS1() {
     output+="│${GC_6_10_}│ ${directory}${git_branch}\n"
     output+="└${GC_11_15_}┘ ${time_elapsed}\n"
     output+="${user_sign}\n"
-    output+="    ${GC_37_}"
+    output+="${GC_37_}"
 
     echo "${output}"
 }

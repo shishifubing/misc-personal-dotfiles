@@ -1,3 +1,18 @@
+" path to plugins
+set packpath=${HOME}/dot-files/vim
+" enable plugins in ${packpath}/pack/*/opt
+packadd ale
+packadd minibufexpl.vim
+packadd nerdcommenter
+packadd nerdtree
+packadd supertab
+packadd tagbar
+packadd vim-autoformat
+packadd vim-fugitive
+packadd vim-polyglot
+packadd vim-shellcheck
+packadd vim-surround
+
 " formatting {{{
 " https://github.com/chiel92/vim-autoformat
 

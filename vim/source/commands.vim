@@ -3,6 +3,11 @@
 " source stuff
 command! Svimrc call Source_vimrc()
 command! Stags silent! helptags ALL
+command! -nargs=0 -bar Helptags
+    \  for p in glob('~/dot-files/pack/modules/opt/*', 1, 1)
+    \|     exe 'packadd ' . fnamemodify(p, ':t')
+    \| endfor
+    \| helptags ALL
 
 " }}}
 

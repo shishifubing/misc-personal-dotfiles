@@ -1,3 +1,4 @@
+" source stuff
 for file in split(glob('~/dot-files/vim/source/*'), '\n')
     execute 'source ' . file
 endfor
