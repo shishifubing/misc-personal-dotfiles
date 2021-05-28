@@ -17,7 +17,6 @@ export -f preexec
 precmd() {
 
     set_window_title "$(get_directory)"
-    export PS1="$(get_shell_prompt)"
 
 }
 export -f precmd
@@ -44,6 +43,7 @@ source_keymaps() {
     [[ -f "$sysmodmap" ]] && xmodmap "$sysmodmap"
     [[ -f "$userresources" ]] && xrdb -merge "$userresources"
     [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
+    [[ -z "$1" ]] || xmodmap "$1"
 
 }
 export -f source_keymaps
@@ -58,7 +58,7 @@ send_desktop_notification() {
 }
 export -f send_desktop_notification
 
-# reload bashrc
+# source bashrc
 sb() {
 
     source ~/.bashrc
@@ -170,7 +170,12 @@ export -f v
 
 tr() {
 
-    tar -xvzf "$@"
+    if [[ "$1" == xz ]]; then
+        tar -xf "$2"
+    else
+        tar -xvzf "$@"
+    fi
+
 }
 export -f tr
 # python aliases
@@ -435,14 +440,16 @@ export -f get_color
 # generate the prompt
 get_shell_prompt() {
 
-    [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 32)[$ENVIRONMENT] "
+    [[ -z "$ENVIRONMENT" ]] || environment="$(get_color 31)[$ENVIRONMENT] "
     username="$(get_color 33)[\u] "
     hostname="$(get_color 36)[\H] "
     directory="$(get_color 34)[\w] "
     [[ -z "$(get_current_branch)" ]] || git_branch="$(get_color 35)[$(get_current_branch)] "
     user_sign="$(get_color 37)\$ "
+    del_left="$(get_color 32)● "
+    del_right="$(get_color 32)●$(get_color 37) "
 
-    echo "${environment}${username}${hostname}${directory}${git_branch}${user_sign}"
+    echo "${del_left}${environment}${username}${hostname}${directory}${git_branch}${del_right}"
 
 }
 export -f get_shell_prompt

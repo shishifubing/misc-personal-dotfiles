@@ -16,7 +16,7 @@
     "editor.tabSize": 4,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.renderWhitespace": "all",
+    "editor.renderWhitespace": "none",
     "editor.trimAutoWhitespace": true,
     "editor.renderIndentGuides": true,
     "editor.quickSuggestions": true,
@@ -55,8 +55,8 @@
         "editorCursor.foreground": "#bf3eff",
         "editorCursor.background": "#ffffff",
         "editorIndentGuide.activeBackground": "#bf3eff",
-        "editorIndentGuide.background": "#ffffff",
-        "editorBracketMatch.border": "#bf3eff",
+        "editorIndentGuide.background": "#54ffff",
+        "editorBracketMatch.border": "#ffffff",
         "editorBracketMatch.background": "#000000"
     },
     //
@@ -81,6 +81,7 @@
         "--aggressive",
         "--aggressive"
     ],
+    "python.autoComplete.addBrackets": true,
     //
 
     // prettier settings
@@ -104,13 +105,10 @@
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.handleKeys": {
-        "<C-w>": false,
-        "<C-s>": false,
-        "<C-n>": false
-    },
-    "files.associations": {
-        "*.json": "jsonc"
-    }
+    "vim.hlsearch": true
+    //"vim.handleKeys": {
+    //    "<C-w>": false,
+    //    "<C-s>": false,
+    //    "<C-n>": false
+    //}
 }
