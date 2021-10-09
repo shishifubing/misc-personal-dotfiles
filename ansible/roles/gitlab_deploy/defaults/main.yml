@@ -1,1 +1,0 @@
-gitlab_password_file: "{{ inventory_hostname }}_gitlab_password_file.txt"
