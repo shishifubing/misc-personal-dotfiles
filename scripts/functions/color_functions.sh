@@ -2,6 +2,22 @@
 
 # color functions
 
+# wrap in color
+color_wrap() {
+
+    [[ "${1}" == "-b" ]] && local toggle_bracket="-b" && shift
+    local target="${1}"
+    shift
+    local color="${2:-37}"
+    shift
+
+    local color_start="$(get_color "${toggle_bracket}" "${color}" "${@}")"
+    local color_end="$(get_color_end "${toggle_bracket}")"
+
+    echo "${color_start}${target}${color_end}"
+
+}
+
 # get color code
 get_color() {
 
@@ -59,6 +75,13 @@ get_colors() {
     [[ "${with_brackets}" ]] || output=$(remove_brackets "${output}")
 
     echo "${output}"
+
+}
+
+# print colors
+print_colors() {
+
+    echo -e "${GC_0_15}"
 
 }
 

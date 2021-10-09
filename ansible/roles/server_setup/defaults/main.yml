@@ -1,0 +1,10 @@
+root_password_file: >-
+  {{
+    inventory_hostname + '_root_password.txt'
+  }}
+main_user: kongrentian
+main_user_password_file: >-
+  {{   
+    inventory_hostname + '_' + main_user + '_password.txt'
+  }}
+local_directory: "{{ lookup('env', 'HOME') + '/credentials' }}"

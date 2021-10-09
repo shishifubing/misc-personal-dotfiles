@@ -16,14 +16,14 @@ setup_grub_add_windows_10_uefi() {
     # Windows 10 EFI entry
     if [ "${grub_platform}" == "efi" ]; then'"
         menuentry \"Microsoft Windows 10 UEFI\" {
-            insmod part_gpt
-            insmod fat
-            insmod search_fs_uuid
-            insmod chain
-            search --fs-uuid --set=root ${fs_uuid}
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-    fi"
+        insmod part_gpt
+        insmod fat
+        insmod search_fs_uuid
+        insmod chain
+        search --fs-uuid --set=root ${fs_uuid}
+        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+fi"
     echo "${entry}"
     echo
     echo "is that okay?"
@@ -52,7 +52,7 @@ setup_hard_links() {
     local xinitrc="${scripts}/xinitrc.sh"
     local vimrc="${path}/vim/vimrc"
 
-    local firefox_path="${HOME}/.mozilla/firefox/zq1ebncv.default-release/chrome"
+    local firefox_path="${HOME}/.mozilla/firefox"
     local firefox_userChrome="${firefox}/userChrome.css"
     local firefox_userContent="${firefox}/userContent.css"
     local firefox_img="${firefox}/img"
@@ -60,8 +60,12 @@ setup_hard_links() {
     _ln() {
         rm "${2}" 2>/dev/null
         ln "${1}" "${2}"
+        echo "ln \"${1}\" \"${2}\""
     }
-    _cp() { cp -r "${1}" "${2}" 2>/dev/null; }
+    _cp() {
+        cp -r "${1}" "${2}" 2>/dev/null
+        echo "cp -r \"${1}\" \"${2}\""
+    }
 
     _ln "${vscode_config}" "${vscode_path}"
     _ln "${bashrc}" "${HOME}/.bashrc"
@@ -69,11 +73,14 @@ setup_hard_links() {
     _ln "${emacs}" "${HOME}/.emacs"
     _ln "${vimrc}" "${HOME}/.vimrc"
 
-    mkdir -p "${firefox_path}"
-    _cp "${firefox_img}" "${firefox_path}"
-    _ln "${firefox_userChrome}" "${firefox_path}/userChrome.css"
-    _ln "${firefox_userContent}" "${firefox_path}/userContent.css"
-
+    for directory in "${firefox_path}"/*; do
+        [[ -d "${directory}" ]] || continue
+        directory="${directory}}/chrome"
+        mkdir -p "${directory}"
+        _cp "${firefox_img}" "${directory}"
+        _ln "${firefox_userChrome}" "${directory}/userChrome.css"
+        _ln "${firefox_userContent}" "${directory}/userContent.css"
+    done
 }
 
 # setup repositories
@@ -92,4 +99,14 @@ setup_repositories() {
         git clone "${repository}"
     done
 
+}
+
+# setup binaries
+setup_binaries() {
+
+    #local github="https://github.com"
+    #local
+    #link="${github}/koalaman/shellcheck/releases/download"
+    #wget ${link}v0.7.2/shellcheck-v0.7.2.linux.x86_64.tar.xz
+    echo 
 }

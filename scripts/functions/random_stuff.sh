@@ -2,19 +2,80 @@
 
 # random stuff
 
-# grep
-g() {
 
-    grep --color=auto "${@}"
+# rails
+rails() {
+
+    docker exec -it gitlab gitlab-rails console
 
 }
 
-# st in tabbed
-stt() {
+# repeat
+repeat_string() {
 
-    #[[ -z $TABBED_XID ]] || export TABBED_XID=$(tabbed -d)
-    #st -w "$TABBED_XID"
-    tabbed -r 2 st -w ""
+    local repeat="${1:-0}"
+    local less="${2:-0}"
+    local separator="${3:-"─"}"
+    local output
+
+    for ((i = 0; i < repeat - less; i++ )); do
+	output+="${separator}"
+    done
+
+    echo "${output}"
+
+}
+
+# install nvchad
+install_nvchad() {
+
+    git clone git@github.com:NvChad/NvChad.git ~/.config/nvim --depth 10 && nvim +PackerSync
+
+}
+
+# execute a command on every array element
+array_command(){
+
+    local command="${1}"
+    shift
+    for array_element in "${@}"; do
+        ${command} "${array_element}"
+    done
+}
+
+# is an element contained in an array
+array_in() {
+
+  shopt -s extglob
+  local element="${1}"
+  shift
+  local array=("${@}")
+  [[ "$element" == @($(array_join '|' "${array[@]//|/\\|}")) ]]
+}
+
+# join array
+array_join() {
+
+    local IFS="${1}" 
+    shift
+    echo "${*}"
+
+}
+
+# cd to the scripts' directory
+cd_to_script() {
+
+    local directory=$(
+    cd "$(dirname "${BASH_SOURCE[0]}"
+    )" &>/dev/null && pwd -P)
+    [[ "${1}" ]] && echo "${directory}"
+
+}
+
+# find non-empty binary files in a given folder
+find_binaries() {
+
+    find "${1}" ! -path "*/.git/*" -type f ! -size 0 -exec grep -IL .  "{}" \;
 
 }
 
@@ -27,38 +88,6 @@ send_desktop_notification() {
 
 }
 
-# default compile command
-mi() {
-
-    make && sudo make install
-
-}
-
-# start vpn
-yv() {
-
-    echo '-hfo3-!W' | xclip -sel clip
-    echo "token is in your clipboard"
-    local directory="${HOME}/Repositories/ya_vpn/"
-    local config_file="${HOME}/Repositories/ya_vpn/openvpn.conf"
-    sudo openvpn --cd "${directory}" --config "${config_file}"
-
-}
-
-# code-oss
-co() {
-
-    local workspace="${HOME}/dot-files/configs/vscode_workspace.code-workspace"
-    local temporary_file="/tmp/vscode_temporary_file"
-    [[ -f "${temporary_file}" ]] || touch "${temporary_file}"
-    local files=("${workspace}" "${temporary_file}" "${@}")
-
-    source_keymaps
-    for file in "${files[@]}"; do
-        code-oss --reuse-window "${file}" &
-    done
-
-}
 
 # history item
 history_item() {
@@ -71,49 +100,6 @@ history_item() {
 
 }
 
-db() {
-
-    if [[ -n "${DATABASE_KEY}" ]]; then
-        local choice=$(
-            echo "
-                PRAGMA key = '${DATABASE_KEY}';
-                SELECT location, login FROM passwords;
-            " |
-                sqlcipher ~/Repositories/dot-files/db.db |
-                awk 'NR > 3' | dmenu -l 5
-        )
-        echo "
-            PRAGMA key = '${DATABASE_KEY}';
-            SELECT password FROM passwords WHERE login==\"${choice}\"
-        " |
-            sqlcipher "${HOME}/Repositories/dot-files/db.db" |
-            xclip -sel clip
-    fi
-
-}
-
-# vim
-_v() {
-
-    local default=(
-        "${HOME}/dot-files/vim/vimrc"
-        "${HOME}/dot-files/vim/theme_vim.vim"
-    )
-
-    vim "${@:-${default[@]}}"
-}
-
-# neovim
-v() {
-
-    local default=("${DOT_FILES}/vim/theme_vim.vim")
-    for file in "${DOT_FILES}/vim/source/"*; do
-        default+=("${file}")
-    done
-
-    nvim "${@:-${default[@]}}"
-}
-
 # unzip tar.gz and tar.xz
 unzip_tr() {
 
@@ -123,3 +109,4 @@ unzip_tr() {
     esac
 
 }
+

@@ -5,7 +5,7 @@
 # default
 l() {
 
-    ls --color --human-readable "${@}"
+    ls --color=always --human-readable "${@}"
 
 }
 
@@ -17,7 +17,7 @@ la() {
 }
 
 # vertical
-ll() {
+l_l() {
 
     l -l --no-group "${@}"
 

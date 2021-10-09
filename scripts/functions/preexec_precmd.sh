@@ -12,7 +12,8 @@ start_preexec_precmd() {
     trap '[[ "${TRAP_DEBUG_TIME_START}" ]] || preexec' DEBUG
     # PROMPT_COMMAND is executed before each prompt
     export PROMPT_COMMAND='precmd'
-    
+    export HIDE_PREEXEC_MESSAGE='True'
+
     unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
 
 }
@@ -22,9 +23,10 @@ preexec() {
 
     TRAP_DEBUG_TIME_START=$(date +"%s.%N")
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
-    echo -e "$(get_preexec_message)"
+    [[ "${HIDE_PREEXEC_MESSAGE}" ]] || echo -e "$(get_preexec_message)"
 
     export TRAP_DEBUG_TIME_START
+    unset HIDE_PREEXEC_MESSAGE
 }
 
 # before the prompt

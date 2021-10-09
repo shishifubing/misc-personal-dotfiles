@@ -2,12 +2,15 @@
 
 " source stuff
 command! Svimrc call Source_vimrc()
+command! SUDO :w !sudo tee %
 command! Stags silent! helptags ALL
 command! -nargs=0 -bar Helptags
-    \  for p in glob('~/dot-files/pack/modules/opt/*', 1, 1)
-    \|     exe 'packadd ' . fnamemodify(p, ':t')
-    \| endfor
-    \| helptags ALL
+            \  for p in glob(
+            \      '~/dot-files/pack/modules/opt/*', 1, 1
+            \ )
+            \|     exe 'packadd ' . fnamemodify(p, ':t')
+            \| endfor
+            \| helptags ALL
 
 " }}}
 
@@ -62,20 +65,22 @@ function! Start_layout()
     call Resize_minibufferxpl_window()
     augroup _resize_minibufferxpl
         autocmd!
-        autocmd! BufAdd,BufDelete,BufHidden * call Resize_minibufferxpl_window()
+        autocmd! BufAdd,BufDelete,BufHidden *
+                    \ call Resize_minibufferxpl_window()
     augroup END
     " tagbar
-    TagbarOpen
-    vertical resize 25
+    "TagbarOpen
+    "vertical resize 45
+    wincmd l
+    set splitright
+    vsplit
+    wincmd l 
+    terminal
     wincmd h
 endfunction
 
 function! Close_layout()
-    NERDTreeClose
-    TagbarClose
-    MBEToggleMRUAll
-    MBEClose
-    " disable resizing autogroup since MBE is closed
+    only
     augroup _resize_minibufferxpl
         autocmd!
     augroup END
@@ -92,8 +97,11 @@ augroup _formatting
     autocmd! BufWritePost * Autoformat
     " source vimrc files on write
     autocmd! BufWritePost ${DOT_FILES}/vim/source/* Svimrc
-    autocmd! BufWritePost ${DOT_FILES}/vim/theme_vim.vim Svimrc
+    autocmd! BufWritePost ${DOT_FILES}/vim/theme.vim Svimrc
+    " highlight errors
     autocmd! VimEnter * ALEEnable
+    " minibufexplorer opens automatically for some reason
+    autocmd! VimEnter * MBEClose
 augroup END
 
 " }}}

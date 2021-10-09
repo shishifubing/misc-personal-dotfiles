@@ -13,11 +13,10 @@ sx() {
 start_xorg_server() {
 
     if [[ -z "${DISPLAY}" && "${XDG_VTNR}" -eq 1 ]]; then
-        echo -e "$(get_shell_separator_line)"
-        echo "Start xorg-server?"
-        echo -e "$(get_shell_separator_line)"
+        echo "start xorg?"
         read -r answer
-        [[ "${answer}" != "n" && "${answer}" != "N" ]] && exec startx
+        [[ "${answer}" != "n" && "${answer}" != "N" ]] && 
+            exec startx 
     fi
 
 }

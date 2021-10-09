@@ -1,0 +1,7 @@
+- name: install gitlab
+  hosts: "{{ ansible_target | default('all') }}"
+  remote_user: root
+  gather_facts: no
+  roles:
+      - server_setup
+      - gitlab_deploy

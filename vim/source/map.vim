@@ -1,7 +1,7 @@
 " noremap instead of map since it's not recursive and in general better practice
 
 " <LEADER>. space
-let mapleader = " "
+let mapleader = ","
 " copy and to the clipboard instead of the usual vim buffer
 " for windows the * register is needed
 nnoremap y "+y
@@ -29,4 +29,21 @@ nnoremap <LEADER>b :<C-U>execute v:count ? 'buffer!' . v:count : 'bnext!'<CR>
 " open layout
 nnoremap <LEADER>l :call Toggle_layout()<CR>
 
+" modules {{{
+ 
+" (Ctrl+F) Open search prompt (Normal Mode)
+nmap <C-F>f <Plug>CtrlSFPrompt
+" (Ctrl-F + f) Open search prompt with selection (Visual Mode)
+xmap <C-F>f <Plug>CtrlSFVwordPath
+" (Ctrl-F + F) Perform search with selection (Visual Mode)
+xmap <C-F>F <Plug>CtrlSFVwordExec
+" (Ctrl-F + n) Open search prompt with current word (Normal Mode)
+nmap <C-F>n <Plug>CtrlSFCwordPath
+" (Ctrl-F + o )Open CtrlSF window (Normal Mode)
+nnoremap <C-F>o :CtrlSFOpen<CR>
+" (Ctrl-F + t) Togge CtrlSF window (Normal Mode)
+nnoremap <C-F>t :CtrlSFToggle<CR>
+" (Ctrl-F + t) Toggle CtrlSF window (Insert Mode)
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
+" }}}

@@ -10,9 +10,10 @@ b
 
 @-moz-document regexp(".*") {
     :root {
-        /* darkorchid - #9932cc */
-        --__accent-color: #bf3eff !important;
-        --__accent-color-2: #9932cc;
+        /* darkorchid - #9932cc
+            #bf3eff */
+        --__accent-color: #bf3eff;
+        --__accent-color-2: #9932cc
         --__border-accent-color: 1px solid var(--__accent-color);
         /* gray */
         --__accent-color-3: #808080;
@@ -26,11 +27,6 @@ b
         scrollbar-color: var(--__accent-color) var(--__background-color) !important;
         scrollbar-width: thin !important;
     }
-    /* removes scrollbars at the root of pages since they are pretty useless */
-    html,
-    body {
-        scrollbar-width: none !important;
-    }
     /* uniform text selection */
     ::selection {
         background: var(--__accent-color) !important;
@@ -43,6 +39,101 @@ b
 }
 
 /* *browser interface */
+
+@-moz-document regexp("^(about:|chrome:|file:).*") {
+    /* browser variables, you don't really need them */
+    :root {
+        /* Popup panels(accordeon menu on the right, etc) */
+        --arrowpanel-background: var(--__background-color) !important;
+        --arrowpanel-border-color: var(--__background-color) !important;
+        --arrowpanel-color: var(--__foreground-color) !important;
+        --arrowpanel-dimmed: var(--__background-color) !important;
+        --panel-separator-color: var(--__accent-color) !important;
+        --panel-disabled-color: var(--__accent-color-2) !important;
+        --panel-description-color: var(--__accent-color-2) !important;
+        /* window and toolbar background */
+        --lwt-accent-color: var(--__accent-color) !important;
+        --lwt-accent-color-inactive: var(
+            --__background-color
+        ) !important;
+        --lwt-text-color: var(--__foreground-color) !important;
+        --lwt-toolbar-vertical-separator: var(
+            --__accent-color
+        ) !important;
+        --toolbar-bgcolor: var(--__background-color) !important;
+        --toolbar-color: var(--__foreground-color) !important;
+        --urlbar-height: 28px !important;
+        --urlbar-toolbar-height: 30px !important;
+        /* toolbar buttons */
+        --lwt-toolbarbutton-icon-fill: var(--__accent-color) !important;
+        --lwt-toolbarbutton-icon-fill-attention: var(
+            --__accent-color
+        ) !important;
+        --lwt-toolbarbutton-hover-background: var(
+            --__accent-color
+        ) !important;
+        --lwt-toolbarbutton-active-background: var(
+            --__accent-color
+        ) !important;
+        /* urlbar */
+        --urlbar-height: 30px !important;
+        --urlbar-toolbar-height: 30px !important;
+        --lwt-toolbar-field-background-color: var(
+            --__background-color
+        ) !important;
+        --lwt-toolbar-field-focus: var(--__background-color) !important;
+        --lwt-toolbar-field-border-color: var(
+            --__background-color
+        ) !important;
+        --lwt-toolbar-field-highlight: var(--__accent-color) !important;
+        --lwt-toolbar-field-highlight-text: var(
+            --__foreground-color
+        ) !important;
+        --lwt-toolbar-field-color: var(--__foreground-color) !important;
+        --lwt-toolbar-field-focus-color: var(
+            --__foreground-color
+        ) !important;
+        --toolbar-field-focus-border-color: var(
+            --__background-color
+        ) !important;
+        --urlbar-popup-url-color: var(--__accent-color) !important;
+        /* inner urlbar separator on the left */
+        --urlbar-separator-color: var(--__background-color) !important;
+        /* bottom navigation bar border */
+        --chrome-content-separator-color: var(
+            --__background-color
+        ) !important;
+        /* sidebar */
+        --lwt-sidebar-background-color: var(
+            --__background-color
+        ) !important;
+        --lwt-sidebar-text-color: var(--__foreground-color) !important;
+        --sidebar-background-color: var(
+            --__background-color
+        ) !important;
+        --sidebar-border-color: var(--__accent-color) !important;
+        /* autocomplete */
+        --autocomplete-popup-background: var(
+            --__background-color
+        ) !important;
+        --autocomplete-popup-color: var(
+            --__foreground-color
+        ) !important;
+        --autocomplete-popup-highlight-background: var(
+            --__accent-color
+        ) !important;
+        --autocomplete-popup-highlight-color: var(
+            --__foreground-color
+        ) !important;
+        /* useless tab variables */
+        --lwt-tab-text: var(--__foreground-color) !important;
+        --lwt-background-tab-separator-color: var(
+            --__background-color
+        ) !important;
+        --tab-line-color: var(--__background-color) !important;
+    }
+}
+    /* *browser interface */
 
 @-moz-document regexp("^(about:|chrome:|file:).*") {
     /* browser variables, you don't really need them */
@@ -670,16 +761,26 @@ b
 
 /* *sideberry adjustments  */
 
-@-moz-document regexp("^moz-extension://(e687cf7f-57c5-4ebe-92e7-eefea85d672a|0e163cbe-0cb6-4b36-b6e0-97caf5b26dca).*")
+@-moz-document regexp("^moz-extension://26433b3c-3e2b-45fe-a68c.*")
 {
     #root {
         --bg: var(--__background-color) !important;
+        
+        --ctx-menu-bg: var(--__background-color) !important;
+        --ctx-menu-bg-hover: var(--__accent-color) !important;
+        --ctx-menu-fg: var(--__foreground-color) !important;
+        
         --inactive-fg: var(--__foreground-color) !important;
         --active-fg: var(--__accent-color) !important;
         --info-fg: var(--__accent-color) !important;
+        
         --favicons-placeholder-bg: var(--__foreground-color) !important;
+        
         --tabs-activated-bg: var(--__accent-color) !important;
-        --tabs-bg-hover: var(--__accent-color-2) !important;
+        --tabs-activated-fg: var(--__foreground-color) !important;
+        
+        --tabs-bg-hover: var(--__accent-color) !important;
+        --tabs-fg-hover: var(--__foreground-color) !important;
         --tabs-border: none;
         --tabs-height: 1rem !important;
     }
@@ -699,7 +800,11 @@ b
 
 @-moz-document domain("reddit.com") {
     /* header and popups */
-    header > *,
+    header > * {
+
+        visibility: collapse !important;
+    
+    }
     ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs,
     ._2IHh1GBfUxJVQQX0dJvAry,
     ._1EG7_Cm18ANvUvJ4rJdRgQ,
@@ -716,15 +821,6 @@ b
     /* feed container */
     ._1OVBBWLtHoSPfGCRaPzpTf {
         min-width: 80% !important;
-    }
-}
-
-/* *chatterbox adjustments  */
-
-@-moz-document domain("yandex-team.ru") {
-    /* that backgroun is black for some reason */
-    .App {
-        background-color: white !important;
     }
 }
 
