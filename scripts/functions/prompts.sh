@@ -61,7 +61,8 @@ wrap_prompt_element() {
     local color_wrapper="${3:-"${GC_37}"}"
     local color_element="${4:-"${GC_37}"}"
     local middle="${color_wrapper}$(repeat_string "${#1}")${GC_END}"
-   
+    symbols
+
     case "${2-"middle"}" in
         "top") 
 	    local left="${S_TOP_LEFT}"
@@ -104,13 +105,13 @@ get_shell_prompt_PS1() {
 
     local git_branch="$(get_current_branch)"
     local git_branch=(
-        $(prompt_rectangle "${git_branch:-none}" "${GC_35}")
+        $(prompt_rectangle "${git_branch:-none}" "${GC_34}")
     )
     local current_directory=(
         $(prompt_rectangle "${PWD}" "${GC_34}")
     )
     local hostname=(
-        $(prompt_rectangle "${HOSTNAME}" "${GC_34}")
+        $(prompt_rectangle "${HOSTNAME}" "${GC_35}")
     )
     local user=(
         $(prompt_rectangle "${USER}" "${GC_36}")
@@ -141,8 +142,9 @@ get_shell_prompt_PS1() {
         "${git_branch[1]} ${current_directory[1]}"
         "${git_branch[2]} ${current_directory[2]}"
     )
-
-    echo "\n$(array_join $'\n' "${output[@]}")"
+    local output="\n$(array_join $'\n' "${output[@]}")"
+    
+    echo "${output//${S_TOP_MIDDLE}/${S_HORIZONTAL}}"
 }
 
 # shell command separator

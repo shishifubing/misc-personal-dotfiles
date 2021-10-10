@@ -33,7 +33,7 @@ preexec() {
 precmd() {
 
     TRAP_DEBUG_TIME_END=$(date +"%s.%N")
-    PS1=
+    PS1=""
     echo -e "$(get_precmd_message)"
     echo -e "$(get_shell_prompt_PS1)"
 

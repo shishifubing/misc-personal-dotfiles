@@ -5,11 +5,11 @@
 # wrap in color
 color_wrap() {
 
-    echo "$(get_color "${2}")${1}${GC_END}"
+    echo "$(color_get "${2}")${1}${GC_END}"
 }
 color_wrap_() {
 
-    echo "$(get_color_ "${2}")${1}${GC_END_}"
+    echo "$(color_get_ "${2}")${1}${GC_END_}"
 }
 
 # get color code

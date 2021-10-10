@@ -13,6 +13,7 @@ rails() {
 # repeat
 repeat_string() {
 
+    symbols
     local repeat="${1:-0}"
     local less="${2:-0}"
     local separator="${3:-${S_HORIZONTAL}}"

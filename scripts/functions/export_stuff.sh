@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+# characters
+symbols() {
+
+    S_HORIZONTAL="─"
+    S_VERTICAL="│"
+    S_TOP_LEFT="┌"
+    S_TOP_RIGHT="┐"
+    S_BOTTOM_LEFT="└"
+    S_BOTTOM_RIGHT="┘"
+    S_TOP_MIDDLE="┰"
+
+}
+
 # declared functions
 export_declared_functions() {
 
@@ -42,20 +55,20 @@ export_variables_less() {
 
     # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
     # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
-    local reset=$(echo -e "${GC_END}")
-    local bold=$(echo -e "${GC_31}")
-    local blink=$(echo -e "${GC_34}")
-    local underline=$(echo -e "$(get_color 04 01 32)")
-    local reverse_video=$(echo -e "$(get_color 01 44 37)")
+    local reset="$(echo -e "${GC_END}")"
+    local bold="$(echo -e "${GC_31}")"
+    local blink="$(echo -e "${GC_34}")"
+    local underline="$(echo -e "$(color_get 04 01 32)")"
+    local reverse_video="$(echo -e "$(color_get 01 44 37)")"
 
     export LESS="-F -i -J -M -R -W -x4 -X -z-4"
-    export LESS_TERMCAP_mb=${bold}          # begin bold
-    export LESS_TERMCAP_md=${blink}         # begin blink
-    export LESS_TERMCAP_me=${reset}         # reset bold/blink
-    export LESS_TERMCAP_so=${reverse_video} # begin reverse video
-    export LESS_TERMCAP_se=${reset}         # reset reverse video
-    export LESS_TERMCAP_us=${underline}     # begin underline
-    export LESS_TERMCAP_ue=${reset}         # reset underline
+    export LESS_TERMCAP_mb="${bold}"          # begin bold
+    export LESS_TERMCAP_md="${blink}"         # begin blink
+    export LESS_TERMCAP_me="${reset}"         # reset bold/blink
+    export LESS_TERMCAP_so="${reverse_video}" # begin reverse video
+    export LESS_TERMCAP_se="${reset}"         # reset reverse video
+    export LESS_TERMCAP_us="${underline}"     # begin underline
+    export LESS_TERMCAP_ue="${reset}"         # reset underline
 
 }
 
@@ -73,18 +86,6 @@ export_variables_bash_history() {
     export HISTFILESIZE=
     # unlimited bash history (number of lines)
     export HISTSIZE=
-
-}
-
-# characters
-export_variables_symbols() {
-
-    export S_HORIZONTAL="─"
-    export S_VERTICAL="│"
-    export S_TOP_LEFT="┌"
-    export S_TOP_RIGHT="┐"
-    export S_BOTTOM_LEFT="└"
-    export S_BOTTOM_RIGHT="┘"
 
 }
 
