@@ -3,7 +3,7 @@
 force_color_prompt=yes
 
 [[ "${-}" == *"i"* ]] || return
-. "${HOME}/dot-files/scripts/functions/source_stuff.sh" || return
+. "${HOME}/dotfiles/scripts/functions/source_stuff.sh" || return
 
 ## source functions from the folder
 source_functions

@@ -18,8 +18,8 @@ get_preexec_message() {
     local start=${TRAP_DEBUG_TIME_START/*./}
     local message="%H:%M:%S:${start}"
     local output=(
-        "${GC_34}start${GC_END}: $(date +"${message}")${GC_END}"
-        "${GC_34}output${GC_END}: "
+        "${GC_32}start${GC_END}: $(date +"${message}")${GC_END}"
+        "${GC_35}output${GC_END}: "
     )
     
     echo "$(array_join $'\n' "${output[@]}")"
@@ -37,8 +37,8 @@ get_precmd_message() {
     
 
     local output=(
-        "${GC_34}end${GC_END}: $(date +"${message}")${GC_END}"
-        "${GC_34}elapsed time${GC_END}: $(convert_time "${time_elapsed}")${GC_END}"
+        "${GC_31}end${GC_END}: $(date +"${message}")${GC_END}"
+        "${GC_33}elapsed time${GC_END}: $(convert_time "${time_elapsed}")${GC_END}"
     )
 
     echo "$(array_join $'\n' "${output[@]}")"
@@ -98,13 +98,13 @@ get_shell_prompt_PS1() {
     local bash_info="${BASH_VERSION} $(tty) ${jobs}${GC_END_}"
 
     local output=(
-        "${GC_34_}user${GC_END_}: ${user_info}"
+        "${GC_36_}user${GC_END_}: ${user_info}"
         "${GC_34_}bash${GC_END_}: ${bash_info}"
         "${GC_34_}directory${GC_END_}: ${directory_info}"        
-        "${GC_34_}command${GC_END_}: ${GC_END_}"
+        "${GC_35_}command${GC_END_}:${GC_END_}"
     )
 
-    echo "\n$(array_join $'\n' "${output[@]}")\\]"
+    echo "\n$(array_join $'\n' "${output[@]}")\n"
 }
 
 # shell command separator
