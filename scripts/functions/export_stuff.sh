@@ -76,32 +76,51 @@ export_variables_bash_history() {
 
 }
 
+# characters
+export_variables_symbols() {
+
+    export S_HORIZONTAL="─"
+    export S_VERTICAL="│"
+    export S_TOP_LEFT="┌"
+    export S_TOP_RIGHT="┐"
+    export S_BOTTOM_LEFT="└"
+    export S_BOTTOM_RIGHT="┘"
+
+}
+
 # colors
 export_variables_colors() {
 
-    for ((count = 0; count < 8; count++)); do
-        eval 'export GC_3${count}=$(get_color 1 3${count})'
-        eval 'export GC_3${count}_=$(get_color -b 1 3${count} 1)'
-        eval 'export GC_03${count}=$(get_color 0 3${count})'
-        eval 'export GC_03${count}_=$(get_color -b 0 3${count})'
+    for ((count = 0; count < 8; count++)); do 
+        eval 'export GC_3${count}=$(color_get "1;3${count}")'
+	eval 'export GC_3${count}_=$(color_get_ "1;3${count}")'
+        eval 'export GC_03${count}=$(color_get "0;3${count}")'
+        eval 'export GC_03${count}_=$(color_get_ "0;3${count}")'
+        
+	eval 'export GC_4${count}=$(color_get "1;4${count}")'
+        eval 'export GC_4${count}_=$(color_get_ "1;4${count}")'
+        eval 'export GC_04${count}=$(color_get "0;4${count}")'
+        eval 'export GC_04${count}_=$(color_get_ "0;4${count}")'
     done
 
-    export GC_END=$(get_color_end) GC_END_=$(get_color_end -b)
+    export GC_END=$(color_end) GC_END_=$(color_end_)
 
-    export GC_0_3=$(get_colors 0 3) GC_0_3_=$(get_colors -b 0 3)
-    export GC_4_7=$(get_colors 4 7) GC_4_7_=$(get_colors -b 4 7)
-    export GC_8_11=$(get_colors 8 11) GC_8_11_=$(get_colors -b 8 11)
-    export GC_12_15=$(get_colors 12 15) GC_12_15_=$(get_colors -b 12 15)
-    export GC_0_15=$(get_colors 0 15) GC_0_15_=$(get_colors -b 0 15)
+    #export GC_0_3=$(color_colors 0 3) GC_0_3_=$(color_colors -b 0 3)
+    #export GC_4_7=$(color_colors 4 7) GC_4_7_=$(color_colors -b 4 7)
+    #export GC_8_11=$(color_colors 8 11) GC_8_11_=$(color__colors 8 11)
+    #export GC_12_15=$(color_colors 12 15) GC_12_15_=$(color_colors 12 15)
+    #export GC_0_15=$(color_colors 0 15) GC_0_15_=$(color_colors 0 15)
     
-    export GC_1_5=$(get_colors 1 5) GC_1_5_=$(get_colors -b 1 5)
-    export GC_6_10=$(get_colors 6 10) GC_6_10_=$(get_colors -b 6 10)
-    export GC_11_15=$(get_colors 11 15) GC_11_15_=$(get_colors -b 11 15)
+    #export GC_1_5=$(color_colors 1 5) GC_1_5_=$(color_colors 1 5)
+    #export GC_6_10=$(color_colors 6 10) GC_6_10_=$(color_colors 6 10)
+    #export GC_11_15=$(color_colors 11 15) GC_11_15_=$(color_colors 11 15)
 }
 
 # other variables
 export_variables_others() {
 
+    ## tty name
+    export TTY_NAME="$(tty)"
     ## location of dot-files
     export DOT_FILES="${HOME}/dot-files"
     ## when multiple lines

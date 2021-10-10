@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 
+convert_plural() {
+
+    if [[ "${1}" -gt 1 ]]; then
+        local result="${1} ${4:-"${2}s"}"
+    elif [[ "${1}" -eq 1 ]]; then
+        local result="${1} ${5:-"${3}"}"
+    else
+        local result=
+    fi
+
+    echo "${result}"
+
+}
+
 # convert seconds into days+hours+minutes+seconds
 convert_time() {
 
-    local input=${1/.*/}
-    local fraction=${1/*./}
+    local input="${1/.*/}"
+    local fraction="${1/*./}"
     local seconds minutes hours days
 
     if ((input > 59)); then
@@ -12,13 +26,7 @@ convert_time() {
         ((input = input / 60))
         if ((input > 59)); then
             ((minutes = input % 60))
-            ((input = input / 60))
-            if ((input > 23)); then
-                ((hours = input % 24))
-                ((days = input / 24))
-            else
-                ((hours = input))
-            fi
+            ((hours = input / 60))
         else
             ((minutes = input))
         fi
@@ -26,11 +34,9 @@ convert_time() {
         ((seconds = input))
     fi
 
-    [[ -z "${days}" ]] || days="${days} day(s) "
-    [[ -z "${hours}" ]] || hours="${hours} hour(s) "
-    [[ -z "${minutes}" ]] || minutes="${minutes} minute(s) "
-    seconds="${seconds}.${fraction} seconds"
+    [[ "${hours}" ]] || local hours="0"
+    [[ "${minutes}" ]] || local minutes="0"
 
-    echo "${days}${hours}${minutes}${seconds}"
+    echo "${hours}:${minutes}:${seconds}:${fraction}"
 
 }

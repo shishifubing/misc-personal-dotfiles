@@ -17,6 +17,7 @@ set_shell_options
 
 export_variables_less
 export_variables_bash_history
+export_variables_symbols
 export_variables_colors
 export_variables_others
 ## add binaries to PATH

@@ -15,11 +15,10 @@ repeat_string() {
 
     local repeat="${1:-0}"
     local less="${2:-0}"
-    local separator="${3:-"─"}"
-    local output
+    local separator="${3:-${S_HORIZONTAL}}"
 
     for ((i = 0; i < repeat - less; i++ )); do
-	output+="${separator}"
+	local output="${output}${separator}"
     done
 
     echo "${output}"
