@@ -143,7 +143,7 @@ get_shell_prompt_PS1() {
         "${git_branch[2]} ${current_directory[2]} ${jobs_bottom}"
     )
     
-    echo "$(array_join $'\n' "${output[@]}")"
+    echo "\n$(array_join $'\n' "${output[@]}")"
 
 }
 

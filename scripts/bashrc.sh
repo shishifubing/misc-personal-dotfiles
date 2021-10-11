@@ -16,7 +16,7 @@ source_programmable_completion_features
 ## source fzf scripts
 source_fzf_scripts
 ## source keymaps, doesn't work in kde on startup
-source_keymaps_on_start
+#source_keymaps_on_start
 ## shell options
 set_shell_options
 
