@@ -24,7 +24,7 @@ export_declared_functions() {
 # export binaries
 export_binaries_all() {
 
-    for folder in "${HOME}/dot-files/binaries"/*; do
+    for folder in "${DOTFILES}/binaries"/*; do
         local binaries=$(find_binaries "${folder}")
         if [[ "${binaries}" ]]; then
             #array_command "sudo chmod +x" "${binaries[@]}"
@@ -40,7 +40,7 @@ export_binaries_all() {
 
 export_binaries() {
 
-    for folder in "${HOME}/dot-files/binaries"/*; do
+    for folder in "${DOTFILES}/binaries"/*; do
 	array_in "${folder}" "${PATH}" || 
 	        export PATH="${PATH}:${folder}"
         [[ -d "${folder}/bin" ]] && array_in "${folder}/bin" "${PATH}" || 
@@ -120,13 +120,17 @@ export_variables_colors() {
 # other variables
 export_variables_others() {
 
+    ## dot files
+    export DOTFILES="${HOME}/dotfiles"
     ## tty name
     export TTY_NAME="$(tty)"
     ## location of dot-files
     export DOT_FILES="${HOME}/dot-files"
-    ## when multiple lines
+    ## prompt variable that is shown when there are multiple lines
     #export PS2="${GC_32_}▶${GC_END_}"
-    export PS2="  "
+    export PS2=
+    ## the main prompt variable
+    export PS1=
     ## all locales are overwritten
     export LC_ALL="en_US.UTF-8"
     export LANG="en_US.UTF-8"

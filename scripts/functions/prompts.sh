@@ -129,22 +129,22 @@ get_shell_prompt_PS1() {
         $(prompt_rectangle "$(jobs -s | wc -l)" "${GC_31}")
     )
 
+    local jobs_top="${current_tty[0]} ${jobs_r[0]} ${jobs_s[0]}"
+    local jobs_middle="${current_tty[1]} ${jobs_r[1]} ${jobs_s[1]}"
+    local jobs_bottom="${current_tty[2]} ${jobs_r[2]} ${jobs_s[2]}"
+
     local output=(
-        "${user[0]} ${hostname[0]}"
-        "${user[1]} ${hostname[1]}"
-        "${user[2]} ${hostname[2]}"
+        "${user[0]} ${hostname[0]} ${bash_version[0]}"
+	"${user[1]} ${hostname[1]} ${bash_version[1]}"
+	"${user[2]} ${hostname[2]} ${bash_version[2]}"
 
-        "${bash_version[0]} ${current_tty[0]} ${jobs_r[0]} ${jobs_s[0]}"
-        "${bash_version[1]} ${current_tty[1]} ${jobs_r[1]} ${jobs_s[1]}"
-        "${bash_version[2]} ${current_tty[2]} ${jobs_r[2]} ${jobs_s[2]}"
-
-        "${git_branch[0]} ${current_directory[0]}"
-        "${git_branch[1]} ${current_directory[1]}"
-        "${git_branch[2]} ${current_directory[2]}"
+        "${git_branch[0]} ${current_directory[0]} ${jobs_top}"
+        "${git_branch[1]} ${current_directory[1]} ${jobs_middle}"
+        "${git_branch[2]} ${current_directory[2]} ${jobs_bottom}"
     )
-    local output="\n$(array_join $'\n' "${output[@]}")"
     
-    echo "${output//${S_TOP_MIDDLE}/${S_HORIZONTAL}}"
+    echo "$(array_join $'\n' "${output[@]}")"
+
 }
 
 # shell command separator

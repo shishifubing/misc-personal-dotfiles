@@ -14,29 +14,26 @@ start_preexec_precmd() {
     export PROMPT_COMMAND='precmd'
     export HIDE_PREEXEC_MESSAGE='True'
 
-    unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
-
 }
 
 # before all commands
 preexec() {
 
-    TRAP_DEBUG_TIME_START=$(date +"%s.%N")
+    export TRAP_DEBUG_TIME_START="$(date +"%s.%N")"
     #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
-    [[ "${HIDE_PREEXEC_MESSAGE}" ]] || echo -e "$(get_preexec_message)"
+    if [[ "${HIDE_PREEXEC_MESSAGE}" ]]; then
+        export HIDE_PREEXEC_MESSAGE=
+    else
+	echo -e "$(get_preexec_message)"
+    fi
 
-    export TRAP_DEBUG_TIME_START
-    unset HIDE_PREEXEC_MESSAGE
 }
 
 # before the prompt
 precmd() {
 
-    TRAP_DEBUG_TIME_END=$(date +"%s.%N")
-    PS1=""
+    export TRAP_DEBUG_TIME_END="$(date +"%s.%N")"
     echo -e "$(get_precmd_message)"
     echo -e "$(get_shell_prompt_PS1)"
-
-    export PS1 TRAP_DEBUG_TIME_END
-    unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
+    export TRAP_DEBUG_TIME_START=
 }
