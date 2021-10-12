@@ -15,6 +15,8 @@ calculate_bash_command() {
 # after prompt
 get_preexec_message() {
 
+    export IFS=$'\n'
+
     local date=$(date "+%H:%M:%S:${TRAP_DEBUG_TIME_START/*./}")
     local start_time=(
         $(prompt_rectangle "${date}" "${GC_33}")
@@ -32,6 +34,8 @@ get_preexec_message() {
 
 # before prompt
 get_precmd_message() {
+
+    export IFS=$'\n'
 
     local time_elapsed="${TRAP_DEBUG_TIME_END} - ${TRAP_DEBUG_TIME_START}"
     local time_elapsed="$(printf "%.6f" "$(bc <<<"${time_elapsed}")")"
@@ -60,23 +64,18 @@ wrap_prompt_element() {
 
     local color_wrapper="${3:-"${GC_37}"}"
     local color_element="${4:-"${GC_37}"}"
-    local middle="${color_wrapper}$(repeat_string "${#1}")${GC_END}"
-    symbols
+    #local left='│' right='│'
+    #local middle="${color_wrapper}$(repeat_string "${#1}" 0 '─')${GC_END}"
+    local left=' ' right=' '
+    local middle="${color_wrapper}$(repeat_string "${#1}" 0 ' ')${GC_END}"
 
     case "${2-"middle"}" in
         "top") 
-	    local left="${S_TOP_LEFT}"
-	    local right="${S_TOP_RIGHT}"
-	    ;;
+	    left='┌'; right='┐';;
 	"bottom") 
-	    local left="${S_BOTTOM_LEFT}"
-	    local right="${S_BOTTOM_RIGHT}"
-	    ;;
+	    left='└'; right='┘';;
         *) 
-	    local left="${S_VERTICAL}"
-	    local right="${S_VERTICAL}"
-            local middle="${color_element}${1}${GC_END}"
-	    ;;
+            middle="${color_element}${1}${GC_END}";;
     esac
 
     local left="${color_wrapper}${left}${GC_END}"
@@ -95,13 +94,15 @@ prompt_rectangle() {
         "$(wrap_prompt_element "${1}" bottom "${2}")"
     ) 
 
-    echo "${output[@]}"
+    echo "${output[*]}"
 
 }
 
 
 # generate the PS1 prompt
 get_shell_prompt_PS1() {
+
+    export IFS=$'\n'
 
     local git_branch="$(get_current_branch)"
     local git_branch=(
@@ -134,13 +135,17 @@ get_shell_prompt_PS1() {
     local jobs_bottom="${current_tty[2]} ${jobs_r[2]} ${jobs_s[2]}"
 
     local output=(
-        "${user[0]} ${hostname[0]} ${bash_version[0]}"
-	"${user[1]} ${hostname[1]} ${bash_version[1]}"
-	"${user[2]} ${hostname[2]} ${bash_version[2]}"
+        "${user[0]} ${hostname[0]}"
+	"${user[1]} ${hostname[1]}"
+	"${user[2]} ${hostname[2]}"
 
-        "${git_branch[0]} ${current_directory[0]} ${jobs_top}"
-        "${git_branch[1]} ${current_directory[1]} ${jobs_middle}"
-        "${git_branch[2]} ${current_directory[2]} ${jobs_bottom}"
+        "${git_branch[0]} ${bash_version[0]} ${jobs_top}"
+        "${git_branch[1]} ${bash_version[1]} ${jobs_middle}"
+        "${git_branch[2]} ${bash_version[2]} ${jobs_bottom}"
+        
+	"${current_directory[0]}"
+        "${current_directory[1]}"
+        "${current_directory[2]}"
     )
     
     echo "\n$(array_join $'\n' "${output[@]}")"

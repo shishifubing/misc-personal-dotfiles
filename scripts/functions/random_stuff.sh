@@ -13,17 +13,13 @@ rails() {
 # repeat
 repeat_string() {
 
-    symbols
     local repeat="${1:-0}"
     local less="${2:-0}"
-    local separator="${3:-${S_HORIZONTAL}}"
+    local separator="${3:- }"
 
-    for ((i = 0; i < repeat - less; i++ )); do
-	local output="${output}${separator}"
+    for ((count=0; count < repeat - less; count++)); 
+        do echo -n "${separator}"; 
     done
-
-    echo "${output}"
-
 }
 
 # install nvchad
