@@ -2,6 +2,7 @@
 
 # prompts
 
+# calclulate bash command
 calculate_bash_command() {
 
     local bash_command=$(
@@ -12,13 +13,24 @@ calculate_bash_command() {
 
 }
 
+# format time
+format_time() {
+
+    local output
+
+    output="${1/*./}"
+    echo "${output::3}"
+
+}
+
 # after prompt
 get_preexec_message() {
 
     export IFS=$'\n'
     local start_time
      
-    start_time=$(date "+%H:%M:%S:${TRAP_DEBUG_TIME_START/*./}")
+    start_time="$(format_time "${TRAP_DEBUG_TIME_START/*./}")"
+    start_time=$(date "+%H:%M:%S:${start_time}")
     start_time=($(prompt_rectangle ' ' "${start_time}" ' ' "${GC_33}"))
     
     echo "${start_time[*]}"
@@ -32,9 +44,9 @@ get_precmd_message() {
     local time_elapsed end_time output
 
     time_elapsed="${TRAP_DEBUG_TIME_END} - ${TRAP_DEBUG_TIME_START}"
-    time_elapsed="$(printf "%.6f" "$(bc <<<"${time_elapsed}")")"
+    time_elapsed="$(printf "%.3f" "$(bc <<<"${time_elapsed}")")"
     time_elapsed=$(convert_time "${time_elapsed}")
-    end_time=$(date "+%H:%M:%S:${TRAP_DEBUG_TIME_END/*./}")
+    end_time=$(date "+%H:%M:%S:$(format_time "${TRAP_DEBUG_TIME_END/*./}")")
     
     end_time=($(prompt_rectangle ' ' "${end_time}" ' ' "${GC_33}"))
     time_elapsed=($(prompt_rectangle ' ' "${time_elapsed}" ' ' "${GC_33}"))
