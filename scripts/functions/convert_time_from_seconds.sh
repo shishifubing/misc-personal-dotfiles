@@ -22,20 +22,20 @@ convert_time() {
     local seconds minutes hours days
 
     if ((input > 59)); then
-        ((seconds = input % 60))
-        ((input = input / 60))
-        if ((input > 59)); then
-            ((minutes = input % 60))
-            ((hours = input / 60))
+        seconds=$((input % 60))
+        minutes=$((input / 60))
+        if ((minutes > 59)); then
+            minutes=$((minutes % 60))
+            hours=$((input / 60))
         else
-            ((minutes = input))
+            minutes="${input}"
         fi
     else
-        ((seconds = input))
+        seconds="${input}"
     fi
 
-    [[ "${hours}" ]] || local hours="0"
-    [[ "${minutes}" ]] || local minutes="0"
+    [[ "${hours}" ]] || hours=0
+    [[ "${minutes}" ]] || minutes=0
 
     echo "${hours}:${minutes}:${seconds}:${fraction}"
 
