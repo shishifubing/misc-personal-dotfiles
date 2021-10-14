@@ -12,6 +12,7 @@ create_certificate_rhel() {
     sudo yum remove certbot
     sudo snap install --classic certbot
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    sudo ln -s /var/lib/snapd/snap /snap
     sudo /usr/bin/certbot --nginx
     sudo /usr/bin/certbot renew --dry-run
     sudo /usr/bin/certbot renew
