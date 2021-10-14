@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 
-# random stuff
+#### random stuff
 
+## nginx fix
+# fixes 'permission denied while connecting to upstream'
+fix_nginx() {
+
+    setsebool -P httpd_can_network_connect 1
+
+}
+
+## certbot installation
 # use certbot on rhel
 create_certificate_rhel() {
 
