@@ -14,7 +14,7 @@ install_docker_compose() {
 
 install_docker_rhel() {
 
-    sudo yum remove docker --assume-yes \
+    sudo yum remove docker -y \
         docker-client \
         docker-client-latest \
         docker-common \
@@ -23,13 +23,13 @@ install_docker_rhel() {
         docker-logrotate \
         docker-engine
 
-    sudo yum install --assume-yes yum-utils
+    sudo yum install -y yum-utils
 
     sudo yum-config-manager \
         --add-repo \
         https://download.docker.com/linux/centos/docker-ce.repo
 
-     sudo yum install --assume-yes docker-ce docker-ce-cli containerd.io
+     sudo yum install -y docker-ce docker-ce-cli containerd.io
 }
 
 install_docker() {
@@ -37,6 +37,6 @@ install_docker() {
     install_docker_rhel
     sudo systemctl enable --now docker
     sudo usermod -aG docker "${USER}"
-    sudo install_docker_compose
+    install_docker_compose
 
 }

@@ -5,7 +5,7 @@
 # use certbot on rhel
 create_certificate_rhel() {
 
-    sudo yum install --assume-yes snapd
+    sudo yum install -y snapd
     sudo systemctl enable --now snapd
     sudo snap install core
     sudo snap refresh core
