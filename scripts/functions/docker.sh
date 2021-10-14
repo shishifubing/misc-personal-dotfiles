@@ -1,3 +1,5 @@
+#!/bin/env bash
+
 install_docker_compose() {
 
     sudo curl -L \
@@ -12,7 +14,7 @@ install_docker_compose() {
 
 install_docker_rhel() {
 
-    sudo yum remove docker \
+    sudo yum remove docker --assume-yes \
         docker-client \
         docker-client-latest \
         docker-common \
@@ -21,13 +23,13 @@ install_docker_rhel() {
         docker-logrotate \
         docker-engine
 
-    sudo yum install -y yum-utils
+    sudo yum install --assume-yes yum-utils
 
     sudo yum-config-manager \
         --add-repo \
         https://download.docker.com/linux/centos/docker-ce.repo
 
-     sudo yum install docker-ce docker-ce-cli containerd.io
+     sudo yum install --assume-yes docker-ce docker-ce-cli containerd.io
 }
 
 install_docker() {

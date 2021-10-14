@@ -2,6 +2,29 @@
 
 # random stuff
 
+# use certbot on rhel
+create_certificate_rhel() {
+
+    sudo yum install --assume-yes snapd
+    sudo systemctl enable --now snapd
+    sudo snap install core
+    sudo snap refresh core
+    sudo yum remove certbot
+    sudo snap install --classic certbot
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    sudo certbot --nginx
+    sudo certbot renew --dry-run
+    sudo certbot renew
+
+}
+
+# create certificate
+create_certificate() {
+
+    openssl req -newkey rsa:4096 -nodes -keyout "${1}.key" \
+        -x509 -days 365 -out "${1}".crt
+
+}
 
 # rails
 rails() {
