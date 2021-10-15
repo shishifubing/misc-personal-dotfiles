@@ -140,15 +140,16 @@ prompt_rectangle() {
 get_shell_prompt_PS1() {
 
     export IFS=$'\n'
-    local git_branch directory hostname output
+    local git_branch directory hostname output home
+    home="${GC_32}[]${GC_END}"
 
     git_branch="$(get_current_branch)"
     git_branch=($(prompt_rectangle ' ' "${git_branch:-none}" ' ' "${GC_35}"))
     username=($(prompt_rectangle ' ' "${USER}" ' ' "${GC_36}"))
     hostname=($(prompt_rectangle ' ' "${HOSTNAME}" ' ' "${GC_31}"))
-    directory=($(prompt_rectangle ' ' "${PWD}" ' ' "${GC_34}"))
-
-
+    directory="/home/${USER}/"
+    directory="${PWD/${directory}/}"
+    directory=($(prompt_rectangle ' ' "${directory:-${PWD}}" ' ' "${GC_34}"))
     output=(
         "${username[0]} ${hostname[0]} ${git_branch[0]}"
 	"${username[1]} ${hostname[1]} ${git_branch[1]}"

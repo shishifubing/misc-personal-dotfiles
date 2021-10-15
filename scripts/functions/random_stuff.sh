@@ -2,6 +2,8 @@
 
 #### random stuff
 
+
+
 ### networking
 
 ## check open ports
@@ -91,6 +93,17 @@ install_nvchad() {
 
 }
 
+### arrays
+
+## split a string into an array
+array_string() {
+
+    local IFS="${1}"
+    read -r -a array <<< "${2}"
+    echo "${array[@]}"
+
+}
+
 # execute a command on every array element
 array_command(){
 
@@ -101,7 +114,7 @@ array_command(){
     done
 }
 
-# is an element contained in an array
+# is the element contained in the array
 array_in() {
 
   shopt -s extglob
