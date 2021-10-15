@@ -2,8 +2,28 @@
 
 #### random stuff
 
-## nginx fix
-# fixes 'permission denied while connecting to upstream'
+### zoom
+
+## installs zoom from aur
+zoom_install() {
+
+    git clone https://aur.archlinux.org/zoom.git _zoom
+    cd _zoom
+    makepkg -si
+    rm -rf _zoom
+
+}
+
+### clipboard
+## copies to the clipboard
+_clip() {
+
+    xclip -sel clip
+
+}
+
+### nginx fix
+## fixes 'permission denied while connecting to upstream'
 fix_nginx() {
 
     setsebool -P httpd_can_network_connect 1
