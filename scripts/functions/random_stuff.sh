@@ -2,6 +2,15 @@
 
 #### random stuff
 
+### networking
+
+## check open ports
+check_ports() {
+
+    sudo ss -tulpn | grep LISTEN
+
+}
+
 ### zoom
 
 ## installs zoom from aur

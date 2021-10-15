@@ -140,30 +140,23 @@ prompt_rectangle() {
 get_shell_prompt_PS1() {
 
     export IFS=$'\n'
-    local git_branch directory tty_name hostname output jobs_r jobs_s jobs_top 
-    local jobs_middle jobs_bottom 
+    local git_branch directory hostname output
 
-    hostname=(
-        $(prompt_rectangle \
-	    "${USER}" "${HOSTNAME}" "${BASH_VERSION}" "${GC_36}" \
-	)
-    ) 
     git_branch="$(get_current_branch)"
     git_branch=($(prompt_rectangle ' ' "${git_branch:-none}" ' ' "${GC_35}"))
+    username=($(prompt_rectangle ' ' "${USER}" ' ' "${GC_36}"))
+    hostname=($(prompt_rectangle ' ' "${HOSTNAME}" ' ' "${GC_31}"))
     directory=($(prompt_rectangle ' ' "${PWD}" ' ' "${GC_34}"))
-    tty_name=($(prompt_rectangle ' ' "${TTY_NAME//[!0-9]}" ' ' "${GC_37}"))
-    jobs_r=($(prompt_rectangle ' ' "$(jobs -r | wc -l)" ' ' "${GC_32}"))
-    jobs_s=($(prompt_rectangle ' ' "$(jobs -s | wc -l)" ' ' "${GC_31}"))
 
 
     output=(
-        "${hostname[0]} ${tty_name[0]} ${jobs_r[0]} ${jobs_s[0]}"
-	"${hostname[1]} ${tty_name[1]} ${jobs_r[1]} ${jobs_s[1]}"
-	"${hostname[2]} ${tty_name[2]} ${jobs_r[2]} ${jobs_s[2]}"
+        "${username[0]} ${hostname[0]} ${git_branch[0]}"
+	"${username[1]} ${hostname[1]} ${git_branch[1]}"
+	"${username[2]} ${hostname[2]} ${git_branch[2]}"
 
-	"${git_branch[0]} ${directory[0]}"
-        "${git_branch[1]} ${directory[1]}"
-        "${git_branch[2]} ${directory[2]}"
+	"${directory[0]}"
+        "${directory[1]}"
+        "${directory[2]}"
     )
     
     echo "\n${output[*]}"

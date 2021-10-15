@@ -1,5 +1,5 @@
 {
-    "telemetry.enableTelemetry": false,
+    "telemetry.telemetryLevel": "off",
     "keyboard.dispatch": "keyCode", // it's needed for the key remap to work
 
     // window
@@ -10,14 +10,14 @@
     //
 
     // editor
-    "editor.fontFamily": "'Source Code Pro'",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "'Inconsolata'",
     "editor.cursorStyle": "block",
     "editor.tabSize": 4,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
     "editor.renderWhitespace": "none",
     "editor.trimAutoWhitespace": true,
-    "editor.renderIndentGuides": true,
     "editor.quickSuggestions": true,
     "editor.quickSuggestionsDelay": 0,
     "editor.minimap.enabled": false,
@@ -145,8 +145,7 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
-    "redhat.telemetry.enabled": false,
-    "window.zoomLevel": -1,
+    "window.zoomLevel": -0.8,
     "[yaml]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
