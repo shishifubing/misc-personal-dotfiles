@@ -1,22 +1,22 @@
 {
     "telemetry.telemetryLevel": "off",
-    "keyboard.dispatch": "keyCode", // it's needed for the key remap to work
+    "keyboard.dispatch": "keyCode",
+    // it is needed for the key remap to work
 
     // window
     "window.menuBarVisibility": "toggle",
-    "window.titleBarStyle": "native",
     "window.openFilesInNewWindow": "off",
-    "window.dialogStyle": "native",
+    "window.zoomLevel": -0.5,
     //
 
     // editor
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Inconsolata'",
-    "editor.cursorStyle": "block",
     "editor.tabSize": 4,
+    "editor.insertSpaces": true,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "trailing",
     "editor.trimAutoWhitespace": true,
     "editor.quickSuggestions": true,
     "editor.quickSuggestionsDelay": 0,
@@ -24,16 +24,12 @@
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "always",
     "editor.fontSize": 22,
-    "editor.detectIndentation": false,
+    "editor.rulers": [72],
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
     "editor.formatOnPaste": true,
     "editor.maxTokenizationLineLength": 999999,
     "editor.cursorSmoothCaretAnimation": true,
-
-    // workbench
-    "workbench.editor.showTabs": false,
-    "workbench.activityBar.visible": false,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.statusBar.visible": true,
     "workbench.editor.decorations.badges": true,
@@ -55,6 +51,7 @@
         "editorCursor.background": "#ffffff",
         "editorIndentGuide.activeBackground": "#bf3eff",
         "editorIndentGuide.background": "#ffff54",
+        "editorRuler.foreground": "#ff0000",
         "editorBracketMatch.border": "#bf3eff",
         "editorBracketMatch.background": "#000000"
     },
@@ -82,12 +79,14 @@
     ],
     "python.autoComplete.addBrackets": true,
     "shellcheck.exclude": [
-        "SC1091",
-        "SC1090",
-        "SC2155",
-        "SC2120",
-        "SC2119",
-        "SC2016"
+        //"SC1091",
+        //"SC1090",
+        //"SC2155",
+        //"SC2120",
+        //"SC2119",
+        //"SC2016",
+        "SC2001", // use variable expansion instead of sed
+        "SC2028" // echo may not expand escape sequences, use printf
     ],
     //
 
@@ -108,9 +107,34 @@
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[yaml]": {
+        "editor.tabSize": 4
+    },
+    "editor.tabCompletion": "on",
+    "workbench.editor.showTabs": false,
+    //"editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.dragAndDrop": false,
+    "editor.detectIndentation": false,
+    "editor.minimap.renderCharacters": false,
+    "editor.smoothScrolling": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.suggest.showStatusBar": true,
+    "files.trimFinalNewlines": true,
+    "workbench.activityBar.visible": false,
+    "workbench.enableExperiments": false,
+    "workbench.tree.indent": 4,
+    "workbench.tree.renderIndentGuides": "always",
+    "window.autoDetectHighContrast": false,
+    "explorer.autoReveal": "focusNoScroll",
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "solid"
     //
 
     // vim
+    /*
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
@@ -139,16 +163,12 @@
         "<C-n>": false,
         "<C-j>": false
     },
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    },
-    "window.zoomLevel": -0.8,
-    "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.autoIndent": "none"
-    }
+    */
+
+    //"files.exclude": {
+    //    "**/.classpath": true,
+    //"**/.project": true,
+    //    "**/.settings": true,
+    //    "**/.factorypath": true
+    //}
 }

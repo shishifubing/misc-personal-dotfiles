@@ -28,11 +28,12 @@ get_preexec_message() {
 
     export IFS=$'\n'
     local start_time
-     
-    start_time="$(format_time "${TRAP_DEBUG_TIME_START/*./}")"
+
+    start_time=$(format_time "${TRAP_DEBUG_TIME_START/*./}")
     start_time=$(date "+%H:%M:%S:${start_time}")
-    start_time=($(prompt_rectangle ' ' "${start_time}" ' ' "${GC_33}"))
-    
+    mapfile -t start_time < \
+        <(prompt_rectangle ' ' "${start_time}" ' ' "${GC_33}")
+
     echo "${start_time[*]}"
 
 }
@@ -44,12 +45,15 @@ get_precmd_message() {
     local time_elapsed end_time output
 
     time_elapsed="${TRAP_DEBUG_TIME_END} - ${TRAP_DEBUG_TIME_START}"
-    time_elapsed="$(printf "%.3f" "$(bc <<<"${time_elapsed}")")"
+    time_elapsed=$(printf "%.3f" "$(bc <<<"${time_elapsed}")")
     time_elapsed=$(convert_time "${time_elapsed}")
-    end_time=$(date "+%H:%M:%S:$(format_time "${TRAP_DEBUG_TIME_END/*./}")")
-    
-    end_time=($(prompt_rectangle ' ' "${end_time}" ' ' "${GC_33}"))
-    time_elapsed=($(prompt_rectangle ' ' "${time_elapsed}" ' ' "${GC_33}"))
+    end_time=$(format_time "${TRAP_DEBUG_TIME_END/*./}")
+    end_time=$(date "+%H:%M:%S:${end_time}")
+
+    mapfile -t end_time < \
+        <(prompt_rectangle ' ' "${end_time}" ' ' "${GC_33}")
+    mapfile -t time_elapsed < \
+        <(prompt_rectangle ' ' "${time_elapsed}" ' ' "${GC_33}")
 
     output=(
         "${end_time[0]} ${time_elapsed[0]}"
@@ -57,7 +61,7 @@ get_precmd_message() {
         "${end_time[2]} ${time_elapsed[2]}"
     )
 
-   echo "${output[*]}"
+    echo "${output[*]}"
 
 }
 
@@ -78,10 +82,10 @@ greatest_length() {
 difference() {
 
     if [[ "${1}" -ge "${2}" ]]; then
-	echo "$(( ${1} - ${2} ))"
+        echo "$((${1} - ${2}))"
     else
-	echo "$(( ${2} - ${1} ))"
-   fi
+        echo "$((${2} - ${1}))"
+    fi
 
 }
 
@@ -89,36 +93,36 @@ difference() {
 prompt_rectangle() {
 
     local length top_left_space top_right_space top top_left top_right
-    local middle bottom bottom_left bottom_right middle_left_space 
+    local middle bottom bottom_left bottom_right middle_left_space
     local middle_right_space bottom_left_space bottom_right_space
     local color_wrapper color_element
 
     color_wrapper="${4:-"${GC_37}"}"
     color_element="${5:-"${GC_37}"}"
-    
-    length=$(greatest_length "${#1}" "${#2}" "${#3}") 
+
+    length=$(greatest_length "${#1}" "${#2}" "${#3}")
 
     top_remain=$(difference "${#1}" "${length}")
-    top_left_space=$(( top_remain / 2 ))
-    top_right_space=$(( top_left_space + (top_remain % 2) ))
-    
+    top_left_space=$((top_remain / 2))
+    top_right_space=$((top_left_space + (top_remain % 2)))
+
     middle_remain=$(difference "${#2}" "${length}")
-    middle_left_space=$(( middle_remain / 2 ))
-    middle_right_space=$(( middle_left_space + (middle_remain % 2) ))
-    
+    middle_left_space=$((middle_remain / 2))
+    middle_right_space=$((middle_left_space + (middle_remain % 2)))
+
     bottom_remain=$(difference "${#3}" "${length}")
-    bottom_left_space=$(( bottom_remain / 2 ))
-    bottom_right_space=$(( bottom_left_space + (bottom_remain % 2) ))
-    
+    bottom_left_space=$((bottom_remain / 2))
+    bottom_right_space=$((bottom_left_space + (bottom_remain % 2)))
+
     top="${color_element}${1}${GC_END}"
     top_left="${color_wrapper}┌${GC_END}"
     top_right="${color_wrapper}┐${GC_END}"
     top_left="${top_left}$(repeat_string ${top_left_space})"
     top_right="$(repeat_string ${top_right_space})${top_right}"
-    
+
     middle="${color_element}${2}${GC_END}"
-    middle_left=" $(repeat_string ${middle_left_space})"
-    middle_right="$(repeat_string ${middle_right_space}) "
+    middle_left=$(repeat_string ${middle_left_space})
+    middle_right=$(repeat_string ${middle_right_space})
 
     bottom="${color_element}${3}${GC_END}"
     bottom_left="${color_wrapper}└${GC_END}"
@@ -127,9 +131,9 @@ prompt_rectangle() {
     bottom_right="$(repeat_string ${bottom_right_space})${bottom_right}"
 
     local output=(
-       "${top_left} ${top} ${top_right}"
-       "${middle_left} ${middle} ${middle_right}"
-       "${bottom_left} ${bottom} ${bottom_right}"
+        "${top_left} ${top} ${top_right}"
+        "${middle_left}  ${middle}  ${middle_right}"
+        "${bottom_left} ${bottom} ${bottom_right}"
     )
 
     echo "${output[*]}"
@@ -140,26 +144,31 @@ prompt_rectangle() {
 get_shell_prompt_PS1() {
 
     export IFS=$'\n'
-    local git_branch directory hostname output home
-    home="${GC_32}[]${GC_END}"
+    local git_branch directory hostname output venv
 
     git_branch="$(get_current_branch)"
-    git_branch=($(prompt_rectangle ' ' "${git_branch:-none}" ' ' "${GC_35}"))
-    username=($(prompt_rectangle ' ' "${USER}" ' ' "${GC_36}"))
-    hostname=($(prompt_rectangle ' ' "${HOSTNAME}" ' ' "${GC_31}"))
-    directory="/home/${USER}/"
-    directory="${PWD/${directory}/}"
-    directory=($(prompt_rectangle ' ' "${directory:-${PWD}}" ' ' "${GC_34}"))
-    output=(
-        "${username[0]} ${hostname[0]} ${git_branch[0]}"
-	"${username[1]} ${hostname[1]} ${git_branch[1]}"
-	"${username[2]} ${hostname[2]} ${git_branch[2]}"
+    mapfile -t git_branch < \
+        <(prompt_rectangle ' ' "${git_branch:-none}" ' ' "${GC_35}")
+    mapfile -t username < \
+        <(prompt_rectangle ' ' "${USER}" ' ' "${GC_36}")
+    mapfile -t hostname < \
+        <(prompt_rectangle ' ' "${HOSTNAME}" ' ' "${GC_31}")
+    directory=$(sed "s|^/home/${USER}/*||" <<<"${PWD}")
+    directory="${directory:-${PWD}/}"
+    [[ "${VIRTUAL_ENV}" ]] && venv="venv"
+    [[ "${VIRTUAL_ENV}" ]] || venv="none"
+    mapfile -t directory < \
+        <(prompt_rectangle ' ' "${directory}" ' ' "${GC_34}")
+    mapfile -t venv < \
+        <(prompt_rectangle ' ' "${venv}" ' ' "${GC_32}")
 
-	"${directory[0]}"
-        "${directory[1]}"
-        "${directory[2]}"
+    output=(
+        "${username[0]} ${hostname[0]} ${git_branch[0]} ${venv[0]}"
+        "${username[1]} ${hostname[1]} ${git_branch[1]} ${venv[1]}"
+        "${username[2]} ${hostname[2]} ${git_branch[2]} ${venv[2]}"
+        "${directory[0]}" "${directory[1]}" "${directory[2]}"
     )
-    
+
     echo "\n${output[*]}"
 
 }
@@ -168,8 +177,8 @@ get_shell_prompt_PS1() {
 get_shell_separator_line() {
 
     local output line_length separator
-    
-    line_lenfth=$((${3:-"$(get_terminal_width)"} - ${2:-"0"}))
+
+    line_length=$((${3:-"$(get_terminal_width)"} - ${2:-"0"}))
     separator=${1:-"─"}
 
     for ((count = 0; count < line_length; count++)); do
