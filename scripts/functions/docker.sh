@@ -2,14 +2,28 @@
 
 ### kubernetes
 
+## create an admin role
+kubernetes_role() {
+
+    local namespace
+
+    namespace="${1}"
+
+    yaml="
+
+"
+
+}
+
 ## create a service account
 kubernetes_service_account() {
 
-    local account namespace role yaml
+    local account namespace role yaml rolebinding roleref
 
     namespace="${1}"
     account="${2}"
     role="${3}"
+    rolebinding="${4:-${role}-rolebinding}"
     
     yaml="
 ---
@@ -22,7 +36,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: ${account}-rolebinding
+  name: ${rolebinding}
   namespace: ${namespace}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
