@@ -2,6 +2,24 @@
 
 ### kubernetes
 
+## create a service account
+kubernetes_service_account() {
+
+    local account namespace
+
+    namespace="${1}"
+    account="${2}"
+    
+    kubectl apply "
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ${account}
+  namespace: ${namespace}
+"
+
+}
+
 ## get token, one line
 kubernetes_token() {
 
