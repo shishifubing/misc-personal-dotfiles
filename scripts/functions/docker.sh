@@ -5,13 +5,13 @@
 ## create a service account
 kubernetes_service_account() {
 
-    local account namespace role
+    local account namespace role yaml
 
     namespace="${1}"
     account="${2}"
     role="${3}"
     
-    echo "
+    yaml="
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -32,7 +32,11 @@ subjects:
 - namespace: ${namespace} 
   kind: ServiceAccount
   name: ${account}
-" | kubectl apply -f -
+" 
+    echo "-----------------------"
+    echo "${yaml}"
+    echo "-----------------------"
+    echo "${yaml}" | kubectl apply -f -
 
 }
 
