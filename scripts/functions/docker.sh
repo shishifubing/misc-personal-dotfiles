@@ -40,6 +40,8 @@ kubernetes_rolebinding() {
     account="${2}"
     role="${3}"
     rolebinding="${4:-${role}-rolebinding}"
+    apigroup="${5:-rbac.authorization.k8s.io}"
+    [[ "${role}" == "ClusterRole" ]] && apigroup="cluster.${apigroup}"
 
     kubernetes_apply "
         apiVersion: rbac.authorization.k8s.io/v1
@@ -48,7 +50,7 @@ kubernetes_rolebinding() {
           name: ${rolebinding}
           namespace: ${namespace}
         roleRef:
-          apiGroup: rbac.authorization.k8s.io
+          apiGroup: ${apigroup}
           kind: Role
           name: ${role} 
         subjects:
