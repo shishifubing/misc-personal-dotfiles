@@ -1,7 +1,11 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
     {
-        "key": "ctrl+k f",
+        "key": "ctrl+k f f",
         "command": "workbench.files.action.focusFilesExplorer"
+    },
+    {
+        "key": "ctrl+k f c",
+        "command": "workbench.files.action.collapseExplorerFolders"
     }
 ]

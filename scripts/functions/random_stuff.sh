@@ -2,7 +2,14 @@
 
 #### random stuff
 
+### openssl
 
+## create password
+openssl_password() {
+
+    openssl rand -base64 36
+
+}
 
 ### networking
 

@@ -6,7 +6,7 @@
     // window
     "window.menuBarVisibility": "toggle",
     "window.openFilesInNewWindow": "off",
-    "window.zoomLevel": -0.5,
+    "window.zoomLevel": -1,
     //
 
     // editor
@@ -130,7 +130,13 @@
     "window.autoDetectHighContrast": false,
     "explorer.autoReveal": "focusNoScroll",
     "editor.cursorStyle": "block",
-    "editor.cursorBlinking": "solid"
+    "editor.cursorBlinking": "solid",
+    "redhat.telemetry.enabled": false,
+    "git.enableSmartCommit": true,
+    "prettier.bracketSpacing": false,
+    "[helm]": {
+        // "file
+    }
     //
 
     // vim
