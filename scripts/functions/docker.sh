@@ -10,13 +10,13 @@ kubernetes_service_account() {
     namespace="${1}"
     account="${2}"
     
-    kubectl apply -f <<<"
+    kubectl apply -f <(echo "
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: ${account}
   namespace: ${namespace}
-"
+")
 
 }
 
