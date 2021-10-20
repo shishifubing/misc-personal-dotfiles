@@ -15,38 +15,69 @@ kubernetes_role() {
 
 }
 
-## create a service account
-kubernetes_service_account() {
+## create a service account and everything needed
+kubernetes_service_account_full() {
 
-    local account namespace role yaml rolebinding roleref
+    local account namespace role yaml rolebinding
+
+    namespace="${1}"
+    account="${2}"
+    role="${3}"
+    rolebinding="${4}"
+    roletype="${5:-Role}"
+    
+    kubernetes_service_account "${namespace}" "${account}"
+    kubernetes_rolebinding \
+	"${namespace}" "${account}" "${role}" "${rolebinding}"
+
+}
+
+kubernetes_rolebinding() {
+
+    local account namespace role yaml rolebinding 
 
     namespace="${1}"
     account="${2}"
     role="${3}"
     rolebinding="${4:-${role}-rolebinding}"
-    
-    yaml="
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: ${account}
-  namespace: ${namespace}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: ${rolebinding}
-  namespace: ${namespace}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: ${role} 
-subjects:
-- namespace: ${namespace} 
-  kind: ServiceAccount
-  name: ${account}
-" 
+
+    kubernetes_apply "
+        apiVersion: rbac.authorization.k8s.io/v1
+        kind: RoleBinding
+        metadata:
+          name: ${rolebinding}
+          namespace: ${namespace}
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: Role
+          name: ${role} 
+        subjects:
+        - namespace: ${namespace} 
+          kind: ServiceAccount
+          name: ${account}
+    "
+}
+
+kubernetes_service_account() {
+
+    local account namespace
+
+    namespace="${1}"
+    account="${2}"
+
+    kubernetes_apply "
+        apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+            name: ${account}
+            namespace: ${namespace}
+    "
+}
+
+kubernetes_apply() {
+
+    local yaml="${1}"
+
     echo "-----------------------"
     echo "${yaml}"
     echo "-----------------------"
@@ -90,7 +121,7 @@ kubernetes_token_name() {
     namespace="${1}"
     account_name="${2}"
 
-    kubectl get -n "${namespace}" "${account_name}" -o yaml
+    kubectl get -n "${namespace}" serviceaccount "${account_name}" -o yaml
 
 }
 
