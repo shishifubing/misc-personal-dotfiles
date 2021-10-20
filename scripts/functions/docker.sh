@@ -5,18 +5,34 @@
 ## create a service account
 kubernetes_service_account() {
 
-    local account namespace
+    local account namespace role
 
     namespace="${1}"
     account="${2}"
+    role="${3}"
     
-    kubectl apply -f <(echo "
+    echo "
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: ${account}
   namespace: ${namespace}
-")
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ${account}-rolebinding
+  namespace: ${namespace}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ${role} 
+subjects:
+- namespace: ${namespace} 
+  kind: ServiceAccount
+  name: ${account}
+" | kubectl apply -f -
 
 }
 
