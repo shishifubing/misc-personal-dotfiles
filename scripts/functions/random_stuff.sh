@@ -20,18 +20,6 @@ check_ports() {
 
 }
 
-### zoom
-
-## installs zoom from aur
-zoom_install() {
-
-    git clone https://aur.archlinux.org/zoom.git _zoom
-    cd _zoom
-    makepkg -si
-    rm -rf _zoom
-
-}
-
 ### clipboard
 ## copies to the clipboard
 _clip() {

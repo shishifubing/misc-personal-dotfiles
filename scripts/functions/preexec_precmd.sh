@@ -11,7 +11,7 @@ start_preexec_precmd() {
     # including PROMPT_COMMAND
     trap '[[ "${TRAP_DEBUG_TIME_START}" ]] || preexec' DEBUG
     # PROMPT_COMMAND is executed before each prompt
-    export PROMPT_COMMAND='precmd'
+    export PROMPT_COMMAND='unset PS1; precmd'
     export HIDE_PREEXEC_MESSAGE='True'
     unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
 
@@ -26,7 +26,7 @@ preexec() {
     if [[ "${HIDE_PREEXEC_MESSAGE}" ]]; then
         unset HIDE_PREEXEC_MESSAGE
     else
-	echo -e "$(get_preexec_message)"
+        echo -e "$(get_preexec_message)"
     fi
 
 }
