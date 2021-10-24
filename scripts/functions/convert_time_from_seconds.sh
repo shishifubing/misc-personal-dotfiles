@@ -17,9 +17,10 @@ convert_plural() {
 # convert seconds into days+hours+minutes+seconds
 convert_time() {
 
-    local input="${1/.*/}"
-    local fraction="${1/*./}"
-    local seconds minutes hours days
+    local input fraction seconds minutes hours
+
+    input="${1/.*/}"
+    fraction="${1/*./}"
 
     if ((input > 59)); then
         seconds=$((input % 60))
@@ -27,8 +28,6 @@ convert_time() {
         if ((minutes > 59)); then
             minutes=$((minutes % 60))
             hours=$((input / 60))
-        else
-            minutes="${input}"
         fi
     else
         seconds="${input}"

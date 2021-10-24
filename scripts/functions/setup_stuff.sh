@@ -40,31 +40,30 @@ fi"
 # setup hard links
 setup_hard_links() {
 
-    local path="${HOME}/dot-files"
-    local scripts="${path}/scripts"
-    local configs="${path}/configs"
-    local firefox="${path}/firefox"
+    local scripts="${DOTFILES}/scripts"
+    local configs="${DOTFILES}/configs"
+    local firefox="${DOTFILES}/firefox"
 
     local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
     local emacs="${scripts}/emacs"
     local xinitrc="${scripts}/xinitrc.sh"
-    local vimrc="${path}/vim/vimrc"
+    local vimrc="${DOTFILES}/vim/vimrc"
 
     local firefox_path="${HOME}/.mozilla/firefox"
-    local firefox_userChrome="${firefox}/userChrome.css"
-    local firefox_userContent="${firefox}/userContent.css"
-    local firefox_img="${firefox}/img"
 
+    _prepare() {
+        rm --recursive --force "${2}"
+        echo -e "\"${1}\" ${GC_36}->${GC_END} \"${2}\""
+    }
     _ln() {
-        rm "${2}" 2>/dev/null
-        ln "${1}" "${2}"
-        echo "ln \"${1}\" \"${2}\""
+        _prepare "${1}" "${2}"
+        ln -s "${1}" "${2}"
     }
     _cp() {
-        cp -r "${1}" "${2}" 2>/dev/null
-        echo "cp -r \"${1}\" \"${2}\""
+        _prepare "${1}" "${2}"
+        cp -r "${1}" "${2}"
     }
 
     _ln "${vscode_config}" "${vscode_path}"
@@ -75,11 +74,7 @@ setup_hard_links() {
 
     for directory in "${firefox_path}"/*; do
         [[ -d "${directory}" ]] || continue
-        directory="${directory}}/chrome"
-        mkdir -p "${directory}"
-        _cp "${firefox_img}" "${directory}"
-        _ln "${firefox_userChrome}" "${directory}/userChrome.css"
-        _ln "${firefox_userContent}" "${directory}/userContent.css"
+        _cp "${firefox}" "${directory}/chrome"
     done
 }
 
@@ -108,5 +103,5 @@ setup_binaries() {
     #local
     #link="${github}/koalaman/shellcheck/releases/download"
     #wget ${link}v0.7.2/shellcheck-v0.7.2.linux.x86_64.tar.xz
-    echo 
+    echo
 }

@@ -761,24 +761,25 @@ b
 
 /* *sideberry adjustments  */
 
-@-moz-document regexp("^moz-extension://26433b3c-3e2b-45fe-a68c.*")
-{
+@-moz-document regexp(
+    "^moz-extension://a1baed57-0b1d-4983-92cd-dd64ef6f021b.*"
+) {
     #root {
         --bg: var(--__background-color) !important;
-        
+
         --ctx-menu-bg: var(--__background-color) !important;
         --ctx-menu-bg-hover: var(--__accent-color) !important;
         --ctx-menu-fg: var(--__foreground-color) !important;
-        
+
         --inactive-fg: var(--__foreground-color) !important;
         --active-fg: var(--__accent-color) !important;
         --info-fg: var(--__accent-color) !important;
-        
+
         --favicons-placeholder-bg: var(--__foreground-color) !important;
-        
+
         --tabs-activated-bg: var(--__accent-color) !important;
         --tabs-activated-fg: var(--__foreground-color) !important;
-        
+
         --tabs-bg-hover: var(--__accent-color) !important;
         --tabs-fg-hover: var(--__foreground-color) !important;
         --tabs-border: none;
@@ -803,11 +804,13 @@ b
     header > * {
 
         visibility: collapse !important;
-    
+
     }
     ._1BFbVxT49QnrAN3fqGZ1z8._1tvThPWQpORoc2taKebHxs,
     ._2IHh1GBfUxJVQQX0dJvAry,
     ._1EG7_Cm18ANvUvJ4rJdRgQ,
+    /* ._3Kd8DQpBIbsr5E1JcrMFTY._1tvThPWQpORoc2taKebHxs, */
+    ._1tvThPWQpORoc2taKebHxs,
     #COIN_PURCHASE_DROPDOWN_ID *,
     #POPUP_CONTAINER {
         visibility: collapse !important;
