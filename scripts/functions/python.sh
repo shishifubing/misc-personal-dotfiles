@@ -9,15 +9,6 @@ py() {
 
 }
 
-# python virtual environment
-pips() {
-
-    export ENVIRONMENT="pipenv"
-    pipenv shell
-    unset ENVIRONMENT
-
-}
-
 # pip install
 pipi() {
 
