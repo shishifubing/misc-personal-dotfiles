@@ -2,6 +2,13 @@
 
 ### kubernetes
 
+## modify current context
+kubernetes_context() {
+
+    kubectl config set-context --current --namespace="${1}"
+
+}
+
 ## create an admin role
 kubernetes_role() {
 
@@ -25,16 +32,16 @@ kubernetes_service_account_full() {
     role="${3}"
     rolebinding="${4}"
     roletype="${5:-Role}"
-    
+
     kubernetes_service_account "${namespace}" "${account}"
     kubernetes_rolebinding \
-	"${namespace}" "${account}" "${role}" "${rolebinding}"
+        "${namespace}" "${account}" "${role}" "${rolebinding}"
 
 }
 
 kubernetes_rolebinding() {
 
-    local account roletype apigroup namespace role yaml rolebinding 
+    local account roletype apigroup namespace role yaml rolebinding
 
     namespace="${1}"
     account="${2}"
@@ -53,9 +60,9 @@ kubernetes_rolebinding() {
         roleRef:
           apiGroup: ${apigroup}
           kind: Role
-          name: ${role} 
+          name: ${role}
         subjects:
-        - namespace: ${namespace} 
+        - namespace: ${namespace}
           kind: ServiceAccount
           name: ${account}
     "

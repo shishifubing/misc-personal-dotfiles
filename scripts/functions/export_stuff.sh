@@ -30,9 +30,9 @@ export_binaries_all() {
             #array_command "sudo chmod +x" "${binaries[@]}"
             local binaries_directories=$(array_command dirname "${binaries[@]}")
             local binaries_path=$(array_join ':' "${binaries_directories[@]}")
-	    array_in "${binaries_path}" "${PATH}" ||  
-	        export PATH="${PATH}:${binaries_path}"
-	    
+            array_in "${binaries_path}" "${PATH}" ||
+                export PATH="${PATH}:${binaries_path}"
+
         fi
     done
 
@@ -41,10 +41,10 @@ export_binaries_all() {
 export_binaries() {
 
     for folder in "${DOTFILES}/binaries"/*; do
-	array_in "${folder}" "${PATH}" || 
-	        export PATH="${PATH}:${folder}"
-        [[ -d "${folder}/bin" ]] && array_in "${folder}/bin" "${PATH}" || 
-	        export PATH="${PATH}:${folder}/bin"
+        array_in "${folder}" "${PATH}" ||
+            export PATH="${PATH}:${folder}"
+        [[ -d "${folder}/bin" ]] && array_in "${folder}/bin" "${PATH}" ||
+            export PATH="${PATH}:${folder}/bin"
     done
 
 }
@@ -55,11 +55,13 @@ export_variables_less() {
 
     # --quit-if-one-screen --ignore-case --status-column --LONG-PROMPT
     # --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4
-    local reset="$(echo -e "${GC_END}")"
-    local bold="$(echo -e "${GC_31}")"
-    local blink="$(echo -e "${GC_34}")"
-    local underline="$(echo -e "$(color_get 04 01 32)")"
-    local reverse_video="$(echo -e "$(color_get 01 44 37)")"
+    local reset bold blink underline reverse_video
+
+    reset=$(echo -e "${GC_END}")
+    bold=$(echo -e "${GC_31}")
+    blink=$(echo -e "${GC_34}")
+    underline=$(echo -e "$(color_get 04 01 32)")
+    reverse_video=$(echo -e "$(color_get 01 44 37)")
 
     export LESS="-F -i -J -M -R -W -x4 -X -z-4"
     export LESS_TERMCAP_mb="${bold}"          # begin bold
@@ -81,7 +83,7 @@ export_variables_bash_history() {
     # "ignoreboth:erasedups" -
     #   don't put duplicate lines or lines
     #   starting with space in the bash history.
-    export HISTCONTROL=
+    export HISTCONTROL="ignoreboth"
     # unlimited bash history (file size)
     export HISTFILESIZE=
     # unlimited bash history (number of lines)
@@ -92,31 +94,43 @@ export_variables_bash_history() {
 # colors
 export_variables_colors() {
 
-    export GC_30="$(color_get "1;30")"
-    export GC_030="$(color_get "0;30")"
-    
-    export GC_31="$(color_get "1;31")"
-    export GC_031="$(color_get "0;31")"
-    
-    export GC_32="$(color_get "1;32")"
-    export GC_032="$(color_get "0;32")"
-    
-    export GC_33="$(color_get "1;33")"
-    export GC_033="$(color_get "0;33")"
-    
-    export GC_34="$(color_get "1;34")"
-    export GC_034="$(color_get "0;34")"
-    
-    export GC_35="$(color_get "1;35")"
-    export GC_035="$(color_get "0;35")"
-    
-    export GC_36="$(color_get "1;36")"
-    export GC_036="$(color_get "0;36")"
-    
-    export GC_37="$(color_get "1;37")"
-    export GC_037="$(color_get "0;37")"
-    
-    export GC_END=$(color_end)
+    GC_30=$(color_get "1;30")
+    GC_030=$(color_get "0;30")
+
+    GC_31=$(color_get "1;31")
+    GC_031=$(color_get "0;31")
+
+    GC_32=$(color_get "1;32")
+    GC_032=$(color_get "0;32")
+
+    GC_33=$(color_get "1;33")
+    GC_033=$(color_get "0;33")
+
+    GC_34=$(color_get "1;34")
+    GC_034=$(color_get "0;34")
+
+    GC_35=$(color_get "1;35")
+    GC_035=$(color_get "0;35")
+
+    GC_36=$(color_get "1;36")
+    GC_036=$(color_get "0;36")
+
+    GC_37=$(color_get "1;37")
+    GC_037=$(color_get "0;37")
+
+    GC_END=$(color_end)
+
+    export GC_30 GC_030 GC_31 GC_031 GC_32 GC_032 GC_33 GC_033 GC_34
+    export GC_034 GC_35 GC_035 GC_36 GC_036 GC_37 GC_037 GC_END
+
+}
+
+export_path() {
+
+    for argument in "${@}"; do
+        [[ "${PATH}" == *"${argument}"* ]] && continue
+        export PATH="${PATH}:${argument}"
+    done
 
 }
 
@@ -124,11 +138,9 @@ export_variables_colors() {
 export_variables_others() {
 
     ## dot files
-    export DOTFILES="${HOME}/dotfiles"
+    export DOTFILES="${DOTFILES_OVERRIDE:-${HOME}/dotfiles}"
     ## tty name
-    export TTY_NAME="$(tty)"
-    ## location of dot-files
-    export DOT_FILES="${HOME}/dot-files"
+    tty_name=$(tty) && export TTY_NAME="${tty_name}"
     ## prompt variable that is shown when there are multiple lines
     #export PS2="${GC_32_}▶${GC_END_}"
     export PS2=
@@ -139,13 +151,16 @@ export_variables_others() {
     export LANG="en_US.UTF-8"
     ## colored GCC warnings and errors
     export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+    ### path edits
     ## path edit for ruby gems to work
-    export PATH="${PATH}:${HOME}/.local/share/gem/ruby/3.0.0/bin"
+    ruby_path="${HOME}/.local/share/gem/ruby/3.0.0/bin"
     ## path edit for local binaries
-    export PATH="${PATH}:${HOME}/.local/bin"
+    local_binaries="${HOME}/.local/bin"
+    ## actual path changes
+    export_path "${ruby_path}" "${local_binaries}"
     ## fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
     ## silences npm funding messages
-    export OPEN_SOURCE_CONTRIBUTOR=true
+    export OPEN_SOURCE_CONTRIBUTOR="true"
 
 }

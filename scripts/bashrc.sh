@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-force_color_prompt=yes
+export force_color_prompt=yes
 
 ### start
 ## if the shell is not interactive - return
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
-. "${HOME}/dotfiles/scripts/functions/source_stuff.sh" || return
+source_script="scripts/functions/source_stuff.sh"
+if . "dotfiles/${source_script}"; then
+    export DOTFILES_OVERRIDE="${PWD}/dotfiles"
+elif ! . "${HOME}/dotfiles/${source_script}"; then
+    return
+fi
 
 ### source stuff
 ## source functions from the folder 'functions'
@@ -42,4 +47,3 @@ start_preexec_precmd
 start_xorg_server
 ## outputs system information (kernel, gcc)
 get_distribution_info
-
