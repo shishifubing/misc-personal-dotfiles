@@ -7,13 +7,13 @@ export force_color_prompt=yes
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
 source_script="scripts/functions/source_stuff.sh"
+
 if [[ ! "${DOTFILES_OVERRIDE}" && ! "${DOTFILES}" ]] ||
     ! . "${DOTFILES_OVERRIDE:-DOTFILES}/${source_script}"; then
 
-    if . "dotfiles/${source_script}"; then
+    if ! . "${HOME}/dotfiles/${source_script}"; then
+        . "${PWD}/dotfiles/${source_script}" || return
         export DOTFILES_OVERRIDE="${PWD}/dotfiles"
-    elif ! . "${HOME}/dotfiles/${source_script}"; then
-        return
     fi
 fi
 
