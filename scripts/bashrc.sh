@@ -6,16 +6,9 @@ export force_color_prompt=yes
 ## if the shell is not interactive - return
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
-source_script="scripts/functions/source_stuff.sh"
-
-if [[ ! "${DOTFILES_OVERRIDE}" && ! "${DOTFILES}" ]] ||
-    ! . "${DOTFILES_OVERRIDE:-DOTFILES}/${source_script}"; then
-
-    if ! . "${HOME}/dotfiles/${source_script}"; then
-        . "${PWD}/dotfiles/${source_script}" || return
-        export DOTFILES_OVERRIDE="${PWD}/dotfiles"
-    fi
-fi
+DOTFILES=$(find "${PWD}" "${HOME}" -type d -name dotfiles | head -n 1)
+export DOTFILES
+. "${DOTFILES}/scripts/functions/source_stuff.sh" || return
 
 ### source stuff
 ## source functions from the folder 'functions'

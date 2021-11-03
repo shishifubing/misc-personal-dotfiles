@@ -138,7 +138,7 @@ export_path() {
 export_variables_others() {
 
     ## dot files
-    export DOTFILES="${DOTFILES_OVERRIDE:-${HOME}/dotfiles}"
+    #export DOTFILES="${DOTFILES_OVERRIDE:-${HOME}/dotfiles}"
     ## tty name
     tty_name=$(tty) && export TTY_NAME="${tty_name}"
     ## prompt variable that is shown when there are multiple lines
