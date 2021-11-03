@@ -13,8 +13,8 @@ export DOTFILES="${DOTFILES:-$(_get_dotfiles | head -n 1)}"
 ### source stuff
 ## source functions from the folder 'functions'
 source_functions
-## source programmable completion
-source_programmable_completion_features
+## source programmable completion, causes some issues on RHEL
+#source_programmable_completion_features
 ## source fzf scripts
 source_fzf_scripts
 ## source keymaps, doesn't work in kde on startup
