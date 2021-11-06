@@ -6,8 +6,22 @@ export force_color_prompt=yes
 ## if the shell is not interactive - return
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
-_get_dotfiles() { find "${PWD}" "${HOME}" -type d -name dotfiles; }
-export DOTFILES="${DOTFILES:-$(_get_dotfiles | head -n 1)}"
+if [[ ! "${DOTFILES}" ]]; then
+    _dotfiles_1="${HOME}/dotfiles"
+    _dotfiles_2="dotfiles"
+    _dotfiles_3="../dotfiles"
+
+    if [[ -f "${_dotfiles_1}" ]]; then
+        export DOTFILES="${_dotfiles_1}"
+    elif [[ -f "${_dotfiles_3}" ]]; then
+        export DOTFILES="${_dotfiles_3}"
+    elif [[ -f "${_dotfiles_2}" ]]; then
+        export DOTFILES="${_dotfiles_2}"
+    else
+        DOTFILES=$(find "${PWD}" "${HOME}" -type d -name dotfiles)
+        export DOTFILES
+    fi
+fi
 . "${DOTFILES}/scripts/functions/source_stuff.sh" || return
 
 ### source stuff
