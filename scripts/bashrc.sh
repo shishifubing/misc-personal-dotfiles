@@ -6,23 +6,18 @@ export force_color_prompt=yes
 ## if the shell is not interactive - return
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
+_script="scripts/functions/source_stuff.sh"
 if [[ ! "${DOTFILES}" ]]; then
-    _dotfiles_1="${HOME}/dotfiles"
-    _dotfiles_2="dotfiles"
-    _dotfiles_3="../dotfiles"
-
-    if [[ -f "${_dotfiles_1}" ]]; then
-        export DOTFILES="${_dotfiles_1}"
-    elif [[ -f "${_dotfiles_3}" ]]; then
-        export DOTFILES="${_dotfiles_3}"
-    elif [[ -f "${_dotfiles_2}" ]]; then
-        export DOTFILES="${_dotfiles_2}"
+    if [[ -x "${HOME}/dotfiles/${_script}" ]]; then
+        export DOTFILES="${HOME}/dotfiles"
+    elif [[ -x "${PWD}/dotfiles/${_script}" ]]; then
+        export DOTFILES="${PWD}/dotfiles"
     else
         DOTFILES=$(find "${PWD}" "${HOME}" -type d -name dotfiles)
         export DOTFILES
     fi
 fi
-. "${DOTFILES}/scripts/functions/source_stuff.sh" || return
+. "${DOTFILES}/${_script}" || return
 
 ### source stuff
 ## source functions from the folder 'functions'

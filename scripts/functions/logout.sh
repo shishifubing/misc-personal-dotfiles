@@ -9,6 +9,13 @@ lo() {
 
 }
 
+# suspend
+losp() {
+
+    sudo systemctl suspend
+
+}
+
 # lock session
 lol() {
 

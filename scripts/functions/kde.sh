@@ -37,6 +37,7 @@ get_date_kde() {
 start_kde() {
 
     export DESKTOP_SESSION="plasma"
+    export session="plasma"
     exec startplasma-x11
 
 }
