@@ -2,6 +2,21 @@
 
 ### kubernetes
 
+## create a certificate secret
+kubernetes_secret_create_sertificate() {
+
+    local name key certificate
+
+    name="${1}"
+    key="${2:-${name}}"
+    certificate="${3:-${name}}"
+
+    kubectl create secret tls "${name}" \
+        --key "${key}" \
+        --cert "${certificate}"
+
+}
+
 ## modify current context
 kubernetes_context() {
 
