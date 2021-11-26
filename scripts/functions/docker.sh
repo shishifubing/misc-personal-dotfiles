@@ -8,8 +8,8 @@ kubernetes_secret_create_sertificate() {
     local name key certificate
 
     name="${1}"
-    key="${2:-${name}}"
-    certificate="${3:-${name}}"
+    key="${2:-${name}.key}"
+    certificate="${3:-${name}.crt}"
 
     kubectl create secret tls "${name}" \
         --key "${key}" \
