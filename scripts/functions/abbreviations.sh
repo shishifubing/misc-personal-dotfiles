@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-# random stuff
+# systemctl
+
+s() {
+    sudo systemctl "${@}"
+}
 
 # st in tabbed
 stt() {
