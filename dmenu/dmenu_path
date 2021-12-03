@@ -1,10 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 #
 # By default, dmenu_path sorts executables alphabetically. It seems to make
 # more sense to sort them by atime in an effort to reduce the number of
 # keystrokes needed to start a program.
 
-echo $PATH | tr ':' '\n' | uniq | sed 's#$#/#' | # lists directories in $PATH
-    xargs ls -lu --time-style=+%s |              # adds atime epoch
-    awk '/^(-|l)/ { print $6, $7 }' |            # remove everything but timestamp and name
-    sort -rn | cut -d' ' -f 2                    # Sort based on the timestamp and then remove it
+executables () {
+    echo "$PATH" | tr ':' '\n' | uniq | sed 's#$#/#' | # lists directories from $PATH
+    xargs ls -lu --time-style=+%s |                  # adds atime epoch
+    awk '/^(-|l)/ { print $6, $7 }' |                # remove everything but timestamp and name
+    sort -rn | cut -d' ' -f 2                        # Sort based on the timestamp and then remove it   
+}                 
+
+# lists functions (aliases) declared in the shell
+aliases=$(sh declare -F | awk 'FNR != 1 {print $3}') # first line is executables, so it's not needed
+
+{ echo "$aliases"; executables; } # combined output

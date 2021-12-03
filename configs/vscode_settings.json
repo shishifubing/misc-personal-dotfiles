@@ -4,7 +4,7 @@
     "window.titleBarStyle": "native",
     "window.openFilesInNewWindow": "on",
     "window.dialogStyle": "native",
-    "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "explorer.openEditors.visible": 999,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,

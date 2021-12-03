@@ -12,6 +12,6 @@ repositories=(
 )
 
 for repository in "${repositories[@]}"
-doz
+do
     git clone $repository
 done
