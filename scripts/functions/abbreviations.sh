@@ -2,14 +2,13 @@
 
 # systemctl
 
-s() {
-    sudo systemctl "${@}"
-}
+s() { sudo systemctl "${@}"; }
 
 # kubernetes
-k() {
-    kubectl "${@}"
-}
+k() { kubectl "${@}"; }
+kd() { kubectl describe "${@}"; }
+kg() { kubectl get "${@}"; }
+ka() { kubectl apply "${@}"; }
 
 # st in tabbed
 stt() {
