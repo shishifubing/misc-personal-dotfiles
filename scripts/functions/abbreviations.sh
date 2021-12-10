@@ -6,6 +6,11 @@ s() {
     sudo systemctl "${@}"
 }
 
+# kubernetes
+k() {
+    kubectl "${@}"
+}
+
 # st in tabbed
 stt() {
 

@@ -12,13 +12,13 @@ pm() {
 # system update
 pms() {
 
-    pm -yu "${@}" || return 1
+    pm -yu "${@}"
     # use Firejail by default for all applications for which it has profiles
     # you need to run it only once but if you install something new
     # then you need to run it again
-    get_shell_separator_line
-    echo "running firejail..."
-    sudo firecfg > /dev/null
+    #get_shell_separator_line
+    #echo "running firejail..."
+    #sudo firecfg > /dev/null
 
 }
 
