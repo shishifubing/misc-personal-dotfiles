@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # systemctl
-
 s() { sudo systemctl "${@}"; }
 
 # kubernetes
@@ -10,54 +9,22 @@ kd() { kubectl describe "${@}"; }
 kg() { kubectl get "${@}"; }
 ka() { kubectl apply "${@}"; }
 kl() { kubectl logs "${@}"; }
+ke() { kubectl edit "${@}"; }
 
 # st in tabbed
-stt() {
-
-    #[[ -z $TABBED_XID ]] || export TABBED_XID=$(tabbed -d)
-    #st -w "$TABBED_XID"
-    tabbed -r 2 st -w ""
-
-}
+#[[ -z $TABBED_XID ]] || export TABBED_XID=$(tabbed -d)
+#st -w "$TABBED_XID"
+stt() { tabbed -r 2 st -w ""; }
 
 # default compile command
-mi() {
-
-    make && sudo make install
-
-}
+mi() { make && sudo make install; }
 
 # vim
-v() {
+v() { if [[ "$(which nvim)" ]]; then nvim "${@}" else vim "${@}"; fi; }
 
-    if [[ "$(which nvim)" ]]; then
-        nvim "${@}"
-    else
-        vim "${@}"
-    fi
-}
+s() { sudo --set-home --preserve-env -u "${USER}" bash -c "${@}"; }
 
-s() {
-
-    sudo --set-home --preserve-env -u "${USER}" bash -c "${@}"
-
-}
-
-g() {
-
-    grep --color=always "${@}"
-
-}
-# start vpn
-yv() {
-
-    echo '-hfo3-!W' | xclip -sel clip
-    echo "token is in your clipboard"
-    local directory="${HOME}/Repositories/ya_vpn/"
-    local config_file="${HOME}/Repositories/ya_vpn/openvpn.conf"
-    sudo openvpn --cd "${directory}" --config "${config_file}"
-
-}
+g() { grep --color=always "${@}"; }
 
 # code-oss
 co() {
