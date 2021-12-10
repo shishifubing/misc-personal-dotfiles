@@ -9,6 +9,7 @@ k() { kubectl "${@}"; }
 kd() { kubectl describe "${@}"; }
 kg() { kubectl get "${@}"; }
 ka() { kubectl apply "${@}"; }
+kl() { kubectl logs "${@}"; }
 
 # st in tabbed
 stt() {
