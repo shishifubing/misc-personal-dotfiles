@@ -23,7 +23,7 @@ setup_grub_add_windows_10_uefi() {
         search --fs-uuid --set=root ${fs_uuid}
         chainloader /EFI/Microsoft/Boot/bootmgfw.efi
     }
-fi"
+    fi"
     echo "${entry}"
     echo
     echo "is that okay?"
@@ -47,34 +47,45 @@ setup_hard_links() {
     local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
-    local emacs="${scripts}/emacs"
+    #local emacs="${scripts}/emacs"
     local xinitrc="${scripts}/xinitrc.sh"
     local vimrc="${DOTFILES}/vim/vimrc"
 
     local firefox_path="${HOME}/.mozilla/firefox"
 
     _prepare() {
-        rm --recursive --force "${2}"
+        rm --force "${2}"
         echo -e "\"${1}\" ${GC_36}->${GC_END} \"${2}\""
     }
     _ln() {
         _prepare "${1}" "${2}"
-        ln -s "${1}" "${2}"
+        ln "${1}" "${2}"
     }
     _cp() {
         _prepare "${1}" "${2}"
-        cp -r "${1}" "${2}"
+        cp -rf "${1}" "${2}"
     }
 
     _ln "${vscode_config}" "${vscode_path}"
     _ln "${bashrc}" "${HOME}/.bashrc"
     _ln "${xinitrc}" "${HOME}/.xinitrc"
-    _ln "${emacs}" "${HOME}/.emacs"
+    #_ln "${emacs}" "${HOME}/.emacs"
     _ln "${vimrc}" "${HOME}/.vimrc"
 
     for directory in "${firefox_path}"/*; do
         [[ -d "${directory}" ]] || continue
-        _cp "${firefox}" "${directory}/chrome"
+        [[ "${directory}" == *"release"* ]] || continue
+        echo "-----------------------------------"
+        echo "setting up directory '${directory}'"
+        echo "-----------------------------------"
+        mkdir -p "${directory}/chrome"
+        for file in "${firefox}"/*; do
+            if [[ -d "${file}" ]]; then
+                _cp "${file}" "${directory}/chrome/$(basename "${file}")"
+                continue
+            fi
+            _ln "${file}" "${directory}/chrome/$(basename "${file}")"
+        done
     done
 }
 

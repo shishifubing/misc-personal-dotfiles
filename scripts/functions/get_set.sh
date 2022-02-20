@@ -7,7 +7,9 @@
 set_shell_options() {
 
     ## vim mode for the terminal
-    set -o vi
+    #set -o vi
+    ## emacs mode for the terminal
+    set -o emacs
     ## check the window size after each command and, if necessary,
     ## update the values of LINES and COLUMNS.
     shopt -s checkwinsize

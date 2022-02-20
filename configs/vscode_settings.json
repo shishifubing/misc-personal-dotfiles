@@ -23,8 +23,8 @@
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "always",
-    "editor.fontSize": 22,
-    "editor.rulers": [72],
+    "editor.fontSize": 20,
+    "editor.rulers": [79],
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
     "editor.formatOnPaste": true,
@@ -51,7 +51,7 @@
         "editorCursor.background": "#ffffff",
         "editorIndentGuide.activeBackground": "#bf3eff",
         "editorIndentGuide.background": "#ffff54",
-        "editorRuler.foreground": "#ff0000",
+        "editorRuler.foreground": "#bf3eff",
         "editorBracketMatch.border": "#bf3eff",
         "editorBracketMatch.background": "#000000"
     },
@@ -94,7 +94,7 @@
     "prettier.tabWidth": 4,
     "prettier.useTabs": false,
     "prettier.enable": true,
-    "prettier.printWidth": 72,
+    "prettier.printWidth": 79,
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -125,7 +125,7 @@
     "files.trimFinalNewlines": true,
     "workbench.activityBar.visible": false,
     "workbench.enableExperiments": false,
-    "workbench.tree.indent": 4,
+    "workbench.tree.indent": 25,
     "workbench.tree.renderIndentGuides": "always",
     "window.autoDetectHighContrast": false,
     "explorer.autoReveal": "focusNoScroll",

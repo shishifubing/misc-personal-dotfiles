@@ -3,6 +3,9 @@
 # systemctl
 s() { sudo systemctl "${@}"; }
 
+# trash management
+rm() { gio trash "${@}"; }
+
 # kubernetes
 k() { kubectl "${@}"; }
 kd() { kubectl describe "${@}"; }
