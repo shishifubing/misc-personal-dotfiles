@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # systemctl
-s() { sudo systemctl "${@}"; }
+sy() { sudo systemctl "${@}"; }
 
 # trash management
-rm() { gio trash "${@}"; }
+r() { gio trash "${@}"; }
 
 # kubernetes
 k() { kubectl "${@}"; }
@@ -29,18 +29,18 @@ s() { sudo --set-home --preserve-env -u "${USER}" bash -c "${@}"; }
 
 g() { grep --color=always "${@}"; }
 
+# kde
+
+kde_start() { kstart plasmashell; }
+kde_stop() { kquitapp5 plasmashell; }
+kde_restart() { kde_stop && kde_start; }
+
 # code-oss
 co() {
 
     local workspace="${HOME}/dotfiles/configs/vscode_workspace.code-workspace"
-    local temporary_file="/tmp/vscode_temporary_file"
-    [[ -f "${temporary_file}" ]] || touch "${temporary_file}"
-    local files=("${workspace}" "${temporary_file}" "${@}")
 
-    source_keymaps
-    for file in "${files[@]}"; do
-        code-oss --reuse-window "${file}" &
-    done
+    code "${workspace}" &
 
 }
 

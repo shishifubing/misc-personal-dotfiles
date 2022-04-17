@@ -44,7 +44,8 @@ setup_hard_links() {
     local configs="${DOTFILES}/configs"
     local firefox="${DOTFILES}/firefox"
 
-    local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
+    #local vscode_path="${HOME}/.config/Code - OSS/User/settings.json"
+    local vscode_path="${HOME}/.config/Code/User/settings.json"
     local vscode_config="${configs}/vscode_settings.json"
     local bashrc="${scripts}/bashrc.sh"
     #local emacs="${scripts}/emacs"

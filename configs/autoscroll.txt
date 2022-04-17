@@ -1,0 +1,3 @@
+--buttons-start 8 --buttons-end
+8 --debug-click
+--debug-initial

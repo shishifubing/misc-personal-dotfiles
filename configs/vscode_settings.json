@@ -6,7 +6,6 @@
     // window
     "window.menuBarVisibility": "toggle",
     "window.openFilesInNewWindow": "off",
-    "window.zoomLevel": -1,
     //
 
     // editor
@@ -23,7 +22,7 @@
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "always",
-    "editor.fontSize": 20,
+    "editor.fontSize": 22,
     "editor.rulers": [79],
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
@@ -35,7 +34,7 @@
     "workbench.editor.decorations.badges": true,
     "workbench.editor.labelFormat": "long",
     "workbench.editor.limit.value": 999,
-    "workbench.panel.opensMaximized": "always",
+    "workbench.panel.opensMaximized": "never",
     "workbench.editor.enablePreview": false,
     "workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
@@ -77,6 +76,9 @@
         "--aggressive",
         "--aggressive"
     ],
+    "python.formatting.provider": "autopep8",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
     "python.autoComplete.addBrackets": true,
     "shellcheck.exclude": [
         //"SC1091",
@@ -102,7 +104,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -136,7 +138,25 @@
     "prettier.bracketSpacing": false,
     "[helm]": {
         // "file
-    }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.codeActionsOnSave": { "python.sortImports": true}
+    },
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "editor.unicodeHighlight.allowedLocales": {
+        "ru": true
+    },
+    "editor.unicodeHighlight.allowedCharacters": {
+        "❮": true,
+        "❯": true
+    },
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 79,
+    "terminal.integrated.minimumContrastRatio": 7,
+    "terminal.integrated.tabs.hideCondition": "never",
+    "window.zoomLevel": -1
     //
 
     // vim

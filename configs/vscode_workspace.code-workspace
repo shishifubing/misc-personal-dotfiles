@@ -1,9 +1,15 @@
 {
     "folders": [
         {
-            "path": "../../dot-files"
+            "name": "dotfiles",
+            "path": ".."
         },
         {
+            "name": "django",
+            "path": "../../repositories/python/django"
+        },
+        {
+            "name": "Downloads",
             "path": "../../Downloads"
         }
     ],

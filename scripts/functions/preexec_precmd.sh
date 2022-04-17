@@ -39,4 +39,6 @@ precmd() {
     echo -e "$(get_precmd_message)"
     echo -e "$(get_shell_prompt_PS1)"
     unset TRAP_DEBUG_TIME_START
+    # saves history of the current session to the history file
+    history -a
 }
