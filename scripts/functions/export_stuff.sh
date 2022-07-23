@@ -157,7 +157,7 @@ export_variables_others() {
     ## path edit for local binaries
     local_binaries="${HOME}/.local/bin"
     ## actual path changes
-    export_path "${ruby_path}" "${local_binaries}"
+    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" 
     ## fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
     ## silences npm funding messages

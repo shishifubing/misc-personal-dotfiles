@@ -3,6 +3,8 @@
     "keyboard.dispatch": "keyCode",
     // it is needed for the key remap to work
 
+    "editor.inlayHints.enabled": true,
+
     // window
     "window.menuBarVisibility": "toggle",
     "window.openFilesInNewWindow": "off",
@@ -10,12 +12,13 @@
 
     // editor
     "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
     "editor.fontFamily": "'Inconsolata'",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
-    "editor.renderWhitespace": "trailing",
+    "editor.renderWhitespace": "boundary",
     "editor.trimAutoWhitespace": true,
     "editor.quickSuggestions": true,
     "editor.quickSuggestionsDelay": 0,
@@ -51,8 +54,8 @@
         "editorIndentGuide.activeBackground": "#bf3eff",
         "editorIndentGuide.background": "#ffff54",
         "editorRuler.foreground": "#bf3eff",
-        "editorBracketMatch.border": "#bf3eff",
-        "editorBracketMatch.background": "#000000"
+        //"editorBracketMatch.border": "#bf3eff",
+        //"editorBracketMatch.background": "#000000"
     },
     //
 
@@ -98,7 +101,7 @@
     "prettier.enable": true,
     "prettier.printWidth": 79,
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -128,7 +131,7 @@
     "workbench.activityBar.visible": false,
     "workbench.enableExperiments": false,
     "workbench.tree.indent": 25,
-    "workbench.tree.renderIndentGuides": "always",
+    "workbench.tree.renderIndentGuides": "onHover",
     "window.autoDetectHighContrast": false,
     "explorer.autoReveal": "focusNoScroll",
     "editor.cursorStyle": "block",
@@ -143,6 +146,18 @@
         "editor.defaultFormatter": "ms-python.python",
         "editor.codeActionsOnSave": { "python.sortImports": true}
     },
+    "[go]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "golang.go",
+
+    },
+    "gopls": {
+        //https://github.com/golang/vscode-go/blob/master/docs/settings.md#settings-for-gopls
+        "ui.semanticTokens": true,
+        "formatting.gofumpt": true
+    },
+    "go.lintFlags": ["--enable-all"],
     "python.languageServer": "Pylance",
     "python.analysis.completeFunctionParens": true,
     "editor.unicodeHighlight.allowedLocales": {
@@ -156,7 +171,9 @@
     "editor.wordWrapColumn": 79,
     "terminal.integrated.minimumContrastRatio": 7,
     "terminal.integrated.tabs.hideCondition": "never",
-    "window.zoomLevel": -1
+    "window.zoomLevel": -1,
+    "C_Cpp.clang_format_style": "Google",
+    "C_Cpp.enhancedColorization": "Enabled",
     //
 
     // vim

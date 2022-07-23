@@ -11,7 +11,19 @@
         {
             "name": "Downloads",
             "path": "../../Downloads"
+        },
+        {
+            "path": "../../repositories/golang/leetcode"
+        },
+        {
+            "name": "nexus-plugin-security-check",
+            "path": "../../repositories/java/nexus-plugin-security-check"
         }
     ],
-    "settings": {}
+    "settings": {
+        "files.associations": {
+            "vector": "cpp"
+        },
+        "java.configuration.updateBuildConfiguration": "automatic"
+    }
 }

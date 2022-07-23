@@ -1,0 +1,34 @@
+@-moz-document regexp("^(about:|chrome:|file:).*") {
+
+    /* stuff to hide */
+    #browser-bottombox,
+    #titlebar,
+    #TabsToolbar,
+    #sidebar-header,
+    #back-button,
+    #forward-button,
+    #reload-button,
+    #stop-button,
+    #home-button {
+        visibility: collapse !important;
+    }
+
+    /* usually you cannot make the sidebar smaller since it has min-width
+      plus it causes a little render delay when you change its size */
+    #sidebar-box,
+    #sidebar {
+        min-width: 0 !important;
+    }
+
+    /* history sidebar becomes full screen on activation */
+    #sidebar-box[sidebarcommand="viewHistorySidebar"],
+    #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
+        min-width: 100vw !important;
+    }
+
+    /* on linux, the sidebar splitter is visible for some reason */
+    .sidebar-splitter {
+        opacity: 0 !important;
+        width: 0px !important;
+    }
+}
