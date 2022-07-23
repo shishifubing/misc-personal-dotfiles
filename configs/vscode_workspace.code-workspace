@@ -6,18 +6,17 @@
         },
         {
             "name": "django",
-            "path": "../../repositories/python/django"
+            "path": "../../Repositories/python/django"
         },
         {
-            "name": "Downloads",
+            "name": "downloads",
             "path": "../../Downloads"
         },
         {
-            "path": "../../repositories/golang/leetcode"
+            "path": "../../Repositories/golang/leetcode"
         },
         {
-            "name": "nexus-plugin-security-check",
-            "path": "../../repositories/java/nexus-plugin-security-check"
+            "path": "../../Repositories/golang/cicd_platform"
         }
     ],
     "settings": {

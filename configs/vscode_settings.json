@@ -3,7 +3,7 @@
     "keyboard.dispatch": "keyCode",
     // it is needed for the key remap to work
 
-    "editor.inlayHints.enabled": true,
+    "editor.inlayHints.enabled": "on",
 
     // window
     "window.menuBarVisibility": "toggle",
@@ -13,14 +13,18 @@
     // editor
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true,
-    "editor.fontFamily": "'Inconsolata'",
+    "editor.fontFamily": "'Source Code Pro'",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
     "editor.renderWhitespace": "boundary",
     "editor.trimAutoWhitespace": true,
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+        "comments": "inline",
+        "strings": "inline",
+        "other": "inline"
+    },
     "editor.quickSuggestionsDelay": 0,
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "always",
@@ -39,12 +43,13 @@
     "workbench.editor.limit.value": 999,
     "workbench.panel.opensMaximized": "never",
     "workbench.editor.enablePreview": false,
-    "workbench.colorTheme": "Default High Contrast",
+    //"workbench.colorTheme": "Default High Contrast",
     "workbench.colorCustomizations": {
         "contrastBorder": "#bf3eff00",
         "editor.selectionHighlightBorder": "#bf3eff",
         "focusBorder": "#bf3eff",
-        "statusBar.border": "#bf3eff00",
+        "statusBar.border": "#252526",
+        "statusBar.background": "#252526",
         "statusBar.debuggingBackground": "#bf3eff80",
         "editor.lineHighlightBorder": "#000000",
         "editor.selectionBackground": "#bf3eff",
@@ -53,7 +58,7 @@
         "editorCursor.background": "#ffffff",
         "editorIndentGuide.activeBackground": "#bf3eff",
         "editorIndentGuide.background": "#ffff54",
-        "editorRuler.foreground": "#bf3eff",
+        "editorRuler.foreground": "#bf3eff"
         //"editorBracketMatch.border": "#bf3eff",
         //"editorBracketMatch.background": "#000000"
     },
@@ -144,13 +149,12 @@
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.python",
-        "editor.codeActionsOnSave": { "python.sortImports": true}
+        "editor.codeActionsOnSave": {"python.sortImports": true}
     },
     "[go]": {
         "editor.insertSpaces": true,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "golang.go",
-
+        "editor.defaultFormatter": "golang.go"
     },
     "gopls": {
         //https://github.com/golang/vscode-go/blob/master/docs/settings.md#settings-for-gopls
@@ -173,7 +177,7 @@
     "terminal.integrated.tabs.hideCondition": "never",
     "window.zoomLevel": -1,
     "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.enhancedColorization": "Enabled",
+    "C_Cpp.enhancedColorization": "Enabled"
     //
 
     // vim
