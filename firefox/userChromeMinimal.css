@@ -1,5 +1,4 @@
 @-moz-document regexp("^(about:|chrome:|file:).*") {
-
     /* stuff to hide */
     #browser-bottombox,
     #titlebar,
@@ -9,7 +8,8 @@
     #forward-button,
     #reload-button,
     #stop-button,
-    #home-button {
+    #home-button,
+    .sidebar-splitter {
         visibility: collapse !important;
     }
 
@@ -18,17 +18,12 @@
     #sidebar-box,
     #sidebar {
         min-width: 0 !important;
+        border: none;
     }
 
     /* history sidebar becomes full screen on activation */
     #sidebar-box[sidebarcommand="viewHistorySidebar"],
-    #sidebar-box[sidebarcommand="viewHistorySidebar"]>#sidebar {
+    #sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar {
         min-width: 100vw !important;
-    }
-
-    /* on linux, the sidebar splitter is visible for some reason */
-    .sidebar-splitter {
-        opacity: 0 !important;
-        width: 0px !important;
     }
 }

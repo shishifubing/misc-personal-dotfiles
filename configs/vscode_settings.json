@@ -2,14 +2,11 @@
     "telemetry.telemetryLevel": "off",
     "keyboard.dispatch": "keyCode",
     // it is needed for the key remap to work
-
     "editor.inlayHints.enabled": "on",
-
     // window
     "window.menuBarVisibility": "toggle",
     "window.openFilesInNewWindow": "off",
     //
-
     // editor
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true,
@@ -21,9 +18,9 @@
     "editor.renderWhitespace": "boundary",
     "editor.trimAutoWhitespace": true,
     "editor.quickSuggestions": {
-        "comments": "inline",
-        "strings": "inline",
-        "other": "inline"
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
     },
     "editor.quickSuggestionsDelay": 0,
     "editor.minimap.enabled": false,
@@ -63,17 +60,14 @@
         //"editorBracketMatch.background": "#000000"
     },
     //
-
     // git
     "git.autofetch": true,
     "git.confirmSync": false,
     //
-
     // explorer
     "explorer.incrementalNaming": "smart",
     "explorer.openEditors.visible": 999,
     //
-
     // random stuff
     "files.trimTrailingWhitespace": true,
     "zenMode.centerLayout": false,
@@ -99,7 +93,6 @@
         "SC2028" // echo may not expand escape sequences, use printf
     ],
     //
-
     // prettier settings
     "prettier.tabWidth": 4,
     "prettier.useTabs": false,
@@ -149,7 +142,9 @@
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.python",
-        "editor.codeActionsOnSave": {"python.sortImports": true}
+        "editor.codeActionsOnSave": {
+            "python.sortImports": true
+        }
     },
     "[go]": {
         "editor.insertSpaces": true,
@@ -162,7 +157,7 @@
         "formatting.gofumpt": true
     },
     "go.lintFlags": ["--enable-all"],
-    "python.languageServer": "Pylance",
+    "python.languageServer": "Jedi",
     "python.analysis.completeFunctionParens": true,
     "editor.unicodeHighlight.allowedLocales": {
         "ru": true
@@ -177,9 +172,11 @@
     "terminal.integrated.tabs.hideCondition": "never",
     "window.zoomLevel": -1,
     "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.enhancedColorization": "Enabled"
+    "C_Cpp.enhancedColorization": "Enabled",
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
     //
-
     // vim
     /*
     "vim.easymotion": true,
@@ -211,7 +208,6 @@
         "<C-j>": false
     },
     */
-
     //"files.exclude": {
     //    "**/.classpath": true,
     //"**/.project": true,

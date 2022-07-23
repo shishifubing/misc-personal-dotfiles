@@ -44,7 +44,7 @@ source_programmable_completion_features() {
 # source functions
 source_functions() {
 
-    source_scripts_in_directory "${HOME}/dotfiles/scripts/functions"
+    source_scripts_in_directory "${DOTFILES}/scripts/functions"
 
 }
 

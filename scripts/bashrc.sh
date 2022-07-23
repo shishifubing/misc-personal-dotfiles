@@ -8,12 +8,12 @@ export force_color_prompt=yes
 ## if source script is not present - return
 _script="scripts/functions/source_stuff.sh"
 if [[ ! "${DOTFILES}" ]]; then
-    if [[ -x "${HOME}/dotfiles/${_script}" ]]; then
-        export DOTFILES="${HOME}/dotfiles"
+    if [[ -x "${HOME}/Dotfiles/${_script}" ]]; then
+        export DOTFILES="${HOME}/Dotfiles"
     elif [[ -x "${PWD}/dotfiles/${_script}" ]]; then
-        export DOTFILES="${PWD}/dotfiles"
+        export DOTFILES="${PWD}/Dotfiles"
     else
-        DOTFILES=$(find "${PWD}" "${HOME}" -type d -name dotfiles)
+        DOTFILES=$(find "${PWD}" "${HOME}" -type d -name Dotfiles)
         export DOTFILES
     fi
 fi
