@@ -98,6 +98,9 @@
     "prettier.useTabs": false,
     "prettier.enable": true,
     "prettier.printWidth": 79,
+    "[dockercompose]": {
+        "editor.tabSize": 4
+    },
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
@@ -114,7 +117,8 @@
         "editor.defaultFormatter": "foxundermoon.shell-format"
     },
     "[yaml]": {
-        "editor.tabSize": 4
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "editor.tabCompletion": "on",
     "workbench.editor.showTabs": false,
@@ -156,7 +160,6 @@
         "ui.semanticTokens": true,
         "formatting.gofumpt": true
     },
-    "go.lintFlags": ["--enable-all"],
     "python.languageServer": "Jedi",
     "python.analysis.completeFunctionParens": true,
     "editor.unicodeHighlight.allowedLocales": {
@@ -175,6 +178,9 @@
     "C_Cpp.enhancedColorization": "Enabled",
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "octref.vetur"
     }
     //
     // vim

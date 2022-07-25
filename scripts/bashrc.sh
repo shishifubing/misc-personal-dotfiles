@@ -44,7 +44,7 @@ export_variables_others
 #export_binaries
 ## export all declared functions, not POSIX
 ## can cause problems on some systems (rhel 7, for example)
-export_declared_functions
+#export_declared_functions
 
 ### start stuff
 ## preexec and precmd hooks

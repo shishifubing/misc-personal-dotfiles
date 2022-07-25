@@ -158,7 +158,7 @@ export_variables_others() {
     local_binaries="${HOME}/.local/bin"
     export GOPATH="${HOME}/.go"
     ## actual path changes
-    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}"
+    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}/bin"
     ## fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
     ## silences npm funding messages
