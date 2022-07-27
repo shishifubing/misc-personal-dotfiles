@@ -1,190 +1,195 @@
 {
-    "telemetry.telemetryLevel": "off",
-    "keyboard.dispatch": "keyCode",
-    // it is needed for the key remap to work
-    "editor.inlayHints.enabled": "on",
-    // window
-    "window.menuBarVisibility": "toggle",
-    "window.openFilesInNewWindow": "off",
-    //
-    // editor
-    "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs": true,
-    "editor.fontFamily": "'Source Code Pro'",
+  "telemetry.telemetryLevel": "off",
+  "keyboard.dispatch": "keyCode",
+  // it is needed for the key remap to work
+  "editor.inlayHints.enabled": "on",
+  // window
+  "window.menuBarVisibility": "toggle",
+  "window.openFilesInNewWindow": "off",
+  //
+  // editor
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.fontFamily": "'Source Code Pro'",
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.trimAutoWhitespace": true,
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  "editor.quickSuggestionsDelay": 0,
+  "editor.minimap.enabled": false,
+  "editor.autoClosingBrackets": "always",
+  "editor.autoClosingQuotes": "always",
+  "editor.fontSize": 22,
+  "editor.rulers": [79],
+  "editor.accessibilitySupport": "off",
+  "editor.suggestSelection": "first",
+  "editor.formatOnPaste": true,
+  "editor.maxTokenizationLineLength": 999999,
+  "editor.cursorSmoothCaretAnimation": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.statusBar.visible": true,
+  "workbench.editor.decorations.badges": true,
+  "workbench.editor.labelFormat": "long",
+  "workbench.editor.limit.value": 999,
+  "workbench.panel.opensMaximized": "never",
+  //"workbench.colorTheme": "Default High Contrast",
+  "workbench.colorCustomizations": {
+    "contrastBorder": "#bf3eff00",
+    "editor.selectionHighlightBorder": "#bf3eff",
+    "focusBorder": "#bf3eff",
+    "statusBar.border": "#252526",
+    "statusBar.background": "#252526",
+    "statusBar.debuggingBackground": "#bf3eff80",
+    "editor.lineHighlightBorder": "#000000",
+    "editor.selectionBackground": "#bf3eff",
+    "editor.selectionForeground": "#ffffff",
+    "editorCursor.foreground": "#bf3eff",
+    "editorCursor.background": "#ffffff",
+    "editorIndentGuide.activeBackground": "#bf3eff",
+    "editorIndentGuide.background": "#ffff54",
+    "editorRuler.foreground": "#bf3eff"
+    //"editorBracketMatch.border": "#bf3eff",
+    //"editorBracketMatch.background": "#000000"
+  },
+  //
+  // git
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  //
+  // explorer
+  "explorer.incrementalNaming": "smart",
+  "explorer.openEditors.visible": 999,
+  //
+  // random stuff
+  "files.trimTrailingWhitespace": true,
+  "zenMode.centerLayout": false,
+  "zenMode.silentNotifications": false,
+  "json.maxItemsComputed": 999999,
+  "python.formatting.autopep8Args": [
+    "--indent-size=4",
+    "--aggressive",
+    "--aggressive"
+  ],
+  "python.formatting.provider": "autopep8",
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.autoComplete.addBrackets": true,
+  "shellcheck.exclude": [
+    //"SC1091",
+    //"SC1090",
+    //"SC2155",
+    //"SC2120",
+    //"SC2119",
+    //"SC2016",
+    "SC2001", // use variable expansion instead of sed
+    "SC2028" // echo may not expand escape sequences, use printf
+  ],
+  //
+  // prettier settings
+  //"eslint.workingDirectories": [{"mode": "auto"}],
+  //"prettier.tabWidth": 4,
+  "prettier.bracketSpacing": true,
+  "prettier.useTabs": false,
+  "prettier.enable": true,
+  "prettier.printWidth": 79,
+  "[dockercompose]": {
+    "editor.tabSize": 4
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[yaml]": {
     "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "editor.formatOnType": true,
-    "editor.formatOnSave": true,
-    "editor.renderWhitespace": "boundary",
-    "editor.trimAutoWhitespace": true,
-    "editor.quickSuggestions": {
-        "comments": "on",
-        "strings": "on",
-        "other": "on"
-    },
-    "editor.quickSuggestionsDelay": 0,
-    "editor.minimap.enabled": false,
-    "editor.autoClosingBrackets": "always",
-    "editor.autoClosingQuotes": "always",
-    "editor.fontSize": 22,
-    "editor.rulers": [79],
-    "editor.accessibilitySupport": "off",
-    "editor.suggestSelection": "first",
-    "editor.formatOnPaste": true,
-    "editor.maxTokenizationLineLength": 999999,
-    "editor.cursorSmoothCaretAnimation": true,
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.statusBar.visible": true,
-    "workbench.editor.decorations.badges": true,
-    "workbench.editor.labelFormat": "long",
-    "workbench.editor.limit.value": 999,
-    "workbench.panel.opensMaximized": "never",
-    "workbench.editor.enablePreview": false,
-    //"workbench.colorTheme": "Default High Contrast",
-    "workbench.colorCustomizations": {
-        "contrastBorder": "#bf3eff00",
-        "editor.selectionHighlightBorder": "#bf3eff",
-        "focusBorder": "#bf3eff",
-        "statusBar.border": "#252526",
-        "statusBar.background": "#252526",
-        "statusBar.debuggingBackground": "#bf3eff80",
-        "editor.lineHighlightBorder": "#000000",
-        "editor.selectionBackground": "#bf3eff",
-        "editor.selectionForeground": "#ffffff",
-        "editorCursor.foreground": "#bf3eff",
-        "editorCursor.background": "#ffffff",
-        "editorIndentGuide.activeBackground": "#bf3eff",
-        "editorIndentGuide.background": "#ffff54",
-        "editorRuler.foreground": "#bf3eff"
-        //"editorBracketMatch.border": "#bf3eff",
-        //"editorBracketMatch.background": "#000000"
-    },
-    //
-    // git
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    //
-    // explorer
-    "explorer.incrementalNaming": "smart",
-    "explorer.openEditors.visible": 999,
-    //
-    // random stuff
-    "files.trimTrailingWhitespace": true,
-    "zenMode.centerLayout": false,
-    "zenMode.silentNotifications": false,
-    "json.maxItemsComputed": 999999,
-    "python.formatting.autopep8Args": [
-        "--indent-size=4",
-        "--aggressive",
-        "--aggressive"
-    ],
-    "python.formatting.provider": "autopep8",
-    "python.linting.enabled": true,
-    "python.linting.lintOnSave": true,
-    "python.autoComplete.addBrackets": true,
-    "shellcheck.exclude": [
-        //"SC1091",
-        //"SC1090",
-        //"SC2155",
-        //"SC2120",
-        //"SC2119",
-        //"SC2016",
-        "SC2001", // use variable expansion instead of sed
-        "SC2028" // echo may not expand escape sequences, use printf
-    ],
-    //
-    // prettier settings
-    "prettier.tabWidth": 4,
-    "prettier.useTabs": false,
-    "prettier.enable": true,
-    "prettier.printWidth": 79,
-    "[dockercompose]": {
-        "editor.tabSize": 4
-    },
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[shellscript]": {
-        "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "[yaml]": {
-        "editor.tabSize": 4,
-        "editor.defaultFormatter": "redhat.vscode-yaml"
-    },
-    "editor.tabCompletion": "on",
-    "workbench.editor.showTabs": false,
-    //"editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.dragAndDrop": false,
-    "editor.detectIndentation": false,
-    "editor.minimap.renderCharacters": false,
-    "editor.smoothScrolling": true,
-    "editor.suggest.insertMode": "replace",
-    "editor.suggest.showStatusBar": true,
-    "files.trimFinalNewlines": true,
-    "workbench.activityBar.visible": false,
-    "workbench.enableExperiments": false,
-    "workbench.tree.indent": 25,
-    "workbench.tree.renderIndentGuides": "onHover",
-    "window.autoDetectHighContrast": false,
-    "explorer.autoReveal": "focusNoScroll",
-    "editor.cursorStyle": "block",
-    "editor.cursorBlinking": "solid",
-    "redhat.telemetry.enabled": false,
-    "git.enableSmartCommit": true,
-    "prettier.bracketSpacing": false,
-    "[helm]": {
-        // "file
-    },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python",
-        "editor.codeActionsOnSave": {
-            "python.sortImports": true
-        }
-    },
-    "[go]": {
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "golang.go"
-    },
-    "gopls": {
-        //https://github.com/golang/vscode-go/blob/master/docs/settings.md#settings-for-gopls
-        "ui.semanticTokens": true,
-        "formatting.gofumpt": true
-    },
-    "python.languageServer": "Jedi",
-    "python.analysis.completeFunctionParens": true,
-    "editor.unicodeHighlight.allowedLocales": {
-        "ru": true
-    },
-    "editor.unicodeHighlight.allowedCharacters": {
-        "❮": true,
-        "❯": true
-    },
-    "editor.wordWrap": "on",
-    "editor.wordWrapColumn": 79,
-    "terminal.integrated.minimumContrastRatio": 7,
-    "terminal.integrated.tabs.hideCondition": "never",
-    "window.zoomLevel": -1,
-    "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.enhancedColorization": "Enabled",
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[vue]": {
-        "editor.defaultFormatter": "octref.vetur"
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "editor.tabCompletion": "on",
+  "workbench.editor.showTabs": false,
+  //"editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.dragAndDrop": false,
+  "editor.detectIndentation": false,
+  "editor.minimap.renderCharacters": false,
+  "editor.smoothScrolling": true,
+  "editor.suggest.insertMode": "replace",
+  "editor.suggest.showStatusBar": true,
+  "files.trimFinalNewlines": true,
+  "workbench.activityBar.visible": false,
+  "workbench.enableExperiments": false,
+  "workbench.tree.indent": 25,
+  "workbench.tree.renderIndentGuides": "onHover",
+  "window.autoDetectHighContrast": false,
+  "explorer.autoReveal": "focusNoScroll",
+  "editor.cursorStyle": "block",
+  "editor.cursorBlinking": "solid",
+  "redhat.telemetry.enabled": false,
+  "git.enableSmartCommit": true,
+  "[helm]": {
+    // "file
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.codeActionsOnSave": {
+      "python.sortImports": true
     }
-    //
-    // vim
-    /*
+  },
+  "[go]": {
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "gopls": {
+    //https://github.com/golang/vscode-go/blob/master/docs/settings.md#settings-for-gopls
+    "ui.semanticTokens": true,
+    "formatting.gofumpt": true
+  },
+  "python.languageServer": "Jedi",
+  "python.analysis.completeFunctionParens": true,
+  "editor.unicodeHighlight.allowedLocales": {
+    "ru": true
+  },
+  "editor.unicodeHighlight.allowedCharacters": {
+    "❮": true,
+    "❯": true
+  },
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 79,
+  "terminal.integrated.minimumContrastRatio": 7,
+  "terminal.integrated.tabs.hideCondition": "never",
+  "C_Cpp.clang_format_style": "Google",
+  "C_Cpp.enhancedColorization": "Enabled",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.editor.enablePreview": false,
+  "svg.preview.autoShow": true,
+  "svg.preview.mode": "svg"
+  //
+  // vim
+  /*
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
@@ -214,10 +219,10 @@
         "<C-j>": false
     },
     */
-    //"files.exclude": {
-    //    "**/.classpath": true,
-    //"**/.project": true,
-    //    "**/.settings": true,
-    //    "**/.factorypath": true
-    //}
+  //"files.exclude": {
+  //    "**/.classpath": true,
+  //"**/.project": true,
+  //    "**/.settings": true,
+  //    "**/.factorypath": true
+  //}
 }

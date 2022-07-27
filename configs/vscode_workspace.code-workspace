@@ -17,12 +17,16 @@
         },
         {
             "path": "../../Repositories/golang/tianyi"
+        },
+        {
+            "path": "../../Repositories/golang/tianyi/frontend"
         }
     ],
     "settings": {
         "files.associations": {
             "vector": "cpp"
         },
-        "java.configuration.updateBuildConfiguration": "automatic"
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "svg.preview.background": "custom"
     }
 }
