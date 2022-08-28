@@ -1,32 +1,28 @@
 {
-    "folders": [
-        {
-            "name": "dotfiles",
-            "path": ".."
-        },
-        {
-            "name": "django",
-            "path": "../../Repositories/python/django"
-        },
-        {
-            "name": "downloads",
-            "path": "../../Downloads"
-        },
-        {
-            "path": "../../Repositories/golang/leetcode"
-        },
-        {
-            "path": "../../Repositories/golang/tianyi"
-        },
-        {
-            "path": "../../Repositories/golang/tianyi/frontend"
-        }
-    ],
-    "settings": {
-        "files.associations": {
-            "vector": "cpp"
-        },
-        "java.configuration.updateBuildConfiguration": "automatic",
-        "svg.preview.background": "custom"
+  "folders": [
+    {
+      "name": "dotfiles",
+      "path": ".."
+    },
+    {
+      "name": "downloads",
+      "path": "../../Downloads"
+    },
+    {
+      "path": "../../Repositories/golang/leetcode"
+    },
+    {
+      "path": "../../Repositories/golang/tianyi"
+    },
+    {
+      "path": "../../Repositories/golang/tianyi/web"
     }
+  ],
+  "settings": {
+    "files.associations": {
+      "vector": "cpp"
+    },
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "svg.preview.background": "custom"
+  }
 }

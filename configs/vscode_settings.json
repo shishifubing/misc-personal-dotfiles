@@ -1,10 +1,8 @@
 {
   "telemetry.telemetryLevel": "off",
-  "keyboard.dispatch": "keyCode",
+  "keyboard.dispatch": "code",
   // it is needed for the key remap to work
   "editor.inlayHints.enabled": "on",
-  // window
-  "window.menuBarVisibility": "toggle",
   "window.openFilesInNewWindow": "off",
   //
   // editor
@@ -39,7 +37,6 @@
   "workbench.editor.labelFormat": "long",
   "workbench.editor.limit.value": 999,
   "workbench.panel.opensMaximized": "never",
-  //"workbench.colorTheme": "Default High Contrast",
   "workbench.colorCustomizations": {
     "contrastBorder": "#bf3eff00",
     "editor.selectionHighlightBorder": "#bf3eff",
@@ -122,7 +119,6 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "editor.tabCompletion": "on",
-  "workbench.editor.showTabs": false,
   //"editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.dragAndDrop": false,
   "editor.detectIndentation": false,
@@ -179,14 +175,23 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[vue]": {
-    "editor.defaultFormatter": "octref.vetur"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.editor.enablePreview": false,
   "svg.preview.autoShow": true,
-  "svg.preview.mode": "svg"
+  "svg.preview.mode": "svg",
+  //"workbench.iconTheme": "eq-material-theme-icons-darker",
+  "workbench.colorTheme": "Default High Contrast",
+  "materialTheme.accent": "Purple",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.editor.closeEmptyGroups": false,
+  "workbench.editor.showTabs": false,
+  "explorer.openEditors.sortOrder": "editorOrder",
+  "window.menuBarVisibility": "toggle",
+  "window.zoomLevel": -1
   //
   // vim
   /*
