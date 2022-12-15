@@ -5,17 +5,7 @@
       "path": ".."
     },
     {
-      "name": "downloads",
-      "path": "../../Downloads"
-    },
-    {
-      "path": "../../Repositories/golang/leetcode"
-    },
-    {
-      "path": "../../Repositories/golang/tianyi"
-    },
-    {
-      "path": "../../Repositories/golang/tianyi/web"
+      "path": "../../Repositories/Personal/app-web-anki-plugin"
     }
   ],
   "settings": {

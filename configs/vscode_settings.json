@@ -127,7 +127,7 @@
   "editor.suggest.insertMode": "replace",
   "editor.suggest.showStatusBar": true,
   "files.trimFinalNewlines": true,
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "workbench.enableExperiments": false,
   "workbench.tree.indent": 25,
   "workbench.tree.renderIndentGuides": "onHover",
@@ -191,7 +191,8 @@
   "workbench.editor.showTabs": false,
   "explorer.openEditors.sortOrder": "editorOrder",
   "window.menuBarVisibility": "toggle",
-  "window.zoomLevel": -1
+  "window.zoomLevel": -1,
+  "go.toolsManagement.autoUpdate": true
   //
   // vim
   /*
