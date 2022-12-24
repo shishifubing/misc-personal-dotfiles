@@ -1,25 +1,31 @@
-- name: Setup ssh config
-  hosts: all
+- name: >-
+    {{ playbook_name }} | Setup ssh config
+  hosts: "{{ host | default('all') }}"
   tags:
     - setup
+  vars:
+    playbook_name: setup_dotfiles.yml
   tasks:
-    - name: Pull dotfiles
+    - name: >-
+        {{ playbook_name }} | Pull dotfiles
       ansible.builtin.shell:
         cmd: git pull --force
         chdir: "{{ dotfiles_dir }}"
       register: result_dotfiles
       ignore_errors: True
 
-    - name: Remove dotfiles and clone
+    - name: >-
+        {{ playbook_name }} | Remove dotfiles and clone
       ansible.builtin.shell:
         cmd: >-
-          rm -rf {{ dotfiles_dir }} &&
-            git clone {{ dotfiles_repo }} {{ dotfiles_dir }}
+          rm -rf "{{ dotfiles_dir }}" &&
+            git clone "{{ dotfiles_repo }}" "{{ dotfiles_dir }}"
         creates: "{{ dotfiles_dir }}"
         chdir: "{{ server_home }}"
       when: result_dotfiles.rc != 0
 
-    - name: Link bashrc from dotfiles
+    - name: >-
+        {{ playbook_name }} | Link bashrc from dotfiles
       ansible.builtin.file:
         src: "{{ dotfiles_dir }}/scripts/bashrc.sh"
         dest: "{{ server_home }}/.bashrc"

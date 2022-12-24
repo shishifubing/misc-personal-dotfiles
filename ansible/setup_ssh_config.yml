@@ -1,9 +1,13 @@
-- name: Setup ssh config
-  hosts: all
+- name: >-
+    {{ playbook_name }} | Setup ssh config
+  hosts: "{{ host | default('all') }}"
   tags:
     - setup
+  vars:
+    playbook_name: setup_ssh_config.yml
   tasks:
-    - name: Setup ssh config using the inventory
+    - name: >-
+        {{ playbook_name }} | Setup ssh config using the inventory
       ansible.builtin.template:
         src: ssh_config.txt
         dest: "{{ server_home }}/.ssh/config"

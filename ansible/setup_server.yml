@@ -1,15 +1,20 @@
-- name: Setup servers
-  hosts: all
+- name: >-
+    {{ playbook_name }} | Setup servers
+  hosts: "{{ host | default('all') }}"
   become: true
   tags:
     - setup
+  vars:
+    playbook_name: setup_server.yml
   tasks:
-    - name: Lock root password
+    - name: >-
+        {{ playbook_name }} | Lock root password
       ansible.builtin.user:
         name: root
         password: !
 
-    - name: Create {{ server_user }} user with locked password
+    - name: >-
+        {{ playbook_name }} | Create {{ server_user }} user with locked password
       ansible.builtin.user:
         name: "{{ server_user }}"
         shell: /bin/bash
@@ -18,20 +23,24 @@
         generate_ssh_key: yes
         password: !
 
-    - name: Add SSH key
+    - name: >-
+        {{ playbook_name }} | Add SSH key
       ansible.posix.authorized_key:
         user: "{{ server_user }}"
         state: present
         key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
 
-    - name: Allow {{ server_user }} to run all commands without a password
+    - name: >-
+        {{ playbook_name }} | Allow {{ server_user }} to run all commands
+        without a password
       community.general.sudoers:
         name: allow {{ server_user }} to run all commands without a password
         state: present
         user: "{{ server_user }}"
         commands: ALL
 
-    - name: SSH hardening
+    - name: >-
+        {{ playbook_name }} | SSH hardening
       import_role:
         name: devsec.hardening.ssh_hardening
       vars:

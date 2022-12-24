@@ -1,10 +1,11 @@
 - ansible.builtin.import_playbook: setup_server.yml
 
-- name: Setup GitHub Actions Runner
-  hosts: ci
+- name: >-
+    {{ playbook_name }} | Setup GitHub Actions Runner
+  hosts: "{{ host | default('ci') }}"
   become: true
   vars:
-    # role variables
+    playbook_name: github_runner.yml
     access_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
     runner_labels:
       - ci
@@ -12,7 +13,8 @@
     runner_user: "{{ server_user }}"
     runner_name: "{{ inventory_hostname }}-{{ ansible_hostname }}"
   tasks:
-    - name: Setup github runner for every repository
+    - name: >-
+        {{ playbook_name }} | Setup github runner for every repository
       include_role:
         role: monolithprojects.github_actions_runner
       loop: "{{ github_repositories }}"

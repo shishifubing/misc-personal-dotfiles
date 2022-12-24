@@ -1,0 +1,35 @@
+- ansible.builtin.import_playbook: setup_server.yml
+
+- name: >-
+    {{ playbook_name }} | Setup sonarqube
+  hosts: "{{ host | default('sonar') }}"
+  vars:
+    playbook_name: sonarqube.yml
+    max_map_count: 262144
+  tasks:
+    - name: >-
+        {{ playbook_name }} | Copy docker-compose directory
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ server_home }}/sonar/{{ item.path }}"
+      with_filetree: templates/sonar
+
+    - name: >-
+        {{ playbook_name }} | Set vm.max_map_count kernel setting to
+        {{ max_map_count }} for embedded elasticsearch
+        https://stackoverflow.com/a/57998152
+      become: true
+      ansible.builtin.shell: sysctl -w vm.max_map_count={{ max_map_count }}
+
+    - name: >-
+        {{ playbook_name }} | Run docker-compose up
+      community.docker.docker_compose:
+        project_src: "{{ server_home }}/sonar"
+        remove_orphans: true
+        pull: true
+      register: output
+
+    - name: >-
+        {{ playbook_name }} | Show output
+      ansible.builtin.debug:
+        var: output
