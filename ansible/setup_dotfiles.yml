@@ -1,0 +1,20 @@
+- name: Setup dotfiles
+  hosts: all
+  tasks:
+    - name: Clone dotfiles
+      ansible.builtin.shell:
+        cmd: git clone {{ dotfiles_repo }} {{ dotfiles_dir }}
+        creates: "{{ dotfiles_dir }}"
+        chdir: /home/{{ server_user }}
+
+    - name: Pull dotfiles
+      ansible.builtin.shell:
+        cmd: git pull --force
+        chdir: "{{ dotfiles_dir }}"
+
+    - name: Link bashrc from dotfiles
+      ansible.builtin.file:
+        src: "{{ dotfiles_dir }}/scripts/bashrc"
+        dest: "{{ server_home }}/.bashrc"
+        state: link
+        force: true

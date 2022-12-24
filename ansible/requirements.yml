@@ -1,0 +1,9 @@
+collections:
+  - name: devsec.hardening
+  # https://galaxy.ansible.com/devsec/hardening
+  # https://github.com/dev-sec/ansible-collection-hardening
+
+roles:
+  - name: monolithprojects.github_actions_runner
+  # https://galaxy.ansible.com/monolithprojects/github_actions_runner
+  # https://github.com/MonolithProjects/ansible-github_actions_runner

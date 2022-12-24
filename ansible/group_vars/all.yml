@@ -1,0 +1,5 @@
+server_user: jingyangzhenren
+ansible_user: "{{ server_user }}"
+server_home: /home/{{ server_user }}
+dotfiles_repo: https://github.com/jingyangzhenren/config-personal-dotfiles.git
+dotfiles_dir: "{{ server_home }}/Dotfiles"

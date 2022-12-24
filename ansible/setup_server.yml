@@ -1,0 +1,42 @@
+- name: Setup servers
+  hosts: all
+  become: true
+  vars:
+    ansible_user: root
+  tasks:
+    - name: Lock root password
+      ansible.builtin.user:
+        name: root
+        password: !
+
+    - name: Create {{ server_user }} user with locked password
+      ansible.builtin.user:
+        name: "{{ server_user }}"
+        shell: /bin/bash
+        groups: docker
+        append: yes
+        generate_ssh_key: yes
+        password: !
+
+    - name: Add SSH key
+      ansible.posix.authorized_key:
+        user: "{{ server_user }}"
+        state: present
+        key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+
+    - name: Allow {{ server_user }} to run all commands without a password
+      community.general.sudoers:
+        name: allow {{ server_user }} to run all commands without a password
+        state: present
+        user: "{{ server_user }}"
+        commands: ALL
+
+    - name: SSH hardening
+      import_role:
+        name: devsec.hardening.ssh_hardening
+      vars:
+        ssh_allow_users: "{{ server_user }}"
+        ssh_challengeresponseauthentication: true
+
+- name: Clone dotfiles
+  ansible.builtin.import_playbook: setup_dotfiles.yml

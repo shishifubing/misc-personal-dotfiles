@@ -115,7 +115,7 @@
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[yaml]": {
-    "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "editor.tabCompletion": "on",

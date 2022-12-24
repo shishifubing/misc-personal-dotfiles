@@ -9,6 +9,10 @@ networking_ports_list() {
 
 }
 
+networking_connections_list() {
+    sudo netstat -nputw
+}
+
 ### nginx fix
 ## fixes 'permission denied while connecting to upstream'
 fix_nginx() {
