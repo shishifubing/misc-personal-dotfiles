@@ -1,0 +1,12 @@
+- name: Setup ssh config
+  hosts: all
+  tags:
+    - setup
+  tasks:
+    - name: Setup ssh config using the inventory
+      ansible.builtin.template:
+        src: ssh_config.txt
+        dest: "{{ server_home }}/.ssh/config"
+        owner: "{{ server_user }}"
+        group: "{{ server_user }}"
+        mode: "0600"

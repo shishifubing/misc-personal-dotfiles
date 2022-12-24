@@ -1,0 +1,13 @@
+{% for group_name, hosts in groups.items() -%}
+    {%- set count = namespace(value=0) -%}
+    {% for host in hosts -%}
+    {% set count.value = count.value + 1 %}
+
+    Host {{ group_name }}{{ count.value if count.value > 1 }}
+        HostName {{ hostvars[host].ansible_host
+                    if "ansible_host" in hostvars[host]
+                    else host }}
+        User {{ server_user }}
+
+    {% endfor -%}
+{% endfor -%}

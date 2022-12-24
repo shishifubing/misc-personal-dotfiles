@@ -1,8 +1,8 @@
 - name: Setup servers
   hosts: all
   become: true
-  vars:
-    ansible_user: root
+  tags:
+    - setup
   tasks:
     - name: Lock root password
       ansible.builtin.user:
@@ -36,7 +36,7 @@
         name: devsec.hardening.ssh_hardening
       vars:
         ssh_allow_users: "{{ server_user }}"
-        ssh_challengeresponseauthentication: true
 
-- name: Clone dotfiles
-  ansible.builtin.import_playbook: setup_dotfiles.yml
+- ansible.builtin.import_playbook: setup_ssh_config.yml
+
+- ansible.builtin.import_playbook: setup_dotfiles.yml
