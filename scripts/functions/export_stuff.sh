@@ -137,14 +137,14 @@ export_path() {
 # other variables
 export_variables_others() {
 
-    ## dot files
-    #export DOTFILES="${DOTFILES_OVERRIDE:-${HOME}/dotfiles}"
     ## tty name
     tty_name=$(tty) && export TTY_NAME="${tty_name}"
     ## prompt variable that is shown when there are multiple lines
     export PS2="${GC_32}▶${GC_END} ${GC_END}"
     ## the main prompt variable
     export PS1="${GC_37}\$${GC_END} ${GC_END}"
+    # this command is executed before each prompt
+    export PROMPT_COMMAND='column -t <<<"$(get_shell_prompt_PS1)"'
     export force_color_prompt=yes
     ## all locales are overwritten
     export LC_ALL="en_US.UTF-8"
