@@ -1,0 +1,15 @@
+- name: >-
+    {{ playbook_name }} | Harden os
+  hosts: "{{ host | default('all') }}"
+  tags:
+    - setup
+    - os
+  become: true
+  vars:
+    playbook_name: setup_harden_os.yml
+
+  tasks:
+    - name: >-
+        {{ playbook_name }} | OS hardening
+      import_role:
+        name: devsec.hardening.os_hardening

@@ -8,13 +8,14 @@
     - deploy
     - github_runner
   vars:
-    playbook_name: github_runner.yml
+    playbook_name: deploy_github_runner.yml
     access_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
     runner_labels:
       - ci
     reinstall_runner: yes
     runner_user: "{{ server_user }}"
     runner_name: "{{ inventory_hostname }}-{{ ansible_hostname }}"
+
   tasks:
     - name: >-
         {{ playbook_name }} | Setup github runner for every repository

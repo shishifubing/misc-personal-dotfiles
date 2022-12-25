@@ -6,6 +6,14 @@
     - ssh
   vars:
     playbook_name: setup_ssh_config.yml
+
+  roles:
+    - name: >-
+        {{ playbook_name }} | SSH hardening
+      role: devsec.hardening.ssh_hardening
+      vars:
+        ssh_allow_users: "{{ server_user }}"
+
   tasks:
     - name: >-
         {{ playbook_name }} | Setup ssh config using the inventory

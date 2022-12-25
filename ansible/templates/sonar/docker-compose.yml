@@ -3,59 +3,43 @@ version: "3"
 services:
     nginx:
         container_name: nginx
-        image: nginx
+        image: nginx:1-alpine
         restart: unless-stopped
         ports:
             - 443:443
-            - 80:80
-        command: >-
-            /bin/sh -c '
-                while true;
-                    do sleep 6h & wait "$${!}";
-                    nginx -s reload;
-                done & nginx -g "daemon off;"
-            '
         volumes:
             - /etc/letsencrypt:/etc/letsencrypt:ro
-            - /var/www/certbot:/var/www/certbot:ro
             - "{{ compose_dir }}/nginx.conf:/etc/nginx/nginx.conf:ro"
             - "{{ compose_dir }}/other:/etc/nginx/other:ro"
-        depends_on:
-            - certbot
 
-    certbot:
-        container_name: certbot
-        image: certbot/certbot
-        entrypoint: >-
-            /bin/sh -c '
-                trap exit TERM;
-                while true; do
-                    certbot renew;
-                    sleep 12h & wait "$${!}";
-                done;
-            '
-        volumes:
-            - /etc/letsencrypt:/etc/letsencrypt
-            - /var/www/certbot:/var/www/certbot
-
-    sonarqube:
+    sonar:
         container_name: sonar
-        image: sonarqube:community
+        image: sonarqube:9-community
         restart: unless-stopped
         environment:
             SONARQUBE_JDBC_USERNAME: sonarqube
             SONARQUBE_JDBC_PASSWORD: sonarpass
             SONARQUBE_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
         volumes:
-            - /opt/sonarqube:/opt/sonarqube
+            - sonarqube_data:/opt/sonarqube/data
+            - sonarqube_extensions:/opt/sonarqube/extensions
+            - sonarqube_logs:/opt/sonarqube/logs
 
     db:
-        image: postgres
-        container_name: sonar-db
+        image: postgres:15-alpine
+        container_name: db
         restart: unless-stopped
         environment:
             POSTGRES_USER: sonarqube
             POSTGRES_PASSWORD: sonarpass
             POSTGRES_DB: sonarqube
         volumes:
-            - /var/lib/postgresql:/var/lib/postgresql
+            - postgresql:/var/lib/postgresql
+            - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+    sonarqube_data:
+    sonarqube_extensions:
+    sonarqube_logs:
+    postgresql:
+    postgresql_data:

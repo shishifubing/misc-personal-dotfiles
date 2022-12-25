@@ -6,6 +6,7 @@
     - dotfiles
   vars:
     playbook_name: setup_dotfiles.yml
+
   tasks:
     - name: >-
         {{ playbook_name }} | Check current user
