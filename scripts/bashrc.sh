@@ -36,7 +36,7 @@ export_variables_others
 
 ### start stuff
 ## preexec and precmd hooks
-#start_preexec_precmd
+start_preexec_precmd
 ## asks to start an xorg server if it is not running already
 #start_xorg_server
 ## outputs system information (kernel, gcc)

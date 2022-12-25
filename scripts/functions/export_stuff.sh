@@ -144,7 +144,7 @@ export_variables_others() {
     ## prompt variable that is shown when there are multiple lines
     export PS2="${GC_32}▶ ${GC_END}"
     ## the main prompt variable
-    export PS1="\[\e[38;5;226m\]\u\[\e[38;5;220m\]@\[\e[38;5;9m\]\h\n\[\e[38;5;33m\]\w\[\033[0m\]\n\$ "
+    export PS1="${GC_37}\$ ${GC_END}"
     export force_color_prompt=yes
     ## all locales are overwritten
     export LC_ALL="en_US.UTF-8"

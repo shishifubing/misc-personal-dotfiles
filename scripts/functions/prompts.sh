@@ -140,8 +140,20 @@ prompt_rectangle() {
 
 }
 
-# generate the PS1 prompt
 get_shell_prompt_PS1() {
+    local git_branch directory username hostname venv
+    git_branch="$(get_current_branch || echo "none")"
+    git_branch="${GC_35}${git_branch}${GC_END}"
+    hostname="${GC_37}${USER}${GC_33}@${GC_31}${HOSTNAME}${GC_END}"
+    venv="venv"
+    [[ "${VIRTUAL_ENV}" ]] || venv="none"
+    venv="${GC_32}${venv}${GC_END}"
+    directory="${GC_36}$(dirs +0)${GC_END}"
+    echo -e "${hostname}|${git_branch}\n${venv}|${directory}"
+}
+
+# generate the PS1 prompt
+_get_shell_prompt_PS1() {
 
     export IFS=$'\n'
     local git_branch directory hostname output venv
@@ -170,7 +182,6 @@ get_shell_prompt_PS1() {
     )
 
     echo "\n${output[*]}"
-
 }
 
 # shell command separator

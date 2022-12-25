@@ -11,7 +11,7 @@ start_preexec_precmd() {
     # including PROMPT_COMMAND
     trap '[[ "${TRAP_DEBUG_TIME_START}" ]] || preexec' DEBUG
     # PROMPT_COMMAND is executed before each prompt
-    export PROMPT_COMMAND='unset PS1; precmd'
+    export PROMPT_COMMAND='precmd'
     export HIDE_PREEXEC_MESSAGE='True'
     unset TRAP_DEBUG_TIME_START TRAP_DEBUG_TIME_END
 
@@ -19,10 +19,10 @@ start_preexec_precmd() {
 
 # before all commands
 preexec() {
-
+    return
     start_time="$(date "+%s.%N")"
     export TRAP_DEBUG_TIME_START="${start_time::-3}"
-    #set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
+    set_window_title "$(get_directory)■$(history -w /dev/stdout 1)"
     if [[ "${HIDE_PREEXEC_MESSAGE}" ]]; then
         unset HIDE_PREEXEC_MESSAGE
     else
@@ -33,11 +33,15 @@ preexec() {
 
 # before the prompt
 precmd() {
-
     end_time="$(date +"%s.%N")"
     export TRAP_DEBUG_TIME_END="${end_time::-3}"
-    echo -e "$(get_precmd_message)"
-    echo -e $(get_shell_prompt_PS1)
+
+    #echo -e "$(get_precmd_message)"
+    column                                \
+        --table                           \
+        --separator '|'                   \
+        --output-separator " | "          \
+        <<<"$(get_shell_prompt_PS1)"
     unset TRAP_DEBUG_TIME_START
     # saves history of the current session to the history file
     history -a
