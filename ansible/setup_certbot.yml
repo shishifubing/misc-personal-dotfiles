@@ -1,0 +1,20 @@
+- name: >-
+    {{ playbook_name }} | Setup certbot
+  hosts: all
+  become: true
+  tags:
+    - setup
+    - certbot
+  vars:
+    playbook_name: setup_certbot.yml
+    certbot_create_if_missing: true
+    certbot_create_method: standalone
+    certbot_create_standalone_stop_services:
+      - docker
+    certbot_hsts: true
+    certbot_admin_email: 97828377+jingyangzhenren@users.noreply.github.com
+    certbot_certs:
+      - domains:
+          - "{{ inventory_hostname }}"
+  roles:
+    - name: geerlingguy.certbot

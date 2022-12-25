@@ -4,6 +4,7 @@
   become: true
   tags:
     - setup
+    - server
   vars:
     playbook_name: setup_server.yml
   tasks:

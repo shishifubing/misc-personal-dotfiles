@@ -4,6 +4,9 @@
     {{ playbook_name }} | Setup GitHub Actions Runner
   hosts: "{{ host | default('ci') }}"
   become: true
+  tags:
+    - deploy
+    - github_runner
   vars:
     playbook_name: github_runner.yml
     access_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"

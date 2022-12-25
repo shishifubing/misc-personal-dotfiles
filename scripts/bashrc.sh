@@ -1,23 +1,11 @@
 #!/usr/bin/env bash
 
-export force_color_prompt=yes
-
 ### start
 ## if the shell is not interactive - return
 [[ "${-}" == *"i"* ]] || return
 ## if source script is not present - return
-_script="scripts/functions/source_stuff.sh"
-if [[ ! "${DOTFILES}" ]]; then
-    if [[ -x "${HOME}/Dotfiles/${_script}" ]]; then
-        export DOTFILES="${HOME}/Dotfiles"
-    elif [[ -x "${PWD}/dotfiles/${_script}" ]]; then
-        export DOTFILES="${PWD}/Dotfiles"
-    else
-        DOTFILES=$(find "${PWD}" "${HOME}" -type d -name Dotfiles)
-        export DOTFILES
-    fi
-fi
-. "${DOTFILES}/${_script}" || return
+export DOTFILES="${HOME}/Dotfiles"
+. "${DOTFILES}/scripts/functions/source_stuff.sh" || return
 
 ### source stuff
 ## source functions from the folder 'functions'
@@ -25,7 +13,7 @@ source_functions
 ## source programmable completion, causes some issues on RHEL
 #source_programmable_completion_features
 ## source fzf scripts
-source_fzf_scripts
+#source_fzf_scripts
 ## source keymaps, doesn't work in kde on startup
 #source_keymaps_on_start
 ## shell options
@@ -48,8 +36,8 @@ export_variables_others
 
 ### start stuff
 ## preexec and precmd hooks
-start_preexec_precmd
+#start_preexec_precmd
 ## asks to start an xorg server if it is not running already
-start_xorg_server
+#start_xorg_server
 ## outputs system information (kernel, gcc)
 get_distribution_info

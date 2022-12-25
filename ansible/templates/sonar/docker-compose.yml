@@ -1,5 +1,43 @@
+# https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
 version: "3"
 services:
+    nginx:
+        container_name: nginx
+        image: nginx
+        restart: unless-stopped
+        ports:
+            - 443:443
+            - 80:80
+        command: >-
+            /bin/sh -c '
+                while true;
+                    do sleep 6h & wait "$${!}";
+                    nginx -s reload;
+                done & nginx -g "daemon off;"
+            '
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt:ro
+            - /var/www/certbot:/var/www/certbot:ro
+            - "{{ compose_dir }}/nginx.conf:/etc/nginx/nginx.conf:ro"
+            - "{{ compose_dir }}/other:/etc/nginx/other:ro"
+        depends_on:
+            - certbot
+
+    certbot:
+        container_name: certbot
+        image: certbot/certbot
+        entrypoint: >-
+            /bin/sh -c '
+                trap exit TERM;
+                while true; do
+                    certbot renew;
+                    sleep 12h & wait "$${!}";
+                done;
+            '
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt
+            - /var/www/certbot:/var/www/certbot
+
     sonarqube:
         container_name: sonar
         image: sonarqube:community
@@ -8,14 +46,8 @@ services:
             SONARQUBE_JDBC_USERNAME: sonarqube
             SONARQUBE_JDBC_PASSWORD: sonarpass
             SONARQUBE_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
-        ports:
-            - "443:9000"
-            - "9092:9092"
         volumes:
-            - sonarqube_conf:/opt/sonarqube/conf
-            - sonarqube_data:/opt/sonarqube/data
-            - sonarqube_extensions:/opt/sonarqube/extensions
-            - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+            - /opt/sonarqube:/opt/sonarqube
 
     db:
         image: postgres
@@ -26,13 +58,4 @@ services:
             POSTGRES_PASSWORD: sonarpass
             POSTGRES_DB: sonarqube
         volumes:
-            - sonarqube_db:/var/lib/postgresql
-            - postgresql_data:/var/lib/postgresql/data
-
-volumes:
-    postgresql_data:
-    sonarqube_bundled-plugins:
-    sonarqube_conf:
-    sonarqube_data:
-    sonarqube_db:
-    sonarqube_extensions:
+            - /var/lib/postgresql:/var/lib/postgresql

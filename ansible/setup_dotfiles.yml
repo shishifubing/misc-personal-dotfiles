@@ -3,26 +3,21 @@
   hosts: "{{ host | default('all') }}"
   tags:
     - setup
+    - dotfiles
   vars:
     playbook_name: setup_dotfiles.yml
   tasks:
     - name: >-
-        {{ playbook_name }} | Pull dotfiles
-      ansible.builtin.shell:
-        cmd: git pull --force
-        chdir: "{{ dotfiles_dir }}"
-      register: result_dotfiles
-      ignore_errors: True
+        {{ playbook_name }} | Check current user
+      ansible.builtin.assert:
+        that: ansible_user != "root"
 
     - name: >-
-        {{ playbook_name }} | Remove dotfiles and clone
-      ansible.builtin.shell:
-        cmd: >-
-          rm -rf "{{ dotfiles_dir }}" &&
-            git clone "{{ dotfiles_repo }}" "{{ dotfiles_dir }}"
-        creates: "{{ dotfiles_dir }}"
-        chdir: "{{ server_home }}"
-      when: result_dotfiles.rc != 0
+        {{ playbook_name }} | Clone dotfiles
+      ansible.builtin.git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_dir }}"
+        force: true
 
     - name: >-
         {{ playbook_name }} | Link bashrc from dotfiles

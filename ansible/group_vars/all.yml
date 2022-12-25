@@ -7,3 +7,4 @@ dotfiles_dir: "{{ server_home }}/Dotfiles"
 github_account: "{{ default_account }}"
 github_repositories:
   - app-web-anki-plugin
+email: 97828377+jingyangzhenren@users.noreply.github.com

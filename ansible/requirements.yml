@@ -6,3 +6,5 @@ collections:
 roles:
   - name: monolithprojects.github_actions_runner
   # https://galaxy.ansible.com/monolithprojects/github_actions_runner
+  - name: geerlingguy.certbot
+  # https://galaxy.ansible.com/geerlingguy/certbot

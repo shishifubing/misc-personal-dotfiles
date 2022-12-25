@@ -15,19 +15,6 @@ source_scripts_in_directory() {
 
 }
 
-# source bashrc
-source_bashrc() {
-
-    source_scripts "${HOME}/.bashrc"
-
-}
-
-sb() {
-
-    source_bashrc
-
-}
-
 # enable programmable completion features
 # you don't need to enable this if it's
 # already enabled in /etc/bash.bashrc and/or /etc/profile
