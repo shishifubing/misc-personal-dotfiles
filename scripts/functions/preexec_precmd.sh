@@ -37,11 +37,7 @@ precmd() {
     export TRAP_DEBUG_TIME_END="${end_time::-3}"
 
     #echo -e "$(get_precmd_message)"
-    column                                \
-        --table                           \
-        --separator '|'                   \
-        --output-separator " | "          \
-        <<<"$(get_shell_prompt_PS1)"
+    column -t -s '|' <<<"$(get_shell_prompt_PS1)"
     unset TRAP_DEBUG_TIME_START
     # saves history of the current session to the history file
     history -a
