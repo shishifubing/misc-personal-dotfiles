@@ -47,18 +47,37 @@
         path: /etc/letsencrypt/ssl/live/{{ inventory_hostname }}/privkey.pem
       register: private_key_check
 
+    - ansible.builtin.debug:
+        msg: >-
+          docker-compose run
+            --rm
+            --entrypoint="/bin/sh"
+            certbot
+              certbot certonly
+                --webroot
+                --webroot-path /var/www/certbot/
+                --hsts
+                --noninteractive
+                --agree-tos
+                --email "{{ email }}"
+                -d "{{ inventory_hostname }}"
+
     - name: >-
         {{ playbook_name }} | Generate new certificates
       ansible.builtin.shell:
         cmd: >-
-          docker-compose run --rm certbot certonly
-            --webroot
-            --webroot-path /var/www/certbot/
-            --hsts
-            --noninteractive
-            --agree-tos
-            --email "{{ email }}"
-            -d "{{ inventory_hostname }}"
+          docker-compose run
+            --rm
+            --entrypoint="/bin/sh"
+            certbot
+              certbot certonly
+                --webroot
+                --webroot-path /var/www/certbot/
+                --hsts
+                --noninteractive
+                --agree-tos
+                --email "{{ email }}"
+                -d "{{ inventory_hostname }}"
         chdir: "{{ compose_dir }}"
       register: output
       when: generate_certificates or not private_key_check.stat.exists

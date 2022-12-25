@@ -154,7 +154,7 @@ get_shell_prompt_PS1() {
     output=(
         "${GC_34}┌\t${GC_END}\t${GC_END}\t${GC_34}┐${GC_END}"
         "${GC_34}|\t${hostname}\t${git_branch}\t${GC_34}|${GC_END}"
-        "${GC_34}|\t${venv}\t${directory}\t${GC_34}|${GC_END}"
+        "${GC_34}|\t${directory}\t${venv}\t${GC_34}|${GC_END}"
         "${GC_34}└\t${GC_END}\t${GC_END}\t${GC_34}┘${GC_END}"
     )
     echo -e "${output[*]}"
