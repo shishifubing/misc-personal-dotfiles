@@ -141,21 +141,23 @@ prompt_rectangle() {
 }
 
 get_shell_prompt_PS1() {
-    local git_branch directory username hostname venv output
-    git_branch="$(get_current_branch || echo "none")"
-    git_branch="${GC_35}${git_branch}${GC_END}"
-    hostname="${GC_37}${USER}${GC_33}@${GC_31}${HOSTNAME}${GC_END}"
+    local git_branch directory username hostname venv output hash
+    git_branch="$(git_current_branch || echo "none")"
+    [[ "${git_branch}" != "none" ]] && {
+        hash="${GC_33}$(git_commit_hash) "
+    }
+    hostname="${GC_37}${USER}${GC_END}@${GC_31}${HOSTNAME}${GC_END}"
     venv="venv"
     [[ "${VIRTUAL_ENV}" ]] || venv="none"
-    venv="${GC_32}${venv}${GC_END}"
-    directory="${GC_36}$(dirs +0)${GC_END}"
+    directory=$(dirs +0)
     IFS=$'\n'
     # I have to add unnecessary GC_ENDs because column will not print empty columns
     output=(
-        "${GC_34}┌\t${GC_END}\t${GC_END}\t${GC_34}┐${GC_END}"
-        "${GC_34}|\t${hostname}\t${git_branch}\t${GC_34}|${GC_END}"
-        "${GC_34}|\t${directory}\t${venv}\t${GC_34}|${GC_END}"
-        "${GC_34}└\t${GC_END}\t${GC_END}\t${GC_34}┘${GC_END}"
+        "  ${hostname} ${GC_32}${venv}${GC_END}"
+        "  ${hash}${GC_35}${git_branch}${GC_END}"
+        "  ${GC_36}${directory}${GC_END}"
+        # last line shouldn't be colored, otherwise you will get artifacts
+        "\$ "
     )
     echo -e "${output[*]}"
 }

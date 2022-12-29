@@ -1,11 +1,34 @@
+# custom variables
 server_user: jingyangzhenren
 default_account: "{{ server_user }}"
-ansible_user: "{{ server_user }}"
 server_home: /home/{{ server_user }}
 dotfiles_repo: https://github.com/jingyangzhenren/config-personal-dotfiles.git
 dotfiles_repo_ssh: git@github.com:jingyangzhenren/config-personal-dotfiles.git
 dotfiles_dir: "{{ server_home }}/Dotfiles"
+email: 97828377+jingyangzhenren@users.noreply.github.com
+
+# ansible variables
+ansible_user: "{{ server_user }}"
+
+# github_runner variables
+# https://github.com/MonolithProjects/ansible-github_actions_runner/blob/master/defaults/main.yml
 github_account: "{{ default_account }}"
 github_repositories:
-  - app-web-anki-plugin
-email: 97828377+jingyangzhenren@users.noreply.github.com
+  - app-android-anki-chinese-flashcards-enricher
+access_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+runner_labels:
+  - ci
+reinstall_runner: yes
+runner_user: "{{ server_user }}"
+runner_name: "{{ inventory_hostname }}-{{ ansible_hostname }}"
+
+# certbot variables
+# https://github.com/geerlingguy/ansible-role-certbot/blob/master/defaults/main.yml
+certbot_create_if_missing: true
+certbot_create_standalone_stop_services:
+  - docker
+certbot_hsts: true
+certbot_admin_email: 97828377+jingyangzhenren@users.noreply.github.com
+certbot_certs:
+  - domains:
+      - "{{ inventory_hostname }}"

@@ -1,0 +1,17 @@
+- name: "{{ _prefix }} | Personal setup"
+  hosts: localhost
+  connection: local
+  tags:
+    - setup
+    - personal
+  vars:
+    server_user: "{{ lookup('env', 'USER') }}"
+    _prefix: "setup_personal :"
+
+  tasks:
+    - name: "{{ _prefix }} Setup github runner for every repository"
+      include_role:
+        role: monolithprojects.github_actions_runner
+      loop: "{{ github_repositories }}"
+      loop_control:
+        loop_var: github_repo

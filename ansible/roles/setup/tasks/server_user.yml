@@ -1,0 +1,34 @@
+- tags:
+    - os
+    - user
+    - hardening
+  vars:
+    _prefix: "server_user :"
+
+  block:
+    - name: "{{ _prefix }} Lock root password"
+      ansible.builtin.user:
+        name: root
+        password: !
+
+    - name: "{{ _prefix }} Create {{ server_user }} user with locked password"
+      ansible.builtin.user:
+        name: "{{ server_user }}"
+        shell: /bin/bash
+        groups: docker
+        append: yes
+        generate_ssh_key: yes
+        password: !
+
+    - name: "{{ _prefix }} Add SSH key"
+      ansible.posix.authorized_key:
+        user: "{{ server_user }}"
+        state: present
+        key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+
+    - name: "{{ _prefix }} Allow {{ server_user }} to run all commands without a password"
+      community.general.sudoers:
+        name: allow {{ server_user }} to run all commands without a password
+        state: present
+        user: "{{ server_user }}"
+        commands: ALL

@@ -1,0 +1,27 @@
+- tags:
+    - setup
+
+  block:
+    - name: Gather facts for hardening
+      ansible.builtin.setup:
+
+    - block:
+        - ansible.builtin.include_tasks: server_user.yml
+      rescue:
+        - ansible.builtin.include_tasks: server_user.yml
+          vars:
+            initial_user: root
+      when: setup_server_user
+
+    - ansible.builtin.import_role:
+        name: devsec.hardening.os_hardening
+      tags:
+        - os
+        - hardening
+      when: setup_harden_os
+
+    - ansible.builtin.include_tasks: ssh.yml
+      when: setup_ssh
+
+    - ansible.builtin.include_tasks: dotfiles.yml
+      when: setup_dotfiles

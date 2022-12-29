@@ -1,27 +1,20 @@
-- name: >-
-    {{ playbook_name }} | Setup ssh config
-  hosts: "{{ host | default('all') }}"
-  tags:
-    - setup
+- tags:
     - dotfiles
   vars:
-    playbook_name: setup_dotfiles.yml
+    _prefix: "dotfiles :"
 
-  tasks:
-    - name: >-
-        {{ playbook_name }} | Check current user
+  block:
+    - name: "{{ _prefix }} Check current user"
       ansible.builtin.assert:
         that: ansible_user != "root"
 
-    - name: >-
-        {{ playbook_name }} | Clone dotfiles
+    - name: "{{ _prefix }} Clone dotfiles"
       ansible.builtin.git:
         repo: "{{ dotfiles_repo }}"
         dest: "{{ dotfiles_dir }}"
         force: true
 
-    - name: >-
-        {{ playbook_name }} | Link bashrc from dotfiles
+    - name: "{{ _prefix }} Link bashrc from dotfiles"
       ansible.builtin.file:
         src: "{{ dotfiles_dir }}/scripts/bashrc.sh"
         dest: "{{ server_home }}/.bashrc"

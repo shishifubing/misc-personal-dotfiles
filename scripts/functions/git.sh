@@ -27,15 +27,21 @@ gd() {
 }
 
 # get current git branch
-get_current_branch() {
-
+git_current_branch() {
     git branch --show-current 2>/dev/null
+}
 
+# get current commit hash
+git_commit_hash() {
+    git rev-parse --short HEAD 2>/dev/null
+}
+
+# return number of changed files
+git_changed_files() {
+    git status --porcelain=v1 2>/dev/null | wc -l
 }
 
 # git
 git_get_diff() {
-
     git format-patch --stdout HEAD^
-
 }
