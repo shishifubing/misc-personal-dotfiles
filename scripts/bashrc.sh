@@ -2,10 +2,11 @@
 
 ### start
 ## if the shell is not interactive - return
-[[ "${-}" == *"i"* ]] || return
+[[ "${-}" == *"i"* || "${1}" != "script" ]] || return
 ## if source script is not present - return
 export DOTFILES="${HOME}/Dotfiles"
-. "${DOTFILES}/scripts/functions/source_stuff.sh" || return
+export DOTFILES_SOURCE="${DOTFILES}/scripts/functions/source_stuff.sh"
+. "${DOTFILES_SOURCE}" || return
 
 ### source stuff
 ## source functions from the folder 'functions'

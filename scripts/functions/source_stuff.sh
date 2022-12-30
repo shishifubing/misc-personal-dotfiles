@@ -4,14 +4,8 @@
 source_scripts() {
 
     for file in "${@}"; do
-        [[ -f "${file}" ]] && . "${file}"
+        [[ -x "${file}" ]] && . "${file}"
     done
-
-}
-# sourcescripts in a directory
-source_scripts_in_directory() {
-
-    [[ -d "${1}" ]] && source_scripts "${1}"/?*.sh
 
 }
 
@@ -30,16 +24,12 @@ source_programmable_completion_features() {
 
 # source functions
 source_functions() {
-
-    source_scripts_in_directory "${DOTFILES}/scripts/functions"
-
+    source_scripts "${DOTFILES}/scripts/functions"/*
 }
 
 # update grub
 source_grub() {
-
     sudo grub-mkconfig -o /boot/grub/grub.cfg
-
 }
 
 # fzf

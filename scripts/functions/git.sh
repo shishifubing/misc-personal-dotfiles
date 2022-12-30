@@ -46,12 +46,17 @@ git_get_diff() {
     git format-patch --stdout HEAD^
 }
 
+# git-filter-repo
+git_filter_repo() {
+    "${HOME}/Repositories/Public/git-filter-repo/git-filter-repo" "${@}"
+
+}
+
 git_change_commit_author() {
     local name email path
-    name="${1:-'jingyangzhenren'}"
-    email="${2:-'97828377+jingyangzhenren@users.noreply.github.com'}"
-    path="${3:-${HOME}/Repositories/Public/git-filter-repo/git-filter-repo}"
-    "${path}"                                   \
+    name="${1:-jingyangzhenren}"
+    email="${2:-97828377+jingyangzhenren@users.noreply.github.com}"
+    git_filter_repo                             \
         --name-callback "return b\"${name}\""   \
         --email-callback "return b\"${email}\""
 }

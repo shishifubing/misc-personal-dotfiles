@@ -79,8 +79,8 @@
   "python.linting.lintOnSave": true,
   "python.autoComplete.addBrackets": true,
   "shellcheck.exclude": [
-    //"SC1091",
-    //"SC1090",
+    "SC1091", // can't follow
+    "SC1090", // can't follow non-constant source
     //"SC2155",
     //"SC2120",
     //"SC2119",
@@ -110,9 +110,6 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[yaml]": {
     "editor.tabSize": 2,
@@ -193,7 +190,11 @@
   "window.menuBarVisibility": "toggle",
   "window.zoomLevel": -1,
   "go.toolsManagement.autoUpdate": true,
-  "sonarlint.ls.javaHome": "/home/kongrentian/.vscode-oss/extensions/sonarsource.sonarlint_managed-jre/jre/jdk-11.0.17+8-jre"
+  "sonarlint.ls.javaHome": "/home/kongrentian/.vscode-oss/extensions/sonarsource.sonarlint_managed-jre/jre/jdk-11.0.17+8-jre",
+  "[shellscript]": {
+    "files.eol": "\n",
+    "editor.defaultFormatter": "timonwong.shellcheck"
+  }
   //
   // vim
   /*
