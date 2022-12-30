@@ -20,3 +20,10 @@
         dest: "{{ server_home }}/.bashrc"
         state: link
         force: true
+
+    - name: "{{ _prefix }} Link .terraformrc from dotfiles"
+      ansible.builtin.file:
+        src: "{{ dotfiles_dir }}/.terraformrc"
+        dest: "{{ server_home }}/.terraformrc"
+        state: link
+        force: true

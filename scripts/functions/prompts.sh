@@ -153,6 +153,7 @@ get_shell_prompt_PS1() {
     IFS=$'\n'
     # I have to add unnecessary GC_ENDs because column will not print empty columns
     output=(
+        ""
         "  ${hostname} ${GC_32}${venv}${GC_END}"
         "  ${hash}${GC_35}${git_branch}${GC_END}"
         "  ${GC_36}${directory}${GC_END}"

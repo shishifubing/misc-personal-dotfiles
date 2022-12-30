@@ -115,6 +115,18 @@
     "editor.tabSize": 2,
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
+  "[terraform]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform-vars]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
   "editor.tabCompletion": "on",
   //"editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.dragAndDrop": false,
