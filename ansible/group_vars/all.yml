@@ -15,6 +15,7 @@ ansible_user: "{{ server_user }}"
 github_account: "{{ default_account }}"
 github_repositories:
   - app-android-anki-chinese-flashcards-enricher
+  - jingyangzhenren
 access_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
 runner_labels:
   - ci
