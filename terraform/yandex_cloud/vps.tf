@@ -25,23 +25,20 @@ resource "yandex_compute_instance" "bastion" {
     # https://cloud.yandex.ru/docs/compute/concepts/vm-metadata
     # https://cloudinit.readthedocs.io/en/latest/topics/examples.html
     user-data = templatefile("cloud-init.yml", {
-      main_key = file("~/.ssh/id_rsa.pub")
-      ci_key   = file("~/.ssh/id_ci.pub")
+      main_key    = file("~/.ssh/id_rsa.pub")
+      ci_key      = file("~/.ssh/id_ci.pub")
+      server_user = var.server_user
+      ci_user     = var.ci_user
     })
   }
-}
-
-output "internal_ip_bastion" {
-  value = yandex_compute_instance.bastion.network_interface.0.ip_address
-}
-
-output "external_ip_bastion" {
-  value = yandex_compute_instance.bastion.network_interface.0.nat_ip_address
 }
 
 output "message" {
   value = <<-EOT
     access the website: https://${var.domain}
     connect via ssh: ${var.server_user}@${var.domain}
+
+    internal ip: ${yandex_compute_instance.bastion.network_interface.0.ip_address}
+    external ip: ${yandex_compute_instance.bastion.network_interface.0.nat_ip_address}
   EOT
 }

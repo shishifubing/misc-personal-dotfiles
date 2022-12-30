@@ -1,25 +1,20 @@
 #cloud-config
 
 groups:
-  - ci
   - docker
 
 users:
   - default
-  - name: ci
+  - name: "${ci_user}"
     gecos: ci user
-    groups: sudo
     shell: /bin/bash
-    plain_text_passwd: test
     ssh_authorized_keys:
       - "${main_key}"
       - "${ci_key}"
 
-  - name: jingyangzhenren
+  - name: "${server_user}"
     gecos: personal user
-    groups: sudo
     shell: /bin/bash
-    plain_text_passwd: test
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - "${main_key}"
@@ -27,5 +22,4 @@ users:
 ssh_pwauth: false
 
 # Upgrade the instance on first boot
-# Default: false
 package_upgrade: true

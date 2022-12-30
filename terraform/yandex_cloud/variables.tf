@@ -9,3 +9,9 @@ variable "server_user" {
   description = "admin user for all servers"
   default     = "jingyangzhenren"
 }
+
+variable "ci_user" {
+  type        = string
+  description = "ci user for all servers"
+  default     = "ci"
+}
