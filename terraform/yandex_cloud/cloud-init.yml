@@ -1,17 +1,6 @@
 #cloud-config
 
-groups:
-  - docker
-
 users:
-  - default
-  - name: "${ci_user}"
-    gecos: ci user
-    shell: /bin/bash
-    ssh_authorized_keys:
-      - "${main_key}"
-      - "${ci_key}"
-
   - name: "${server_user}"
     gecos: personal user
     shell: /bin/bash
@@ -19,7 +8,15 @@ users:
     ssh_authorized_keys:
       - "${main_key}"
 
-ssh_pwauth: false
+  - name: "${ci_user}"
+    gecos: ci user
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - "${main_key}"
+      - "${ci_key}"
 
-# Upgrade the instance on first boot
-package_upgrade: true
+ssh_pwauth: false
+disable_root: true
+timezone: Europe/Moscow
+repo_update: true
+repo_upgrade: true

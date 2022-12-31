@@ -6,7 +6,7 @@ Yandex Cloud setup
 
 - [Provider documentation](https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs)
 
-- `cloud-init.yml` - [cloud-init](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+- `cloud-init.yml` - [cloud-init config](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
   config
 
 # Usage
@@ -14,3 +14,7 @@ Yandex Cloud setup
 ```bash
 terraform apply
 ```
+
+# Architecture
+
+TODO
