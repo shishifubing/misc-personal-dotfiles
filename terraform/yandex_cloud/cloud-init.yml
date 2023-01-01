@@ -1,19 +1,22 @@
 #cloud-config
 
+# all passwords are disabled by default
 users:
   - name: "${server_user}"
-    gecos: personal user
+    gecos: admin user
     shell: /bin/bash
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
-      - "${main_key}"
+      - "${key_main}"
+      - "${key_personal}"
 
   - name: "${ci_user}"
     gecos: ci user
     shell: /bin/bash
     ssh_authorized_keys:
-      - "${main_key}"
-      - "${ci_key}"
+      - "${key_main}"
+      - "${key_ci}"
+      - "${key_personal}"
 
 ssh_pwauth: false
 disable_root: true

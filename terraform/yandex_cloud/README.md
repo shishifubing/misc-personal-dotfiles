@@ -2,12 +2,13 @@
 
 Yandex Cloud setup
 
-- [Platform documentation](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart)
+- [Yandex Cloud][yandex-cloud] documentation
 
-- [Provider documentation](https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs)
+- [Terraform provider][terraform] documentation
 
-- `cloud-init.yml` - [cloud-init config](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
-  config
+- [Packer builder][packer] documentation
+
+- `cloud-init.yml` - [cloud-init][cloud-init] config
 
 # Usage
 
@@ -18,3 +19,10 @@ terraform apply
 # Architecture
 
 TODO
+
+<!-- links -->
+
+[packer]: https://developer.hashicorp.com/packer/plugins/builders/yandex
+[cloud-init]: https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+[terraform]: https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs
+[yandex-cloud]: https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart

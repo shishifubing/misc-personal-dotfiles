@@ -1,5 +1,5 @@
 
-resource "yandex_vpc_default_security_group" "default" {
+resource "yandex_vpc_security_group" "default" {
   description = "default security group"
   network_id  = yandex_vpc_network.default.id
 

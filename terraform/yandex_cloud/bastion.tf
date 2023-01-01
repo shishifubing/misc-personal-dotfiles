@@ -10,7 +10,7 @@ resource "yandex_compute_instance" "bastion" {
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.image_nginx
+      image_id = data.yandex_compute_image.image_base.id
     }
   }
 
@@ -19,17 +19,18 @@ resource "yandex_compute_instance" "bastion" {
     # public ip
     nat = true
   }
-
-  metadata = {
-    user-data = data.cloud-init
-  }
 }
 
-output "message" {
+locals {
+  bastion_ip  = yandex_compute_instance.bastion.network_interface.0.ip_address
+  bastion_nat = yandex_compute_instance.bastion.network_interface.0.nat_ip_address
+}
+
+output "bastion_message" {
   value = <<-EOT
     access the website: https://${var.domain}
-    connect via ssh: ${var.server_user}@${var.domain}
-    internal ip: ${yandex_compute_instance.bastion.network_interface.0.ip_address}
-    external ip: ${yandex_compute_instance.bastion.network_interface.0.nat_ip_address}
+    connect via ssh: ${var.user_server}@bastion.${var.domain}
+    internal ip: ${local.bastion_ip}
+    external ip: ${local.bastion_nat}
   EOT
 }

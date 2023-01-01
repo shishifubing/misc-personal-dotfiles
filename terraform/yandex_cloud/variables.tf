@@ -13,7 +13,7 @@ variable "provider_cloud_id" {
 variable "provider_authorized_key_path" {
   description = "path to the authorized key file"
   type        = string
-  default     = "~/Credentials/yc/authorized_key.ci.json"
+  default     = "~/Credentials/yc/authorized_key.personal.json"
 }
 
 variable "provider_zone" {
@@ -46,6 +46,35 @@ variable "user_server" {
   default     = "jingyangzhenren"
 }
 
+variable "ssh_key_path_main_pub" {
+  description = "path to the main public ssh key"
+  type        = string
+  default     = "~/.ssh/main.pub"
+}
+
+variable "ssh_key_path_main" {
+  description = "path to the main private ssh key"
+  type        = string
+  default     = "~/.ssh/main"
+}
+
+variable "ssh_key_path_personal_pub" {
+  description = "path to the personal public ssh key"
+  type        = string
+  default     = "~/.ssh/id_rsa.pub"
+}
+
+variable "ssh_key_path_ci" {
+  description = "path to the ci private ssh key"
+  type        = string
+  default     = "~/.ssh/id_ci"
+}
+variable "ssh_key_path_ci_pub" {
+  description = "path to the ci public ssh key"
+  type        = string
+  default     = "~/.ssh/id_ci.pub"
+}
+
 variable "user_ci" {
   description = "ci user for all servers"
   type        = string
@@ -57,7 +86,8 @@ variable "image_family" {
   type        = map(string)
 
   default = {
-    nginx = "debian-11-nginx"
-    base  = "debian-11-base"
+    nginx  = "debian-11-nginx"
+    base   = "debian-11-base"
+    source = "debian-11"
   }
 }
