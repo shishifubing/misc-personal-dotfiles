@@ -4,18 +4,26 @@ Personal terraform configs
 
 ---
 
+# Architecture
+
+TODO
+
+---
+
 # Usage
 
 ```bash
-make
-terraform apply
+export PACKER_VARIABLES="" # define packer variables if you need to
+make                       # build images, it is a wrapper for `packer build .`
+terraform apply            # create infrastructure
 ```
 
 ---
 
 # Setup
 
-> **_NOTE:_** variables.pkr.hcl is a link to variables.tf to avoid duplication
+> **_NOTE:_** variables.pkr.hcl is a link to variables.tf to reuse terraform
+> variables in packer builds
 
 ---
 
@@ -57,7 +65,7 @@ In order for cloud DNS to work, you need to delegate your domain to Yandex DNS s
 - `ns1.yandexcloud.net`
 - `ns2.yandexcloud.net`
 
-For DNS settings look at [networking.tf][networking]
+Cloud DNS settings are located in [networking.tf][networking]
 
 ---
 
@@ -66,7 +74,28 @@ For DNS settings look at [networking.tf][networking]
 Conifigure the domain in [networking.tf][networking] and
 [add it to Github Pages][github-pages]
 
-<!-- > links <-->
+---
+
+# Documentation
+
+- [Yandex Cloud][yandex-cloud] documentation
+
+- [Terraform provider][terraform] documentation
+
+- [Packer builder][packer] documentation
+
+- `*.cloud-init.yml` files - [cloud-init][cloud-init] configuration files
+
+---
+
+<!-- internal links -->
+
+[networking]: ./yandex_cloud/networking.tf
+
+<!-- external links -->
 
 [github-pages]: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
-[networking]: ./yandex_cloud/networking.tf
+[packer]: https://developer.hashicorp.com/packer/plugins/builders/yandex
+[cloud-init]: https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+[terraform]: https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs
+[yandex-cloud]: https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart

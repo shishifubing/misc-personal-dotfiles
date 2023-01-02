@@ -5,8 +5,8 @@ variable "version" {
 
 variable "use_nat" {
   description = <<-EOT
-    whether to use nat or not
-    nat is required if packer client is outside of the network
+    whether to use nat
+    (nat is required if the packer client is outside of the network)
   EOT
   type        = bool
   default     = true
@@ -15,13 +15,15 @@ variable "use_nat" {
 locals {
     base = var.image_family["base"]
     source = var.image_family["source"]
-    cloud_init = templatefile("cloud-init.yml", {
+    variables = {
         key_main    = file(pathexpand(var.ssh_key_path_main_pub))
         key_ci      = file(pathexpand(var.ssh_key_path_ci_pub))
         key_personal = file(pathexpand(var.ssh_key_path_personal_pub))
         server_user = var.user_server
         ci_user     = var.user_ci
-    })
+    }
+    init_base = templatefile("image_base.cloud-init.yml", local.variables)
+
 }
 
 # https://developer.hashicorp.com/packer/plugins/builders/yandex
@@ -34,29 +36,25 @@ source "yandex" "debian-11-base" {
   ssh_private_key_file = var.ssh_key_path_main
 
   disk_type           = "network-hdd"
-  image_description   = "base image with configured ssh and users"
+  image_description   = "base debian image with preconfigured users and ssh"
   image_family        = local.base
   # this resourse name cannot contain dots
   image_name          = "${local.base}-${var.version}"
   source_image_family = local.source
   metadata = {
-    user-data = local.cloud_init
+    user-data = join("\n", [
+        local.init_base
+    ])
   }
-  serial_log_file = "build.log"
+  serial_log_file = "image_base.log"
 }
 
 build {
   sources = ["source.yandex.${local.base}"]
 
   provisioner "shell" {
-    inline = [
-        <<-EOT
-            echo "waiting for cloud-init"
-            while [ ! -f /var/lib/cloud/instance/boot-finished ]; do
-                sleep 1
-            done
-            echo "done"
-        EOT
+    scripts = [
+        "image_base.sh"
     ]
   }
 

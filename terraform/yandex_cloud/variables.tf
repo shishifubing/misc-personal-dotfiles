@@ -49,13 +49,13 @@ variable "user_server" {
 variable "ssh_key_path_main_pub" {
   description = "path to the main public ssh key"
   type        = string
-  default     = "~/.ssh/main.pub"
+  default     = "~/.ssh/id_main.pub"
 }
 
 variable "ssh_key_path_main" {
   description = "path to the main private ssh key"
   type        = string
-  default     = "~/.ssh/main"
+  default     = "~/.ssh/id_main"
 }
 
 variable "ssh_key_path_personal_pub" {
@@ -87,7 +87,14 @@ variable "image_family" {
 
   default = {
     nginx  = "debian-11-nginx"
+    runner = "debian-11-runner"
     base   = "debian-11-base"
     source = "debian-11"
   }
+}
+
+variable "kubernetes_version" {
+  description = "kubernetes version"
+  type        = string
+  default     = "1.23"
 }

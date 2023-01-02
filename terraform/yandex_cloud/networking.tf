@@ -29,11 +29,29 @@ resource "yandex_dns_recordset" "top" {
   data    = [var.domain_github_io]
 }
 
-resource "yandex_dns_recordset" "subdomains" {
+resource "yandex_dns_recordset" "bastion" {
   zone_id = yandex_dns_zone.top.id
-  name    = "*"
+  name    = "bastion"
   type    = "A"
   ttl     = 200
   data    = [local.bastion_nat]
 }
+###
+
+# internal DNS
+resource "yandex_dns_zone" "internal" {
+  name        = var.domain_internal
+  description = "private dns zone"
+  zone        = "${var.domain_internal}."
+  public      = false
+}
+
+resource "yandex_dns_recordset" "internal" {
+  zone_id = yandex_dns_zone.top.id
+  name    = "master"
+  type    = "A"
+  ttl     = 200
+  data    = [local.master_ip]
+}
+
 ###

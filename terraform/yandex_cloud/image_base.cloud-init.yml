@@ -1,5 +1,19 @@
 #cloud-config
 
+# merging config
+merge_how:
+  - name: list
+    settings: [append]
+  - name: dict
+    settings: [no_replace, recurse_list]
+
+# general stuff
+ssh_pwauth: false
+disable_root: true
+repo_update: true
+repo_upgrade: true
+
+# users
 # all passwords are disabled by default
 users:
   - name: "${server_user}"
@@ -17,9 +31,3 @@ users:
       - "${key_main}"
       - "${key_ci}"
       - "${key_personal}"
-
-ssh_pwauth: false
-disable_root: true
-timezone: Europe/Moscow
-repo_update: true
-repo_upgrade: true
