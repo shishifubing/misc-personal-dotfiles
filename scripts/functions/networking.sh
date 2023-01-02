@@ -3,14 +3,18 @@
 ### networking
 
 ## check open ports
-networking_ports_list() {
+net_ports_list() {
 
     sudo ss -tulpn | grep LISTEN
 
 }
 
-networking_connections_list() {
+net_connections_list() {
     sudo netstat -nputw
+}
+
+net_check_dns() {
+    dig "${@}" +nostats +nocomments +nocmd
 }
 
 ### nginx fix

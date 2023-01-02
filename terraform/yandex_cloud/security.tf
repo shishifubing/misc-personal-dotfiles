@@ -2,7 +2,7 @@ resource "yandex_kms_symmetric_key" "cluster" {
   name              = "cluster"
   description       = "key for the default kubernetes cluster"
   default_algorithm = "AES_128"
-  rotation_period   = "700h" # 1 month
+  rotation_period   = "700h" # ~1 month
 
   lifecycle {
     prevent_destroy = true
@@ -10,6 +10,7 @@ resource "yandex_kms_symmetric_key" "cluster" {
 }
 
 resource "yandex_vpc_security_group" "allow_ssh" {
+  name        = "allow_ssh"
   description = "allow incoming and outgoing TCP traffic on port 22"
   network_id  = yandex_vpc_network.default.id
 
@@ -29,6 +30,7 @@ resource "yandex_vpc_security_group" "allow_ssh" {
 }
 
 resource "yandex_vpc_security_group" "cluster" {
+  name        = "cluster_rules"
   description = "cluster rules"
   network_id  = yandex_vpc_network.default.id
 
@@ -41,14 +43,14 @@ resource "yandex_vpc_security_group" "cluster" {
   }
 
   ingress {
-    description    = "allow incoming connections to 443 port"
+    description    = "allow incoming 443 port connections"
     protocol       = "ANY"
-    port           = 22
+    port           = 443
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    description    = "allow any outgoing connection to any required resource"
+    description    = "allow all outgoing connections"
     protocol       = "ANY"
     from_port      = 0
     to_port        = 65535

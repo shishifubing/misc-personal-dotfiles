@@ -23,10 +23,8 @@ locals {
         ci_user     = var.user_ci
     }
     init_base = templatefile("image_base.cloud-init.yml", local.variables)
-
 }
 
-# https://developer.hashicorp.com/packer/plugins/builders/yandex
 source "yandex" "debian-11-base" {
   service_account_key_file = pathexpand(var.provider_authorized_key_path)
   folder_id           = var.provider_folder_id
@@ -36,7 +34,7 @@ source "yandex" "debian-11-base" {
   ssh_private_key_file = var.ssh_key_path_main
 
   disk_type           = "network-hdd"
-  image_description   = "base debian image with preconfigured users and ssh"
+  image_description   = "base debian image with configured ssh and users"
   image_family        = local.base
   # this resourse name cannot contain dots
   image_name          = "${local.base}-${var.version}"

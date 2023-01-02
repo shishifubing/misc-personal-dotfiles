@@ -34,8 +34,8 @@ variable "domain_internal" {
   default     = "internal"
 }
 
-variable "domain_github_io" {
-  description = "CNAME for github.io"
+variable "domain_top_redirect" {
+  description = "redirect for the top public DNS domain (CNAME)"
   type        = string
   default     = "jingyangzhenren.github.io"
 }

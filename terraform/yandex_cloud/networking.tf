@@ -14,23 +14,23 @@ resource "yandex_vpc_subnet" "default" {
 ###
 
 # public DNS
-resource "yandex_dns_zone" "top" {
-  name        = "top"
-  description = "public dns zone for the top domain"
+resource "yandex_dns_zone" "public" {
+  name        = "public"
+  description = "public dns zone"
   zone        = "${var.domain}."
   public      = true
 }
 
-resource "yandex_dns_recordset" "top" {
-  zone_id = yandex_dns_zone.top.id
+resource "yandex_dns_recordset" "public" {
+  zone_id = yandex_dns_zone.public.id
   name    = "@"
   type    = "CNAME"
   ttl     = 200
-  data    = [var.domain_github_io]
+  data    = [var.domain_top_redirect]
 }
 
 resource "yandex_dns_recordset" "bastion" {
-  zone_id = yandex_dns_zone.top.id
+  zone_id = yandex_dns_zone.public.id
   name    = "bastion"
   type    = "A"
   ttl     = 200
@@ -38,16 +38,20 @@ resource "yandex_dns_recordset" "bastion" {
 }
 ###
 
-# internal DNS
+# additional cluster DNS
+
 resource "yandex_dns_zone" "internal" {
-  name        = var.domain_internal
-  description = "private dns zone"
+  name        = "internal"
+  description = "internal dns zone"
   zone        = "${var.domain_internal}."
   public      = false
+  private_networks = [
+    yandex_vpc_network.default.id
+  ]
 }
 
 resource "yandex_dns_recordset" "internal" {
-  zone_id = yandex_dns_zone.top.id
+  zone_id = yandex_dns_zone.internal.id
   name    = "master"
   type    = "A"
   ttl     = 200

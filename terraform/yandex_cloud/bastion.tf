@@ -1,7 +1,6 @@
 locals {
-  bastion     = yandex_compute_instance.bastion
-  bastion_ip  = local.bastion.network_interface.0.ip_address
-  bastion_nat = local.bastion.network_interface.0.nat_ip_address
+  bastion_ip  = yandex_compute_instance.bastion.network_interface.0.ip_address
+  bastion_nat = yandex_compute_instance.bastion.network_interface.0.nat_ip_address
 }
 
 resource "yandex_compute_instance" "bastion" {
@@ -11,7 +10,7 @@ resource "yandex_compute_instance" "bastion" {
   resources {
     cores         = 2
     memory        = 1
-    core_fraction = 2
+    core_fraction = 5
   }
 
   boot_disk {
@@ -29,9 +28,5 @@ resource "yandex_compute_instance" "bastion" {
     ]
     # public ip
     nat = true
-  }
-
-  lifecycle {
-    create_before_destroy = true
   }
 }
