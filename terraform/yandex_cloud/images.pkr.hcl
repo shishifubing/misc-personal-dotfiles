@@ -50,9 +50,8 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
-  provisioner "file" {
-    source = pathexpand(var.oauth_token_path)
-    destination = pathexpand(var.oauth_token_path)
+  env {
+    oauth_token_remote_directory = var.oauth_token_remote_directory
   }
 
   provisioner "shell" {
@@ -60,6 +59,15 @@ build {
         "image_init.sh",
         "setup.sh"
     ]
+  }
+
+  provisioner "file" {
+    source = pathexpand(var.oauth_token_path)
+    destination = join("/", [
+        "/home/${var.user_server}",
+        var.oauth_token_remote_directory,
+        "oauth.txt"
+    ])
   }
 
   post-processor "manifest" {

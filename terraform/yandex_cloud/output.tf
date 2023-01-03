@@ -25,5 +25,9 @@ output "cluster_id" {
 }
 
 output "oauth_token_path" {
-  value = pathexpand(var.oauth_token_path)
+  value = join("/", [
+    "/home/${var.user_server}",
+    var.oauth_token_remote_directory,
+    "oauth.txt"
+  ])
 }

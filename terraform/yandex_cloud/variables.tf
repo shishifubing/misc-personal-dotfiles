@@ -109,3 +109,9 @@ variable "oauth_token_path" {
   type        = string
   default     = "~/Credentials/yc/oauth.txt"
 }
+
+variable "oauth_token_remote_directory" {
+  description = "oauth token file will be put into this directory on remote machine"
+  type        = string
+  default     = "Credentials"
+}

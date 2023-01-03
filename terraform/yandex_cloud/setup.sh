@@ -16,6 +16,8 @@ terraform_distrib="terraform_${terraform_version}_linux_amd64.zip"
 packer_distrib="packer_${packer_version}_linux_amd64.zip"
 gitversion_distrib="gitversion-linux-x64-${gitversion_version}.tar.gz"
 
+mkdir --mode 600 --parents "${oauth_token_remote_directory:-Credentials}"
+
 wget "${host}/terraform/${terraform_version}/${terraform_distrib}"
 wget "${host}/packer/${packer_version}/${packer_distrib}"
 wget "${github_url}/${gitversion_version}/${gitversion_distrib}"
