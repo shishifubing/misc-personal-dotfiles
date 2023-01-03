@@ -7,6 +7,8 @@ resource "yandex_compute_instance" "bastion" {
   name        = "bastion"
   description = "bastion host with public IP"
 
+  service_account_id = yandex_iam_service_account.viewer.id
+
   resources {
     cores         = 2
     memory        = 1

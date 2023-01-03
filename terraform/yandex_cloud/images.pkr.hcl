@@ -52,7 +52,8 @@ build {
 
   provisioner "shell" {
     scripts = [
-        "image_base.sh"
+        "image_base.sh",
+        "setup.sh"
     ]
   }
 
