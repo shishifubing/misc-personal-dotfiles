@@ -50,9 +50,9 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
-  provider "file" {
-    source = var.token
-    destination = var.token
+  provisioner "file" {
+    source = pathexpand(var.oauth_token_path)
+    destination = pathexpand(var.oauth_token_path)
   }
 
   provisioner "shell" {
