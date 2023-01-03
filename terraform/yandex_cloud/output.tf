@@ -15,3 +15,11 @@ output "ssh_config" {
       HostName master.${var.domain_internal}
   EOT
 }
+
+output "folder_id" {
+  value = var.provider_folder_id
+}
+
+output "cluster_id" {
+  value = yandex_kubernetes_cluster.default.id
+}
