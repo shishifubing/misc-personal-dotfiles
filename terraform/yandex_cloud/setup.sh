@@ -6,7 +6,6 @@ packer_version="1.8.5"
 gitversion_version="5.11.1"
 kubectl_version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 
-
 host="https://hashicorp-releases.yandexcloud.net"
 github_url="https://github.com/GitTools/GitVersion/releases/download"
 dotfiles_repo="https://github.com/jingyangzhenren/config-personal-dotfiles.git"
