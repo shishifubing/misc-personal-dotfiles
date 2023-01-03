@@ -46,9 +46,8 @@ make
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 # connect to the bastion host
 ssh bastion
-# setup yc
-Dotfiles/terraform/yandex_cloud/setup_yc.sh
-# check cluster connectivity
+# setup kubectl
+./Dotfiles/terraform/yandex_cloud/setup_kubectl.sh
 kubectl cluster-info
 ```
 

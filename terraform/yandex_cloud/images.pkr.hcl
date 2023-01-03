@@ -50,9 +50,14 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
+  provider "file" {
+    source = var.token
+    destination = var.token
+  }
+
   provisioner "shell" {
     scripts = [
-        "image_base.sh",
+        "image_init.sh",
         "setup.sh"
     ]
   }
