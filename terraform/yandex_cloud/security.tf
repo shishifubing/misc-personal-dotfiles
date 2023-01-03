@@ -16,31 +16,23 @@ resource "yandex_vpc_security_group" "allow_ssh" {
 
   ingress {
     description    = "allow incoming TCP ssh connections"
-    protocol       = "TCP"
+    protocol       = "ANY"
     port           = 22
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     description    = "allow outgoing TCP ssh connections"
-    protocol       = "TCP"
+    protocol       = "ANY"
     port           = 22
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-resource "yandex_vpc_security_group" "cluster" {
-  name        = "cluster_rules"
-  description = "cluster rules"
+resource "yandex_vpc_security_group" "allow_443" {
+  name        = "allow_443"
+  description = "allow incoming 443 taffic and all outgoing"
   network_id  = yandex_vpc_network.default.id
-
-
-  ingress {
-    description    = "allow incoming TCP ssh connections"
-    protocol       = "TCP"
-    port           = 22
-    v4_cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     description    = "allow incoming 443 port connections"
@@ -48,6 +40,19 @@ resource "yandex_vpc_security_group" "cluster" {
     port           = 443
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
+
+  egress {
+    description    = "allow outgoing 443 port connections"
+    protocol       = "ANY"
+    port           = 443
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "yandex_vpc_security_group" "allow_outgoing" {
+  name        = "allow_outgoing"
+  description = "allow all outgoing connections"
+  network_id  = yandex_vpc_network.default.id
 
   egress {
     description    = "allow all outgoing connections"

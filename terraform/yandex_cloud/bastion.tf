@@ -9,10 +9,11 @@ resource "yandex_compute_instance" "bastion" {
 
   service_account_id = yandex_iam_service_account.viewer.id
 
+  allow_stopping_for_update = true
   resources {
     cores         = 2
     memory        = 1
-    core_fraction = 5
+    core_fraction = 20
   }
 
   boot_disk {
@@ -26,7 +27,8 @@ resource "yandex_compute_instance" "bastion" {
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
     security_group_ids = [
-      yandex_vpc_security_group.allow_ssh.id
+      yandex_vpc_security_group.allow_ssh.id,
+      yandex_vpc_security_group.allow_443.id
     ]
     # public ip
     nat = true

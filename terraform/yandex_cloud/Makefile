@@ -8,6 +8,7 @@ echo "image version: ${version}"
 echo -e "${PACKER_VARS}\nversion = \"${version}\"" \
 	> "_variables.pkrvars.hcl"
 packer build -var-file "_variables.pkrvars.hcl" .
+terraform apply
 endef
 
 build: ; $(value build)

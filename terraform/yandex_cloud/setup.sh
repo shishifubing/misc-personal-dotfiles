@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+echo $USER
+
 host="https://hashicorp-releases.yandexcloud.net"
 github_url="https://github.com/GitTools/GitVersion/releases/download"
 dotfiles_repo="https://github.com/jingyangzhenren/config-personal-dotfiles.git"

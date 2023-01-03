@@ -5,3 +5,4 @@ yc init
 yc managed-kubernetes cluster \
   get-credentials "$(terraform output -raw )" \
   --internal
+kubectl cluster-info

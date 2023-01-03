@@ -15,10 +15,8 @@ TODO
 ```bash
 # define packer variables if you need to
 export PACKER_VARIABLES=""
-# build images (it is a wrapper for `packer build .`)
+# build images and create infrastructure
 make
-# create infrastructure
-terraform apply
 # ssh to the bastion host and check cluster connectivity
 ssh bastion
 kubectl cluster-info
@@ -42,10 +40,8 @@ kubectl cluster-info
 ./setup.sh
 # define packer variables if you need to
 export PACKER_VARIABLES=""
-# build images (it is a wrapper for `packer build .`)
+# build images and create infrastructure
 make
-# create infrastructure
-terraform apply
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 # connect to the bastion host

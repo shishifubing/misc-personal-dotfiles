@@ -16,7 +16,9 @@ resource "yandex_kubernetes_cluster" "default" {
     version   = var.kubernetes_version
     public_ip = false
     security_group_ids = [
-      yandex_vpc_security_group.cluster.id
+      yandex_vpc_security_group.allow_ssh.id,
+      yandex_vpc_security_group.allow_443.id,
+      yandex_vpc_security_group.allow_outgoing.id
     ]
 
     zonal {

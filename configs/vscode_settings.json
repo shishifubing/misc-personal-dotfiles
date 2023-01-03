@@ -200,13 +200,13 @@
   "workbench.editor.showTabs": false,
   "explorer.openEditors.sortOrder": "editorOrder",
   "window.menuBarVisibility": "toggle",
-  "window.zoomLevel": -1,
   "go.toolsManagement.autoUpdate": true,
   "sonarlint.ls.javaHome": "/home/kongrentian/.vscode-oss/extensions/sonarsource.sonarlint_managed-jre/jre/jdk-11.0.17+8-jre",
   "[shellscript]": {
     "files.eol": "\n",
     "editor.defaultFormatter": "timonwong.shellcheck"
-  }
+  },
+  "window.zoomLevel": -1
   //
   // vim
   /*
