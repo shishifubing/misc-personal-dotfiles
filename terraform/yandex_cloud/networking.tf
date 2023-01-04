@@ -1,6 +1,7 @@
 
 locals {
   master_balancer_external = yandex_vpc_address.cluster.external_ipv4_address.0.address
+  master_fqdm              = "master.${var.domain}"
 }
 
 # networks
@@ -56,7 +57,7 @@ resource "yandex_cm_certificate" "master" {
   name        = "master"
   description = "certificate for external requests to the master node"
   domains = [
-    "master.${var.domain}"
+    local.master_fqdm
   ]
 
   managed {
@@ -121,6 +122,7 @@ resource "yandex_alb_load_balancer" "cluster" {
       }
       ports = [443]
     }
+
     tls {
       default_handler {
         certificate_ids = [
@@ -128,7 +130,6 @@ resource "yandex_alb_load_balancer" "cluster" {
         ]
         http_handler {
           http_router_id = yandex_alb_http_router.cluster.id
-
         }
       }
     }
@@ -166,9 +167,8 @@ resource "yandex_alb_virtual_host" "cluster" {
     name = "master"
     http_route {
       http_route_action {
-        backend_group_id  = yandex_alb_backend_group.cluster.id
-        timeout           = "30s"
-        auto_host_rewrite = true
+        backend_group_id = yandex_alb_backend_group.cluster.id
+        timeout          = "30s"
       }
     }
   }
@@ -186,7 +186,7 @@ resource "yandex_alb_backend_group" "cluster" {
       yandex_alb_target_group.cluster.id
     ]
     tls {
-      sni = "master.${var.domain}"
+      sni = local.master_fqdm
     }
     load_balancing_config {
       panic_threshold = 50
@@ -199,6 +199,7 @@ resource "yandex_alb_backend_group" "cluster" {
 resource "yandex_alb_target_group" "cluster" {
   name        = "cluster"
   description = "master"
+
   target {
     subnet_id  = yandex_vpc_subnet.default.id
     ip_address = local.master_ip

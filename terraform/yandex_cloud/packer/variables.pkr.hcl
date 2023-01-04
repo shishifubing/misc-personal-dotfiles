@@ -1,1 +1,1 @@
-yandex_cloud/variables.tf
+/home/kongrentian/Dotfiles/terraform/yandex_cloud/variables.tf

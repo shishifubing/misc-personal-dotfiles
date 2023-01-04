@@ -2,7 +2,7 @@
 
 Things for personal use
 
-# Contents
+# TOC
 
 - [Bash scripts](/scripts)
 - [Configs](/configs)
