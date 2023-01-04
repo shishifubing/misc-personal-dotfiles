@@ -43,7 +43,7 @@ if {$force_conservative} {
 
 
 set timeout -1
-spawn yc init
+spawn ./setup_yc.sh
 match_max 100000
 expect "Please enter your numeric choice: "
 send -- "1\r"
