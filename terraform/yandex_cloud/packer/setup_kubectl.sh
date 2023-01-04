@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -Eeuxo pipefail
 
+# setup local kubectl
 yc managed-kubernetes cluster get-credentials \
     --internal                                \
-    --name default
+    --name default                            \
+    --force
 kubectl cluster-info
-yc managed-kubernetes cluster get --format json |    \
-  jq -r .master.master_auth.cluster_ca_certificate | \
-  awk '{gsub(/\\n/,"\n")}1'                          \
-  >"${HOME}/Credentials/yc/ca.pem"
+
+# get cluster certificate
+yc managed-kubernetes cluster get                        \
+    --format json                                        \
+    --name default |
+        jq -r .master.master_auth.cluster_ca_certificate |
+        awk '{gsub(/\\n/,"\n")}1'                        \
+    >"${HOME}/Credentials/yc/ca.pem"
 
 kubectl apply -f - <<EOF
 apiVersion: v1
@@ -42,11 +48,5 @@ token=$(
         jq -r .data.token |
         base64 --d
 )
-set -x
 echo "${token}" >"${HOME}/Credentials/yc/sa_admin_token.txt"
-
-echo "
-    to setup kubectl locally, please run:
-    scp bastion:setup_kubectl_locally.sh ./
-    ./setup_kubectl_locally.sh
-"
+set -x

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -Eeuxo pipefail
 
 PACKER_VARS="${PACKER_VARS:-}"
 version=$(jq -r ".FullSemVer" <(gitversion))

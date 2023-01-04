@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -Eeuxo pipefail
 
 terraform_version="1.3.6"
 packer_version="1.8.5"

@@ -43,9 +43,6 @@ kubectl cluster-info
 make
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
-# setup kubectl on the bastion host and create admin user in the cluster
-# the script is included in the VM image built by packer
-ssh bastion "./setup_kubectl.sh"
 # copy the cluster certificate and the token from the server and
 # setup local kubectl
 ./setup_kubectl.sh

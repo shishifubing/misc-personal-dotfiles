@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -Eeuxo pipefail
 . "${DOTFILES_SOURCE}"
 source_functions
 

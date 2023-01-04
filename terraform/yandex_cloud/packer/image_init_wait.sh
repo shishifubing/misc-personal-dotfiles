@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -Eeuxo pipefail
 
 echo "waiting for cloud-init"
 while [ ! -f /var/lib/cloud/instance/boot-finished ]; do
