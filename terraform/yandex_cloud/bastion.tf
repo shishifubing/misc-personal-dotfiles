@@ -28,7 +28,8 @@ resource "yandex_compute_instance" "bastion" {
     subnet_id = yandex_vpc_subnet.default.id
     security_group_ids = [
       yandex_vpc_security_group.allow_ssh.id,
-      yandex_vpc_security_group.allow_443.id
+      yandex_vpc_security_group.allow_443.id,
+      yandex_vpc_security_group.allow_80_outgoing.id
     ]
     # public ip
     nat = true

@@ -154,11 +154,12 @@ export_variables_others() {
     ### path edits
     ## path edit for ruby gems to work
     ruby_path="${HOME}/.local/share/gem/ruby/3.0.0/bin"
+    yandex_cloud="${HOME}/yandex-cloud/bin"
     ## path edit for local binaries
     local_binaries="${HOME}/.local/bin"
     export GOPATH="${HOME}/.go"
     ## actual path changes
-    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}/bin"
+    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}/bin" "${yandex_cloud}"
     ## fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
     ## silences npm funding messages

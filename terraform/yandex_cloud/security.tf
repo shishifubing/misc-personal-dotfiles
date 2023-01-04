@@ -49,6 +49,19 @@ resource "yandex_vpc_security_group" "allow_443" {
   }
 }
 
+resource "yandex_vpc_security_group" "allow_80_outgoing" {
+  name        = "allow_80_outgoing"
+  description = "allow outgoing connections on port 80"
+  network_id  = yandex_vpc_network.default.id
+
+  egress {
+    description    = "allow outgoing connections on port 80"
+    protocol       = "ANY"
+    port           = 80
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "yandex_vpc_security_group" "allow_outgoing" {
   name        = "allow_outgoing"
   description = "allow all outgoing connections"

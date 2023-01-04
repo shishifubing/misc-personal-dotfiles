@@ -17,6 +17,7 @@ repo_upgrade: true
 packages:
   - git
   - jq
+  - expect
 
 # users
 # all passwords are disabled by default

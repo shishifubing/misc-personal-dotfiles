@@ -1,0 +1,23 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn "yc init"
+
+expect "This command will take you through the configuration process\r"
+
+send -- "1\r"
+
+expect "Please go to\r"
+
+send -- "${env(YC_TOKEN)}\r"
+
+expect "Please choose folder to use\r"
+
+send -- "1\r"
+
+expect "Do you want to configure a default Compute zone\r"
+
+send -- "n\r"
+
+expect eof
