@@ -45,12 +45,16 @@ if {$force_conservative} {
 set timeout -1
 spawn ./setup_yc.sh
 match_max 100000
-expect "Please enter your numeric choice: "
+# modify default profile
+expect "Please enter your numeric choice"
 send -- "1\r"
+# enter oauth token
 expect "Please enter OAuth token: "
 send -- "${env(YC_TOKEN)}\r"
-expect "Please choose folder to use: "
+# choose default folder
+expect "Please enter your numeric choice"
 send -- "1\r"
+# do not configure default compute zone
 expect "Do you want to configure a default Compute zone"
 send -- "n\r"
 expect eof
