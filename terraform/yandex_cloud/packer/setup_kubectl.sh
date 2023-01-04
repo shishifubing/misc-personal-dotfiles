@@ -42,6 +42,7 @@ token=$(
         jq -r .data.token |
         base64 --d
 )
+set -x
 echo "${token}" >"${HOME}/Credentials/yc/sa_admin_token.txt"
 
 echo "
