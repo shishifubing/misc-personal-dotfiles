@@ -43,7 +43,7 @@ if {$force_conservative} {
 
 
 set timeout -1
-spawn "${env(HOME)}/Dotfiles/terraform/yandex_cloud/setup_yc.sh"
+spawn "${env(HOME)}/setup_yc.sh"
 match_max 100000
 expect "Please go to *"
 log_user 0

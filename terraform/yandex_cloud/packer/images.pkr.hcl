@@ -60,9 +60,13 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
+  provisioner "shell" {
+    script = "image_init_wait.sh"
+  }
+
   provisioner "file" {
-    source = "setup_kubectl.sh"
-    destination = "setup_kubectl.sh"
+    sources = ["setup_kubectl.sh", "setup_yc.sh"]
+    destination = "~/"
   }
 
   provisioner "shell" {
@@ -70,7 +74,6 @@ build {
       YC_TOKEN =  file(pathexpand(var.oauth_token_path))
     }
     scripts = [
-      "image_init_wait.sh",
       "setup.sh",
       "setup_yc.expect"
     ]
