@@ -36,19 +36,16 @@ kubectl cluster-info
 - yc
 
 ```bash
-# install tools, links.terraformrc
-# it it mainly a server setup script, so there might be side effects
+# install tools, link .terraformrc
+# it is mainly a server setup script, so there might be side effects
 ./setup.sh
-# define packer variables if you need to
-export PACKER_VARIABLES=""
 # build images and create infrastructure
 make
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
-# connect to the bastion host
-ssh bastion
-# setup kubectl
-./Dotfiles/terraform/yandex_cloud/setup_kubectl.sh
+# setup kubectl on the bastion host and create admin user in the cluster
+# the script is included in the VM image built by packer
+ssh bastion "./setup_kubectl.sh"
 ```
 
 ---
@@ -61,6 +58,15 @@ In order for public Cloud DNS to work with your domain, you need to delegate it 
 - `ns2.yandexcloud.net`
 
 Cloud DNS settings are located in [networking.tf][networking]
+
+---
+
+## Invalid certificate status: VALIDATING
+
+If `terraform apply` fails because of that reason, you need to wait untill
+Let's Encrypt validates load balancer's certificate
+
+It may take several minutes
 
 ---
 

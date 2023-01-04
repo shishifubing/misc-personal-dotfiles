@@ -52,6 +52,11 @@ resource "yandex_kubernetes_node_group" "default" {
   cluster_id  = yandex_kubernetes_cluster.default.id
   version     = var.kubernetes_version
 
+  timeouts {
+    // creation may take a lot of time
+    create = "60m"
+  }
+
   instance_template {
     name        = "k8snode{instance.index}"
     platform_id = "standard-v2"

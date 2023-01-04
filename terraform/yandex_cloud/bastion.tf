@@ -4,9 +4,9 @@ locals {
 }
 
 resource "yandex_compute_instance" "bastion" {
-  name        = "bastion"
-  description = "bastion host with public IP"
-
+  name               = "bastion"
+  description        = "bastion host with public IP"
+  hostname           = "bastion.${var.domain}"
   service_account_id = yandex_iam_service_account.viewer.id
 
   allow_stopping_for_update = true

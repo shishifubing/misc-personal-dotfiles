@@ -5,9 +5,11 @@ PACKER_VARS="${PACKER_VARS:-}"
 version=$(jq -r ".FullSemVer" <(gitversion))
 version="${version//./-}"
 echo "image version: ${version}"
-echo -e "${PACKER_VARS}\nversion = \"${version}\"" \
-    > "_variables.pkrvars.hcl"
-cd yandex_cloud
+cd yandex_cloud/packer
+echo "
+${PACKER_VARS}
+version = \"${version}\"
+" > "_variables.pkrvars.hcl"
 packer build -var-file "_variables.pkrvars.hcl" .
-cd ../
-terraform apply
+cd ../../
+terraform apply -target=module.yandex_cloud

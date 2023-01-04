@@ -60,6 +60,11 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
+  provisioner "file" {
+    source = "setup_kubectl.sh"
+    destination = "setup_kubectl.sh"
+  }
+
   provisioner "shell" {
     env = {
       YC_TOKEN =  file(pathexpand(var.oauth_token_path))
