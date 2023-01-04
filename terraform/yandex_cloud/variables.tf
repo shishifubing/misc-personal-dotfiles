@@ -98,20 +98,3 @@ variable "kubernetes_version" {
   type        = string
   default     = "1.23"
 }
-
-
-variable "oauth_token_path" {
-  description = <<-EOT
-        path to a file with OAuth token for Yandex Cloud
-        it is needed for yc
-        to get one, visit https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
-    EOT
-  type        = string
-  default     = "~/Credentials/yc/oauth.txt"
-}
-
-variable "oauth_token_remote_directory" {
-  description = "oauth token file will be put into this directory on remote machine"
-  type        = string
-  default     = "Credentials"
-}

@@ -16,13 +16,13 @@ terraform_distrib="terraform_${terraform_version}_linux_amd64.zip"
 packer_distrib="packer_${packer_version}_linux_amd64.zip"
 gitversion_distrib="gitversion-linux-x64-${gitversion_version}.tar.gz"
 
-chmod 600 "${oauth_token_remote_directory:-Credentials}"
-
 wget "${host}/terraform/${terraform_version}/${terraform_distrib}"
 wget "${host}/packer/${packer_version}/${packer_distrib}"
 wget "${github_url}/${gitversion_version}/${gitversion_distrib}"
 curl -LO "https://dl.k8s.io/release/${kubectl_version}/bin/linux/amd64/kubectl"
-git clone "${dotfiles_repo}" "${dotfiles_dir}" || true
+git clone "${dotfiles_repo}" "${dotfiles_dir}" || {
+    git --git-dir "${dotfiles_repo}/.git" pull
+}
 curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
 
 unzip "${terraform_distrib}"
@@ -37,4 +37,3 @@ ln -fs "${dotfiles_dir}/scripts/bashrc.sh" "${HOME}/.bashrc"
 cd "${config_dir}"
 terraform get
 terraform init
-"${dotfiles_dir}/terraform/yandex_cloud/setup_yc.expect"

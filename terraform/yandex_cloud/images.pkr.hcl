@@ -12,6 +12,16 @@ variable "use_nat" {
   default     = true
 }
 
+variable "oauth_token_path" {
+  description = <<-EOT
+    path to a file with OAuth token for Yandex Cloud
+    it is needed for yc
+    to get one, visit https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
+  EOT
+  type        = string
+  default     = "~/Credentials/yc/oauth.txt"
+}
+
 locals {
     base = var.image_family["base"]
     source = var.image_family["source"]
@@ -50,22 +60,14 @@ source "yandex" "debian-11-base" {
 build {
   sources = ["source.yandex.${local.base}"]
 
-  provisioner "file" {
-    source = pathexpand(var.oauth_token_path)
-    destination = join("/", [
-        "/home/${var.user_server}",
-        var.oauth_token_remote_directory,
-        "oauth.txt"
-    ])
-  }
-
   provisioner "shell" {
     env = {
-        oauth_token_remote_directory = var.oauth_token_remote_directory
+      YC_TOKEN =  file(pathexpand(var.oauth_token_path))
     }
     scripts = [
-        "image_init.sh",
-        "setup.sh"
+      "setup.sh",
+      "image_init_wait.sh",
+      "setup_yc.expect"
     ]
   }
 

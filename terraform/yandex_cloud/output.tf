@@ -23,11 +23,3 @@ output "folder_id" {
 output "cluster_id" {
   value = yandex_kubernetes_cluster.default.id
 }
-
-output "oauth_token_path" {
-  value = join("/", [
-    "/home/${var.user_server}",
-    var.oauth_token_remote_directory,
-    "oauth.txt"
-  ])
-}
