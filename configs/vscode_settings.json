@@ -79,8 +79,12 @@
   "python.linting.lintOnSave": true,
   "python.autoComplete.addBrackets": true,
   "shellcheck.exclude": [
-    "SC1091", // can't follow
-    "SC1090", // can't follow non-constant source
+    // can't follow
+    "SC1091",
+    // can't follow non-constant source
+    "SC1090",
+    // (mkdir) When used with -p, -m only applies to the deepest directory
+    "SC2174",
     //"SC2155",
     //"SC2120",
     //"SC2119",

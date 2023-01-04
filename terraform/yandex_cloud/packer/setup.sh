@@ -34,6 +34,8 @@ sudo mv terraform packer gitversion kubectl /usr/bin/
 
 ln -fs "${dotfiles_dir}/terraform/.terraformrc" "${HOME}/.terraformrc"
 ln -fs "${dotfiles_dir}/scripts/bashrc.sh" "${HOME}/.bashrc"
+mkdir -pm 600 "${HOME}/Credentials"
+mkdir -pm 600 "${HOME}/Credentials/yc"
 cd "${config_dir}"
 terraform get
 terraform init
