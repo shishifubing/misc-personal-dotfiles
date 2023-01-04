@@ -7,5 +7,7 @@ version="${version//./-}"
 echo "image version: ${version}"
 echo -e "${PACKER_VARS}\nversion = \"${version}\"" \
     > "_variables.pkrvars.hcl"
+cd yandex_cloud
 packer build -var-file "_variables.pkrvars.hcl" .
+cd ../
 terraform apply

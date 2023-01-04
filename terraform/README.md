@@ -37,6 +37,7 @@ kubectl cluster-info
 
 ```bash
 # install tools, links.terraformrc
+# it it mainly a server setup script, so there might be side effects
 ./setup.sh
 # define packer variables if you need to
 export PACKER_VARIABLES=""
@@ -48,7 +49,6 @@ echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 ssh bastion
 # setup kubectl
 ./Dotfiles/terraform/yandex_cloud/setup_kubectl.sh
-kubectl cluster-info
 ```
 
 ---

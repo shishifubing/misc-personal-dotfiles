@@ -1,6 +1,6 @@
 variable "version" {
-    description = "image version"
-    type = string
+  description = "image version"
+  type = string
 }
 
 variable "use_nat" {
@@ -23,16 +23,16 @@ variable "oauth_token_path" {
 }
 
 locals {
-    base = var.image_family["base"]
-    source = var.image_family["source"]
-    variables = {
-        key_main    = file(pathexpand(var.ssh_key_path_main_pub))
-        key_ci      = file(pathexpand(var.ssh_key_path_ci_pub))
-        key_personal = file(pathexpand(var.ssh_key_path_personal_pub))
-        server_user = var.user_server
-        ci_user     = var.user_ci
-    }
-    init_base = templatefile("image_base.cloud-init.yml", local.variables)
+  base = var.image_family["base"]
+  source = var.image_family["source"]
+  variables = {
+    key_main    = file(pathexpand(var.ssh_key_path_main_pub))
+    key_ci      = file(pathexpand(var.ssh_key_path_ci_pub))
+    key_personal = file(pathexpand(var.ssh_key_path_personal_pub))
+    server_user = var.user_server
+    ci_user     = var.user_ci
+  }
+  init_base = templatefile("image_base.cloud-init.yml", local.variables)
 }
 
 source "yandex" "debian-11-base" {
@@ -51,7 +51,7 @@ source "yandex" "debian-11-base" {
   source_image_family = local.source
   metadata = {
     user-data = join("\n", [
-        local.init_base
+      local.init_base
     ])
   }
   serial_log_file = "image_base.log"
@@ -65,8 +65,8 @@ build {
       YC_TOKEN =  file(pathexpand(var.oauth_token_path))
     }
     scripts = [
-      "setup.sh",
       "image_init_wait.sh",
+      "setup.sh",
       "setup_yc.expect"
     ]
   }
