@@ -46,9 +46,11 @@ set timeout -1
 spawn "${env(HOME)}/Dotfiles/terraform/yandex_cloud/setup_yc.sh"
 match_max 100000
 expect "Please go to *"
+log_user 0
 send -- "${env(YC_TOKEN)}\r"
 # select default folder
 expect "Please enter your numeric choice"
+log_user 1
 send -- "1\r"
 expect "Do you want to configure a default Compute zone"
 send -- "n\r"
