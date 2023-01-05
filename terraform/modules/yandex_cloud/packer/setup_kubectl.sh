@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 set -Eeuxo pipefail
 
+cloud_id="${1}"
+folder_id="${2}"
+cluster_id="${3}"
+
 # setup local kubectl
 yc managed-kubernetes cluster get-credentials \
+    "${cluster_id}"                           \
     --internal                                \
-    --name default                            \
+    --cloud-id "${cloud_id}"                  \
+    --folder-id "${folder_id}"                \
     --force
 kubectl cluster-info
 
-# get cluster certificate
+# get cluster certificate authority
 yc managed-kubernetes cluster get                        \
-    --format json                                        \
-    --name default |
+    "${cluster_id}"                                      \
+    --cloud-id "${cloud_id}"                             \
+    --folder-id "${folder_id}"                           \
+    --format json                                        |
         jq -r .master.master_auth.cluster_ca_certificate |
         awk '{gsub(/\\n/,"\n")}1'                        \
     >"${HOME}/Credentials/yc/ca.pem"

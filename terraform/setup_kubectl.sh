@@ -1,23 +1,29 @@
 #!/usr/bin/env bash
 set -Eeuxo pipefail
 
+master_domain="$(terraform output -raw master_domain)"
+cloud_id="$(terraform output -raw cloud_id)"
+folder_id="$(terraform output -raw folder_id)"
+cluster_id="$(terraform output -raw cluster_id)"
+
 # setup kubectl on the bastion host and create admin user in the cluster
 # the script is included in the VM image built by packer
-ssh bastion "./setup_kubectl.sh"
+ssh bastion "./setup_kubectl.sh ${cloud_id} ${folder_id} ${cluster_id}"
 
 credentials="Credentials/yc"
 #ca="${credentials}/ca.pem"
 token="${credentials}/sa_admin_token.txt"
-# there is no need to copy ca  because the load balancer
+
+# there is no need to copy ca because the load balancer
 # serves its own certificate
 #   "bastion:${ca}"          \
 scp "bastion:${token}"       \
     "${HOME}/${credentials}/"
 
   #--certificate-authority="${HOME}/${ca}"      \
-kubectl config set-cluster personal            \
-  --server=https://master.jingyangzhenren.com  \
-  --tls-server-name=master.jingyangzhenren.com
+kubectl config set-cluster personal    \
+  --server="https://${master_domain}"  \
+  --tls-server-name="${master_domain}"
 
 set +x
 kubectl config set-credentials admin-user \

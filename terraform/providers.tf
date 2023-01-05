@@ -1,4 +1,3 @@
-# https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart
 terraform {
   required_providers {
     yandex = {
@@ -21,5 +20,6 @@ provider "yandex" {
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  config_path    = pathexpand(var.kubernetes_config_path)
+  config_context = var.kubernetes_context
 }
