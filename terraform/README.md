@@ -26,9 +26,6 @@ kubectl cluster-info
 
 # Setup
 
-> **_NOTE:_** variables.pkr.hcl is a link to variables.tf to reuse terraform
-> variables in packer builds
-
 - terraform
 - packer
 - gitversion
