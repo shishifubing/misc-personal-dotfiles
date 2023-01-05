@@ -90,7 +90,7 @@ build {
     sources = [
       pathexpand(var.provider_authorized_key_path_editor)
     ]
-    destination = "~/Credentials/yc"
+    destination = "~/Credentials/yc/"
   }
 
   post-processor "manifest" {

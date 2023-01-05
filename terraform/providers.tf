@@ -1,4 +1,15 @@
 terraform {
+
+  backend "s3" {
+    endpoint = "storage.yandexcloud.net"
+    bucket   = "jingyangzhenren-terraform"
+    region   = "ru-central1-a"
+    key      = "main.tfstate"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+  }
+
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
