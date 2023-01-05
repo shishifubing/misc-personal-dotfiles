@@ -8,5 +8,10 @@ Things for personal use
 - [Configs](/configs)
 - [Ansible playbooks](/ansible)
 - [Terraform](/terraform/)
+- [Documentation](/docs/)
 - [Firefox config](/firefox)
 - [Nvim config](/vim/)
+
+# SCC
+
+![scc](./docs/scc.html)

@@ -4,9 +4,6 @@ resource "yandex_kms_symmetric_key" "cluster" {
   default_algorithm = "AES_128"
   rotation_period   = "700h" # ~1 month
 
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "yandex_vpc_security_group" "allow_ssh" {

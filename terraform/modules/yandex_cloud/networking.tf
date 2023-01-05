@@ -126,7 +126,7 @@ resource "yandex_alb_load_balancer" "cluster" {
     tls {
       default_handler {
         certificate_ids = [
-          yandex_cm_certificate.master.id
+          data.yandex_cm_certificate.master.certificate_id
         ]
         http_handler {
           http_router_id = yandex_alb_http_router.cluster.id

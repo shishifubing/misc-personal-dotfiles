@@ -21,6 +21,9 @@ make
 terraform apply
 ```
 
+First `terraform apply` might take dozens of minutes because of certificate validation and cluster creation
+(application load balancer cannot be created if it's certificate for it is not valid)
+
 ---
 
 # Setup
@@ -43,28 +46,19 @@ Cloud DNS settings are located in [networking.tf][networking]
 - gitversion
 - kubectl
 - yc
+- helm
 
 ```bash
-# install tools, link .terraformrc
+# install tools, link .terraformrc, link .bashrc
 # it is mainly a server setup script, so there might be side effects
 ./modules/yandex_cloud/packer/setup.sh
 # build images and create infrastructure
 make
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
-# copy the cluster certificate and the token from the server
 # setup local kubectl
 ./setup_kubectl.sh
 ```
-
----
-
-## Invalid certificate status: VALIDATING
-
-If `terraform apply` fails because of that reason, you need to wait untill
-Let's Encrypt validates load balancer's certificate
-
-It may take several minutes
 
 ---
 

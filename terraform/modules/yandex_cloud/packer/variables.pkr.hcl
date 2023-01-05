@@ -1,7 +1,7 @@
 variable "provider_folder_id" {
   description = "folder id for Yandex Cloud"
   type        = string
-  default     = "b1gqj05pu00l9g3um77e"
+  default     = "b1gvfdje7hs1nuc9bf6c"
 }
 
 variable "provider_cloud_id" {
