@@ -15,16 +15,28 @@ TODO
 ```bash
 # define packer variables if you need to
 export PACKER_VARIABLES=""
-# build images and create infrastructure
+# build images and update infrastructure
 make
-# ssh to the bastion host and check cluster connectivity
-ssh bastion
-kubectl cluster-info
+# or just update infrastructure
+terraform apply
 ```
 
 ---
 
 # Setup
+
+## Delegate domain
+
+In order for public Cloud DNS to work with your domain, you need to delegate it to Yandex DNS servers:
+
+- `ns1.yandexcloud.net`
+- `ns2.yandexcloud.net`
+
+Cloud DNS settings are located in [networking.tf][networking]
+
+---
+
+## Local environment
 
 - terraform
 - packer
@@ -35,26 +47,15 @@ kubectl cluster-info
 ```bash
 # install tools, link .terraformrc
 # it is mainly a server setup script, so there might be side effects
-./setup.sh
+./modules/yandex_cloud/packer/setup.sh
 # build images and create infrastructure
 make
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
-# copy the cluster certificate and the token from the server and
+# copy the cluster certificate and the token from the server
 # setup local kubectl
 ./setup_kubectl.sh
 ```
-
----
-
-## Delegate domain
-
-In order for public Cloud DNS to work with your domain, you need to delegate it to Yandex DNS servers:
-
-- `ns1.yandexcloud.net`
-- `ns2.yandexcloud.net`
-
-Cloud DNS settings are located in [networking.tf][networking]
 
 ---
 
@@ -81,7 +82,7 @@ It may take several minutes
 
 <!-- internal links -->
 
-[networking]: ./yandex_cloud/variables.tf
+[networking]: ./modules/yandex_cloud/networking.tf
 
 <!-- external links -->
 

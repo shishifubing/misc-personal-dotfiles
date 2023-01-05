@@ -16,13 +16,13 @@ token="${credentials}/sa_admin_token.txt"
 
 # there is no need to copy ca because the load balancer
 # serves its own certificate
-#   "bastion:${ca}"          \
-scp "bastion:${token}"       \
+#   "bastion:${ca}"           \
+scp "bastion:${token}"        \
     "${HOME}/${credentials}/"
 
-  #--certificate-authority="${HOME}/${ca}"      \
-kubectl config set-cluster personal    \
-  --server="https://${master_domain}"  \
+  #--certificate-authority="${HOME}/${ca}" \
+kubectl config set-cluster personal        \
+  --server="https://${master_domain}"      \
   --tls-server-name="${master_domain}"
 
 set +x

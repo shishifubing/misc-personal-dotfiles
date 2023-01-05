@@ -10,7 +10,7 @@ host="https://hashicorp-releases.yandexcloud.net"
 github_url="https://github.com/GitTools/GitVersion/releases/download"
 dotfiles_repo="https://github.com/jingyangzhenren/config-personal-dotfiles.git"
 dotfiles_dir="${HOME}/Dotfiles"
-config_dir="${dotfiles_dir}/terraform/yandex_cloud"
+config_dir="${dotfiles_dir}/terraform"
 
 terraform_distrib="terraform_${terraform_version}_linux_amd64.zip"
 packer_distrib="packer_${packer_version}_linux_amd64.zip"
