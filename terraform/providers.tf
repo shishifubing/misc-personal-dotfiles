@@ -34,9 +34,9 @@ provider "helm" {
     config_context = var.kubernetes_context
   }
 
-  registry {
-    url      = "osi://cr.yandex"
-    username = "json_key"
-    password = file(pathexpand(var.yc_authorized_key_path))
-  }
+  #registry {
+  #  url      = "osi://cr.yandex"
+  #  username = "json_key"
+  #  password = file(pathexpand(var.yc_authorized_key_path))
+  #}
 }

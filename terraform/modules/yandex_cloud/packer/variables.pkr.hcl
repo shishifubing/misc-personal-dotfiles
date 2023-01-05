@@ -16,6 +16,12 @@ variable "provider_authorized_key_path" {
   default     = "~/Credentials/yc/authorized_key.personal.json"
 }
 
+variable "provider_authorized_key_path_editor" {
+  description = "path to the editor authorized key file"
+  type        = string
+  default     = "~/Credentials/yc/authorized_key.editor.json"
+}
+
 variable "provider_zone" {
   description = "yandex cloud zone"
   type        = string

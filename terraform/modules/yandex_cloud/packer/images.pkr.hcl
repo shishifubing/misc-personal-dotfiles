@@ -79,6 +79,20 @@ build {
     ]
   }
 
+  provisioner "file" {
+    sources = formatlist(
+      "${pathexpand("~/.ssh")}/%s", fileset(pathexpand("~/.ssh"), "*.pub")
+    )
+    destination = "~/.ssh/"
+  }
+
+  provisioner "file" {
+    sources = [
+      pathexpand(var.provider_authorized_key_path_editor)
+    ]
+    destination = "~/Credentials/yc"
+  }
+
   post-processor "manifest" {
     output = "image_base.manifest.json"
     strip_path = true
