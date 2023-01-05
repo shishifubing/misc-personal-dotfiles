@@ -35,7 +35,7 @@ provider "helm" {
   }
 
   registry {
-    url      = "oci://cr.yandex"
+    url      = "osi://cr.yandex"
     username = "json_key"
     password = file(pathexpand(var.yc_authorized_key_path))
   }

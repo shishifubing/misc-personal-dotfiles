@@ -7,7 +7,7 @@ dotfiles_repo="https://github.com/jingyangzhenren/config-personal-dotfiles.git"
 helm_url="https://get.helm.sh"
 yc_url="https://storage.yandexcloud.net/yandexcloud-yc"
 
-terraform_version="1.3.6"
+terraform_version="1.3.7"
 packer_version="1.8.5"
 gitversion_version="5.11.1"
 kubectl_version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
@@ -54,4 +54,4 @@ ln -fs "${dotfiles_dir}/scripts/bashrc.sh" "${HOME}/.bashrc"
 mkdir -pm 700 "${HOME}/Credentials/yc"
 cd "${config_dir}"
 terraform get
-terraform init
+terraform init -upgrade
