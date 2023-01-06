@@ -1,13 +1,7 @@
 terraform {
 
   backend "s3" {
-    endpoint = "storage.yandexcloud.net"
-    bucket   = "jingyangzhenren-terraform"
-    region   = "ru-central1-a"
-    key      = "main.tfstate"
 
-    skip_region_validation      = true
-    skip_credentials_validation = true
   }
 
   required_providers {
@@ -45,9 +39,9 @@ provider "helm" {
     config_context = var.kubernetes_context
   }
 
-  #registry {
-  #  url      = "osi://cr.yandex"
-  #  username = "json_key"
-  #  password = file(pathexpand(var.yc_authorized_key_path))
-  #}
+  registry {
+    url      = "osi://cr.yandex"
+    username = "json_key"
+    password = file(pathexpand(var.yc_authorized_key_path))
+  }
 }

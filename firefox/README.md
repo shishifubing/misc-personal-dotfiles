@@ -1,0 +1,3 @@
+# Firefox
+
+Firefox configuration files

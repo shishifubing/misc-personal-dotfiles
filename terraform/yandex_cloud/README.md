@@ -43,15 +43,17 @@ Cloud DNS settings are located in [networking.tf][networking]
 You need to:
 
 - create a bucket to store the terraform state file
-- create an account which is able to create, retrieve and modify it
-- create a static key
+- create a service account
+- create a policy allowing that account create, retrieve, and modify the
+  state file in that bucket
+- create a static key for that account, download it
+- modify [variables.sh][variables.sh]
+- change backend bucket configuration in [main.s3.tfbackend][backend]
 - initialize terraform backend with `terraform init`
 
 [Terraform backend in Yandex Cloud][bucket-terraform-state] documentation
-[S3 terraform backend][terraform-s3-backend] documentation
 
-> **_NOTE:_** first `terraform apply` will fail because you need to setup
-> kubectl first by running `./setup_kubectl.sh`
+[S3 terraform backend][terraform-s3-backend] documentation
 
 ```bash
 # install tools, link .terraformrc, link .bashrc
@@ -60,34 +62,56 @@ You need to:
 # export AWS credentials
 # they need to be exported when you run terraform commands
 # you need to execute the script in your current shell (either . or source)
-. ./keys.sh
+. ./variables.sh
 # initialize terraform backend
-terraform init -reconfigure
-# build images and create infrastructure
+terraform init -reconfigure -backend-config=./main.s3.tfbackend
+# build images
 make
+# create infrastructure
+terraform apply -target=modules.main
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 # setup local kubectl
 ./setup_kubectl.sh
+# create the cluster
+terraform apply
 ```
 
 [`setup.sh`][setup.sh] script installs:
 
-- `terraform`
-- `packer`
-- `gitversion`
-- `kubectl`
-- `yc`
-- `helm`
+- [`terraform`][terraform]
+- [`packer`][packer]
+- [`gitversion`][gitversion]
+- [`kubectl`][kubectl]
+- [`yc`][yc]
+- [`helm`][helm]
+
+---
+
+### Helm provider fails to download helm charts and doesn't provide a reason
+
+```
+Error: could not download chart: failed to download
+"oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress/chart"
+```
+
+For `oci://` charts to download properly, they should be specified as:
+
+```hcl
+version = "v0.1.9"
+chart = "chart"
+repository = "oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress"
+```
 
 ---
 
 # Documentation
 
 - [Yandex Cloud][yandex-cloud] documentation
-- [Terraform provider][terraform] documentation
-- [Packer builder][packer] documentation
-- [Terraform backend in Yandex Cloud][bucket-terraform-state] documentation
+- [Terraform provider][yandex-terraform] documentation
+- [Packer builder][yandex-packer] documentation
+- [Terraform backend in Yandex Cloud][yandex-terraform-s3-backend]
+  documentation
 - [S3 terraform backend][terraform-s3-backend] documentation
 - `*.cloud-init.yml` files - [cloud-init][cloud-init] configuration files
 
@@ -95,15 +119,23 @@ echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 
 <!-- internal links -->
 
-[networking]: ./modules/yandex_cloud/networking.tf
+[networking]: ./modules/main/networking.tf
+[setup.sh]: ./packer/setup.sh
+[backend]: ./main.s3.tfbackend
+[variables.sh]: ./variables.sh
 
 <!-- external links -->
 
 [github-pages]: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
-[packer]: https://developer.hashicorp.com/packer/plugins/builders/yandex
 [cloud-init]: https://cloudinit.readthedocs.io/en/latest/topics/examples.html
-[terraform]: https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs
+[yandex-terraform]: https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs
+[yandex-packer]: https://developer.hashicorp.com/packer/plugins/builders/yandex
 [yandex-cloud]: https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart
-[bucket-terraform-state]: https://cloud.yandex.com/en-ru/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend
+[yandex-terraform-s3-backend]: https://cloud.yandex.com/en-ru/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend
 [terraform-s3-backend]: https://developer.hashicorp.com/terraform/language/settings/backends/s3
-[setup.sh]: ./modules/yandex_cloud/packer/setup.sh
+[terraform]: https://www.terraform.io/
+[helm]: https://helm.sh/
+[yc]: https://cloud.yandex.com/en/docs/cli/quickstart
+[kubectl]: https://kubernetes.io/docs/reference/kubectl/
+[packer]: https://developer.hashicorp.com/packer/docs/intro
+[gitversion]: https://gitversion.net

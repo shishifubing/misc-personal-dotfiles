@@ -16,7 +16,7 @@ yc_version=$(curl -Ls "${yc_url}/release/stable")
 
 
 dotfiles_dir="${HOME}/Dotfiles"
-config_dir="${dotfiles_dir}/terraform"
+config_dir="${dotfiles_dir}/terraform/yandex_cloud"
 
 terraform_distrib="terraform_${terraform_version}_linux_amd64.zip"
 packer_distrib="packer_${packer_version}_linux_amd64.zip"
@@ -49,9 +49,10 @@ sudo mv terraform packer gitversion kubectl yc helm /usr/bin/
 cd "${current}"
 rm -rf "${temp}"
 
-ln -fs "${dotfiles_dir}/terraform/.terraformrc" "${HOME}/.terraformrc"
+ln -fs "${dotfiles_dir}/terraform/yandex_cloud/.terraformrc" \
+    "${HOME}/.terraformrc"
 ln -fs "${dotfiles_dir}/scripts/bashrc.sh" "${HOME}/.bashrc"
 mkdir -pm 700 "${HOME}/Credentials/yc"
 cd "${config_dir}"
 terraform get
-terraform init -upgrade
+terraform init -backend=false

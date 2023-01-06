@@ -1,6 +1,6 @@
-# setup infrastructure, create a kubernetes cluster
-module "yandex_cloud" {
-  source = "./modules/yandex_cloud"
+# setup main infrastructure, create a kubernetes cluster
+module "main" {
+  source = "./modules/main"
 
   provider_folder_id           = var.yc_folder_id
   provider_cloud_id            = var.yc_cloud_id
@@ -12,10 +12,14 @@ module "yandex_cloud" {
   kubernetes_version           = var.kubernetes_version
 }
 
-# deploy to the cluster
+# kubernetes cluster setup
 module "cluster" {
   source = "./modules/cluster"
   depends_on = [
     module.yandex_cloud
   ]
+
+  ingress_authorized_key = module.yandex_cloud.cluster_ingress_authorized_key
+  folder_id              = var.yc_folder_id
+  cluster_id             = module.yandex_cloud.cluster_id
 }

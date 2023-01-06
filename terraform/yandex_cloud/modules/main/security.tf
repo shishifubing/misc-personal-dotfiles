@@ -6,6 +6,12 @@ resource "yandex_kms_symmetric_key" "cluster" {
 
 }
 
+resource "yandex_iam_service_account_key" "cluster_ingress" {
+  service_account_id = yandex_iam_service_account.cluster_ingress.id
+  description        = "authorized key for the cluster ingress (terraform)"
+  key_algorithm      = "RSA_4096"
+}
+
 resource "yandex_vpc_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "allow incoming and outgoing TCP traffic on port 22"

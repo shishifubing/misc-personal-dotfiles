@@ -4,13 +4,12 @@ Things for personal use
 
 # TOC
 
-- [Bash scripts](/scripts)
-- [Configs](/configs)
-- [Ansible playbooks](/ansible)
-- [Terraform](/terraform/)
-- [Documentation](/docs/)
-- [Firefox config](/firefox)
-- [Nvim config](/vim/)
+- [scripts](/scripts): shell scripts
+- [configs](/configs): configuration files
+- [ansible](/ansible): ansible roles and playbooks
+- [terraform](/terraform/): terraform modules
+- [firefox](/firefox): firefox configuration files
+- [vim](/vim/): vim configuration files
 
 # SCC
 
