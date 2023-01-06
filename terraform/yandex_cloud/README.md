@@ -47,9 +47,11 @@ Cloud DNS settings are located in [networking.tf][networking]
 
 You need to:
 
-- create a bucket to store the terraform state file
-- create a service account - `terraform-state-manager` with `storage.editor`
+- create an s3 bucket to store the terraform state file
+- create `terraform-state-manager` service account with `storage.editor`
   role
+  (without the role it will not be able to work with the bucket even if you
+  allow it to)
 - create a policy allowing that account to create, retrieve, and modify the
   state file in that bucket
 - create a static key for that account, download it
@@ -57,14 +59,14 @@ You need to:
 - change backend bucket configuration in [main.s3.tfbackend][backend]
 - initialize terraform backend (full command is below)
 
-[Terraform backend in Yandex Cloud][bucket-terraform-state] documentation
+[S3 backend in Yandex Cloud][yandex-terraform-s3-backend] documentation
 
 [S3 terraform backend][terraform-s3-backend] documentation
 
 ```bash
 # install tools, link .terraformrc, link .bashrc
 # it is mainly a server setup script, so there might be side effects
-./modules/yandex_cloud/packer/setup.sh
+./packer/setup.sh
 # export AWS credentials
 # they need to be exported when you run terraform commands
 # you need to execute the script in your current shell (either . or source)
@@ -79,7 +81,7 @@ terraform apply -target=modules.main
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"
 # setup local kubectl
 ./setup_kubectl.sh
-# create the cluster
+# setup the cluster
 terraform apply
 ```
 

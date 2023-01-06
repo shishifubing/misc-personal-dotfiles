@@ -3,7 +3,7 @@
 define build =
 . ./variables.sh
 cd packer
-./build.sh
+packer build .
 endef
 
 build: ; $(value build)
