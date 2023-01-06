@@ -1,16 +1,16 @@
-variable "provider_folder_id" {
+variable "folder_id" {
   description = "folder id for Yandex Cloud"
 }
 
-variable "provider_cloud_id" {
+variable "cloud_id" {
   description = "cloud id for Yandex Cloud"
 }
 
-variable "provider_authorized_key_path" {
+variable "authorized_key_path" {
   description = "path to the authorized key file"
 }
 
-variable "provider_zone" {
+variable "zone" {
   description = "yandex cloud zone"
 }
 

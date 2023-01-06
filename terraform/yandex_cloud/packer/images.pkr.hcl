@@ -1,47 +1,21 @@
-variable "version" {
-  description = "image version"
-  type = string
-}
-
-variable "use_nat" {
-  description = <<-EOT
-    whether to use nat
-    (nat is required if the packer client is outside of the network)
-  EOT
-  type        = bool
-  default     = true
-}
-
-variable "oauth_token_path" {
-  description = <<-EOT
-    path to a file with OAuth token for Yandex Cloud
-    it is needed for yc
-    to get one, visit https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
-  EOT
-  type        = string
-  default     = "~/Credentials/yc/oauth.txt"
-}
-
 locals {
-  base = var.image_family["base"]
-  source = var.image_family["source"]
-  variables = {
-    key_main    = file(pathexpand(var.ssh_key_path_main_pub))
-    key_ci      = file(pathexpand(var.ssh_key_path_ci_pub))
-    key_personal = file(pathexpand(var.ssh_key_path_personal_pub))
+  base = "debian-11-base"
+  source = "debian-11"
+  keys = "${path.root}/authorized_keys"
+  init_base = templatefile("image_base.cloud-init.yml", {
+    key_main    = file("${local.keys}/id_main.pub")
+    key_personal = file("${local.keys}/id_rsa.pub")
     server_user = var.user_server
-    ci_user     = var.user_ci
-  }
-  init_base = templatefile("image_base.cloud-init.yml", local.variables)
+  })
 }
 
 source "yandex" "debian-11-base" {
-  service_account_key_file = pathexpand(var.provider_authorized_key_path)
-  folder_id           = var.provider_folder_id
-  zone                = var.provider_zone
-  use_ipv4_nat        = var.use_nat
-  ssh_username        = var.user_server
-  ssh_private_key_file = var.ssh_key_path_main
+  token                = var.oauth_key
+  folder_id            = var.folder_id
+  zone                 = var.zone
+  use_ipv4_nat         = var.use_nat
+  ssh_username         = var.user_server
+  ssh_private_key_file = var.ssh_key_connection
 
   disk_type           = "network-hdd"
   image_description   = "base debian image with configured ssh and users"
@@ -71,26 +45,12 @@ build {
 
   provisioner "shell" {
     env = {
-      YC_TOKEN =  file(pathexpand(var.oauth_token_path))
+      YC_TOKEN =  var.oauth_key
     }
     scripts = [
       "setup.sh",
       "setup_yc.expect"
     ]
-  }
-
-  provisioner "file" {
-    sources = formatlist(
-      "${pathexpand("~/.ssh")}/%s", fileset(pathexpand("~/.ssh"), "*.pub")
-    )
-    destination = "~/.ssh/"
-  }
-
-  provisioner "file" {
-    sources = [
-      pathexpand(var.provider_authorized_key_path_editor)
-    ]
-    destination = "~/Credentials/yc/"
   }
 
   post-processor "manifest" {

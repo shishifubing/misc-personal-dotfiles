@@ -29,11 +29,3 @@ users:
     ssh_authorized_keys:
       - "${key_main}"
       - "${key_personal}"
-
-  - name: "${ci_user}"
-    gecos: ci user
-    shell: /bin/bash
-    ssh_authorized_keys:
-      - "${key_main}"
-      - "${key_ci}"
-      - "${key_personal}"

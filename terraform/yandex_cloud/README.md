@@ -15,17 +15,22 @@ TODO
 ```bash
 # define packer variables if you need to
 export PACKER_VARIABLES=""
-# build images and update infrastructure
+# build images
 make
-# or just update infrastructure
+# update infrastructure
 terraform apply
 ```
-
-First `terraform apply` might take dozens of minutes because of certificate validation and cluster creation
 
 ---
 
 # Setup
+
+## Create a folder in the cloud
+
+Create a folder, then modify [variables.tf][variables.tf] and
+[packer/variables.pkr.hcl][packer-variables]
+
+---
 
 ## Delegate domain
 
@@ -43,13 +48,14 @@ Cloud DNS settings are located in [networking.tf][networking]
 You need to:
 
 - create a bucket to store the terraform state file
-- create a service account
-- create a policy allowing that account create, retrieve, and modify the
+- create a service account - `terraform-state-manager` with `storage.editor`
+  role
+- create a policy allowing that account to create, retrieve, and modify the
   state file in that bucket
 - create a static key for that account, download it
 - modify [variables.sh][variables.sh]
 - change backend bucket configuration in [main.s3.tfbackend][backend]
-- initialize terraform backend with `terraform init`
+- initialize terraform backend (full command is below)
 
 [Terraform backend in Yandex Cloud][bucket-terraform-state] documentation
 
@@ -108,7 +114,7 @@ repository = "oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress"
 # Documentation
 
 - [Yandex Cloud][yandex-cloud] documentation
-- [Terraform provider][yandex-terraform] documentation
+- [Yandex terraform provider][yandex-terraform] documentation
 - [Packer builder][yandex-packer] documentation
 - [Terraform backend in Yandex Cloud][yandex-terraform-s3-backend]
   documentation
@@ -123,6 +129,8 @@ repository = "oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress"
 [setup.sh]: ./packer/setup.sh
 [backend]: ./main.s3.tfbackend
 [variables.sh]: ./variables.sh
+[variables.tf]: ./variables.tf
+[packer-variables]: ./packer/variables.pkr.hcl
 
 <!-- external links -->
 

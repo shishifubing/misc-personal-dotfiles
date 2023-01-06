@@ -22,10 +22,10 @@ terraform {
 }
 
 provider "yandex" {
-  zone                     = var.yc_zone
-  service_account_key_file = pathexpand(var.yc_authorized_key_path)
-  folder_id                = var.yc_folder_id
-  cloud_id                 = var.yc_cloud_id
+  zone      = var.yc_zone
+  folder_id = var.yc_folder_id
+  cloud_id  = var.yc_cloud_id
+
 }
 
 provider "kubernetes" {
@@ -42,6 +42,6 @@ provider "helm" {
   registry {
     url      = "osi://cr.yandex"
     username = "json_key"
-    password = file(pathexpand(var.yc_authorized_key_path))
+    password = var.authorized_key
   }
 }

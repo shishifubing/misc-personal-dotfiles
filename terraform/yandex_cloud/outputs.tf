@@ -26,10 +26,10 @@ output "master_domain" {
 
 
 output "cloud_id" {
-  value = var.yc_cloud_id
+  value = data.yandex_resourcemanager_cloud.target.cloud_id
 }
 output "folder_id" {
-  value = var.yc_folder_id
+  value = data.yandex_resourcemanager_folder.target.folder_id
 }
 
 output "cluster_id" {

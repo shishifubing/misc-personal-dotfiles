@@ -14,7 +14,14 @@ resource "yandex_vpc_subnet" "default" {
   name           = "default"
   description    = "default subnet"
   network_id     = yandex_vpc_network.default.id
-  v4_cidr_blocks = ["10.0.0.0/24"]
+  v4_cidr_blocks = ["10.130.0.0/24"]
+}
+
+resource "yandex_vpc_subnet" "cluster" {
+  name           = "cluster"
+  description    = "cluster subnet"
+  network_id     = yandex_vpc_network.default.id
+  v4_cidr_blocks = ["10.129.0.0/24"]
 }
 
 ###

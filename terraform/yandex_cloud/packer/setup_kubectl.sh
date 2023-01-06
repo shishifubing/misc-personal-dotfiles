@@ -15,13 +15,13 @@ yc managed-kubernetes cluster get-credentials \
 kubectl cluster-info
 
 # get cluster certificate authority
-yc managed-kubernetes cluster get                        \
-    "${cluster_id}"                                      \
-    --cloud-id "${cloud_id}"                             \
-    --folder-id "${folder_id}"                           \
-    --format json                                        |
-        jq -r .master.master_auth.cluster_ca_certificate |
-        awk '{gsub(/\\n/,"\n")}1'                        \
+yc managed-kubernetes cluster get                          \
+    "${cluster_id}"                                        \
+    --cloud-id "${cloud_id}"                               \
+    --folder-id "${folder_id}"                             \
+    --format json                                          |
+        jq -r ".master.master_auth.cluster_ca_certificate" |
+        awk '{gsub(/\\n/,"\n")}1'                          \
     >"${HOME}/Credentials/yc/ca.pem"
 
 kubectl apply -f - <<EOF

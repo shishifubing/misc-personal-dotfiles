@@ -1,19 +1,18 @@
-variable "yc_folder_id" {
-  description = "folder id for Yandex Cloud"
-  default     = "b1gvfdje7hs1nuc9bf6c"
+variable "yc_folder_name" {
+  description = "folder name in Yandex Cloud"
+  default     = "production"
 }
 
-variable "yc_cloud_id" {
-  description = "cloud id for Yandex Cloud"
-  default     = "b1g6b0d8t955ku781jab"
+variable "yc_cloud_name" {
+  description = "cloud name in yandex cloud"
+  default     = "jingyangzhenren-com"
 }
 
-variable "yc_authorized_key_path" {
-  description = "path to the authorized key file"
-  default     = "~/Credentials/yc/authorized_key.personal.json"
+variable "authorized_key" {
+  description = "authorized key for yandex cloud"
 }
 
-variable "yc_zone" {
+variable "zone" {
   description = "yandex cloud zone"
   default     = "ru-central1-a"
 }
