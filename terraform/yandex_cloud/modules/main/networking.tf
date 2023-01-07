@@ -1,6 +1,6 @@
 
 locals {
-  master_balancer_external = yandex_vpc_address.cluster.external_ipv4_address.0.address
+  master_balancer_external = yandex_vpc_address.cluster_master.external_ipv4_address.0.address
   master_fqdm              = "master.${var.domain}"
 }
 
@@ -57,31 +57,6 @@ resource "yandex_dns_recordset" "master_external" {
   ttl     = 200
   data    = [local.master_balancer_external]
 }
-
-# it is needed to automatically refresh certificates
-# https://registry.tfpla.net/providers/yandex-cloud/yandex/latest/docs/resources/cm_certificate
-resource "yandex_cm_certificate" "master" {
-  name        = "master"
-  description = "certificate for external requests to the master node"
-  domains = [
-    local.master_fqdm
-  ]
-
-  managed {
-    challenge_type  = "DNS_CNAME"
-    challenge_count = 1
-  }
-}
-
-resource "yandex_dns_recordset" "master_cname" {
-  name    = yandex_cm_certificate.master.challenges.0.dns_name
-  type    = yandex_cm_certificate.master.challenges.0.dns_type
-  zone_id = yandex_dns_zone.public.id
-  data = [
-    yandex_cm_certificate.master.challenges.0.dns_value
-  ]
-  ttl = 60
-}
 ###
 
 # internal DNS
@@ -107,108 +82,45 @@ resource "yandex_dns_recordset" "master" {
 ###
 
 # load balancer the master
-resource "yandex_alb_load_balancer" "cluster" {
-  name        = "cluster"
-  description = "load balancer for the cluster"
-  network_id  = yandex_vpc_network.default.id
-
-  allocation_policy {
-    location {
-      zone_id   = var.provider_zone
-      subnet_id = yandex_vpc_subnet.default.id
-    }
-  }
+resource "yandex_lb_network_load_balancer" "cluster_master" {
+  name = "cluster-master-load-balancer"
 
   listener {
-    name = "cluster"
-    endpoint {
-      address {
-        external_ipv4_address {
-          address = local.master_balancer_external
-        }
-      }
-      ports = [443]
-    }
-
-    tls {
-      default_handler {
-        certificate_ids = [
-          data.yandex_cm_certificate.master.certificate_id
-        ]
-        http_handler {
-          http_router_id = yandex_alb_http_router.cluster.id
-        }
-      }
+    name = "main"
+    port = 443
+    external_address_spec {
+      address = local.master_balancer_external
     }
   }
 
-  log_options {
-    discard_rule {
-      http_code_intervals = ["HTTP_2XX"]
-      discard_percent     = 75
+  attached_target_group {
+    target_group_id = yandex_lb_target_group.cluster_master.id
+
+    healthcheck {
+      name = "main"
+      http_options {
+        port = 443
+        path = "/livez"
+      }
     }
   }
 }
 
-
-resource "yandex_alb_http_router" "cluster" {
-  name        = "cluster"
-  description = "router for the cluster"
-}
-
-resource "yandex_vpc_address" "cluster" {
-  name        = "cluster"
-  description = "external IP address for the cluster"
+resource "yandex_vpc_address" "cluster_master" {
+  name        = "cluster-master"
+  description = "external IP address for the master"
 
   external_ipv4_address {
-    zone_id = var.provider_zone
+    zone_id = var.zone
   }
 }
 
-
-resource "yandex_alb_virtual_host" "cluster" {
-  name           = "cluster"
-  http_router_id = yandex_alb_http_router.cluster.id
-
-  route {
-    name = "master"
-    http_route {
-      http_route_action {
-        backend_group_id = yandex_alb_backend_group.cluster.id
-        timeout          = "30s"
-      }
-    }
-  }
-}
-
-resource "yandex_alb_backend_group" "cluster" {
-  name        = "cluster"
-  description = "backend group for the master"
-
-  http_backend {
-    name   = "master"
-    weight = 1
-    port   = 443
-    target_group_ids = [
-      yandex_alb_target_group.cluster.id
-    ]
-    tls {
-      sni = local.master_fqdm
-    }
-    load_balancing_config {
-      panic_threshold = 50
-    }
-    http2 = "true"
-  }
-}
-
-
-resource "yandex_alb_target_group" "cluster" {
-  name        = "cluster"
-  description = "master"
+resource "yandex_lb_target_group" "cluster_master" {
+  name        = "cluster-master"
+  description = "target group for the master"
 
   target {
-    subnet_id  = yandex_vpc_subnet.default.id
-    ip_address = local.master_ip
+    subnet_id = yandex_vpc_subnet.cluster.id
+    address   = local.master_ip
   }
 }

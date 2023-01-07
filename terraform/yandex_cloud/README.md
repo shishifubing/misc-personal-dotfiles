@@ -103,7 +103,8 @@ Error: could not download chart: failed to download
 "oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress/chart"
 ```
 
-For `oci://` charts to download properly, they should be specified as:
+Download of `oci://` charts fails if they are not specified properly,
+they should be specified like so:
 
 ```hcl
 version = "v0.1.9"

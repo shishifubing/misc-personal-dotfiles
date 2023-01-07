@@ -1,11 +1,11 @@
-variable "yc_folder_name" {
-  description = "folder name in Yandex Cloud"
-  default     = "production"
+variable "folder_id" {
+  description = "folder id in Yandex Cloud"
+  default     = "b1gj88s9qiugmqf25in5"
 }
 
-variable "yc_cloud_name" {
+variable "cloud_id" {
   description = "cloud name in yandex cloud"
-  default     = "jingyangzhenren-com"
+  default     = "b1gqddgifa46u024ko1t"
 }
 
 variable "authorized_key" {

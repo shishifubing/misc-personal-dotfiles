@@ -22,10 +22,10 @@ terraform {
 }
 
 provider "yandex" {
-  zone      = var.yc_zone
-  folder_id = var.yc_folder_id
-  cloud_id  = var.yc_cloud_id
-
+  zone                     = var.zone
+  folder_id                = var.folder_id
+  cloud_id                 = var.folder_id
+  service_account_key_file = var.authorized_key
 }
 
 provider "kubernetes" {

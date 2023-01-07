@@ -1,10 +1,5 @@
 locals {
   master_ip = yandex_kubernetes_cluster.default.master.0.internal_v4_address
-  ssh_keys  = <<-EOT
-    root:${file(pathexpand(var.ssh_key_path_main_pub))}
-    root:${file(pathexpand(var.ssh_key_path_ci_pub))}
-    root:${file(pathexpand(var.ssh_key_path_personal_pub))}
-  EOT
 }
 
 resource "yandex_kubernetes_cluster" "default" {
@@ -22,7 +17,7 @@ resource "yandex_kubernetes_cluster" "default" {
     ]
 
     zonal {
-      subnet_id = yandex_vpc_subnet.default.id
+      subnet_id = yandex_vpc_subnet.cluster.id
     }
 
     maintenance_policy {
@@ -63,7 +58,7 @@ resource "yandex_kubernetes_node_group" "default" {
 
     network_interface {
       nat        = false
-      subnet_ids = [yandex_vpc_subnet.default.id]
+      subnet_ids = [yandex_vpc_subnet.cluster.id]
       ipv4_dns_records {
         fqdn        = "k8snode{instance.index}"
         dns_zone_id = yandex_dns_zone.internal.id
@@ -71,7 +66,7 @@ resource "yandex_kubernetes_node_group" "default" {
     }
 
     metadata = {
-      ssh-keys = local.ssh_keys
+      ssh-keys = var.ssh_authorized_keys
     }
 
     resources {

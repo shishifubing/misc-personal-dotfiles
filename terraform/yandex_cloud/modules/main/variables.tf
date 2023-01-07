@@ -10,6 +10,9 @@ variable "authorized_key_path" {
   description = "path to the authorized key file"
 }
 
+variable "ssh_authorized_keys" {
+  description = "authorized keys for the cluster nodes"
+}
 variable "zone" {
   description = "yandex cloud zone"
 }
@@ -29,31 +32,6 @@ variable "domain_top_redirect" {
 variable "user_server" {
   description = "admin user for all servers"
   default     = "jingyangzhenren"
-}
-
-variable "ssh_key_path_main_pub" {
-  description = "path to the main public ssh key"
-  default     = "~/.ssh/id_main.pub"
-}
-
-variable "ssh_key_path_main" {
-  description = "path to the main private ssh key"
-  default     = "~/.ssh/id_main"
-}
-
-variable "ssh_key_path_personal_pub" {
-  description = "path to the personal public ssh key"
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
-}
-
-variable "ssh_key_path_ci" {
-  description = "path to the ci private ssh key"
-  default     = "~/.ssh/id_ci"
-}
-variable "ssh_key_path_ci_pub" {
-  description = "path to the ci public ssh key"
-  default     = "~/.ssh/id_ci.pub"
 }
 
 variable "user_ci" {
