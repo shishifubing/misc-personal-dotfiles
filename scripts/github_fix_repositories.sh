@@ -14,13 +14,12 @@ template="
 {{ .name }}
 {{ end -}}
 "
-repos=$(
-    gh repo list                 \
-        --source                 \
-        --visibility public      \
-        --json name              \
-        --template "${template}"
-)
+gh repo list                 \
+    --source                 \
+    --visibility public      \
+    --json name              \
+    --template "${template}" |
+    read -ar  repos
 
 temp=$(mktemp --directory)
 for repo in "${repos[@]}"; do
