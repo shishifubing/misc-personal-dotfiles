@@ -17,11 +17,12 @@ repos=(
     "app-web-crawler-book-creator"
     "snippets-javascript-assignments"
     "app-desktop-useless-cpp-gui"
+    "config-personal-dotfiles"
 )
 
+temp=$(mktemp)
 for repo in "${repos[@]}"; do
-    cd "${HOME}/Repositories/tmp"
-    rm -rf "${repo}"
+    cd "${temp}"
     url="git@github.com:jingyangzhenren/${repo}.git"
     git clone "${url}"
     cd "${repo}"
@@ -30,6 +31,5 @@ for repo in "${repos[@]}"; do
         --email-callback "return b\"${email}\"" \
         --message-callback "return message.replace(b\"kongrentian\", b\"${name}\")"
     git push --force "${url}" "$(git_current_branch)"
-    cd ../
     rm -rf "${repo}"
 done
