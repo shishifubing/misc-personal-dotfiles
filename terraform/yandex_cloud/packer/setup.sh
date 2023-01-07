@@ -49,9 +49,7 @@ sudo mv terraform packer gitversion kubectl yc helm /usr/bin/
 cd "${current}"
 rm -rf "${temp}"
 
-ln -fs "${dotfiles_dir}/terraform/yandex_cloud/.terraformrc" \
-    "${HOME}/.terraformrc"
-ln -fs "${dotfiles_dir}/scripts/bashrc.sh" "${HOME}/.bashrc"
+"${dotfiles_dir}/scripts/setup_links.sh"
 mkdir -pm 700 "${HOME}/Credentials/yc"
 cd "${config_dir}"
 terraform get
