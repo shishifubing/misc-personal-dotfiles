@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuxo pipefail
 . "${DOTFILES_SOURCE}"
-source_functions
 
 name="${1:-$(git config --global --get user.name)}"
 email="${2:-$(git config --global --get user.email)}"

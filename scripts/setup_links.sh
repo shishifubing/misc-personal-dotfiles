@@ -9,6 +9,7 @@ dir_firefox_target="${HOME}/.mozilla/firefox"
 dir_vim="${DOTFILES}/vim"
 dir_vscode_oss="${HOME}/.config/Code - OSS"
 dir_vscode="${HOME}/.config/Code"
+dir_vscodium="${HOME}/.config/VSCodium"
 dir_terraform="${HOME}/terraform/yandex_cloud"
 
 source_vscode_settings="${dir_configs}/vscode_settings.json"
@@ -30,17 +31,20 @@ function link_file() {
     }
     [[ -d "${files[0]}" ]] && {
         echo "cannot link directory"
-        return
+        exit 1
     }
     mkdir -p "$(dirname "${files[1]}")"
     ln -fs "${files[0]}" "${files[1]}"
 }
 
+# array of files to link
 links=(
     "${source_vscode_settings};${dir_vscode}/User/settings.json"
     "${source_vscode_settings};${dir_vscode_oss}/User/settings.json"
+    "${source_vscode_settings};${dir_vscodium}/User/settings.json"
     "${source_vscode_keybindings};${dir_vscode}/User/keybindings.json"
     "${source_vscode_keybindings};${dir_vscode_oss}/User/keybindings.json"
+    "${source_vscode_keybindings};${dir_vscodium}/User/keybindings.json"
     "${source_bashrc};${HOME}/.bashrc"
     "${source_xinitrc};${HOME}/.xinitrc"
     "${source_emacs};${HOME}/.emacs"
@@ -48,6 +52,7 @@ links=(
     "${source_terraformrc};${HOME}/.terraformrc"
 )
 
+# link all files from the firefox directory to all firefox profiles
 for directory in "${dir_firefox_target}"/*; do
     [[ -d "${directory}" ]] || continue
     [[ "${directory}" == *"release"* ]] || continue
@@ -56,6 +61,7 @@ for directory in "${dir_firefox_target}"/*; do
     done
 done
 
+# create actual links
 for link in "${links[@]}"; do
     link_file "${link}"
 done

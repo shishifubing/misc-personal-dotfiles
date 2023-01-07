@@ -2,6 +2,12 @@
 
 Things for personal use
 
+# Usage
+
+```bash
+./scripts/setup_links.sh
+```
+
 # TOC
 
 - [scripts](/scripts): shell scripts
