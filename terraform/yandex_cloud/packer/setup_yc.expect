@@ -17,7 +17,7 @@
 # this in the first place.  The -C flag allows you to define a
 # character to toggle this mode off and on.
 
-set force_conservative 0  ;# set to 1 to force conservative mode even if
+set force_conservative 1  ;# set to 1 to force conservative mode even if
 			  ;# script wasn't run conservatively originally
 if {$force_conservative} {
 	set send_slow {1 .1}
@@ -46,15 +46,9 @@ set timeout -1
 spawn "${env(HOME)}/setup_yc.sh"
 match_max 100000
 # enter oauth token
-expect "Please enter OAuth token:*"
+expect "Please enter OAuth token*"
 send -- "${env(YC_TOKEN)}\r"
-# select default cloud
-expect "Please select cloud to use:*"
-send -- "1\r"
-# select default folder
-expect "Please choose folder to use:*"
-send -- "1\r"
 # do not configure default compute zone
-expect "Do you want to configure a default Compute zone?*"
+expect "Do you want to configure a default Compute zone*"
 send -- "n\r"
 expect eof

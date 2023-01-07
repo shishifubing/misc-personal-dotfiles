@@ -1,3 +1,13 @@
+locals {
+  cluster_ip_blocks = concat(
+    yandex_vpc_subnet.cluster.v4_cidr_blocks,
+    [
+      yandex_kubernetes_cluster.default.cluster_ipv4_range,
+      yandex_kubernetes_cluster.default.service_ipv4_range
+    ],
+  )
+}
+
 resource "yandex_kms_symmetric_key" "cluster" {
   name              = "cluster"
   description       = "key for the default kubernetes cluster"
@@ -75,5 +85,57 @@ resource "yandex_vpc_security_group" "allow_outgoing" {
     from_port      = 0
     to_port        = 65535
     v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "yandex_vpc_security_group" "allow_incoming" {
+  name        = "allow_incoming"
+  description = "allow all incoming connections"
+  network_id  = yandex_vpc_network.default.id
+
+  ingress {
+    description    = "allow all incoming connections"
+    protocol       = "ANY"
+    from_port      = 0
+    to_port        = 65535
+    v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+resource "yandex_vpc_security_group" "allow_subnet_default" {
+  name        = "allow_subnet_default"
+  description = "allow all default subnet connections"
+  network_id  = yandex_vpc_network.default.id
+
+  ingress {
+    description    = "allow all connections from the default subnet"
+    protocol       = "ANY"
+    from_port      = 0
+    to_port        = 65535
+    v4_cidr_blocks = yandex_vpc_subnet.default.v4_cidr_blocks
+  }
+
+  egress {
+    description    = "allow all connections to the default subnet"
+    protocol       = "ANY"
+    from_port      = 0
+    to_port        = 65535
+    v4_cidr_blocks = yandex_vpc_subnet.default.v4_cidr_blocks
+  }
+}
+
+
+
+resource "yandex_vpc_security_group" "allow_incoming_balancer_master" {
+  name        = "allow_incoming_balancer_master"
+  description = "allow connections from the load balancer for the master"
+  network_id  = yandex_vpc_network.default.id
+
+  ingress {
+    description    = "allow all connections from the cluster subnet"
+    protocol       = "ANY"
+    port           = 443
+    v4_cidr_blocks = ["${local.master_balancer_external}/32"]
   }
 }

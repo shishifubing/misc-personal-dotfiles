@@ -11,19 +11,17 @@ cluster_id="$(terraform output -raw cluster_id)"
 ssh bastion "./setup_kubectl.sh ${cloud_id} ${folder_id} ${cluster_id}"
 
 credentials="Credentials/yc"
-#ca="${credentials}/ca.pem"
+ca="${credentials}/ca.pem"
 token="${credentials}/sa_admin_token.txt"
 
-# there is no need to copy ca because the load balancer
-# serves its own certificate
-#   "bastion:${ca}"           \
 scp "bastion:${token}"        \
+    "bastion:${ca}"           \
     "${HOME}/${credentials}/"
 
-  #--certificate-authority="${HOME}/${ca}" \
 kubectl config set-cluster personal        \
+  --certificate-authority="${HOME}/${ca}"  \
   --server="https://${master_domain}"      \
-  --tls-server-name="${master_domain}"
+  --tls-server-name="kubernetes"
 
 set +x
 kubectl config set-credentials admin-user \

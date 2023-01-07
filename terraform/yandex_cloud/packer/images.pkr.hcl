@@ -45,12 +45,19 @@ build {
 
   provisioner "shell" {
     env = {
-      YC_TOKEN =  var.oauth_key
+      YC_TOKEN     =  var.oauth_key
+      YC_FOLDER_ID = var.folder_id
+      YC_CLOUD_ID  = var.cloud_id
     }
     scripts = [
       "setup.sh",
       "setup_yc.expect"
     ]
+  }
+
+  provisioner "file" {
+    source = pathexpand(var.ssh_key_connection)
+    destination = "~/.ssh/"
   }
 
   post-processor "manifest" {

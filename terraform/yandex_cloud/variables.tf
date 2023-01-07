@@ -4,7 +4,7 @@ variable "folder_id" {
 }
 
 variable "cloud_id" {
-  description = "cloud name in yandex cloud"
+  description = "cloud id in yandex cloud"
   default     = "b1gqddgifa46u024ko1t"
 }
 

@@ -72,10 +72,10 @@ You need to:
 # you need to execute the script in your current shell (either . or source)
 . ./variables.sh
 # initialize terraform backend
-terraform init -reconfigure -backend-config=./main.s3.tfbackend
+terraform init -reconfigure -backend-config=./production.s3.tfbackend
 # build images
 make
-# create infrastructure
+# create the infrastructure
 terraform apply -target=modules.main
 # setup ssh
 echo "$(terraform output -raw ssh_config)" >>"${HOME}/.ssh/config"

@@ -11,9 +11,8 @@ resource "yandex_kubernetes_cluster" "default" {
     version   = var.kubernetes_version
     public_ip = false
     security_group_ids = [
-      yandex_vpc_security_group.allow_ssh.id,
-      yandex_vpc_security_group.allow_443.id,
-      yandex_vpc_security_group.allow_outgoing.id
+      yandex_vpc_security_group.allow_outgoing.id,
+      yandex_vpc_security_group.allow_incoming.id
     ]
 
     zonal {
@@ -59,6 +58,10 @@ resource "yandex_kubernetes_node_group" "default" {
     network_interface {
       nat        = false
       subnet_ids = [yandex_vpc_subnet.cluster.id]
+      security_group_ids = [
+        yandex_vpc_security_group.allow_outgoing.id,
+        yandex_vpc_security_group.allow_incoming.id,
+      ]
       ipv4_dns_records {
         fqdn        = "k8snode{instance.index}"
         dns_zone_id = yandex_dns_zone.internal.id

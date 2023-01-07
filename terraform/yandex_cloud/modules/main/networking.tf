@@ -23,7 +23,6 @@ resource "yandex_vpc_subnet" "cluster" {
   network_id     = yandex_vpc_network.default.id
   v4_cidr_blocks = ["10.129.0.0/24"]
 }
-
 ###
 
 # public DNS
@@ -83,7 +82,9 @@ resource "yandex_dns_recordset" "master" {
 
 # load balancer the master
 resource "yandex_lb_network_load_balancer" "cluster_master" {
-  name = "cluster-master-load-balancer"
+  name      = "cluster-master-load-balancer"
+  type      = "external"
+  region_id = var.zone
 
   listener {
     name = "main"
@@ -98,9 +99,8 @@ resource "yandex_lb_network_load_balancer" "cluster_master" {
 
     healthcheck {
       name = "main"
-      http_options {
+      tcp_options {
         port = 443
-        path = "/livez"
       }
     }
   }
@@ -118,7 +118,7 @@ resource "yandex_vpc_address" "cluster_master" {
 resource "yandex_lb_target_group" "cluster_master" {
   name        = "cluster-master"
   description = "target group for the master"
-
+  region_id   = var.zone
   target {
     subnet_id = yandex_vpc_subnet.cluster.id
     address   = local.master_ip

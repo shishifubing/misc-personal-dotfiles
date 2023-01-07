@@ -17,6 +17,11 @@ variable "folder_id" {
   default     = "b1gj88s9qiugmqf25in5"
 }
 
+variable "cloud_id" {
+  description = "yandex cloud cloud id"
+  default     = "b1gqddgifa46u024ko1t"
+}
+
 variable "oauth_key" {
   description = "oauth key to setup yc on the bastion server"
   sensitive   = true
@@ -35,5 +40,4 @@ variable "user_server" {
 variable "ssh_key_connection" {
   description = "private key used to connect to the instance during build"
   default     = "~/.ssh/id_main"
-  sensitive   = true
 }
