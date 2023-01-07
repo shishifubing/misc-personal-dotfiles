@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-### start
 ## if shell is not interactive - return
 [[ "${-}" == *"i"* || "${1}" != "script" ]] || return
 ## if source script is not present - return

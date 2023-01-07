@@ -10,7 +10,7 @@ dir_vim="${DOTFILES}/vim"
 dir_vscode_oss="${HOME}/.config/Code - OSS"
 dir_vscode="${HOME}/.config/Code"
 dir_vscodium="${HOME}/.config/VSCodium"
-dir_terraform="${HOME}/terraform/yandex_cloud"
+dir_terraform="${DOTFILES}/terraform/yandex_cloud"
 
 source_vscode_settings="${dir_configs}/vscode_settings.json"
 source_vscode_keybindings="${dir_configs}/vscode_shortcuts.json"
@@ -42,9 +42,11 @@ links=(
     "${source_vscode_settings};${dir_vscode}/User/settings.json"
     "${source_vscode_settings};${dir_vscode_oss}/User/settings.json"
     "${source_vscode_settings};${dir_vscodium}/User/settings.json"
+
     "${source_vscode_keybindings};${dir_vscode}/User/keybindings.json"
     "${source_vscode_keybindings};${dir_vscode_oss}/User/keybindings.json"
     "${source_vscode_keybindings};${dir_vscodium}/User/keybindings.json"
+
     "${source_bashrc};${HOME}/.bashrc"
     "${source_xinitrc};${HOME}/.xinitrc"
     "${source_emacs};${HOME}/.emacs"
@@ -57,6 +59,7 @@ for directory in "${dir_firefox_target}"/*; do
     [[ -d "${directory}" ]] || continue
     [[ "${directory}" == *"release"* ]] || continue
     for file in "${dir_firefox}"/*; do
+        [[ -d "${file}" ]] && continue
         links+=("${file};${directory}/chrome/$(basename "${file}")")
     done
 done
