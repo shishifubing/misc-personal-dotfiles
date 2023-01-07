@@ -31,7 +31,7 @@ for repo in "${repos[@]}"; do
     git_filter_repo                             \
         --name-callback "return b\"${name}\""   \
         --email-callback "return b\"${email}\"" \
-        --message-callback "return message.replace(b\"borinskikh\", b\"${name}\").replace(b\"kongrentian\", b\"${name}\")"
+        --message-callback "return message.replace(b\"kongrentian\", b\"${name}\")"
     git push --force "${url}" "$(git_current_branch)"
     rm -rf "${repo}"
 done

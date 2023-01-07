@@ -1,18 +1,13 @@
 {
   "folders": [
     {
-      "name": "dotfiles",
       "path": ".."
-    },
-    {
-      "path": "../../Repositories/Personal/app-android-anki-chinese-flashcards-enricher"
     }
   ],
   "settings": {
     "files.associations": {
       "vector": "cpp"
     },
-    "java.configuration.updateBuildConfiguration": "automatic",
     "svg.preview.background": "custom"
   }
 }
