@@ -5,6 +5,9 @@
     },
     {
       "path": "../../Repositories/Personal/app-android-anki-chinese-flashcards-enricher"
+    },
+    {
+      "path": "../../Repositories/Personal/infra-cloud-jingyangzhenren.com"
     }
   ],
   "settings": {
