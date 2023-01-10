@@ -11,6 +11,7 @@ yc managed-kubernetes cluster get-credentials \
     --internal                                \
     --cloud-id "${cloud_id}"                  \
     --folder-id "${folder_id}"                \
+    --context-name "${cluster_id}"            \
     --force
 kubectl cluster-info
 
@@ -22,7 +23,7 @@ yc managed-kubernetes cluster get                          \
     --format json                                          |
         jq -r ".master.master_auth.cluster_ca_certificate" |
         awk '{gsub(/\\n/,"\n")}1'                          \
-    >"${HOME}/Credentials/yc/ca.pem"
+    >"${HOME}/Credentials/yc/ca-${cluster_id}.pem"
 
 kubectl apply -f - <<EOF
 apiVersion: v1
@@ -56,5 +57,5 @@ token=$(
         jq -r .data.token |
         base64 --d
 )
-echo "${token}" >"${HOME}/Credentials/yc/sa_admin_token.txt"
+echo "${token}" >"${HOME}/Credentials/yc/admin_token-${cluster_id}.txt"
 set -x

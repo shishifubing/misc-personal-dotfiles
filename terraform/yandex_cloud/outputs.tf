@@ -13,6 +13,9 @@ output "ssh_config" {
       User ${module.main.user_server}
     Host master
       HostName master.${var.domain_internal}
+    Host k8snode1
+      HostName k8snode1.${var.domain_internal}
+      ProxyJump bastion
   EOT
 }
 

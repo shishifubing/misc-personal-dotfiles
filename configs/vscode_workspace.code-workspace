@@ -2,6 +2,9 @@
   "folders": [
     {
       "path": ".."
+    },
+    {
+      "path": "../../Repositories/Personal/app-android-anki-chinese-flashcards-enricher"
     }
   ],
   "settings": {

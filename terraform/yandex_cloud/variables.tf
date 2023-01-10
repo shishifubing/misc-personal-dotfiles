@@ -29,7 +29,7 @@ variable "domain_internal" {
 
 variable "domain_top_redirect" {
   description = "redirect for the top public DNS domain (CNAME)"
-  default     = "jingyangzhenren.github.io"
+  default     = "jingyangzhenren-com.github.io"
 }
 
 variable "kubernetes_version" {

@@ -55,11 +55,6 @@ build {
     ]
   }
 
-  provisioner "file" {
-    source = pathexpand(var.ssh_key_connection)
-    destination = "~/.ssh/"
-  }
-
   post-processor "manifest" {
     output = "image_base.manifest.json"
     strip_path = true

@@ -23,7 +23,7 @@ terraform apply
 
 ---
 
-# Setup
+# Getting started
 
 ## Create a folder in the cloud
 
@@ -50,13 +50,14 @@ You need to:
 - create an s3 bucket to store the terraform state file
 - create `terraform-state-manager` service account with `storage.editor`
   role
-  (without the role it will not be able to work with the bucket even if you
-  allow it to)
+  (without the role the account will not be able to work with the bucket no
+  matter what)
 - create a policy allowing that account to create, retrieve, and modify the
   state file in that bucket
 - create a static key for that account, download it
 - modify [variables.sh][variables.sh]
-- change backend bucket configuration in [main.s3.tfbackend][backend]
+- change backend bucket configuration in [production.s3.tfbackend][backend]
+  or use your own backend file
 - initialize terraform backend (full command is below)
 
 [S3 backend in Yandex Cloud][yandex-terraform-s3-backend] documentation
@@ -67,7 +68,7 @@ You need to:
 # install tools, link .terraformrc, link .bashrc
 # it is mainly a server setup script, so there might be side effects
 ./packer/setup.sh
-# export AWS credentials
+# export credentials
 # they need to be exported when you run terraform commands
 # you need to execute the script in your current shell (either . or source)
 . ./variables.sh
@@ -103,7 +104,7 @@ Error: could not download chart: failed to download
 "oci://cr.yandex/yc-marketplace/yandex-cloud/yc-alb-ingress/chart"
 ```
 
-Download of `oci://` charts fails if they are not specified properly,
+Downloads of `oci://` charts fail if they are not specified properly,
 they should be specified like so:
 
 ```hcl
