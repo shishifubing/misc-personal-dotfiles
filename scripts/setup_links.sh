@@ -10,7 +10,6 @@ dir_vim="${DOTFILES}/vim"
 dir_vscode_oss="${HOME}/.config/Code - OSS"
 dir_vscode="${HOME}/.config/Code"
 dir_vscodium="${HOME}/.config/VSCodium"
-dir_terraform="${DOTFILES}/terraform/yandex_cloud"
 
 source_vscode_settings="${dir_configs}/vscode_settings.json"
 source_vscode_keybindings="${dir_configs}/vscode_shortcuts.json"
@@ -18,7 +17,7 @@ source_bashrc="${dir_scripts}/bashrc.sh"
 source_xinitrc="${dir_scripts}/xinitrc.sh"
 source_emacs="${dir_scripts}/emacs"
 source_vimrc="${dir_vim}/vimrc"
-source_terraformrc="${dir_terraform}/.terraformrc"
+source_terraformrc="${dir_configs}/.terraformrc.hcl"
 
 
 function link_file() {

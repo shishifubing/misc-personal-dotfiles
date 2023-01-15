@@ -1,3 +1,3 @@
 # Scripts
 
-Personal bash scripts
+Shell scripts
