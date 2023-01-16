@@ -151,15 +151,20 @@ export_variables_others() {
     export LANG="en_US.UTF-8"
     ## colored GCC warnings and errors
     export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+    # android sdk
+    export ANDROID_HOME="${HOME}/Android/Sdk"
     ### path edits
     ## path edit for ruby gems to work
     ruby_path="${HOME}/.local/share/gem/ruby/3.0.0/bin"
+    # yc
     yandex_cloud="${HOME}/yandex-cloud/bin"
     ## path edit for local binaries
     local_binaries="${HOME}/.local/bin"
     export GOPATH="${HOME}/.go"
     ## actual path changes
-    export_path "${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}/bin" "${yandex_cloud}"
+    export_path                                                       \
+	"${ruby_path}" "${local_binaries}" "/usr/bin" "${GOPATH}/bin" \
+        "${yandex_cloud}" "${ANDROID_HOME}/tools" 
     ## fzf
     export FZF_DEFAULT_OPTS="--height=50% --layout=reverse --border=none --margin=0 --padding=0"
     ## silences npm funding messages
