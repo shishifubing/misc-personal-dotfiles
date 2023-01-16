@@ -2,7 +2,7 @@
 
 Personal shell functions
 
-# Setup
+# Usage
 
 ```bash
 ../source_functions.sh
