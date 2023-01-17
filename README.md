@@ -1,9 +1,5 @@
 # [`misc-personal-dotfiles`][repo]
 
-<!-- shields -->
-
-[![shield-in-progress]][repo]
-
 Things for personal use:
 
 - [scripts] — shell scripts
