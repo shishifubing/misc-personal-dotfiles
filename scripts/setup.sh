@@ -50,10 +50,14 @@ binaries=(
     "terraform" "packer" "gitversion" "kubectl" "yc" "helm" "terraform-docs"
     "glab"
 )
+directories_sensitive=(
+    "${HOME}/Credentials"
+    "${HOME}/.ssh"
+    "${HOME}/.gnupg"
+)
 
 echo "prepare the work directory"
 temp=$(mktemp -d)
-current="${PWD}"
 cd "${temp}"
 
 echo "update dotfiles"
@@ -74,10 +78,9 @@ chmod +x "${binaries[@]}"
 sudo mv "${binaries[@]}" "/usr/bin/"
 
 echo "removing work directory"
-cd "${current}"
 rm -rf "${temp}"
 
 echo "rest of the setup"
-mkdir -pm 700                                     \
-    "${HOME}/Credentials" "${HOME}/.ssh" ".gnupg"
+mkdir -pm 700 "${directories_sensitive[@]}"
+
 "${DOTFILES}/scripts/setup_links.sh"

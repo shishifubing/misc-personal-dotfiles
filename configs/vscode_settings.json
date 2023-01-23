@@ -216,7 +216,9 @@
     "files.eol": "\n",
     "editor.defaultFormatter": "timonwong.shellcheck"
   },
-  "window.zoomLevel": -1
+  "window.zoomLevel": -1,
+  "git.pullBeforeCheckout": true,
+  "githubPullRequests.pullBranch": "always"
   //
   // vim
   /*
