@@ -12,10 +12,8 @@ Things for personal use:
 
 ```bash
 DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
-git clone                                                      \
-    https://github.com/shishifubing-com/misc-personal-dotfiles \
-    "${DOTFILES}"
-"${DOTFILES}/scripts/setup.sh"
+url="https://raw.githubusercontent.com/shishifubing-com/misc-personal-dotfiles/main/scripts/setup.sh"
+curl -sSL "${url}" | bash
 ```
 
 <!-- internal links -->

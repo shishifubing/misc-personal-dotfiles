@@ -3,7 +3,7 @@
 ## if shell is not interactive - return
 [[ "${-}" == *"i"* || "${1}" != "script" ]] || return
 ## if source script is not present - return
-export DOTFILES="${HOME}/Dotfiles"
+export DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
 export DOTFILES_SOURCE="${DOTFILES}/scripts/source_functions.sh"
 . "${DOTFILES_SOURCE}" || return
 

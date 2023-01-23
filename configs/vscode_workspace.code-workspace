@@ -8,6 +8,15 @@
     },
     {
       "path": "../../Repositories/Personal/infra-repos-shishifubing-com"
+    },
+    {
+      "path": "../../Repositories/Personal/template-personal-default"
+    },
+    {
+      "path": "../../Repositories/Personal/infra-cloud-shishifubing.com"
+    },
+    {
+      "path": "../../Repositories/Personal/ci-actions-common"
     }
   ],
   "settings": {
