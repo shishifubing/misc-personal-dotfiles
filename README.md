@@ -4,6 +4,8 @@
 
 [![AGPLv3.0 License][license-shield]][license-url]
 
+<!-- description -->
+
 Things for personal use:
 
 - [scripts] — shell scripts
