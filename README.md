@@ -1,4 +1,8 @@
-# [`misc-personal-dotfiles`][repo]
+# [`misc-personal-dotfiles`][repo-url]
+
+<!-- SHIELDS -->
+
+[![AGPLv3.0 License][license-shield]][license-url]
 
 Things for personal use:
 
@@ -26,8 +30,9 @@ curl -sSL "${url}" | bash
 
 <!-- external links -->
 
-[repo]: https://github.com/shishifubing/misc-personal-dotfiles
+[repo-url]: https://github.com/shishifubing/misc-personal-dotfiles
+[license-url]: https://github.com/shishifubing/misc-personal-dotfiles/blob/main/LICENSE
 
 <!-- shield links -->
 
-[shield-in-progress]: https://img.shields.io/badge/status-in--progress-success?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg?style=for-the-badge
