@@ -12,7 +12,7 @@ Things for personal use:
 
 ```bash
 DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
-url="https://raw.githubusercontent.com/shishifubing-com/misc-personal-dotfiles/main/scripts/setup.sh"
+url="https://raw.githubusercontent.com/shishifubing/misc-personal-dotfiles/main/scripts/setup.sh"
 curl -sSL "${url}" | bash
 ```
 
@@ -26,7 +26,7 @@ curl -sSL "${url}" | bash
 
 <!-- external links -->
 
-[repo]: https://github.com/shishifubing-com/misc-personal-dotfiles
+[repo]: https://github.com/shishifubing/misc-personal-dotfiles
 
 <!-- shield links -->
 
