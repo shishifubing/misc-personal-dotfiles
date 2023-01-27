@@ -18,7 +18,7 @@ source_xinitrc="${dir_scripts}/xinitrc.sh"
 source_emacs="${dir_scripts}/emacs"
 source_vimrc="${dir_vim}/vimrc"
 source_terraformrc="${dir_configs}/.terraformrc.hcl"
-
+source_gitconfig="${dir_configs}/.gitconfig"
 
 function link_file() {
     local files
@@ -51,6 +51,7 @@ links=(
     "${source_emacs};${HOME}/.emacs"
     "${source_vimrc};${HOME}/.vimrc"
     "${source_terraformrc};${HOME}/.terraformrc"
+    "${source_gitconfig};${HOME}/.gitconfig"
 )
 
 # link all files from the firefox directory to all firefox profiles
