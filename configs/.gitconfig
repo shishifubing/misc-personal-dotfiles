@@ -1,7 +1,7 @@
 [user]
-        email = 97828377+shishifubing@users.noreply.github.com
-        name = e0f913d6-4713-47f5-abe5-7131069bd3f8
-        signingkey = 7815CB5E4DD6F12B
+        email = 97828377+e0f913d6@users.noreply.github.com
+        name = e0f913d6
+        signingkey = C2AEDAE583343EA6
 [commit]
         gpgsign = true
 [push]
