@@ -1,0 +1,8 @@
+[user]
+        email = 97828377+e0f913d6@users.noreply.github.com
+        name = e0f913d6
+        signingkey = C2AEDAE583343EA6
+[commit]
+        gpgsign = true
+[push]
+        default = current

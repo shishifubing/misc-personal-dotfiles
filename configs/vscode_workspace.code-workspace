@@ -7,9 +7,6 @@
       "path": "../../Repositories/Personal/app-android-anki-chinese-flashcards-enricher"
     },
     {
-      "path": "../../Repositories/Personal/infra-repos-shishifubing-com"
-    },
-    {
       "path": "../../Repositories/Personal/template-personal-default"
     },
     {
@@ -17,6 +14,9 @@
     },
     {
       "path": "../../Repositories/Personal/ci-actions-common"
+    },
+    {
+      "path": "../../Repositories/Personal/infra-repos-shishifubing"
     }
   ],
   "settings": {
