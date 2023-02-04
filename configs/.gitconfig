@@ -1,7 +1,7 @@
 [user]
-        email = shishifubing@gmail.com
-        name = e0f913d6
-        signingkey = 72DD65604153995A
+        email = 97828377+tiandaoburen@users.noreply.github.com
+        name = tiandaoburen
+        signingkey = B358AD4944842451
 [commit]
         gpgsign = true
 [push]

@@ -17,6 +17,9 @@
     },
     {
       "path": "../../Repositories/Personal/infra-repos-shishifubing"
+    },
+    {
+      "path": "../../Repositories/Personal/plugin-sonatype-nexus-security-check"
     }
   ],
   "settings": {
