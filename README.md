@@ -10,7 +10,7 @@ Miscellaneous things for personal use
 
 # About The Project
 
-## Features
+## Contents
 
 - [scripts] — shell scripts
 - [configs] — configuration files
