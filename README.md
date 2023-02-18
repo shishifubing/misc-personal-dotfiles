@@ -8,6 +8,8 @@ Miscellaneous things for personal use
 
 </div>
 
+# About The Project
+
 ## Features
 
 - [scripts] — shell scripts
