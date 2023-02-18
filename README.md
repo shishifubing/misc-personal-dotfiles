@@ -1,12 +1,14 @@
-# [`misc-personal-dotfiles`][repo-url]
+<div align="center" markdown="1">
 
-<!-- SHIELDS -->
+# [`misc-personal-dotfiles`][url-repo]
 
-[![AGPLv3.0 License][license-shield]][license-url]
+[![License][shield-license]][url-license]
 
-<!-- description -->
+Miscellaneous things for personal use
 
-Things for personal use:
+</div>
+
+## Features
 
 - [scripts] — shell scripts
 - [configs] — configuration files
@@ -22,7 +24,7 @@ url="https://raw.githubusercontent.com/shishifubing/misc-personal-dotfiles/main/
 curl -sSL "${url}" | bash
 ```
 
-<!-- internal links -->
+<!-- relative links -->
 
 [scripts]: ./scripts
 [configs]: ./configs
@@ -30,11 +32,13 @@ curl -sSL "${url}" | bash
 [firefox]: ./firefox
 [vim]: ./vim
 
-<!-- external links -->
+<!-- project links -->
 
-[repo-url]: https://github.com/shishifubing/misc-personal-dotfiles
-[license-url]: https://github.com/shishifubing/misc-personal-dotfiles/blob/main/LICENSE
+[url-repo]: https://github.com/shishifubing/misc-personal-dotfiles
+[url-license]: https://github.com/shishifubing/misc-personal-dotfiles/blob/main/LICENSE
+
+<!-- external links -->
 
 <!-- shield links -->
 
-[license-shield]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg?style=for-the-badge
+[shield-license]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg?style=for-the-badge
