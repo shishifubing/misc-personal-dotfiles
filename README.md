@@ -8,9 +8,7 @@ Miscellaneous things for personal use
 
 </div>
 
-# About The Project
-
-## Contents
+# Contents
 
 - [scripts] — shell scripts
 - [configs] — configuration files
