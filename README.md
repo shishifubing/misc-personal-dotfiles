@@ -8,7 +8,9 @@ Miscellaneous things for personal use
 
 </div>
 
-# Contents
+## About The Project
+
+### Contents
 
 - [scripts] — shell scripts
 - [configs] — configuration files
@@ -16,7 +18,7 @@ Miscellaneous things for personal use
 - [firefox] — firefox configuration files
 - [vim] — vim configuration files
 
-# Usage
+## Usage
 
 ```bash
 DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
