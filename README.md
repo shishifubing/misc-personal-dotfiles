@@ -2,10 +2,10 @@
 
 # [`misc-personal-dotfiles`][url-repo]
 
-Miscellaneous things for personal use
-
 [![License][badge-license]][url-license]
 [![Conventional Commits][badge-conventionalcommits]][url-conventionalcommits]
+
+Miscellaneous things for personal use
 
 </div>
 
@@ -22,18 +22,18 @@ Miscellaneous things for personal use
 ## Usage
 
 ```bash
-DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
+export DOTFILES="${DOTFILES:-${HOME}/Dotfiles}"
 url="https://raw.githubusercontent.com/shishifubing/misc-personal-dotfiles/main/scripts/setup.sh"
 curl -sSL "${url}" | bash
 ```
 
 <!-- relative links -->
 
-[scripts]: ./scripts
-[configs]: ./configs
-[ansible]: ./ansible
-[firefox]: ./firefox
-[vim]: ./vim
+[scripts]: scripts
+[configs]: configs
+[ansible]: ansible
+[firefox]: firefox
+[vim]: vim
 
 <!-- project links -->
 
@@ -46,5 +46,5 @@ curl -sSL "${url}" | bash
 
 <!-- badge links -->
 
-[badge-license]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg?style=for-the-badge
-[badge-conventionalcommits]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white&style=for-the-badge
+[badge-license]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg
+[badge-conventionalcommits]: https://img.shields.io/badge/conventional--commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
