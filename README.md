@@ -47,4 +47,4 @@ curl -sSL "${url}" | bash
 <!-- badge links -->
 
 [badge-license]: https://img.shields.io/github/license/shishifubing/misc-personal-dotfiles.svg
-[badge-conventionalcommits]: https://img.shields.io/badge/conventional-commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
+[badge-conventionalcommits]: https://img.shields.io/badge/conventional--commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
