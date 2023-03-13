@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.1.295 - 2023-03-13
+
+<!-- Automatically generated in https://github.com/shishifubing/misc-personal-dotfiles/actions/runs/4410366739 -->
+### Documentation changes
+
+- **readme**: add version and release badges by @tiandaoburen in [#25](https://github.com/shishifubing/misc-personal-dotfiles/pull/25)
+
+**Full Changelog**: https://github.com/shishifubing/misc-personal-dotfiles/compare/v0.1.291...v0.1.295
+
 ## v0.1.291 - 2023-03-12
 
 ### Feature
